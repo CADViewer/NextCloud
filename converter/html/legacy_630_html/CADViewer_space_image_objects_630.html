@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <title>CADViewer - Space Image Objects Demo</title>
+    <link rel="icon" href="https://cadviewer.com/images/cvlogo.png">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="TMS" />
+    <meta name="created" content="Sun, 26 Apr 2020 16:14:30 GMT" />
+    <meta name="description" content="Tailor Made Software  - CADViewer Online Sample Implementation Page - Space Icon Objcts" />
+    <meta name="keywords" content="" />
+
+	<script src="../app/js/jquery-2.2.3.js" type="text/javascript"></script>
+	<script src="../app/js/jquery.qtip.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery.qtip.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/popper.js" type="text/javascript"></script>
+
+	<script src="../app/js/bootstrap.min.js" type="text/javascript"></script>
+	<link href="../app/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/jquery-ui-1.11.4.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery-ui-1.11.4.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+	 
+	<script src="../app/cv/cv-pro/cadviewer_6.8.14e.min.js" type="text/javascript" ></script>
+	<script src="../app/cv/cv-custom_commands/CADViewer_custom_commands.js" type="text/javascript" ></script>
+
+	<script src="../app/cv/cvlicense.js" type="text/javascript" ></script>
+
+	<script src="../app/js/bootstrap-multiselect.js" type="text/javascript" ></script>
+	<link href="../app/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+
+	<link href="../app/css/cvjs_6.5.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/library_js_svg_path.js" type="text/javascript"></script>			
+	<script src="../app/js/snap.svg-min.js" type="text/javascript" ></script>
+
+	<script src="../app/js/cvjs_api_styles_2_0_26.js" type="text/javascript" ></script>
+	<script src="../app/js/rgbcolor.js"type="text/javascript" ></script>
+	<script src="../app/js/StackBlur.js"type="text/javascript" ></script>
+	<script src="../app/js/canvg.js" type="text/javascript"  ></script>
+	<script src="../app/js/list.js" type="text/javascript"></script>
+	<script src="../app/js/jscolor.js" type="text/javascript" ></script>
+	
+	<script src="../app/js/jstree/jstree.min.js"></script>
+	<script src="../app/js/xml2json.min.js"></script>
+	<script src="../app/js/d3.v3.min.js"></script>  <script src="../app/js/qrcode.min.js" type="text/javascript"></script> 
+
+
+	<script src="../app/cv/CADViewer_PHPHandlerSettings.js" type="text/javascript"></script>		
+<!--	<script src="../app/cv/CADViewer_ServletHandlerSettings.js" type="text/javascript"></script> -->
+<!--	<script src="../app/cv/CADViewer_AshxHandlerSettings.js" type="text/javascript"></script> -->
+<!--	<script src="../app/cv/CADViewer_NodeJSHandlerSettings.js" type="text/javascript"></script> -->
+	
+	
+<style>
+img {
+  max-width: 100%;
+}
+</style>
+	
+	<script type="text/javascript">
+
+	// PATH and FILE to be loaded, can be in formats DWG, DXF, DWF, SVG , JS, DGN, PCF, JPG, GIF, PNG
+	
+	var FileName = ServerUrl + "/content/drawings/dwg/LI_1077929.dwg";	
+
+	// Location of installation folders
+	// NOTE: THE LOCATION OF THE ServerLocation/ServerUrl VARIABLES ARE DEFINED IN /cadviewer/app/cv/XXXHandlerSettings.js	
+	//	var ServerLocation = 
+	//	var ServerUrl = 
+
+	$(document).ready(function()
+		{
+
+
+		//$(document).html();
+		// Set CADViewer with full CADViewer Pro features
+		cvjs_CADViewerPro(true);
+		cvjs_debugMode(true);
+		
+		// Pass over the location of the installation, will update the internal paths
+		cvjs_setServerLocationURL(ServerLocation, ServerUrl);
+	
+		// http://127.0.0.1:8081/html/CADViewer_json_610.html?drawing_name=/home/mydrawing.dgn&dgn_workspace=/home/workspace.txt&json_location=c:/nodejs/cadviewer/content/helloworld.json&print_modal_custom_checkbox=add_json
+
+		// IF CADVIEWER IS OPENED WITH A URL  http://localhost/cadviewer/html/CADViewer_sample_610.html?drawing_name=../content/drawings/dwg/hq17.dwg
+		//  or CADViewer_sample_610.html?drawing_name=http://localhost/cadviewer/content/drawings/dwg/hq17.dwg
+		//  this code segment will pass over the drawing_name to FileName for load of drawing
+
+		var myDrawing = cvjs_GetURLParameter("drawing_name");
+		console.log("DRAWING NAME >"+cvjs_GetURLParameter("drawing_name")+"</end>  ");
+		if (myDrawing==""){
+			console.log("no drawing_name parameter!!!");				
+		}
+		else{
+//			console.log("we pass over to FileName to load Drawing");
+			FileName =  myDrawing;
+		}
+
+		var dgn_workspace = cvjs_GetURLParameter("dgn_workspace");
+		console.log("dgn_workspace >"+cvjs_GetURLParameter("dgn_workspace")+"</end>  ");
+		if (dgn_workspace==""){
+			console.log("no dgn_workspace parameter!!!");				
+		}
+		else{
+//			window.alert("WE GOT workspace"+dgn_workspace);
+			console.log("WE GOT workspace"+dgn_workspace);
+
+		}
+		
+		cvjs_jsonLocation = cvjs_GetURLParameter("json_location");
+		console.log("json_location >"+cvjs_GetURLParameter("json_location")+"</end>  ");
+		if (cvjs_jsonLocation==""){
+			console.log("no json_location!");				
+		}
+		else{
+//			window.alert("WE GOT JSON "+cvjs_jsonLocation);
+			console.log("WE GOT JSON "+cvjs_jsonLocation);
+		}
+
+		var print_modal_custom_checkbox = cvjs_GetURLParameter("print_modal_custom_checkbox");
+		console.log("print_modal_custom_checkbox >"+cvjs_GetURLParameter("print_modal_custom_checkbox")+"</end>  ");
+		if (print_modal_custom_checkbox==""){
+			console.log("no print_modal_custom_checkbox!");				
+		}
+		else{
+//			window.alert("WE GOT print_modal_custom_checkbox "+print_modal_custom_checkbox);
+			cvjs_setPrintModalCustomCheckBox(true, print_modal_custom_checkbox);
+		}
+
+
+		// For "Merge DWG" / "Merge PDF" commands, set up the email server to send merged DWG files or merged PDF files with redlines/interactive highlight.
+		// See php / xampp documentation on how to prepare your server
+		cvjs_emailSettings_PDF_publish("From CAD Server", "my_from_address@mydomain.com", "my_cc_address@mydomain.com", "my_reply_to@mydomain.com");
+		
+		// CHANGE LANGUAGE - DEFAULT IS ENGLISH
+		cvjs_loadCADViewerLanguage("English", "/app/cv/cv-pro/language_table/cadviewerProLanguage.xml");
+		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Portuguese (Brazil)" ;  "Russian" ; "Malay" ;  "Chinese-Simplified"
+				
+		// Set Icon Menu Interface controls. Users can: 
+		// 1: Disable all icon interfaces
+		//  cvjs_displayAllInterfaceControls(false, "floorPlan");  // disable all icons for user control of interface
+		// 2: Disable either top menu icon menus or navigation menu, or both
+		//	cvjs_displayTopMenuIconBar(false, "floorPlan");  // disable top menu icon bar
+		//	cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
+		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/
+
+	
+			cvjs_setTopMenuXML("floorPlan", "cadviewerjs_space_icon_commands_base_01.xml", "/app/cv/cv-pro/menu_config/");
+		
+		// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
+		// main application "app" folder. It can be either absolute or relative
+
+
+
+		// THIS IS THE DESIGN OF THE pop-up MODAL WHEN CLICKING ON SPACES
+		var my_cvjsPopUpBody = "<div class=\"cvjs_modal_1\" onclick=\"my_own_clickmenu1();\">Custom<br>Menu 1<br><i class=\"glyphicon glyphicon-transfer\"></i></div>";
+		my_cvjsPopUpBody += "<div class=\"cvjs_modal_1\" onclick=\"my_own_clickmenu2();\">Custom<br>Menu 2<br><i class=\"glyphicon glyphicon-info-sign\"></i></div>";
+		my_cvjsPopUpBody += "<div class=\"cvjs_modal_1\" onclick=\"cvjs_zoomHere();\">Zoom<br>Here<br><i class=\"glyphicon glyphicon-zoom-in\"></i></div>";
+
+		// SETTINGS OF THE COLORS OF SPACES
+		cvjsRoomPolygonBaseAttributes = {
+	            fill: '#FFF',   // #FFF   #ffd7f4
+	            "fill-opacity": "0.1",   // 0.1
+	            stroke: '#CCC',  
+	            'stroke-width': 0.5,
+	            'stroke-linejoin': 'round',
+	        };
+			
+		cvjsRoomPolygonHighlightAttributes = {
+						fill: '#a4d7f4',
+						"fill-opacity": "0.5",
+						stroke: '#a4d7f4',
+						'stroke-width': 1.0
+					};
+					
+		cvjsRoomPolygonSelectAttributes = {
+						fill: '#5BBEF6',
+						"fill-opacity": "0.5",
+						stroke: '#5BBEF6',
+						'stroke-width': 1.0
+					};
+
+		// Initialize CADViewer - needs the div name on the svg element on page that contains CADViewerJS and the location of the
+		// And we intialize with the Space Object Custom values
+		cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+"app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
+
+//		cvjs_InitCADViewer_app("floorPlan", ServerUrl+"app/");
+//		//cvjs_InitCADViewerJS_app("floorPlan", "../app/");
+		 
+		// set the location to license key, typically the js folder in main app application folder ../app/js/
+		 cvjs_setLicenseKeyPath(ServerUrl+"/app/cv/");
+		// alternatively, set the key directly, by pasting in the cvKey portion of the cvlicense.js file, note the JSON \" around all entities 	 
+		//cvjs_setLicenseKeyDirect('{ \"cvKey\": \"00110010 00110010 00110000 00110010 00110001 00111001 00111001 00110001 00110100 00111000 00110001 00110100 00110101 00110001 00110101 00110111 00110001 00110101 00111001 00110001 00110100 00111000 00110001 00110101 00110010 00110001 00110100 00110101 00110001 00110100 00110001 00110001 00110100 00110000 00110001 00111001 00110111 00110010 00110000 00110111 00110010 00110000 00110110 00110010 00110000 00110001 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00110111 00110001 00111001 00111000 00110010 00110000 00110110 00110010 00110000 00111000 00110010 00110000 00110111 00110001 00111001 00111001 00110010 00110001 00110001 00110010 00110000 00111000 00110010 00110000 00110111 00110010 00110001 00110001 00110010 00110000 00110101 00110010 00110000 00111000 \" }');		 
+		 
+		 
+
+		// Sets the icon interface for viewing, layerhanding, measurement, etc. only
+		//cvjs_setIconInterfaceControls_ViewingOnly();
+
+		// disable canvas interface.  For developers building their own interface
+		// cvjs_setIconInterfaceControls_DisableIcons(true);
+
+		// Set the icon interface to include image handling
+		// cvjs_setIconInterfaceControls_ImageInsert();
+
+		cvjs_allowFileLoadToServer(true);
+
+//		cvjs_setUrl_singleDoubleClick(1);
+//		cvjs_encapsulateUrl_callback(true);
+
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES
+		cvjs_setRedlinesAbsolutePath(ServerUrl+'/content/redlines/fileloader_610/', ServerLocation+'/content/redlines/fileloader_610/');
+		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES
+
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF FILES AND FILE MANAGER
+		cvjs_setServerFileLocation_AbsolutePaths(ServerLocation+'/content/drawings/dwg/', ServerUrl+'content/drawings/dwg/',"","");
+		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF FILES AND FILE MANAGER
+		
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS OF SPACE OBJECTS
+		// Set the path to folder location of Space Objects
+		cvjs_setSpaceObjectsAbsolutePath(ServerUrl+'/content/spaceObjects/', ServerLocation+'/content/spaceObjects/');
+		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS OF SPACE OBJECTS
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
+		cvjs_conversion_clearAXconversionParameters();
+		cvjs_conversion_addAXconversionParameter("last", "");		 	
+		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
+
+		// Load file - needs the svg div name and name and path of file to load
+		cvjs_LoadDrawing("floorPlan", FileName );
+
+		// set maximum CADViewer canvas side
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer canvas size
+		//	cvjs_resizeWindow_fixedSize(800, 600, "floorPlan");		
+
+		// NOTE
+		// we initialize the space icon size to 200%
+		cvjs_setGlobalSpaceImageObjectScaleFactor(2.0);
+
+		// here we clone icons to be able to move them into the canvas
+		$("#device_drag").clone().appendTo("#myImagesToDrag").prop('id', 'device_drag_clone').css('position', 'absolute').css('width','50px').hide(); 
+		$("#wifi_drag").clone().appendTo("#myImagesToDrag").prop('id', 'wifi_drag_clone').css('position', 'absolute').css('width','50px').hide(); 
+		$("#pin_drag").clone().appendTo("#myImagesToDrag").prop('id', 'pin_drag_clone').css('position', 'absolute').css('width','50px').hide(); 
+		$("#aircon_drag").clone().appendTo("#myImagesToDrag").prop('id', 'aircon_drag_clone').css('position', 'absolute').css('width','50px').hide(); 
+		$("#boiler_drag").clone().appendTo("#myImagesToDrag").prop('id', 'boiler_drag_clone').css('position', 'absolute').css('width','50px').hide(); 
+		$("#vent_drag").clone().appendTo("#myImagesToDrag").prop('id', 'vent_drag_clone').css('position', 'absolute').css('width','50px').hide(); 
+		$("#temp_drag").clone().appendTo("#myImagesToDrag").prop('id', 'temp_drag_clone').css('position', 'absolute').css('width','50px').hide(); 
+
+
+		$("#myImagesToDrag").mousemove(function(event) {
+		console.log(insertImageSelected);
+		  console.log(event.pageX+"  "+event.pageY);
+
+		  handleDragImages(event);
+
+		});		
+
+		$("#space_icon_table2").mousemove(function(event) {
+		console.log(insertImageSelected);
+		  console.log(event.pageX+"  "+event.pageY);
+
+		  handleDragImages(event);
+
+		});
+
+
+
+
+		$("#space_icon_table2").mouseover(function(event) {
+
+
+		});
+
+
+		$("#space_icon_table2").mouseup(function(event) {
+
+		  console.log("hello "+insertImageSelected);
+		  console.log(event.pageX+"  "+event.pageY);
+		  
+		  if (insertImageSelected == 0){
+			lastXbeforeDrag = event.pageX;
+			lastYbeforeDrag = event.pageY;
+		  }
+		 	 
+		  if (lastYbeforeDrag>270 && lastYbeforeDrag<319) insertImageSelected = 1;
+		  if (lastYbeforeDrag>319 && lastYbeforeDrag<367) insertImageSelected = 2;
+		  if (lastYbeforeDrag>367 && lastYbeforeDrag<416) insertImageSelected = 3;
+		  if (lastYbeforeDrag>416 && lastYbeforeDrag<463) insertImageSelected = 4;
+		  if (lastYbeforeDrag>463 && lastYbeforeDrag<510) insertImageSelected = 5;
+		  if (lastYbeforeDrag>510 && lastYbeforeDrag<560) insertImageSelected = 6;
+		  if (lastYbeforeDrag>560 && lastYbeforeDrag<609) insertImageSelected = 7;
+		  
+		  handleDragImages(event);
+
+		});
+
+
+		$("#myImagesToDrag").mouseleave(function(event) {
+					
+		  if (insertImageSelected == 1){
+			$("#device_drag_clone").hide();	  
+		  }
+		  if (insertImageSelected == 2){
+			$("#wifi_drag_clone").hide();	  
+		  }
+		  if (insertImageSelected == 3){
+			$("#pin_drag_clone").hide();	  
+		  }
+		  if (insertImageSelected == 4){
+			$("#aircon_drag_clone").hide();	  
+		  }
+		  if (insertImageSelected == 5){
+			$("#boiler_drag_clone").hide();	  
+		  }
+		  if (insertImageSelected == 6){
+			$("#vent_drag_clone").hide();	  
+		  }
+		  if (insertImageSelected == 7){
+			$("#temp_drag_clone").hide();	  
+		  }
+		
+		  $('#icon_div_popup').hide();
+
+		
+			console.log("out...."+insertImageSelected);
+			insertImageSelected = 0;		
+		});
+
+   });  // end ready()
+
+
+
+   $(window).resize(function() {
+		// set maximum CADViewer canvas side
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer canvas size
+		//	cvjs_resizeWindow_fixedSize(800, 600, "floorPlan");		
+   });
+	
+/// NOTE: THESE METHODS BELOW ARE JS SCRIPT CALLBACK METHODS FROM CADVIEWER JS, THEY NEED TO BE IMPLEMENTED BUT CAN BE EMPTY
+
+	function cvjs_OnLoadEnd(){
+			// generic callback method, called when the drawing is loaded
+			// here you fill in your stuff, call DB, set up arrays, etc..
+			// this method MUST be retained as a dummy method! - if not implemeted -
+
+			cvjs_resetZoomPan("floorPlan");
+
+			var user_name = "Bob Smith";
+			var user_id = "user_1";
+
+			// set a value for redlines
+			cvjs_setCurrentStickyNoteValues_NameUserId(user_name, user_id );
+			cvjs_setCurrentRedlineValues_NameUserid(user_name, user_id);
+			
+			cvjs_dragBackgroundToFront_SVG("floorPlan");					
+			cvjs_initZeroWidthHandling("floorPlan", 1.0);			
+
+			roomLayer1 = cvjs_clearLayer(roomLayer1);
+
+	}
+
+
+	function cvjs_OnLoadEndRedlines(){
+			// generic callback method, called when the redline is loaded
+			// here you fill in your stuff, hide specific users and lock specific users
+			// this method MUST be retained as a dummy method! - if not implemeted -
+
+			// I am hiding users added to the hide user list
+			cvjs_hideAllRedlines_HiddenUsersList();
+
+			// I am freezing users added to the lock user list
+			cvjs_lockAllRedlines_LockedUsersList();
+	}
+
+
+	// generic callback method, tells which FM object has been clicked
+	function cvjs_change_space(){
+
+	}
+
+	function cvjs_graphicalObjectCreated(graphicalObject){
+
+	// do something with the graphics object created!
+//		window.alert(graphicalObject);
+
+	}
+
+	function cvjs_ObjectSelected(rmid){
+	 	// placeholder for method in tms_cadviewerjs_modal_1_0_14.js   - must be removed when in creation mode and using creation modal
+	}
+
+/// NOTE: THESE METHODS ABOVE ARE JS SCRIPT CALLBACK METHODS FROM CADVIEWER JS, THEY NEED TO BE IMPLEMENTED BUT CAN BE EMPTY
+
+
+/// NOTE: BELOW REDLINE SAVE LOAD CONTROLLERS
+
+// This method is linked to the save redline icon in the imagemap
+function cvjs_saveStickyNotesRedlinesUser(){
+
+	// there are two modes, user handling of redlines
+	// alternatively use the build in redline file manager
+
+	cvjs_openRedlineSaveModal("floorPlan");
+
+	// custom method startMethodRed to set the name and location of redline to save
+	// see implementation below
+	//startMethodRed();
+	// API call to save stickynotes and redlines
+	//cvjs_saveStickyNotesRedlines("floorPlan");
+}
+
+
+// This method is linked to the load redline icon in the imagemap
+function cvjs_loadStickyNotesRedlinesUser(){
+
+
+	cvjs_openRedlineLoadModal("floorPlan");
+
+	// first the drawing needs to be cleared of stickynotes and redlines
+	//cvjs_deleteAllStickyNotes();
+	//cvjs_deleteAllRedlines();
+
+	// custom method startMethodRed to set the name and location of redline to load
+	// see implementation below
+	// startMethodRed();
+
+	// API call to load stickynotes and redlines
+	//cvjs_loadStickyNotesRedlines("floorPlan");
+}
+
+/// NOTE: ABOVE REDLINE SAVE LOAD CONTROLLERS
+
+
+
+
+	// Here we are writing a basic function that will be used in the PopUpMenu
+	// this is template on all the good stuff users can add
+	function my_own_clickmenu1(){
+		var id = cvjs_idObjectClicked();
+		//		var node = cvjs_NodeObjectClicked();
+		window.alert("Custom menu item 1: Here developers can implement their own methods, the look and feel of the menu is controlled in the settings.  Clicked object ID is: "+id);
+	}
+
+	// Here we are writing a basic function that will be used in the PopUpMenu
+	// this is template on all the good stuff users can add
+	function my_own_clickmenu2(){
+		var id = cvjs_idObjectClicked();
+		//var node = cvjs_NodeObjectClicked();
+
+		window.alert("Custom menu item 2: Here developers can implement their own methods, the look and feel of the menu is controlled in the settings. Clicked object ID is: "+id);
+		//window.alert("Custom menu item 2: Clicked object Node is: "+node);
+	}
+
+
+
+
+/// NOTE: BELOW CUSTOM MODAL COMMANDS
+
+// General settings method for Space Images, must be declared!!!!!
+function cvjs_loadSpaceImage_UserConfiguration(floorplan_div){
+
+	// When inserting a Space Image Object.
+	// The following items must be defined:
+	
+	// location and name of SVG or bitmap file to insert
+	// cvjs_loadSpaceImage_Location 
+	// ID of the Space for API access
+	// cvjs_loadSpaceImage_ID
+	// Type of the Space for modal highlight 
+	// cvjs_loadSpaceImage_Type
+	
+	cvjs_loadSpaceImage_Location = ServerUrl+ "content/drawings/svg/" + $('#image_sensor_location').val();
+	cvjs_loadSpaceImage_ID = $('#image_ID').val();
+	cvjs_loadSpaceImage_Type = $('#image_Type').val();
+	
+}
+
+
+var roomLayer1;
+
+function highlight_space_object(){
+
+	roomLayer1 = cvjs_clearLayer(roomLayer1);
+	cvjs_highlightSpaceObjectIdDiv( $('#sensor_to_highlight').val() , highlight_colorgrade_D_1 , roomLayer1, "floorPlan");
+
+}
+
+function clear_space_highlight(){
+
+	roomLayer1 = cvjs_clearLayer(roomLayer1);
+
+}
+
+
+
+function insert_space_icon(){
+
+	cvjs_loadSpaceImage_Location = ServerUrl+ "content/drawings/svg/" + $('#image_sensor_location').val();
+	cvjs_loadSpaceImage_ID = $('#image_ID').val();
+	cvjs_loadSpaceImage_Type = $('#image_Type').val();
+
+//window.alert(cvjs_loadSpaceImage_ID);
+
+	$('#sensor_to_highlight').val(cvjs_loadSpaceImage_ID)
+	cvjs_addFixedSizeImageSpaceObject("floorPlan");
+	iconObjectCounter++;
+	currentDiv(slideIndex)
+}
+
+
+var iconObjectCounter = 1;
+
+// Functions to drag elements
+
+var lastXbeforeDrag =0;
+var lastYbeforeDrag =0;
+
+function handleDragImages(event){
+
+	// handle move 
+	
+	  if (insertImageSelected == 0){  // nothing selected , we show a popup
+	  
+		lastXbeforeDrag = event.pageX;
+		lastYbeforeDrag = event.pageY;
+	   
+		  if (lastYbeforeDrag>270 && lastYbeforeDrag<319){
+			
+			$('#icon_div_popup').html("Device");
+		  } 
+		  if (lastYbeforeDrag>319 && lastYbeforeDrag<367){
+			$('#icon_div_popup').html("WiFi");
+		  } 
+		  if (lastYbeforeDrag>367 && lastYbeforeDrag<416){
+			$('#icon_div_popup').html("Marker");
+		  } 
+		  if (lastYbeforeDrag>416 && lastYbeforeDrag<463){
+			$('#icon_div_popup').html("Aircon");
+		  } 
+
+		  if (lastYbeforeDrag>463 && lastYbeforeDrag<510){
+			$('#icon_div_popup').html("Boiler");
+		  } 
+
+		  if (lastYbeforeDrag>510 && lastYbeforeDrag<560){
+			$('#icon_div_popup').html("Vent");
+		  } 
+		  
+		  if (lastYbeforeDrag>560 && lastYbeforeDrag<609){
+			$('#icon_div_popup').html("Heater");
+		  } 
+	  
+	      $('#icon_div_popup').css({
+			   left:  56,
+			   top:   event.pageY-20
+			});
+
+			$('#icon_div_popup').show();
+	  
+	  }
+	  else{
+		$('#icon_div_popup').hide();
+	  }
+
+	  if (insertImageSelected == 1){
+		console.log("1b "+lastXbeforeDrag+ " "+lastYbeforeDrag+"  "+event.pageX+"  "+event.pageY);
+		$("#device_drag_clone").css({"left" : (event.pageX+4), "top" : (event.pageY-270 +20) }).css({'z-index': 1000}).css({'border': '1px solid black'}).show();	  
+	  }
+	  if (insertImageSelected == 2){
+		$("#wifi_drag_clone").css({"left" : (event.pageX+4), "top" : (event.pageY-270+20 ) }).css({'z-index': 1000}).css({'border': '1px solid black'}).show();	  
+	  }
+	  if (insertImageSelected == 3){
+		$("#pin_drag_clone").css({"left" : (event.pageX+4), "top" : (event.pageY-270+20 ) }).css({'z-index': 1000}).css({'border': '1px solid black'}).show();	  
+	  }
+	  if (insertImageSelected == 4){
+		$("#aircon_drag_clone").css({"left" : (event.pageX+4), "top" : (event.pageY-270+20 ) }).css({'z-index': 1000}).css({'border': '1px solid black'}).show();	  
+	  }
+	  if (insertImageSelected == 5){
+		$("#boiler_drag_clone").css({"left" : (event.pageX+4), "top" : (event.pageY-270+20 ) }).css({'z-index': 1000}).css({'border': '1px solid black'}).show();	  
+	  }
+	  if (insertImageSelected == 6){
+		$("#vent_drag_clone").css({"left" : (event.pageX+4), "top" : (event.pageY-270+20 ) }).css({'z-index': 1000}).css({'border': '1px solid black'}).show();	  
+	  }
+	  if (insertImageSelected == 7){
+		$("#temp_drag_clone").css({"left" : (event.pageX+4), "top" : (event.pageY-270+20 ) }).css({'z-index': 1000}).css({'border': '1px solid black'}).show();	  
+	  }
+
+}
+
+
+
+
+</script>
+
+	
+  </head>
+  <body bgcolor="white" style="margin:0" >
+
+	<table width="100%" height="100%" border="0" cellspacing="0" border-spacing="0" id="mainTable">
+	<tr style="background-color:rgb(255,255,255)" height="100px" >
+			<td height="10">
+				<canvas id="dummy" width="10" height="10"></canvas>
+			</td>
+		<td>
+			<a href="https://cadviewer.com/cadviewertechdocs"><img src="https://cadviewer.com/images/cadviewer/cv-logo.gif" width="240" height="60" alt="Tailor Made logo" /></a>
+		</td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td>
+		<h4><b>CADViewer: Space Icon Objects - Select SVG Icon Objects and place them on the CAD Canvas for interaction</b></h4>
+		<p>Check out the full <strong><a href="https://cadviewer.com/cadviewertechdocs/samples/spaceicons/">Documentation</a></strong> of this <strong><a href="https://cadviewer.com/cadviewertechdocs/samples/spaceicons/">Sample</a></strong> at our <strong><a href="https://cadviewer.com/cadviewertechdocs/samples/spaceicons/">TechDocs</a></strong>. Contact us at: <a href="mailto:developer@tailormade.com">developer@tailormade.com</a> or <a href="mailto:internationalsales@tailormade.com">internationalsales@tailormade.com</a>.<br>
+		Click on a symbol <img src="./index_images/sensor_01.png" width="38" height="33" alt="Tailor Made logo" /> to insert it, use the commands <img src="./index_images/spaceiconsreduced.png" alt="Tailor Made logo" /> to resize, delete and download. Try highlight icons and click to interact with image objects! 
+		</p></td>
+	</tr>
+	</table>
+
+<style>
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4CAF50;
+  cursor: pointer;
+}
+</style>
+<div class="slidecontainer">
+  <strong><small>SVG Icon Size at Insert: <span id="iconsize"></span></small></strong><input type="range" min="1" max="400" value="200" class="slider" id="myRange">
+</div>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("iconsize");
+output.innerHTML = slider.value+"%";
+
+slider.oninput = function() {
+  output.innerHTML = this.value+"%";
+  // SETTTING THE CADVIEWER GLOBAL CONTROLS:
+  cvjs_setGlobalSpaceImageObjectScaleFactor(this.value/100.0);
+  
+}
+</script>
+
+<style>
+
+
+#space_icon_table1 {
+	position: absolute; 
+	left: 300px; 
+	top: 107px; 
+}
+
+#myImagesToDrag {
+	position: absolute; 
+	left: 0px; 
+	top: 250px; 
+	width: 120px;
+	height: 500px;
+	border: 0px solid red;
+	
+}
+
+
+#space_icon_table2 {
+	position: absolute; 
+	left: 10px; 
+	top: 270px; 
+	width: 50px;
+	border: 2px solid gray;
+	
+}
+
+#space_icon_table2 tr td{
+    border: 2px solid gray;
+	text-align: center; 
+    vertical-align: middle;
+	width : 50px;
+}
+
+#space_icon_table4 {
+	position: absolute; 
+	left: 0px; 
+	top: 80px; 
+}
+
+
+#space_icon_table5 {
+	position: absolute; 
+	left: 800px; 
+	top: 90px; 
+}
+
+#space_icon_table6 {
+	position: absolute; 
+	left: 332px; 
+	top: 160px; 
+}
+
+.slidecontainer {
+	width: 200px;
+	position: absolute;
+	top: 210px;
+	left: 10px;
+	z-index: 100;
+}
+
+#cadviewer_table_01 {
+	position: absolute; 
+	left: 100px; 
+	top: 270px; 
+}
+
+
+#icon_div_popup {
+	position: absolute;
+	border: 1px solid black;
+	background: #F5F5F5;
+	
+	font-family:Verdana;
+	font-size:9pt;
+	
+	
+}
+
+
+</style>
+
+<table id="space_icon_table1" border="0">	
+<tr>
+<td style="width:500px;transform:scale(.8);vertical-align:top">
+  <button class="w3-button demo" onclick="HighlightDiv(1)">Highlight Devices</button> 
+  <button class="w3-button demo" onclick="HighlightDiv(2)">Highlight Wifi's</button> 
+  <button class="w3-button demo" onclick="HighlightDiv(3)">Highlight Markers</button> 
+  <button class="w3-button demo" onclick="HighlightDiv(4)">Highlight Boilers</button> <br>
+  <button class="w3-button demo" onclick="HighlightDiv(5)">Highlight Ventilators</button> 
+  <button class="w3-button demo" onclick="HighlightDiv(6)">Highlight Temps</button> 
+  <button class="w3-button demo" onclick="HighlightDiv(7)">Highlight AirCons</button>
+<br>  
+</td>
+</tr>
+</table>
+
+
+<table id="space_icon_table4" border="0" style=transform:scale(.8);vertical-align:top">	
+	<tr>
+	<td>
+	<strong>Space Type:</strong>&nbsp; 
+	</td>
+	<td>
+	<canvas id="dummy" width="5" height="10"></canvas>
+	</td>
+	<td>
+	<input type="text" id="image_Type" value="Wifi" />
+	</td>
+	<td>
+	</td>	
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Space ID:</strong>&nbsp; 
+	</td>
+	<td>
+	<canvas id="dummy" width="5" height="10"></canvas>
+	</td>
+	<td>
+	<input type="text" id="image_ID" value="wifi_1" />
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+	<strong>Space Image:</strong>&nbsp; 
+	</td>
+	<td>
+	<canvas id="dummy" width="5" height="10"></canvas>
+	</td>
+	<td>
+	<input type="text" id="image_sensor_location" value="wifi_25.svg" />
+	</td>
+	</tr>
+</table>
+
+
+<table id="space_icon_table5" border="0" style=transform:scale(.8);vertical-align:top">	
+	<tr>
+	<td>
+	<strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Space&nbspID:</strong> 
+	</td>
+	<td>
+	<canvas id="dummy" width="5" height="10"></canvas>
+	</td>
+	<td>
+	<input type="text" id="sensor_to_highlight" value="wifi_1" />
+	</td>
+	</tr>
+	<tr>
+	<td>
+	<button class="w3-button demo" name="Button21" onClick="highlight_space_object();">Highlight Single Space ID</button>
+	</td>
+	<td>
+	<canvas id="dummy" width="5" height="20"></canvas>
+	</td>
+	<td>	
+	<button class="w3-button demo" onClick="clear_space_highlight();">Clear All Space Highlight</button>
+	</td>
+	</tr>
+</table>
+
+<table id="space_icon_table6" border="0" style=transform:scale(.8);vertical-align:top">	
+	<tr>
+	<td>
+	<button class="w3-button demo" onClick="clear_space_highlight();">Clear All Space Highlight</button>
+	</td>
+	</tr>
+</table>
+
+<div id="myImagesToDrag"></div>
+
+<table id="space_icon_table2" >	
+
+	<tr border="1px">
+	<td border="1px">
+		<div id="device_drag">
+	  <img src="./index_images/device_01.png" onclick="selectIconImage(1)">
+		</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td> 
+		<div id="wifi_drag">
+		  <img src="./index_images/wifi_01.png" onclick="selectIconImage(2)">
+		</div>
+	</td>
+	</tr>
+	
+	<tr>
+	<td>
+		<div id="pin_drag">
+		<img src="./index_images/pin_01.png" onclick="selectIconImage(3)">
+		</div>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<div id="aircon_drag">
+	  <img src="./index_images/aircon_01.png" onclick="selectIconImage(4)">
+		</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+		<div id="boiler_drag">
+	  <img src="./index_images/boiler_01.png" onclick="selectIconImage(5)">
+		</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+		<div id="vent_drag">
+	  <img src="./index_images/vent_01.png" onclick="selectIconImage(6)">
+		</div>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+		<div id="temp_drag">
+	  <div id="temp_01"><img src="./index_images/temp_01.png" onclick="selectIconImage(7)"></div>
+		</div>
+	</td>
+	</tr>
+
+</table>
+
+<div id="icon_div_popup"></div>
+
+<script>
+
+var insertImageSelected = 0;
+
+function selectIconImage(n) {
+
+	insertImageSelected  = n;
+
+  if (n==1){
+	$('#image_Type').val("Device");
+	$('#image_ID').val("device_"+iconObjectCounter);
+	$('#image_sensor_location').val("device_54.svg");  
+  }
+  
+  if (n==2){
+	$('#image_Type').val("Wifi");
+	$('#image_ID').val("wifi_"+iconObjectCounter);
+	$('#image_sensor_location').val("wifi_25.svg");  
+  }
+   
+  if (n==3){
+	$('#image_Type').val("Marker");
+	$('#image_ID').val("marker_"+iconObjectCounter);
+	$('#image_sensor_location').val("pin_02.svg");  
+  }
+  
+  if (n==4){
+	$('#image_Type').val("AirCon");
+	$('#image_ID').val("aircon_"+iconObjectCounter);
+	$('#image_sensor_location').val("HVAC_04.svg");  
+  }
+
+  if (n==5){
+	$('#image_Type').val("Boiler");
+	$('#image_ID').val("boiler_"+iconObjectCounter);
+	$('#image_sensor_location').val("HVAC_01.svg");  
+  }
+  
+  if (n==6){
+	$('#image_Type').val("Ventilator");
+	$('#image_ID').val("vent_"+iconObjectCounter);
+	$('#image_sensor_location').val("HVAC_02.svg");  
+  }
+
+  if (n==7){
+	$('#image_Type').val("Temp");
+	$('#image_ID').val("temp_"+iconObjectCounter);
+	$('#image_sensor_location').val("HVAC_03.svg");  
+  }
+
+// clone image
+
+ // API COMMAND CALL TO CADVIEWER
+ // insert_space_icon();
+  
+ 	cvjs_loadSpaceImage_Location = ServerUrl+ "content/drawings/svg/" + $('#image_sensor_location').val();
+	cvjs_loadSpaceImage_ID = $('#image_ID').val();
+	cvjs_loadSpaceImage_Type = $('#image_Type').val();
+	cvjs_addFixedSizeImageSpaceObject("floorPlan");
+	iconObjectCounter++;
+
+//window.alert(cvjs_loadSpaceImage_ID);
+//	$('#sensor_to_highlight').val(cvjs_loadSpaceImage_ID)
+//	currentDiv(slideIndex)
+ 
+}
+
+		var highlight_colorgrade_C_legend_1 = "#fe50d9";
+		var highlight_colorgrade_C_1 = {
+					fill: '#fe50d9',
+					"fill-opacity": "0.9",
+					stroke: '#fe50d9',
+					'stroke-width': 1,
+					'stroke-opacity': "1",
+					'stroke-linejoin': 'round'
+				};
+
+		var highlight_colorgrade_C_legend_2 = "#0dff8a";
+		var highlight_colorgrade_C_2 = {
+					fill: '#0dff8a',
+					"fill-opacity": "0.9",
+					stroke: '#0dff8a',
+					'stroke-width': 1,
+					'stroke-opacity': "1",
+					'stroke-linejoin': 'round'
+				};
+
+		var highlight_colorgrade_C_legend_3 = "#0c8dff";
+		var highlight_colorgrade_C_3 = {
+					fill: '#0c8dff',
+					"fill-opacity": "0.9",
+					stroke: '#0c8dff',
+					'stroke-width': 1,
+					'stroke-opacity': "1",
+					'stroke-linejoin': 'round'
+				};
+
+		var highlight_colorgrade_C_legend_4 = "#fafa00";
+		var highlight_colorgrade_C_4 = {
+					fill: '#fafa00',
+					"fill-opacity": "0.9",
+					stroke: '#fafa00',
+					'stroke-width': 1,
+					'stroke-opacity': "1",
+					'stroke-linejoin': 'round'
+				};
+
+		var highlight_colorgrade_C_legend_5 = "#ff00dd";
+		var highlight_colorgrade_C_5 = {
+					fill: '#ff00dd',
+					"fill-opacity": "0.9",
+					stroke: '#ff00dd',
+					'stroke-width': 1,
+					'stroke-opacity': "1",
+					'stroke-linejoin': 'round'
+				};
+
+
+		var no_colorgrade_C_reading = {
+					fill: '#A2C2A2',
+					"fill-opacity": "0.5",
+					stroke: '#D2D2D2',
+					'stroke-width': 1,
+					'stroke-opacity': "1",
+					'stroke-linejoin': 'round'
+				};
+
+
+function HighlightDiv(n){
+
+	var type = "";
+	var colortype;
+	if (n==1) {type = "Device"; colortype = highlight_colorgrade_C_1; }
+	if (n==2) {type = "Wifi";  colortype = highlight_colorgrade_C_2;}
+	if (n==3) {type = "Marker"; colortype = highlight_colorgrade_C_3; }
+	if (n==4) {type = "Boiler"; colortype = highlight_colorgrade_C_4; }
+	if (n==5) {type = "Ventilator"; colortype = highlight_colorgrade_C_5;} 
+	if (n==6) {type = "Temp";  colortype = highlight_colorgrade_C_3; }
+	if (n==7) {type = "AirCon"; colortype = highlight_colorgrade_C_2; }
+  
+	//window.alert(type);
+
+	var spaceObjectIds = cvjs_getSpaceObjectIdList();
+	for (spc in spaceObjectIds){	
+		var spaceType = cvjs_getSpaceObjectTypefromId(spaceObjectIds[spc]);
+		var vqid = spaceObjectIds[spc];
+		console.log(spc+"  "+ vqid + "  "+spaceType+ "  "+spaceType.indexOf("Device"));		
+		if (spaceType.indexOf(type)==0)
+			cvjs_highlightSpaceObjectIdDiv( vqid , colortype , roomLayer1, "floorPlan");
+	}
+
+	// pull all Space Images	
+	// find the proper type
+	// give them a highlight
+}
+
+
+</script>
+
+	<table id="cadviewer_table_01">
+	<tr>
+	<td>
+
+	<!--This is the CADViewer floorplan div declaration -->
+
+		<div id="floorPlan"  style="border:2px none; width:1800;height:1400;">
+		</div>
+
+	<!--End of CADViewer declaration -->
+
+	</td>
+	</tr>
+	</table>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,2745 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <title>CADViewer - Space Image Objects Demo</title>
+    <link rel="icon" href="https://cadviewer.com/images/cvlogo.png">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="TMS" />
+    <meta name="created" content="Mon, 08 Feb 2021 01:14:30 GMT" />
+    <meta name="description" content="Tailor Made Software  - CADViewer Online Sample Implementation Page - Space Icon Objcts" />
+    <meta name="keywords" content="" />
+
+	<script src="../app/js/jquery-2.2.3.js" type="text/javascript"></script>
+	<script src="../app/js/jquery.qtip.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery.qtip.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/popper.js" type="text/javascript"></script>
+
+	<script src="../app/js/bootstrap.min.js" type="text/javascript"></script>
+	<link href="../app/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/jquery-ui-1.11.4.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery-ui-1.11.4.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+	<script src="../app/cv/cv-pro/cadviewer.min.js" type="text/javascript" ></script> 	
+	<script src="../app/cv/cv-custom_commands/CADViewer_custom_commands.js" type="text/javascript" ></script>
+	<link href="../app/css/cvjs_7.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/cv/cvlicense.js" type="text/javascript" ></script>
+
+	<script src="../app/js/bootstrap-multiselect.js" type="text/javascript" ></script>
+	<link href="../app/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/library_js_svg_path.js" type="text/javascript"></script>			
+	<script src="../app/js/snap.svg-min.js" type="text/javascript" ></script>
+
+	<script src="../app/js/rgbcolor.js"type="text/javascript" ></script>
+	<script src="../app/js/StackBlur.js"type="text/javascript" ></script>
+	<script src="../app/js/canvg.js" type="text/javascript"  ></script>
+	<script src="../app/js/list.js" type="text/javascript"></script>
+	<script src="../app/js/jscolor.js" type="text/javascript" ></script>
+	
+	<script src="../app/js/jstree/jstree.min.js"></script>
+	<script src="../app/js/xml2json.min.js"></script>
+	
+	<script src="../app/js/d3.v3.min.js"></script>  
+	<script src="../app/js/qrcode.min.js" type="text/javascript"></script> 
+	
+
+
+	<script type="text/javascript">
+
+	// Location of installation folders
+    var ServerBackEndUrl = location.origin+"/cadviewer/";
+    var ServerUrl = location.origin+"/cadviewer/";
+    var ServerLocation = "";
+
+
+	// PATH and FILE to be loaded, can be in formats DWG, DXF, DWF, SVG , JS, DGN, PCF, JPG, GIF, PNG	
+	var FileName = ServerUrl + "/content/drawings/dwg/one_of_simple.dwg";	
+    var FileName = ServerUrl + "/content/drawings/dwg/xlbpc-l6-f01.dwg";	
+
+    var FileName = ServerUrl + "/content/drawings/dwg/hq17_.dwg";	
+	var FileName = ServerUrl + "/content/drawings/dwg/hq17_2spaces.dwg";	
+	var FileName = ServerUrl + "/content/drawings/dwg/LI_1077929.dwg";	
+	var FileName = ServerUrl + "/content/drawings/dwg/LI_1077929_04.svg";	
+
+
+	$(document).ready(function()
+		{
+
+		cvjs_debugMode(true);
+		cvjs_setFileLoadTimeOut("floorPlan", 180);    // 
+
+		// Pass over the location of the installation, will update the internal paths
+		cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "JavaScript", "floorPlan");
+
+
+		// uncomment if you want to use NodeJS cadviewer-conversion-server as backend
+		//cvjs_setHandlers_FrontEnd("NodeJS", "JavaScript", "floorPlan");
+
+		// Set CADViewer with full CADViewer Pro features
+		cvjs_CADViewerPro(true);
+		
+     
+		// IF CADVIEWER IS OPENED WITH A URL  http://localhost/cadviewer/html/CADViewer_sample_610.html?drawing_name=../content/drawings/dwg/hq17.dwg
+		//  or CADViewer_sample_610.html?drawing_name=http://localhost/cadviewer/content/drawings/dwg/hq17.dwg
+		//  this code segment will pass over the drawing_name to FileName for load of drawing
+
+		var myDrawing = cvjs_GetURLParameter("drawing_name");
+		console.log("DRAWING NAME >"+cvjs_GetURLParameter("drawing_name")+"</end>  ");
+		if (myDrawing==""){
+			console.log("no drawing_name parameter!!!");				
+		}
+		else{
+//			console.log("we pass over to FileName to load Drawing");
+			FileName =  myDrawing;
+		}
+		
+		cvjs_jsonLocation = cvjs_GetURLParameter("json_location");
+		console.log("json_location >"+cvjs_GetURLParameter("json_location")+"</end>  ");
+		if (cvjs_jsonLocation==""){
+			console.log("no json_location!");				
+		}
+		else{
+//			window.alert("WE GOT JSON "+cvjs_jsonLocation);
+			console.log("WE GOT JSON "+cvjs_jsonLocation);
+		}
+
+		var print_modal_custom_checkbox = cvjs_GetURLParameter("print_modal_custom_checkbox");
+		console.log("print_modal_custom_checkbox >"+cvjs_GetURLParameter("print_modal_custom_checkbox")+"</end>  ");
+		if (print_modal_custom_checkbox==""){
+			console.log("no print_modal_custom_checkbox!");				
+		}
+		else{
+//			window.alert("WE GOT print_modal_custom_checkbox "+print_modal_custom_checkbox);
+			cvjs_setPrintModalCustomCheckBox(true, print_modal_custom_checkbox);
+		}
+
+
+		// For "Merge DWG" / "Merge PDF" commands, set up the email server to send merged DWG files or merged PDF files with redlines/interactive highlight.
+		// See php / xampp documentation on how to prepare your server
+		cvjs_emailSettings_PDF_publish("From CAD Server", "my_from_address@mydomain.com", "my_cc_address@mydomain.com", "my_reply_to@mydomain.com");
+		
+		// CHANGE LANGUAGE - DEFAULT IS ENGLISH
+		cvjs_loadCADViewerLanguage("English"); //	cvjs_loadCADViewerLanguage("English", "/app/cv/cv-pro/language_table/cadviewerProLanguage.xml");
+		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Portuguese (Brazil)" ;  "Russian" ; "Malay" ;  "Chinese-Simplified"
+				
+		// Set Icon Menu Interface controls. Users can: 
+		// 1: Disable all icon interfaces
+		//  cvjs_displayAllInterfaceControls(false, "floorPlan");  // disable all icons for user control of interface
+		// 2: Disable either top menu icon menus or navigation menu, or both
+		//	cvjs_displayTopMenuIconBar(false, "floorPlan");  // disable top menu icon bar
+		//	cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
+		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/
+
+		//	cvjs_setTopMenuXML("floorPlan", "cadviewerjs_menu_viewing_only.xml", "/app/cv/community/menu_config/");		
+		//	cvjs_setTopMenuXML("floorPlan", "cadviewer_space_icon_commands_base_01.xml", "/app/cv/cv-pro/menu_config/");
+		cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml" );  //cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/app/cv/cv-pro/menu_config/");
+		
+		// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
+		// main application "app" folder. It can be either absolute or relative
+
+		// THIS IS THE DESIGN OF THE pop-up MODAL WHEN CLICKING ON SPACES
+		var my_cvjsPopUpBody = "<div class=\"cvjs_modal_1\" onclick=\"my_own_clickmenu1();\">Custom<br>Hello!<br><i class=\"glyphicon glyphicon-transfer\"></i></div>";
+		my_cvjsPopUpBody += "<div class=\"cvjs_modal_1\" onclick=\"my_own_clickmenu2();\">Custom<br>Menu 2<br><i class=\"glyphicon glyphicon-info-sign\"></i></div>";
+		my_cvjsPopUpBody += "<div class=\"cvjs_modal_1\" onclick=\"cvjs_zoomHere();\">Zoom<br>Here<br><i class=\"glyphicon glyphicon-zoom-in\"></i></div>";
+
+
+		 // SETTINGS OF THE COLORS OF SPACES
+		  cvjsRoomPolygonBaseAttributes = {
+					fill: '#ffd7f4', //'#D3D3D3',   // #FFF   #ffd7f4
+					"fill-opacity": 0.3,    //"0.05",   // 0.1
+					stroke: '#CCC',  
+					'stroke-width': 0.25,
+					'stroke-linejoin': 'round',
+					"opacity": 0.3  
+				};
+
+                
+        cvjsRoomPolygonBaseAttributes = {
+            fill: '#fff', //'#D3D3D3',   // #FFF   #ffd7f4
+            "fill-opacity": 0.01,    //"0.05",   // 0.1
+            stroke: '#CCC',  
+            'stroke-width': 0.25,
+            'stroke-linejoin': 'round',
+            "opacity": 0.4  
+        };
+
+
+		  cvjsRoomPolygonHighlightAttributes = {
+				  fill: '#a4d7f4',
+				  "fill-opacity": "0.8",
+				  stroke: '#a4d7f4',
+				  'stroke-width': 0.75,
+                  "opacity": 0.8   
+				};
+				
+		  cvjsRoomPolygonSelectAttributes = {
+				  fill: '#5BBEF6',
+				  "fill-opacity": "0.8",
+				  stroke: '#5BBEF6',
+				  'stroke-width': 0.75,
+                  "opacity": 0.8   
+				};
+                 
+//      Setting Space Object Modals Display to be based on a callback method - VisualQuery mode -
+        cvjs_setCallbackForModalDisplay(true, myCustomPopUpBody, populateMyCustomPopUpBody);
+
+
+		// Initialize CADViewer - needs the div name on the svg element on page that contains CADViewerJS and the location of the
+		// And we intialize with the Space Object Custom values
+		cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+"app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
+
+//		cvjs_InitCADViewer_app("floorPlan", ServerUrl+"app/");
+//		//cvjs_InitCADViewerJS_app("floorPlan", "../app/");
+		 
+		// set the location to license key, typically the js folder in main app application folder ../app/js/
+		 cvjs_setLicenseKeyPath(ServerUrl+"/app/cv/");
+		// alternatively, set the key directly, by pasting in the cvKey portion of the cvlicense.js file, note the JSON \" around all entities 	 
+		//cvjs_setLicenseKeyDirect('{ \"cvKey\": \"00110010 00110010 00110000 00110010 00110001 00111001 00111001 00110001 00110100 00111000 00110001 00110100 00110101 00110001 00110101 00110111 00110001 00110101 00111001 00110001 00110100 00111000 00110001 00110101 00110010 00110001 00110100 00110101 00110001 00110100 00110001 00110001 00110100 00110000 00110001 00111001 00110111 00110010 00110000 00110111 00110010 00110000 00110110 00110010 00110000 00110001 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00110111 00110001 00111001 00111000 00110010 00110000 00110110 00110010 00110000 00111000 00110010 00110000 00110111 00110001 00111001 00111001 00110010 00110001 00110001 00110010 00110000 00111000 00110010 00110000 00110111 00110010 00110001 00110001 00110010 00110000 00110101 00110010 00110000 00111000 \" }');		 
+		 
+		cvjs_allowFileLoadToServer(true);
+
+//		cvjs_setUrl_singleDoubleClick(1);
+//		cvjs_encapsulateUrl_callback(true);
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES, FILES, SPACE OBJECTS
+		cvjs_setServerFileLocation_AbsolutePaths(ServerLocation+'/content/drawings/dwg/', ServerUrl+'content/drawings/dwg/',"","");
+		cvjs_setRedlinesAbsolutePath(ServerUrl+'/content/redlines/fileloader_610/', ServerLocation+'/content/redlines/fileloader_610/');
+		cvjs_setSpaceObjectsAbsolutePath(ServerUrl+'/content/spaceObjects/', ServerLocation+'/content/spaceObjects/');
+        cvjs_setInsertImageObjectsAbsolutePath(ServerUrl+'/content/inserted_image_objects/', ServerLocation+'/content/inserted_image_objects/')
+
+        // NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES, FILES, SPACE OBJECTS
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
+		cvjs_conversion_clearAXconversionParameters();
+
+		var dgn_workspace = cvjs_GetURLParameter("dgn_workspace");
+		console.log("dgn_workspace >"+cvjs_GetURLParameter("dgn_workspace")+"</end>  ");
+		if (dgn_workspace==""){
+			console.log("no dgn_workspace parameter!!!");				
+		}
+		else{
+//			window.alert("WE GOT workspace"+dgn_workspace);
+			console.log("WE GOT workspace"+dgn_workspace);
+			cvjs_setDgnWorkSpace(dgn_workspace, "");
+		}
+
+//		cvjs_conversion_addAXconversionParameter("model", "");		
+        cvjs_conversion_addAXconversionParameter("last", "");		
+        
+        // USE THIS FOR PROCESSING AUTOCAD HANDLES        
+//        cvjs_conversion_addAXconversionParameter("hlall", "");		
+
+        // USE THESE TO PROCESS LAYERS RM_ AND RM_TXT FOR INTERACTIVE HIGHLIGHT 
+
+//        cvjs_conversion_addAXconversionParameter("rl", "RM_");		 
+//		cvjs_conversion_addAXconversionParameter("tl", "RM_TXT");	
+
+//        cvjs_conversion_addAXconversionParameter("lw", "0.1");		 
+//		cvjs_conversion_addAXconversionParameter("lwmin", "0.4");	
+
+
+
+//        cvjs_conversion_addAXconversionParameter("rl", "RM$");		 
+//		cvjs_conversion_addAXconversionParameter("tl", "RM$TXT");	
+
+        // USE THIS TO CALCULATE AREA OF RL/TL PROCESSED SPACES
+    //      cvjs_conversion_addAXconversionParameter("la", "");		
+
+		cvjs_conversion_addAXconversionParameter("fpath", "c:/xampp/htdocs/cadviewer_6_1_0/converters/ax2020/windows/fonts");		 
+		
+		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
+		// Load file - needs the svg div name and name and path of file to load
+	
+		cvjs_LoadDrawing("floorPlan", FileName );
+
+		// set maximum CADViewer canvas side
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer canvas size
+		//	cvjs_resizeWindow_fixedSize(800, 600, "floorPlan");		
+
+		// NOTE
+		// we initialize the space icon size to 100%
+		cvjs_setGlobalSpaceImageObjectScaleFactor(1.0);
+
+		// here we clone icons to be able to move them into the canvas
+		
+
+   });  // end ready()
+
+
+
+   $(window).resize(function() {
+		// set maximum CADViewer canvas side
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer canvas size
+		//	cvjs_resizeWindow_fixedSize(800, 600, "floorPlan");		
+   });
+	
+/// NOTE: THESE METHODS BELOW ARE JS SCRIPT CALLBACK METHODS FROM CADVIEWER JS, THEY NEED TO BE IMPLEMENTED BUT CAN BE EMPTY
+
+	function cvjs_OnLoadEnd(){
+			// generic callback method, called when the drawing is loaded
+			// here you fill in your stuff, call DB, set up arrays, etc..
+			// this method MUST be retained as a dummy method! - if not implemeted -
+
+			cvjs_resetZoomPan("floorPlan");
+
+			var user_name = "Bob Smith";
+			var user_id = "user_1";
+
+			// set a value for redlines
+			cvjs_setCurrentStickyNoteValues_NameUserId(user_name, user_id );
+			cvjs_setCurrentRedlineValues_NameUserid(user_name, user_id);
+            
+            // NOTE-NOTE:  cvjs_dragBackgroundToFront_SVG cannot be used with HLALL
+			// cvjs_dragBackgroundToFront_SVG("floorPlan");					
+			//cvjs_initZeroWidthHandling("floorPlan", 1.0);			
+
+			roomLayer1 = cvjs_clearLayer(roomLayer1);
+			
+			cvjs_LayerOff("EC1 Space Names");
+			cvjs_LayerOff("EC1 Space Status Descs");
+			cvjs_LayerOff("EC1 Space Project");
+			cvjs_LayerOff("EC1 Space Function Descs");
+			cvjs_LayerOff("EC1 Space Type Descs");
+			cvjs_LayerOff("EC1 Tenant Names");
+			cvjs_LayerOff("EC1 UDA Design Capacity");
+			cvjs_LayerOff("EC1 UDA Is Secured");
+            
+
+	}
+
+
+	function cvjs_OnLoadEndRedlines(){
+			// generic callback method, called when the redline is loaded
+			// here you fill in your stuff, hide specific users and lock specific users
+			// this method MUST be retained as a dummy method! - if not implemeted -
+
+			// I am hiding users added to the hide user list
+			cvjs_hideAllRedlines_HiddenUsersList();
+
+			// I am freezing users added to the lock user list
+			cvjs_lockAllRedlines_LockedUsersList();
+	}
+
+
+	// generic callback method, tells which FM object has been clicked
+	function cvjs_change_space(){
+
+	}
+
+	function cvjs_graphicalObjectCreated(graphicalObject){
+
+	// do something with the graphics object created!
+//		window.alert(graphicalObject);
+
+	}
+
+
+	function cvjs_popupTitleClick(myclick){
+	
+		window.alert(" cvjs_popupTitleClick: "+myclick);
+		
+	 }
+
+	function cvjs_ObjectSelected(rmid){
+	 	// placeholder for method in tms_cadviewerjs_modal_1_0_14.js   - must be removed when in creation mode and using creation modal
+    
+        // window.alert("object selected");
+    }
+
+
+	// Callback Method on Creation and Delete 
+	function cvjs_graphicalObjectOnChange(type, graphicalObject, spaceID){
+	  // do something with the graphics object created! 
+
+      //		window.alert(" cvjs_graphicalObjectOnChange: "+type+" "+graphicalObject+" "+spaceID+" indexSpace: "+graphicalObject.toLowerCase().indexOf("space"));
+        console.log(" cvjs_graphicalObjectOnChange: "+type+" "+graphicalObject+" "+spaceID+" indexSpace: "+graphicalObject.toLowerCase().indexOf("space"));
+
+ /*     UPDATE SERVER WITH REDLINES ON CHANGE       
+        if (graphicalObject.toLowerCase().indexOf('redline')>-1 && !type.toLowerCase().indexOf('click')==0 ){
+//            cvjs_setStickyNoteSaveRedlineUrl(ServerLocation + "/content/redlines/fileloader_610/test"+Math.round(Math.random()*100)+".js");
+            cvjs_setStickyNoteSaveRedlineUrl(ServerLocation + "/content/redlines/fileloader_610/test_fixed.js");
+            cvjs_saveStickyNotesRedlines("floorPlan", false, "THIS IS PLACEHOLDER FOR CUSTOM STUFF TO SERVER");
+        }
+*/
+
+		if (type == 'Create' && graphicalObject.toLowerCase().indexOf("space")>-1 && graphicalObject.toLowerCase().indexOf("circle")==-1){
+				
+            /*
+            * Return a JSON structure of all content of a space object clicked: <br>
+            * 	var jsonStructure =  	{	"path":   path, <br>
+            *								"tags": tags, <br>
+            *								"node": node, <br>
+            *								"area": area, <br>
+            *								"outerhtml": outerHTML, <br>
+            *								"occupancy": occupancy, <br>
+            *								"name": name, <br>
+            *								"type": type, <br>
+            *								"id": id, <br>
+            *								"defaultcolor": defaultcolor, <br>
+            *								"layer": layer, <br>
+            *								"group": group, <br>
+            *								"linked": linked, <br>
+            *								"attributes": attributes, <br>
+            *								"attributeStatus": attributeStatus, <br>
+            *								"displaySpaceObjects": displaySpaceObjects, <br>
+            *								"translate_x": translate_x, <br>
+            *								"translate_y": translate_y, <br>
+            *								"scale_x": scale_x ,<br>
+            *								"scale_y": scale_y ,<br>
+            *								"rotate": rotate, <br>
+            *								"transform": transform} <br>
+            * @return {Object} jsonSpaceObject - Object with the entire space objects content
+            */
+		
+			myobject = cvjs_returnSpaceObjectID(spaceID);
+			
+			// I can save this object into my database, and then use command 
+			// cvjs_setSpaceObjectDirect(jsonSpaceObject) 
+			// when I am recreating the content of the drawing at load
+			
+			// for the fun of it, display the SVG geometry of the space:			
+			console.log("This is the SVG path: "+myobject.path)
+				
+		}
+		
+
+		if (type == 'Delete' && graphicalObject.toLowerCase().indexOf("space")>-1 ){
+			// remove this entry from my DB
+
+			window.alert("We have deleted: "+spaceID)
+		}
+
+
+		if (type == 'Move' && graphicalObject.toLowerCase().indexOf("space")>-1 ){
+			// remove this entry from my DB
+			console.log("This object has been moved: "+spaceID)		
+			myobject = cvjs_returnSpaceObjectID(spaceID);
+
+		}
+
+
+		if (type == 'Click'){
+			// remove this entry from my DB
+			console.log(graphicalObject+" has been clicked");		
+
+		}
+
+    }
+
+     
+	function myCustomPopUpBody(rmid){
+
+			console.log("click on myCustomPopUpBody: "+rmid+" I now change the pop-up menu");
+			// make your own popup based on callback
+			var my_cvjsPopUpBody = "";
+
+				if (rmid==120 || rmid==121 || rmid==122 || rmid==123 || rmid==124){
+					my_cvjsPopUpBody = "<div class=\"cvjs_modal_1\" onclick=\"my_own_clickmenu1();\">Custom<br>Menu One<br><i class=\"glyphicon glyphicon-transfer\"></i></div>";
+					my_cvjsPopUpBody += "<div class=\"cvjs_modal_1\" onclick=\"cvjs_zoomHere();\">Zoom<br>Here<br><i class=\"glyphicon glyphicon-zoom-in\"></i></div>";
+
+				}else{
+					my_cvjsPopUpBody = "<div class=\"cvjs_modal_1\" onclick=\"my_own_clickmenu1();\">Custom<br>Menu 1<br><i class=\"glyphicon glyphicon-transfer\"></i></div>";
+					my_cvjsPopUpBody += "<div class=\"cvjs_modal_1\" onclick=\"my_own_clickmenu2();\">Custom<br>Menu 2<br><i class=\"glyphicon glyphicon-info-sign\"></i></div>";
+					my_cvjsPopUpBody += "<div class=\"cvjs_modal_1\" onclick=\"cvjs_zoomHere();\">Zoom<br>Here<br><i class=\"glyphicon glyphicon-zoom-in\"></i></div>";
+
+				}
+				return my_cvjsPopUpBody;
+	}
+
+
+	function cvjs_callbackForModalDisplay(rmid, node){
+
+		console.log("cvjs_callbackForModalDisplay: We can use this method to populate and update the modal if not read in completely!");
+		// populateMyCustomPopUpBody(rmid, node);
+	}
+
+	function populateMyCustomPopUpBody(rmid, node){
+
+		console.log(" we actually have a second callback to change the pop-up menu (developed originally for Angular2) populateMyCustomPopUpBody: "+rmid+"  "+node);
+
+	}
+
+
+
+/// NOTE: THESE METHODS ABOVE ARE JS SCRIPT CALLBACK METHODS FROM CADVIEWER JS, THEY NEED TO BE IMPLEMENTED BUT CAN BE EMPTY
+
+/// NOTE: BELOW REDLINE SAVE LOAD CONTROLLERS
+
+// This method is linked to the save redline icon in the imagemap
+function cvjs_saveStickyNotesRedlinesUser(){
+
+	// there are two modes, user handling of redlines
+	// alternatively use the build in redline file manager
+
+	cvjs_openRedlineSaveModal("floorPlan");
+
+	// custom method startMethodRed to set the name and location of redline to save
+	// see implementation below
+	//startMethodRed();
+	// API call to save stickynotes and redlines
+	//cvjs_saveStickyNotesRedlines("floorPlan");
+}
+
+
+// This method is linked to the load redline icon in the imagemap
+function cvjs_loadStickyNotesRedlinesUser(){
+
+	cvjs_openRedlineLoadModal("floorPlan");
+
+	// first the drawing needs to be cleared of stickynotes and redlines
+	//cvjs_deleteAllStickyNotes();
+	//cvjs_deleteAllRedlines();
+
+	// custom method startMethodRed to set the name and location of redline to load
+	// see implementation below
+	// startMethodRed();
+
+	// API call to load stickynotes and redlines
+	//cvjs_loadStickyNotesRedlines("floorPlan");
+}
+
+/// NOTE: ABOVE REDLINE SAVE LOAD CONTROLLERS
+
+
+
+
+	// Here we are writing a basic function that will be used in the PopUpMenu
+	// this is template on all the good stuff users can add
+	function my_own_clickmenu1(){
+		var id = cvjs_idObjectClicked();
+		//		var node = cvjs_NodeObjectClicked();
+		window.alert("Custom menu item 1: Here developers can implement their own methods, the look and feel of the menu is controlled in the settings.  Clicked object ID is: "+id);
+	}
+
+	// Here we are writing a basic function that will be used in the PopUpMenu
+	// this is template on all the good stuff users can add
+	function my_own_clickmenu2(){
+		var id = cvjs_idObjectClicked();
+		//var node = cvjs_NodeObjectClicked();
+
+		window.alert("Custom menu item 2: Here developers can implement their own methods, the look and feel of the menu is controlled in the settings. Clicked object ID is: "+id);
+		//window.alert("Custom menu item 2: Clicked object Node is: "+node);
+	}
+
+
+
+
+/// NOTE: BELOW CUSTOM MODAL COMMANDS
+
+// General settings method for Space Images, must be declared!!!!!
+function cvjs_loadSpaceImage_UserConfiguration(floorplan_div){
+
+	// When inserting a Space Image Object.
+	// The following items must be defined:
+	
+	// location and name of SVG or bitmap file to insert
+	// cvjs_loadSpaceImage_Location 
+	// ID of the Space for API access
+	// cvjs_loadSpaceImage_ID
+	// Type of the Space for modal highlight 
+	// cvjs_loadSpaceImage_Type
+	
+	cvjs_loadSpaceImage_Location = ServerUrl+ "content/drawings/svg/" + $('#image_sensor_location').val();
+	cvjs_loadSpaceImage_ID = $('#image_ID').val();
+	cvjs_loadSpaceImage_Type = $('#image_Type').val();
+	cvjs_loadSpaceImage_Layer = "cvjs_SpaceLayer";
+	
+}
+
+var roomLayer1;
+
+
+function copy_group_object(){
+
+     newSpaceObjectId = $('#copy_new_id').val();
+     originSpaceObjectId = $('#copy_org_id').val();
+ 
+    cvjs_copyGroupObject(originSpaceObjectId, newSpaceObjectId);
+}
+
+
+function show_object_in_group(){
+
+    var currentNode_underbar = $('#group_id').val();    
+    var second_group = $('#group_2').val();    
+    var objectTag = $('#group_2_subid').val();    
+
+    cvjs_showObjectInSpaceObjectGroup(currentNode_underbar, objectTag);
+
+}
+
+
+function hide_object_in_group(){
+
+    var currentNode_underbar = $('#group_id').val();    
+    var second_group = $('#group_2').val();    
+    var objectTag = $('#group_2_subid').val();    
+
+    cvjs_hideObjectInSpaceObjectGroup(currentNode_underbar, objectTag);
+    
+}
+
+
+
+function update_group_with_group(){
+
+    var currentNode_underbar = $('#group_id').val();    
+    var second_group = $('#group_2').val();    
+    var objectTag = $('#group_2_subid').val();    
+    window.alert("here "+currentNode_underbar+" "+second_group);    
+    cvjs_addObjectToSpaceObjectGroup(currentNode_underbar, second_group, objectTag, true);
+
+}
+
+function update_group_with_object(){
+
+    // pull the values from the table
+    var currentNode_underbar = $('#group_id').val();    
+    var objectTag = $('#object_id').val();    
+    var object_svg_path = $('#object_svg_path').val();    
+    var object_css_style = $('#object_css_style').val();    
+
+
+    // add to the object
+    try{
+        console.log(object_svg_path+"  "+object_css_style+" "+currentNode_underbar)
+        var baseGraphics = cvjs_makeGraphicsObjectOnCanvas('Path', object_svg_path);
+        console.log(baseGraphics);
+        baseGraphics.attr(JSON.parse(object_css_style));
+        console.log(baseGraphics);
+        cvjs_addGraphicsToSpaceObjectGroup(currentNode_underbar, baseGraphics, objectTag);
+    }
+    catch(err){ 
+        console.log("create error: "+err);
+    }
+
+}
+
+
+function apply_group_id_styles(){
+
+// grap content from side panel
+
+// add to group
+
+}
+
+function hide_show_group_id(){
+
+// grap content from side panel
+
+// add to group
+
+}
+
+
+
+function highlight_space_object(){
+
+	roomLayer1 = cvjs_clearLayer(roomLayer1);
+	cvjs_highlightSpaceObjectIdDiv( $('#sensor_to_highlight').val() , highlight_colorgrade_D_1 , roomLayer1, "floorPlan");
+
+}
+
+function clear_space_highlight(){
+
+	cvjs_clearSpaceLayer();
+	roomLayer1 = cvjs_clearLayer(roomLayer1);
+}
+
+
+function highlight_all_spaces(){
+	
+	var secondcolor = selectedColor.substring(0,5);
+	secondcolor+="FF";
+	// window.alert(secondcolor);
+
+	var colortype = {
+			fill: selectedColor,
+			"fill-opacity": "0.8",
+			stroke: selectedColor,
+			'stroke-width': 1,
+			'stroke-opacity': "1",
+			'stroke-linejoin': 'round'
+		};
+
+	var spaceObjectIds = cvjs_getSpaceObjectIdList();
+	for (spc in spaceObjectIds){		
+		var rmid = spaceObjectIds[spc];
+		cvjs_highlightSpace(rmid, colortype);
+	}
+
+}
+
+
+function highlight_all_borders(){	
+	var colortype = {
+		fill: '#fff',
+		"fill-opacity": 0.01,
+		stroke: selectedColor,    
+		'stroke-width': 3.0,
+		'stroke-opacity': 1,
+		'stroke-linejoin': 'round'
+		};
+
+	var spaceObjectIds = cvjs_getSpaceObjectIdList();
+	for (spc in spaceObjectIds){	
+	
+		var rmid = spaceObjectIds[spc];
+		cvjs_highlightSpace(rmid, colortype);
+	}
+}
+
+function highlight_space_type(){
+	var type = $('#image_Type').val();	
+	var colortype = {
+			fill: selectedColor,
+			"fill-opacity": "0.8",
+			stroke: '#fe50d9',
+			'stroke-width': 1,
+			'stroke-opacity': "1",
+			'stroke-linejoin': 'round'
+		};
+
+		var spaceObjectIds = cvjs_getSpaceObjectIdList();
+		for (spc in spaceObjectIds){	
+			var spaceType = cvjs_getSpaceObjectTypefromId(spaceObjectIds[spc]);
+			var vqid = spaceObjectIds[spc];
+			console.log(spc+"  "+ vqid + "  "+spaceType+ "  "+spaceType.indexOf("Device"));		
+			if (spaceType.indexOf(type)==0)
+				cvjs_highlightSpace(vqid, colortype);
+		}
+}
+
+function highlight_space_id(){
+	var spaceid = $('#space_id2').val();	
+	var colortype = {
+			fill: selectedColor,
+			"fill-opacity": "0.8",
+			stroke: selectedColor,
+			'stroke-width': 1,
+			'stroke-opacity': "1",
+			'stroke-linejoin': 'round'
+		};
+
+	var spaceObjectIds = cvjs_getSpaceObjectIdList();
+	for (spc in spaceObjectIds){	
+		console.log(spaceid+"  "+spaceObjectIds[spc]+" "+(spaceid.indexOf(spaceObjectIds[spc])==0)+" "+((spaceid.length == spaceObjectIds[spc].length)));
+		if (spaceid.indexOf(spaceObjectIds[spc])==0 && (spaceid.length == spaceObjectIds[spc].length) )
+			cvjs_highlightSpace(spaceObjectIds[spc], colortype);
+	}
+}
+
+
+function insert_from_type_id_image(){
+
+	cvjs_loadSpaceImage_Location = ServerUrl+ "content/drawings/svg/" + $('#image_sensor_location').val();
+	cvjs_loadSpaceImage_ID = $('#image_ID').val();
+	cvjs_loadSpaceImage_Type = $('#image_Type').val();
+	cvjs_loadSpaceImage_Layer = "cvjs_SpaceLayer";
+    cvjs_addFixedSizeImageSpaceObject("floorPlan");
+    iconObjectCounter++;
+
+    // 6.3.92
+    $('#group_id').val( "NODE_"+cvjs_currentMaxNodeId())    
+}
+
+
+var iconObjectCounter = 1;
+
+// Functions to drag elements
+var lastXbeforeDrag =0;
+var lastYbeforeDrag =0;
+
+// locations of leftside device menu
+var device_from_top_base = 250;
+var height = 52;
+
+
+var selectedColor = '#fb13a7';
+
+function custom_ColorHex(pickcolor){
+
+    selectedColor = "#"+pickcolor;
+    console.log("selectedColor"+selectedColor);
+
+}
+
+
+///  HERE ARE ALL THE CUSTOM TEMPLATES TO DO STUFF ON THE CANVAS 
+
+
+/**
+ * Template start drag method for custom canvas
+ */
+
+ var generic_start_method_01 = function() {
+    console.log("generic_start_method_01");
+}
+
+/**
+ * Template move drag method for custom canvas
+ */
+var generic_move_method_01 = function(dx,dy,x,y) {
+
+    var svg_x = cvjs_SVG_x(x);
+    var svg_y = cvjs_SVG_y(y);
+    console.log("generic_move_method_01: dx="+dx+" dy="+dy+" x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+}
+
+/**
+ * Template stop drag method for custom canvas
+ */
+var generic_stop_method_01 = function() {
+
+    cvjs_removeCustomCanvasMethod();
+    console.log("REMOVE: generic_stop_method_01");
+};
+
+/**
+ * Template mouse-move method for custom canvas
+ */
+
+var generic_mousemove_method_01 = function(e,x,y) {
+
+    var svg_x = cvjs_SVG_x(x);
+    var svg_y = cvjs_SVG_y(y);
+    
+    //cvjs_removeCustomCanvasMethod();
+    console.log("generic_mousemove_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+}
+
+/**
+ * Template mouse-down method for custom canvas
+ */
+
+var generic_mousedown_method_01 = function(e,x,y) {
+
+    var svg_x = cvjs_SVG_x(x);
+    var svg_y = cvjs_SVG_y(y);
+    
+    //cvjs_removeCustomCanvasMethod();
+    console.log("generic_mousedown_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+
+};
+
+/**
+ * Template mouse-up method for custom canvas
+ */
+
+ var generic_mouseup_method_01 = function(e,x,y) {
+
+    var svg_x = cvjs_SVG_x(x);
+    var svg_y = cvjs_SVG_y(y);
+    
+    console.log("generic_mouseup_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+
+};
+
+/**
+ * Template double-click method for custom canvas
+ */
+
+var generic_dblclick_method_01 = function(e,x,y) {
+    cvjs_removeCustomCanvasMethod();
+
+    var svg_x = cvjs_SVG_x(x);
+    var svg_y = cvjs_SVG_y(y);
+    console.log("REMOVE: generic_dblclick_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+};
+
+
+// SAMPLE TO CREATE RECTANGLE BY CLICK
+
+var generic_canvas_flag_first_click_rectangle = false;
+var generic_canvas_flag_rectangle= false;
+var tPath_r;
+var generic_make_rect_init_method = function(){
+    console.log("generic_make_rect_init_method");
+    generic_canvas_flag_first_click_rectangle = false;
+    generic_canvas_flag_rectangle= false;
+}
+
+
+var generic_make_rect_mousedown_method = function(e, x, y) {
+
+    try{
+        console.log("generic_make_rect_mousedown_method");
+
+        if (!generic_canvas_flag_first_click_rectangle){
+			var tPath_r = "M" + 0 + "," + 0;
+            cvjs_RubberBand = cvjs_makeGraphicsObjectOnCanvas('Path', tPath_r).attr({stroke: "#b00000", fill : "none", 'stroke-width': 0.5});
+            generic_canvas_flag_first_click_rectangle = true;
+            generic_canvas_flag_rectangle= false;
+            console.log("rubberband");
+        }
+        else{
+            console.log(generic_canvas_flag_first_click_rectangle+"  "+generic_canvas_flag_rectangle);            
+            if (generic_canvas_flag_rectangle){
+                generic_make_rect_stop_method();
+            }
+        }
+    }
+    catch(err){console.log(err)}
+    //console.log("mouse down ");
+}
+
+
+var generic_make_rect_mouseup_method = function() {
+
+    try{
+        console.log("generic_make_rect_mouseup_method");
+    }
+    catch(err){console.log(err)}
+}
+
+
+var generic_make_rect_dblclick_method = function() {
+
+    try{
+        console.log("generic_make_rect_dblclick_method");
+    }
+    catch(err){console.log(err)}
+}
+
+
+var generic_make_rect_mousemove_method = function(e, x, y) {
+   
+   try{
+        if (generic_canvas_flag_first_click_rectangle){
+            cvjs_customCanvasMethod_globalScale();        
+            if (!generic_canvas_flag_rectangle){
+                cvjs_firstX = cvjs_SVG_x(x);
+                cvjs_firstY = cvjs_SVG_y(y)
+                cvjs_lastX = cvjs_firstX;
+                cvjs_lastY = cvjs_firstY;
+                generic_canvas_flag_rectangle = true;
+            }
+            else{
+                // we cannot have the mouse directly on top of the rubberband path, then it will not respond
+                var mousedelta = 2;
+                cvjs_lastX = cvjs_SVG_x(x-mousedelta);
+                cvjs_lastY = cvjs_SVG_y(y-mousedelta);
+            }	
+            
+            tPath_r = "M" + cvjs_firstX + "," + cvjs_firstY;		
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_firstY;
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_firstY+" Z"; 
+            cvjs_RubberBand.attr({'path': tPath_r});
+        }
+    }
+    catch(err){
+        console.log(err);
+    } 
+}
+
+var generic_make_rect_stop_method = function() {
+
+   // find the current highest node number
+   var Node_id = cvjs_currentMaxNodeId();
+    // increment and set current node underbar
+	Node_id++;
+	cvjs_currentNode_underbar = Node_underbar+Node_id;
+    
+	var loadSpaceImage_ID = $('#image_ID').val();
+	var loadSpaceImage_Type = $('#image_Type').val();
+    var loadSpaceImage_Layer = "cvjs_SpaceLayer";
+
+    // create a group with space as main object
+    cvjs_createSpaceObjectGroup(cvjs_currentNode_underbar, cvjs_RubberBand, loadSpaceImage_ID, loadSpaceImage_ID, loadSpaceImage_Type, cvjs_loadSpaceImage_Layer, "myGroup");   
+
+    // make an equal rect, but with the proper color settings and controls
+	var grayBox = cvjs_makeGraphicsObjectOnCanvas('Path', tPath_r).attr({fill: '#808080', "fill-opacity": "1.0", stroke: '#000', 'stroke-opacity': "1.0", 'stroke-width': 0.5 });
+	cvjs_addGraphicsToSpaceObjectGroup(cvjs_currentNode_underbar,  grayBox, "rect01");
+
+    cvjs_removeCustomCanvasMethod();    
+};
+
+// END - SAMPLE TO CREATE RECTANGLE BY CLICK
+
+
+// SAMPLE TO CREATE RECTANGLE BY DRAG
+
+var generic_drag_rect_start = function() {
+
+    generic_canvas_flag_first_click_rectangle = true;
+    generic_canvas_flag_rectangle = false;
+
+    var tPath_r = "M" + 0 + "," + 0;
+    cvjs_RubberBand = cvjs_makeGraphicsObjectOnCanvas('Path', tPath_r).attr({stroke: "#b00000", fill : "none"});
+
+    console.log("generic_start_method_01");
+}
+
+/**
+ * Template move drag method for custom canvas
+ */
+var generic_drag_rect_move = function(dx,dy,x,y) {
+
+    try{
+        if (generic_canvas_flag_first_click_rectangle){
+            cvjs_customCanvasMethod_globalScale();        
+            if (!generic_canvas_flag_rectangle){
+                cvjs_firstX = cvjs_SVG_x(x);
+                cvjs_firstY = cvjs_SVG_y(y)
+                cvjs_lastX = cvjs_firstX;
+                cvjs_lastY = cvjs_firstY;
+                generic_canvas_flag_rectangle = true;
+            }
+            else{
+                // we cannot have the mouse directly on top of the rubberband path, then it will not respond
+                var mousedelta = 1;
+                cvjs_lastX = cvjs_SVG_x(x-mousedelta);
+                cvjs_lastY = cvjs_SVG_y(y-mousedelta);
+            }	
+            
+            var tPath_r = "M" + cvjs_firstX + "," + cvjs_firstY;		
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_firstY;
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_firstY+" Z"; 
+            cvjs_RubberBand.attr({'path': tPath_r});
+        }
+    }
+    catch(err){
+        console.log(err);
+    } 
+
+}
+
+/**
+ * Template stop drag method for custom canvas
+ */
+var generic_drag_rect_stop = function() {
+
+    cvjs_RubberBand.attr({fill: '#99ff99', "fill-opacity": "0.5", stroke: '#ff9999', 'stroke-opacity': "1"});
+    cvjs_removeCustomCanvasMethod();
+    console.log("REMOVE: generic_drag_rect_stop");
+};
+
+
+// END - SAMPLE TO CREATE RECTANGLE BY DRAG
+
+
+
+
+// SAMPLE TO DRAG RECTANGLE if overlapping space objects 
+
+var select_drag_rect_start = function() {
+
+    generic_canvas_flag_first_click_rectangle = true;
+    generic_canvas_flag_rectangle = false;
+
+    var tPath_r = "M" + 0 + "," + 0;
+    cvjs_RubberBand = cvjs_makeGraphicsObjectOnCanvas('Path', tPath_r).attr({fill: '#ff9999', "fill-opacity": "0.5", stroke: '#ff9999', 'stroke-opacity': "1"});
+
+    console.log("generic_start_method_01");
+}
+
+var select_drag_rect_move = function(dx,dy,x,y) {
+
+    try{
+        if (generic_canvas_flag_first_click_rectangle){
+            cvjs_customCanvasMethod_globalScale();        
+            if (!generic_canvas_flag_rectangle){
+                cvjs_firstX = cvjs_SVG_x(x);
+                cvjs_firstY = cvjs_SVG_y(y)
+                cvjs_lastX = cvjs_firstX;
+                cvjs_lastY = cvjs_firstY;
+                generic_canvas_flag_rectangle = true;
+            }
+            else{
+                // we cannot have the mouse directly on top of the rubberband path, then it will not respond
+                var mousedelta = 1;
+                cvjs_lastX = cvjs_SVG_x(x-mousedelta);
+                cvjs_lastY = cvjs_SVG_y(y-mousedelta);
+            }	
+            
+            var tPath_r = "M" + cvjs_firstX + "," + cvjs_firstY;		
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_firstY;
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_firstY+" Z"; 
+            cvjs_RubberBand.attr({'path': tPath_r});
+        }
+    }
+    catch(err){
+        console.log(err);
+    } 
+
+}
+
+
+var select_drag_rect_stop = function() {
+
+    cvjs_RubberBand.attr({'path': "M0,0"});
+    var mybox;
+    var overlap;
+    var selected_list = "";
+
+    // reorder x,  if not dragged left to right, top to buttom
+    var temp;
+    if (cvjs_firstX>cvjs_lastX){
+        temp = cvjs_firstX;
+        cvjs_firstX = cvjs_lastX;
+        cvjs_lastX = temp;
+    }
+    // reorder y,  if not dragged left to right, top to buttom
+    if (cvjs_firstY>cvjs_lastY){
+        temp = cvjs_firstY;
+        cvjs_firstY = cvjs_lastY;
+        cvjs_lastY = temp;
+    }
+
+    
+    // get all spaces
+    var spaceObjectIds = cvjs_getSpaceObjectIdList();
+    // loop over all spaces
+    for (var spc in spaceObjectIds){
+        // get the bounding box of the space
+        
+        mybox = cvjs_getSpaceObjectBoundingBox(spaceObjectIds[spc]);
+        // check if it operlaps with the drag rectangle
+        if (mybox == false) continue;
+
+        //console.log(cvjs_firstX+"  "+ cvjs_firstY+" "+ cvjs_lastX+ " "+ cvjs_lastY+"  "+spc);
+        //console.log(mybox.x+" "+ mybox.y+" "+ (mybox.x+mybox.width) + " "+ (mybox.y+mybox.height));
+
+        overlap= cvjs_rect_doOverlap( cvjs_firstX, cvjs_firstY, cvjs_lastX, cvjs_lastY, mybox.x, mybox.y, mybox.x+mybox.width, mybox.y+mybox.height);
+ 
+        if (overlap) 
+            selected_list+= spaceObjectIds[spc]+";";
+    }
+
+    if (selected_list == "") selected_list = "None";
+
+    window.alert("Selected Objects: "+selected_list);
+    //cvjs_RubberBand.attr({fill: '#99ff99', "fill-opacity": "0.5", stroke: '#ff9999', 'stroke-opacity': "1"});
+    cvjs_removeCustomCanvasMethod();
+    console.log("REMOVE: generic_drag_rect_stop");
+};
+
+// END - SAMPLE TO DRAG RECTANGLE if overlapping space objects 
+
+
+
+
+// SAMPLE TO CREATE RECTANGLE w TEXT and ARRow BY CLICK
+
+var logic_flags = [false,false,false,false,false,false];
+var operation_type = "";
+var mybasewidth = 1;
+
+var generic_make_rect_arrow_init_method = function(){
+    console.log("generic_make_rect_init_method");
+    logic_flags = [false,false,false,false,false,false];
+    operation_type = "box";    
+}
+
+var tPath_r;
+
+var generic_make_rect_arrow_mousedown_method = function(e, x, y) {
+
+    try{
+        if ((operation_type.indexOf("arrow") ==0) && logic_flags[0] && logic_flags[1]){
+            generic_make_rect_arrow_stop_method2();
+        }
+
+        if ((operation_type.indexOf("box") ==0) && !logic_flags[0]){  // first box
+            var tPath_r = "M" + 0 + "," + 0;
+            cvjs_RubberBand = cvjs_makeGraphicsObjectOnCanvas('Path', tPath_r).attr({stroke: "#b00000", fill : "none"});
+            logic_flags[0] = true;
+            logic_flags[1]= false;
+        }
+        if ((operation_type.indexOf("box") ==0) && logic_flags[0] && logic_flags[1]){
+            generic_make_rect_arrow_stop_method1();
+        }
+   }
+    catch(err){console.log(err)}
+    //console.log("mouse down ");
+}
+
+
+var generic_make_rect_arrow_mouseup_method = function() {
+
+    try{
+        console.log("generic_make_rect_mouseup_method");
+    }
+    catch(err){console.log(err)}
+}
+
+
+var generic_make_rect_arrow_dblclick_method = function() {
+
+    try{
+        console.log("generic_make_rect_dblclick_method");
+    }
+    catch(err){console.log(err)}
+}
+
+
+var generic_make_rect_arrow_mousemove_method = function(e, x, y) {
+   
+   try{
+        if ((operation_type.indexOf("box") ==0) && logic_flags[0]){
+            cvjs_customCanvasMethod_globalScale();        
+            if (!logic_flags[1]){
+                cvjs_firstX = cvjs_SVG_x(x);
+                cvjs_firstY = cvjs_SVG_y(y)
+                cvjs_lastX = cvjs_firstX;
+                cvjs_lastY = cvjs_firstY;
+                logic_flags[1] = true;
+            }
+            else{
+                // we cannot have the mouse directly on top of the rubberband path, then it will not respond
+                var mousedelta = 1;
+                cvjs_lastX = cvjs_SVG_x(x-mousedelta);
+                cvjs_lastY = cvjs_SVG_y(y-mousedelta);
+            }	
+            
+            tPath_r = "M" + cvjs_firstX + "," + cvjs_firstY;		
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_lastY;
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_firstY;
+            tPath_r += "L" + cvjs_firstX + "," + cvjs_firstY+" Z"; 
+            cvjs_RubberBand.attr({'path': tPath_r});
+        }
+
+
+        if ((operation_type.indexOf("arrow") ==0) && logic_flags[0]){
+            cvjs_customCanvasMethod_globalScale();        
+
+            logic_flags[1] = true;
+            var mousedelta = 1;
+            cvjs_lastX = cvjs_SVG_x(x-mousedelta);
+            cvjs_lastY = cvjs_SVG_y(y-mousedelta);
+
+            tPath_r = "M" + cvjs_firstX + "," + cvjs_firstY;		
+            tPath_r += "L" + cvjs_lastX + "," + cvjs_lastY;
+            cvjs_RubberBand.attr({'path': tPath_r});
+        }
+    }
+    catch(err){
+        console.log(err);
+    } 
+}
+
+var randomNr;
+
+var generic_make_rect_arrow_stop_method1 = function() {
+
+    // find the current highest node number
+    var Node_id = cvjs_currentMaxNodeId();
+    // increment and set current node underbar
+	Node_id++;
+	cvjs_currentNode_underbar = Node_underbar+Node_id;
+    randomNr = Math.floor(Math.random() * Math.floor(100000)); window.alert("randomNr "+randomNr);
+
+	cvjs_RubberBand.attr({fill: 'none', "fill-opacity": "0.5", stroke: '#0000b0', 'stroke-opacity': "1"});
+	// create a group with space as main object
+    cvjs_createSpaceObjectGroup(cvjs_currentNode_underbar, cvjs_RubberBand, "API"+randomNr, "API"+randomNr, "Generic", "myLayer", "myGroup");   
+
+	// create a new border object as separate graphics - we use the rubberband as our graphics variable
+	cvjs_RubberBand = cvjs_makeGraphicsObjectOnCanvas('Path', tPath_r).attr({fill: 'none', "fill-opacity": "1", stroke: '#000', 'stroke-opacity': "1", 'stroke-width': mybasewidth});
+	cvjs_addGraphicsToSpaceObjectGroup(cvjs_currentNode_underbar,  cvjs_RubberBand, "rect01");
+
+    // create the text string add add to graphics group
+    var myText = cvjs_makeTextObjectOnCanvas(cvjs_firstX+(cvjs_lastX-cvjs_firstX)/10.0, cvjs_lastY - (cvjs_lastY-cvjs_firstY)/5.0, "API"+randomNr).attr({fill: '#000', "fill-opacity": "1", stroke: '#000', 'font-size' : (Math.abs(cvjs_lastY-cvjs_firstY)/2.0) });
+	cvjs_addGraphicsToSpaceObjectGroup(cvjs_currentNode_underbar,  myText, "text01");
+
+    // we change to arrow, and directly make the mouse draggable
+    operation_type = "arrow";
+    logic_flags[0] = true;
+    logic_flags[1]= false;  
+
+    // set rubberband to middle of box side
+    cvjs_firstX = (cvjs_firstX+cvjs_lastX)/2.0;
+    cvjs_firstY = cvjs_lastY;
+	// make new rubberband 
+    tPath_r = "M" + cvjs_firstX + "," + cvjs_firstY;
+    cvjs_RubberBand = cvjs_makeGraphicsObjectOnCanvas('Path', tPath_r).attr({stroke: "#b00000", fill : "none"});
+};
+
+
+
+var generic_make_rect_arrow_stop_method2 = function() {
+
+    cvjs_RubberBand.attr({fill: 'none', "fill-opacity": "1", stroke: '#000', 'stroke-opacity': "1", 'stroke-width': mybasewidth});
+	// we create an arrow object and add to space object
+
+    // here we have to add the graphical object to our already created object
+	cvjs_addGraphicsToSpaceObjectGroup(cvjs_currentNode_underbar, cvjs_RubberBand, "arrow-line01");
+	
+	// create an arrow
+	var angleInDegrees = ( Math.atan2((cvjs_lastY-cvjs_firstY),(cvjs_lastX-cvjs_firstX)) / Math.PI * 180.0);
+	var scaleTriangle = mybasewidth;  // same as stroke-width
+	var triangle_design= -5.0*scaleTriangle+","+5.5*scaleTriangle+" "+0.0*scaleTriangle+","+-4.5*scaleTriangle+" "+5.0*scaleTriangle+","+5.5*scaleTriangle;
+	var mysin = Math.sin(angleInDegrees/180*Math.PI);
+	var mycos = Math.cos(angleInDegrees/180*Math.PI);
+	var Ttrans = 'r' + (angleInDegrees - 270)+'T' + (cvjs_lastX+ mycos*scaleTriangle) +"," + cvjs_lastY ;
+    var Triangle = cvjs_makeGraphicsObjectOnCanvas('Polyline', triangle_design);
+    Triangle.attr({fill: 'none', "fill-opacity": "1", stroke: '#000', 'stroke-opacity': "1", 'stroke-width': mybasewidth});
+	Triangle.attr({
+		fill: "#000",
+		transform: Ttrans
+	});
+
+	// here we add an arrow to the object
+	cvjs_addGraphicsToSpaceObjectGroup(cvjs_currentNode_underbar, Triangle, "arrow01");
+
+    cvjs_graphicalObjectCreated('CustomObject');
+	cvjs_graphicalObjectOnChange('Create', 'CustomObject',  "API"+randomNr);
+
+    cvjs_removeCustomCanvasMethod();    
+};
+
+// END OF DRAG
+
+
+
+// CLICK TO SELECT HANDLES
+
+
+// NOTE  - for Handles to be processed in DWG conversion, the conversion parameter -hlall  must be set:
+        // USE THIS FOR PROCESSING AUTOCAD HANDLES        
+// include this:         cvjs_conversion_addAXconversionParameter("hlall", "");		
+
+// USE THESE TO PROCESS LAYERS RM_ AND RM_TXT FOR INTERACTIVE HIGHLIGHT 
+// optional:       cvjs_conversion_addAXconversionParameter("rl", "RM_");		 
+// optional:		cvjs_conversion_addAXconversionParameter("tl", "RM_TXT");	
+
+var  selected_handles = [];
+var  handle_selector = false;
+var  current_selected_handle = "";
+
+var generic_handles_init_method_01 = function(){
+    selected_handles = [];
+    // we want to send click object to back!!!!!!
+    // so we can click on Handle Objects
+    cvjs_sendCustomCanvasToBack("floorPlan");
+    handle_selector = true;
+}
+
+/**
+ * Template mouse-move method for custom canvas
+ */
+
+var generic_handles_mousemove_method_01 = function(e,x,y) {
+
+var svg_x = cvjs_SVG_x(x);
+var svg_y = cvjs_SVG_y(y);
+
+//cvjs_removeCustomCanvasMethod();
+// console.log("generic_mousemove_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+}
+
+
+/**
+ * Template mouse-down method for custom canvas
+ */
+
+ var generic_handles_mousedown_method_01 = function(e,x,y) {
+
+var svg_x = cvjs_SVG_x(x);
+var svg_y = cvjs_SVG_y(y);
+
+// cvjs_removeCustomCanvasMethod();
+// onsole.log("generic_mousedown_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+
+};
+
+/**
+* Template mouse-up method for custom canvas
+*/
+
+var generic_handles_mouseup_method_01 = function(e,x,y) {
+
+var svg_x = cvjs_SVG_x(x);
+var svg_y = cvjs_SVG_y(y);
+
+// console.log("generic_mouseup_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+
+};
+
+/**
+* Template double-click method for custom canvas
+*/
+
+var generic_handles_dblclick_method_01 = function(e,x,y) {
+cvjs_removeCustomCanvasMethod();
+handle_selector = false;
+
+var mystring = "";
+for (var spc in selected_handles){
+    // we find all handles
+    mystring+= selected_handles[spc].handle+";";
+    // we need to clean out highlighted handles
+    cvjs_mouseout_handleObjectStyles(selected_handles[spc].id, selected_handles[spc].handle);
+}
+
+window.alert(mystring);
+
+var svg_x = cvjs_SVG_x(x);
+var svg_y = cvjs_SVG_y(y);
+console.log("REMOVE: generic_dblclick_method_01: x="+x+" y="+y+" svg_x="+svg_x+"  svg_y="+svg_y);
+};
+
+
+// END - SAMPLE TO DRAG RECTANGLE over HANDLES
+
+// HANDLING OF MOUSE OPERATION
+
+
+// ENABLE ALL API EVENT HANDLES FOR AUTOCAD Handles
+
+var selected_handles = [];
+var handle_selector = false;
+var current_selected_handle = "";
+
+
+function cvjs_mousedown(id, handle, entity){
+
+}
+
+function cvjs_click(id, handle, entity){
+
+
+    console.log("mysql click "+id+"  "+handle);
+    // if we click on an object, then we add to the handle list
+    if (handle_selector){
+        selected_handles.push({id,handle});
+        current_selected_handle = handle;
+    }
+
+	// tell to update the Scroll bar 
+	//vqUpdateScrollbar(id, handle);
+	// window.alert("We have clicked an entity: "+entity.substring(4)+"\r\nThe AutoCAD Handle id: "+handle+"\r\nThe svg id is: "+id+"\r\nHighlight SQL pane entry");
+}
+
+function cvjs_dblclick(id, handle, entity){
+
+	console.log("mysql dblclick "+id+"  "+handle);
+	window.alert("We have double clicked entity with AutoCAD Handle: "+handle+"\r\nThe svg id is: "+id);
+}
+
+function cvjs_mouseout(id, handle, entity){
+
+    console.log("mysql mouseout "+id+"  "+handle);
+    
+    if (current_selected_handle == handle){
+        // do nothing
+    }
+    else{
+        cvjs_mouseout_handleObjectStyles(id, handle);
+    }
+}
+
+function cvjs_mouseover(id, handle, entity){
+
+	console.log("mysql mouseover "+id+"  "+handle+"  "+jQuery("#"+id).css("color"))
+	//cvjs_mouseover_handleObjectPopUp(id, handle);	
+}
+
+function cvjs_mouseleave(id, handle, entity){
+
+	console.log("mysql mouseleave "+id+"  "+handle+"  "+jQuery("#"+id).css("color"));
+}
+
+
+function cvjs_mouseenter(id, handle, entity){
+//	cvjs_mouseenter_handleObjectStyles("#a0a000", 4.0, 1.0, id, handle);
+//	cvjs_mouseenter_handleObjectStyles("#ffcccb", 5.0, 0.7, true, id, handle);
+
+
+	cvjs_mouseenter_handleObjectStyles("#F00", 2.0, 1.0, true, id, handle);
+	
+}
+
+// END OF MOUSE OPERATION
+
+</script>	
+
+</head>
+  <body bgcolor="white" style="margin:0" >
+
+	<table width="100%" height="100%" border="0" cellspacing="0" border-spacing="0" id="mainTable">
+	<tr style="background-color:rgb(255,255,255)" >
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td>
+        <h4>	<a href="https://cadviewer.com/cadviewertechdocs"><img src="https://cadviewer.com/images/cadviewer/cv-logo.gif" width="120" height="30" alt="Tailor Made logo" /></a>
+        <b>CADViewer: Icon Commands API - Click Icon to call Command, Click Function for API docs</b> <font size="-1"> - Read more: <strong><a href="https://cadviewer.com/cadviewertechdocs">Tech Docs</a></strong>, <strong><a href="https://cadviewer.com/cadviewerproapi/global.html">API</a></strong>. Contact: <a href="mailto:developer@tailormade.com">developer@tailormade.com</a>.</font></h4>
+        </td>
+    </tr>        
+	</table>
+
+    <font size="-1"> 
+	<table cellspacing="0" border-spacing="0" id="commandTable">
+        <tr style="background-color:rgb(255,255,255)" >
+<!-- command  
+
+
+    if (commands[i] == "cvjs_LayerList"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_001", "cvjs_LayerList", floorplan_div, "cvjsIcon_dra_p1_1_1_LayerList.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.LayerList );  continue;} 
+    if (commands[i] == "cvjs_LayerListSpace"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_073", "cvjs_LayerList", floorplan_div, "cvjsIcon_dra_p5_2_2_SpaceObjectsLayerList.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.LayerList );  continue;} 
+    if (commands[i] == "cvjs_Print"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_002", "cvjs_Print", floorplan_div, "cvjsIcon_dra_p1_1_2_Print.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Print );  continue;} 
+    if (commands[i] == "cvjs_toggleBlackWhite"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_003", "cvjs_toggleBlackWhite", floorplan_div, "cvjsIcon_dra_p1_4_1_ToggleBlackWhite.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Toggle );   continue;} 
+    if (commands[i] == "cvjs_setBackgroundColor"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_004", "cvjs_setBackgroundColor", floorplan_div, "cvjsIcon_dra_p1_4_2_BackgroundColor.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Background );   continue;} 
+    if (commands[i] == "cvjs_openFileLoadToServer"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_005", "cvjs_openFileLoadToServer", floorplan_div, "cvjsIcon_dra_p1_5_1_FileLoad.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.FileLoad );   continue;} 
+    if (commands[i] == "cvjs_openFileLoadToServerSpace"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_072", "cvjs_openFileLoadToServer", floorplan_div, "cvjsIcon_dra_p5_2_1_LoadPreProcessSpaceObjects.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.FileLoad );   continue;} 
+ 
+-->            
+<td>
+    <canvas id="dummy" width="10" height="10" scale="0.8"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_LayerList('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_1_1_LayerList.png"  height="24px"/></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_LayerList">cvjs_LayerList()</a>             
+</td>
+<!-- command  "cvjs_Print"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_002", "cvjs_Print", floorplan_div, "cvjsIcon_dra_p1_1_2_Print.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Print );  continue;} -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_Print('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_1_2_Print.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_Print">cvjs_Print()</a>             
+</td>
+<!-- command  "cvjs_toggleBlackWhite"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_003", "cvjs_toggleBlackWhite", floorplan_div, "cvjsIcon_dra_p1_4_1_ToggleBlackWhite.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Toggle );   continue;} -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_toggleBlackWhite('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_4_1_ToggleBlackWhite.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_toggleBlackWhite">cvjs_toggleBlackWhite()</a>             
+</td>
+<!-- command  "cvjs_setBackgroundColor"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_004", "cvjs_setBackgroundColor", floorplan_div, "cvjsIcon_dra_p1_4_2_BackgroundColor.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Background );   continue;} -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_setBackgroundColor('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_4_2_BackgroundColor.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_setBackgroundColor">cvjs_setBackgroundColor()</a>             
+    </td>
+
+
+<!-- command  "cvjs_openFileLoadToServer"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_072", "cvjs_openFileLoadToServer", floorplan_div, "cvjsIcon_dra_p5_2_1_LoadPreProcessSpaceObjects.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.FileLoad );   continue;} -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_openFileLoadToServer('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_5_1_FileLoad.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_openFileLoadToServer">cvjs_openFileLoadToServer()</a>             
+</td>
+
+<!-- command  "cvjs_interactiveSearchText"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_006", "cvjs_interactiveSearchText", floorplan_div, "cvjsIcon_dra_p1_5_2_SearchText.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Search ); continue;} -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_interactiveSearchText('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_5_2_SearchText.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_interactiveSearchText">cvjs_interactiveSearchText()</a>             
+</td>
+
+<!-- command  "cvjs_interactiveSearchText"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_006", "cvjs_interactiveSearchText", floorplan_div, "cvjsIcon_dra_p1_5_2_SearchText.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Search ); continue;} -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_interactiveSearchText('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_5_2_SearchText.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_interactiveSearchText">cvjs_interactiveSearchText()</a>             
+</td>
+
+
+</tr>        
+
+
+<tr style="background-color:rgb(255,255,255)" >            
+
+<!---    
+    if (commands[i] == "cvjs_About"){ about=true; cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_007", "cvjs_displayInformationModal_Mode", 0, "cvjsIcon_dra_p1_6_1_Information.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.About );  continue;} 
+    if (commands[i] == "cvjs_Settings"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_008", "cvjs_Settings", floorplan_div, "cvjsIcon_dra_p1_12_1_Settings.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Settings );  continue;} 
+    if (commands[i] == "cvjs_SettingsSpace"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_071", "cvjs_Settings", floorplan_div, "cvjsIcon_dra_white_Settings.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Settings );  continue;} 
+    if (commands[i] == "cvjs_interactiveLayerOff"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_009", "cvjs_interactiveLayerOff", floorplan_div, "cvjsIcon_dra_p1_6_2_LayerOff.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.LayerOff );  continue;} 
+    if (commands[i] == "cvjs_swapLayersInDrawing"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_010", "cvjs_swapLayersInDrawing", floorplan_div, "cvjsIcon_dra_p1_7_1_SwapLayers.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.SwapLayers );  continue;} 
+    if (commands[i] == "cvjs_allLayersInDrawingOn"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_011", "cvjs_allLayersInDrawingOn", floorplan_div, "cvjsIcon_dra_p1_7_2_LayerOn.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.AllLayersOn );  continue;} 
+    if (commands[i] == "cvjs_Measurement"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_012", "cvjs_Measurement", floorplan_div, "cvjsIcon_dra_p1_8_1_Measurement.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Measurement );   continue;} 
+    if (commands[i] == "cvjs_calibrateMeasurement"){  cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_013", "cvjs_calibrateMeasurement", floorplan_div, "cvjsIcon_dra_p1_8_2_CalibrateMeasurement.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Calibrate ); continue;} 
+
+-->
+
+
+<!-- command  "cvjs_Settings"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_008", "cvjs_Settings", floorplan_div, "cvjsIcon_dra_p1_12_1_Settings.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Settings );  continue;} -->
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_Settings('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_12_1_Settings.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_Settings">cvjs_Settings()</a>             
+</td>
+
+<!-- command  "cvjs_About"){ about=true; cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_007", "cvjs_displayInformationModal_Mode", 0, "cvjsIcon_dra_p1_6_1_Information.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.About );  continue;}  -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_displayInformationModal_Mode(0)"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_6_1_Information.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_displayInformationModal_Mode">cvjs_About()</a>             
+</td>
+
+<!-- command  "cvjs_interactiveLayerOff"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_009", "cvjs_interactiveLayerOff", floorplan_div, "cvjsIcon_dra_p1_6_2_LayerOff.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.LayerOff );  continue;}   -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_interactiveLayerOff('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_6_2_LayerOff.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_interactiveLayerOff">cvjs_interactiveLayerOff()</a>             
+</td>
+
+<!-- command  "cvjs_swapLayersInDrawing"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_010", "cvjs_swapLayersInDrawing", floorplan_div, "cvjsIcon_dra_p1_7_1_SwapLayers.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.SwapLayers );  continue;}   -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_swapLayersInDrawing('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_7_1_SwapLayers.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_swapLayersInDrawing">cvjs_swapLayersInDrawing()</a>             
+</td>
+
+<!-- command  "cvjs_allLayersInDrawingOn"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_011", "cvjs_allLayersInDrawingOn", floorplan_div, "cvjsIcon_dra_p1_7_2_LayerOn.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.AllLayersOn );  continue;}  -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_allLayersInDrawingOn('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_7_2_LayerOn.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_allLayersInDrawingOn">cvjs_allLayersInDrawingOn()</a>             
+</td>
+
+<!-- command  "cvjs_Measurement"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_012", "cvjs_Measurement", floorplan_div, "cvjsIcon_dra_p1_8_1_Measurement.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Measurement );   continue;}   -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_Measurement('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_8_1_Measurement.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_Measurement">cvjs_Measurement()</a>             
+</td>
+
+<!-- command  "cvjs_calibrateMeasurement"){  cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_013", "cvjs_calibrateMeasurement", floorplan_div, "cvjsIcon_dra_p1_8_2_CalibrateMeasurement.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.Calibrate ); continue;}   -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_calibrateMeasurement('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_8_2_CalibrateMeasurement.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_calibrateMeasurement">cvjs_calibrateMeasurement()</a>             
+</td>
+
+</tr>        
+
+
+
+<tr style="background-color:rgb(255,255,255)" >
+
+<!-- 
+    if (commands[i] == "cvjs_mergeDXFDWG"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_016", "cvjs_mergeDXFDWG", floorplan_div, "cvjsIcon_dra_p2_9_1_MergeRedline.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.MergeAsDXF );  continue;} 
+    if (commands[i] == "cvjs_publishPDF"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_017", "cvjs_publishPDF", floorplan_div, "cvjsIcon_dra_p2_9_2_PublishPDF.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.PublishAsPDF );  continue;} 
+    
+    if (commands[i] == "cvjs_displayMagnifyingGlass"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_014", "cvjs_displayMagnifyingGlass", floorplan_div, "cvjsIcon_dra_p1_9_1_ToggleBirdsEyeWindow.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.BirdsEye );  continue;} 
+    if (commands[i] == "cvjs_activateLineThicknessModal"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_015", "cvjs_activateLineThicknessModal", floorplan_div, "cvjsIcon_dra_p1_9_2_AdjustLineThickness.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.LineThickness );  continue;} 
+
+    if (commands[i] == "cvjs_loadStickyNotesRedlinesUser"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_018", "cvjs_loadStickyNotesRedlinesUser", floorplan_div, "cvjsIcon_dra_p2_1_2_LoadRedline.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.LoadRedline );  continue;} 
+    if (commands[i] == "cvjs_saveStickyNotesRedlinesUser"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_019", "cvjs_saveStickyNotesRedlinesUser", floorplan_div, "cvjsIcon_dra_p2_1_1_SaveRedline.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.SaveRedline );   continue;} 
+    if (commands[i] == "cvjs_setRedlineColor"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_020", "cvjs_setRedlineColor", floorplan_div, "cvjsIcon_dra_p2_3_1_RedlineColor.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Color );  continue;} 
+
+    -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_mergeDXFDWG('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_9_1_MergeRedline.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_mergeDXFDWG">cvjs_mergeDXFDWG()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_publishPDF('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_9_2_PublishPDF.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_publishPDF">cvjs_publishPDF()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_displayMagnifyingGlass('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_9_1_ToggleBirdsEyeWindow.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_displayMagnifyingGlass">cvjs_displayMagnifyingGlass()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_activateLineThicknessModal('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p1_9_2_AdjustLineThickness.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_activateLineThicknessModal">cvjs_activateLineThicknessModal()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_loadStickyNotesRedlinesUser('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_1_2_LoadRedline.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_loadStickyNotesRedlinesUser">cvjs_loadStickyNotesRedlinesUser()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_saveStickyNotesRedlinesUser('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_1_1_SaveRedline.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#ccvjs_saveStickyNotesRedlinesUser">cvjs_saveStickyNotesRedlinesUser()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_setRedlineColor('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_3_1_RedlineColor.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_setRedlineColor">cvjs_setRedlineColor()</a>             
+</td>
+
+
+</tr>        
+
+
+<tr style="background-color:rgb(255,255,255)" >
+
+<!-- 
+    
+    if (commands[i] == "cvjs_drawStickyNote"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_022", "cvjs_drawStickyNote", floorplan_div, "cvjsIcon_dra_p2_4_1_StickyNote.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.StickyNote );							  continue;} 
+    if (commands[i] == "cvjs_drawRedlineText"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_023", "cvjs_drawRedlineText", floorplan_div, "cvjsIcon_dra_p2_8_2_RedlineText.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Text );  continue;} 
+
+    if (commands[i] == "cvjs_setRedlineThickness"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_021", "cvjs_setRedlineThickness", floorplan_div, "cvjsIcon_dra_p2_3_2_RedlineThickness.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Thickness );		  continue;} 
+    if (commands[i] == "cvjs_drawRedline_Freehand"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_024", "cvjs_drawRedline_Freehand", floorplan_div, "cvjsIcon_dra_p2_5_1_FreehandRedline.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Freehand );   continue;} 
+    if (commands[i] == "cvjs_drawRedlineEllipseCloud"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_025", "cvjs_drawRedlineEllipseCloud", floorplan_div, "cvjsIcon_dra_p2_5_2_RedlineCloud.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Cloud );	  continue;} 
+    if (commands[i] == "cvjs_drawRedlineFilledPolygon"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_026", "cvjs_drawRedlineFilledPolygon", floorplan_div, "cvjsIcon_dra_p2_6_1_RedlineFilledPolygon.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.FilledPolygon );   continue;} 
+    if (commands[i] == "cvjs_drawRedlinePolyline"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_027", "cvjs_drawRedlinePolyline", floorplan_div, "cvjsIcon_dra_p2_6_2_RedlinePolygon.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Polyline );   continue;} 
+
+-->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawStickyNote('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_4_1_StickyNote.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawStickyNote">cvjs_drawStickyNote()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedlineText('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_8_2_RedlineText.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawRedlineText">cvjs_drawRedlineText()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_setRedlineThickness('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_3_2_RedlineThickness.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_setRedlineThickness">cvjs_setRedlineThickness()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedline_Freehand('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_5_1_FreehandRedline.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawRedline_Freehand">cvjs_drawRedline_Freehand()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedlineEllipseCloud('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_5_2_RedlineCloud.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawRedlineEllipseCloud">cvjs_drawRedlineEllipseCloud()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedlineFilledPolygon('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_6_1_RedlineFilledPolygon.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#ccvjs_drawRedlineFilledPolygon">cvjs_drawRedlineFilledPolygon()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedlinePolyline('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_6_2_RedlinePolygon.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawRedlinePolyline">cvjs_drawRedlinePolyline()</a>             
+</td>
+
+</tr>        
+    
+    
+<tr style="background-color:rgb(255,255,255)" >
+
+<!-- 
+    if (commands[i] == "cvjs_drawRedlineArrow"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_030", "cvjs_drawRedlineArrow", floorplan_div, "cvjsIcon_dra_p2_8_1_RedlineArrow.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Arrow );  continue;} 
+    if (commands[i] == "cvjs_PinMarker"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_034", "cvjs_PinMarker", floorplan_div, "cvjsIcon_dra_p6_1_1_PinMarker.png", languageTable.languages[cvjs_currentLanguage].IconPage_p6_1.PinMarker );		   continue;} 
+    if (commands[i] == "cvjs_drawRedlineFilledRectangle"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_028", "cvjs_drawRedlineFilledRectangle", floorplan_div, "cvjsIcon_dra_p2_7_1_RedlineFilledRect.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.FilledRectangle );  continue;} 
+    if (commands[i] == "cvjs_drawRedlineRectangle"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_029", "cvjs_drawRedlineRectangle", floorplan_div, "cvjsIcon_dra_p2_7_2_RedlineRect.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.Rectangle );  continue;} 
+    
+    if (commands[i] == "cvjs_deleteSingleRedline"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_031", "cvjs_deleteSingleRedline", floorplan_div, "cvjsIcon_dra_p2_2_1_DeleteSingleRedline.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.DeleteSingle );  continue;} 
+    if (commands[i] == "cvjs_deleteLastRedline"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_032", "cvjs_deleteLastRedline", floorplan_div, "cvjsIcon_dra_p2_2_2_DeleteLastRedline.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.DeleteLast );  continue;} 
+    if (commands[i] == "cvjs_clearCurrentRedline"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_033", "cvjs_clearCurrentRedline", floorplan_div, "cvjsIcon_dra_p2_4_2_ClearRedlines.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.ClearAll );		   continue;} 
+    // 3.3.02d
+    
+    -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedlineArrow('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_8_1_RedlineArrow.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawRedlineArrow">cvjs_drawRedlineArrow()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_PinMarker('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p6_1_1_PinMarker.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_PinMarker">cvjs_PinMarker()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedlineFilledRectangle('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_7_1_RedlineFilledRect.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawRedlineFilledRectangle">cvjs_drawRedlineFilledRectangle()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_drawRedlineRectangle('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_7_2_RedlineRect.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_drawRedlineRectangle">cvjs_drawRedlineRectangle()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_deleteSingleRedline('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_2_1_DeleteSingleRedline.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_deleteSingleRedline">cvjs_deleteSingleRedline()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_deleteLastRedline('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_2_2_DeleteLastRedline.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_deleteLastRedline">cvjs_deleteLastRedline()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_clearCurrentRedline('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p2_4_2_ClearRedlines.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_clearCurrentRedline">cvjs_clearCurrentRedline()</a>             
+</td>
+
+</tr>        
+        
+        
+<tr style="background-color:rgb(255,255,255)" >
+
+<!-- 
+    if (commands[i] == "cvjs_quickCount"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_039", "cvjs_quickCount", floorplan_div, "cvjsIcon_dra_p3_4_1_QuickCount.png", languageTable.languages[cvjs_currentLanguage].IconPage_p3_8.QuickCount );   continue;} 
+    if (commands[i] == "cvjs_showMeCounts"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_040", "cvjs_showMeCounts", floorplan_div, "cvjsIcon_dra_p3_4_2_SummaryQuickCount.png", languageTable.languages[cvjs_currentLanguage].IconPage_p3_8.CountSum );		   continue;} 
+    if (commands[i] == "cvjs_clearQuickCounts"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_041", "cvjs_clearQuickCounts", floorplan_div, "cvjsIcon_dra_p3_5_1_ClearQuickCount.png", languageTable.languages[cvjs_currentLanguage].IconPage_p3_8.ClearCount );							   continue;} 
+    if (commands[i] == "cvjs_insertImageLink"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_035", "cvjs_insertImageLink", floorplan_div, "cvjsIcon_dra_p3_2_2_InsertImageLink.png", languageTable.languages[cvjs_currentLanguage].IconPage_p3_8.InsertLink );   continue;} 
+    if (commands[i] == "cvjs_loadAllImageLinks"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_036", "cvjs_loadAllImageLinks", floorplan_div, "cvjsIcon_dra_p3_2_1_LoadImageLinks.png", languageTable.languages[cvjs_currentLanguage].IconPage_p3_8.LoadLink );  continue;} 
+    if (commands[i] == "cvjs_saveAllImageLinks"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_037", "cvjs_saveAllImageLinks", floorplan_div, "cvjsIcon_dra_p3_3_1_SaveImageLinks.png", languageTable.languages[cvjs_currentLanguage].IconPage_p3_8.SaveLink );   continue;} 
+    if (commands[i] == "cvjs_clearAllImageLinks"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_038", "cvjs_clearAllImageLinks", floorplan_div, "cvjsIcon_dra_p3_3_2_ClearImageLinks.png", languageTable.languages[cvjs_currentLanguage].IconPage_p3_8.ClearLink );   continue;} 
+    
+    -->            
+
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_quickCount('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p3_4_1_QuickCount.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_quickCount">cvjs_quickCount()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_showMeCounts('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p3_4_2_SummaryQuickCount.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_showMeCounts">cvjs_showMeCounts()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_clearQuickCounts('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p3_5_1_ClearQuickCount.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_clearQuickCounts">cvjs_clearQuickCounts()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_insertImageLink('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p3_2_2_InsertImageLink.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_insertImageLink">cvjs_insertImageLink()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_loadAllImageLinks('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p3_2_1_LoadImageLinks.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_loadAllImageLinks">cvjs_loadAllImageLinks()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_saveAllImageLinks('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p3_3_1_SaveImageLinks.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_saveAllImageLinks">cvjs_saveAllImageLinks()</a>             
+</td>
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_clearAllImageLinks('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p3_3_2_ClearImageLinks.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_clearAllImageLinks">cvjs_clearAllImageLinks()</a>             
+</td>
+
+
+</tr>        
+
+            
+                        
+<tr style="background-color:rgb(255,255,255)" >
+
+<!-- 
+
+    if (commands[i] == "cvjs_spaceObjectSettings") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_046", "cvjs_spaceObjectSettings", floorplan_div, "cvjsIcon_dra_p5_1_1_Settings.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Settings );   continue;}
+    if (commands[i] == "cvjs_exitCompareDrawings"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_045", "cvjs_exitCompareDrawings", floorplan_div, "cvjsIcon_dra_p4_2_2_ExitCompare.png", languageTable.languages[cvjs_currentLanguage].IconPage_p4_8.CompareExit );   continue;} 
+    if (commands[i] == "cvjs_compareDrawings_LoadSecondDrawing"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_042", "cvjs_compareDrawings_LoadSecondDrawing", floorplan_div, "cvjsIcon_dra_p4_1_1_LoadSecondCompare.png", languageTable.languages[cvjs_currentLanguage].IconPage_p4_8.CompareLoad );  continue;} 
+    if (commands[i] == "cvjs_compareDrawings_ToggleDrawings"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_043", "cvjs_compareDrawings_ToggleDrawings", floorplan_div, "cvjsIcon_dra_p4_1_2_ToggleCompareIndividually.png", languageTable.languages[cvjs_currentLanguage].IconPage_p4_8.CompareToggle );   continue;} 
+    
+    if (commands[i] == "cvjs_compareDrawings_ToggleDrawingOverlay"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_044", "cvjs_compareDrawings_ToggleDrawingOverlay", floorplan_div, "cvjsIcon_dra_p4_2_1_ToggleCompareOverlaid.png", languageTable.languages[cvjs_currentLanguage].IconPage_p4_8.CompareToggleOverlay );   continue;} 
+    if (commands[i] == "cvjs_changeSpaceObjectDisplayMode") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_047", "cvjs_changeSpaceObjectDisplayMode", floorplan_div, "cvjsIcon_dra_p5_1_2_SpaceObjectEditMode.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Mode );   continue;}
+    if (commands[i] == "cvjs_loadDrawingsWithSpaceObjects") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_048", "cvjs_loadDrawingsWithSpaceObjects", floorplan_div, "cvjsIcon_dra_p5_2_1_LoadPreProcessSpaceObjects.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Load );   continue;}
+    
+    -->            
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_spaceObjectSettings('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_1_1_Settings.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_spaceObjectSettings">cvjs_spaceObjectSettings()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_exitCompareDrawings('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p4_2_2_ExitCompare.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_exitCompareDrawings">cvjs_exitCompareDrawings()</a>             
+</td>
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_compareDrawings_LoadSecondDrawing('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p4_1_1_LoadSecondCompare.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_compareDrawings_LoadSecondDrawing">cvjs_compareDrawings_LoadSecondDrawing()</a>             
+</td>
+
+<!-- change pos 3-->
+
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_saveSpaceObjectsUser('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_6_2_DownloadProcessedSpaceObjects.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_saveSpaceObjectsUser">cvjs_saveSpaceObjectsUser()</a>             
+</td>
+
+
+
+
+<!-- change pos 1-->
+
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_LayerListSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_2_2_SpaceObjectsLayerList.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_LayerListSpaceObject">cvjs_LayerListSpaceObject()</a>             
+</td>
+
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_changeSpaceObjectDisplayMode('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_1_2_SpaceObjectEditMode.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_changeSpaceObjectDisplayMode">cvjs_changeSpaceObjectDisplayMode()</a>             
+</td>
+
+</tr>        
+    
+    
+
+<tr style="background-color:rgb(255,255,255)" >
+
+<!-- 
+
+    if (commands[i] == "cvjs_deleteSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_054", "cvjs_deleteSpaceObject", floorplan_div, "cvjsIcon_dra_p5_5_1_DeleteSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Delete );   continue;}
+    if (commands[i] == "cvjs_clearSpaceObjects") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_076", "cvjs_clearSpaceObjects", floorplan_div, "cvjsIcon_dra_p7_4_2_ClearSpaceObjects.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.ClearSpaces );   continue;}
+    if (commands[i] == "cvjs_LayerListSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_049", "cvjs_LayerListSpaceObject", floorplan_div, "cvjsIcon_dra_p5_2_2_SpaceObjectsLayerList.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.LayerList );   continue;}
+    if (commands[i] == "cvjs_addRectangleSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_050", "cvjs_addRectangleSpaceObject", floorplan_div, "cvjsIcon_dra_p5_3_1_RectangleSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Rect );   continue;}
+    if (commands[i] == "cvjs_addPolygonSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_051", "cvjs_addPolygonSpaceObject", floorplan_div, "cvjsIcon_dra_p5_3_2_PolygonSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Polygon );   continue;}
+    if (commands[i] == "cvjs_addCircleSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_052", "cvjs_addCircleSpaceObject", floorplan_div, "cvjsIcon_dra_p5_4_1_CircleSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Circle );   continue;}
+
+    if (commands[i] == "cvjs_copyCircleSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_053", "cvjs_copyCircleSpaceObject", floorplan_div, "cvjsIcon_dra_p5_4_2_CopyCircleSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.CopyCircle );   continue;}
+
+-->            
+    
+    <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="javascript:cvjs_deleteSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_5_1_DeleteSpaceObject.png" height="24px" /></a>
+        </td>
+        <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_deleteSpaceObject">cvjs_deleteSpaceObject()</a>             
+    </td>
+    <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="javascript:cvjs_clearSpaceObjects('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p7_4_2_ClearSpaceObjects.png" height="24px" /></a>
+        </td>
+        <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_clearSpaceObjects">cvjs_clearSpaceObjects()</a>             
+    </td>
+
+
+<!--   change pos-->
+
+<td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="javascript:cvjs_compareDrawings_ToggleDrawingOverlay('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p4_2_1_ToggleCompareOverlaid.png" height="24px" /></a>
+    </td>
+    <td>
+    <canvas id="dummy" width="10" height="10"></canvas>
+    </td>
+    <td>
+        <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_compareDrawings_ToggleDrawingOverlay">cvjs_compareDrawings_ToggleDrawingOverlay()</a>             
+</td>
+
+
+    <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="javascript:cvjs_addRectangleSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_3_1_RectangleSpaceObject.png" height="24px" /></a>
+        </td>
+        <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_addRectangleSpaceObject">cvjs_addRectangleSpaceObject()</a>             
+    </td>
+    <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="javascript:cvjs_addPolygonSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_3_2_PolygonSpaceObject.png" height="24px" /></a>
+        </td>
+        <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_addPolygonSpaceObject">cvjs_addPolygonSpaceObject()</a>             
+    </td>
+    <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="javascript:cvjs_addCircleSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_4_1_CircleSpaceObject.png" height="24px" /></a>
+        </td>
+        <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_addCircleSpaceObject">cvjs_addCircleSpaceObject()</a>             
+    </td>
+
+    <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="javascript:cvjs_copyCircleSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_4_2_CopyCircleSpaceObject.png" height="24px" /></a>
+        </td>
+        <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+            <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_copyCircleSpaceObject">cvjs_copyCircleSpaceObject()</a>             
+    </td>
+    
+
+
+
+
+</tr>        
+        
+        
+<tr style="background-color:rgb(255,255,255)" >
+
+    <!-- 
+    
+    if (commands[i] == "cvjs_setSpacePolygonOnLayer") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_055", "cvjs_setSpacePolygonOnLayer", floorplan_div, "cvjsIcon_dra_p5_5_2_MakeSpaceObjectOnPolygon.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.SelectPolygon );   continue;}
+    if (commands[i] == "cvjs_displaySpaceObjectsStructure") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_056", "cvjs_displaySpaceObjectsStructure", floorplan_div, "cvjsIcon_dra_p5_6_1_SpaceObjectDisplayMode.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Publish );   continue;}
+    if (commands[i] == "cvjs_saveSpaceObjectsUser"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_074", "cvjs_saveSpaceObjectsUser", floorplan_div, "cvjsIcon_dra_p5_6_2_DownloadProcessedSpaceObjects.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.SaveSpaceObjects );   continue;} 
+    // 6.3.18-19
+    if (commands[i] == "cvjs_resizeSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_057", "cvjs_resizeSpaceObject", floorplan_div, "cvjsIcon_dra_p7_3_1_ResizeSpaceImageObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.ResizeSpaceObject );   continue;}
+    if (commands[i] == "cvjs_moveSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_058", "cvjs_moveSpaceObject", floorplan_div, "cvjsIcon_dra_p7_3_3_DragSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.MoveSpaceObject );   continue;}    
+    // 6.3.52
+    if (commands[i] == "cvjs_rotateSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_075", "cvjs_rotateSpaceObject", floorplan_div, "cvjsIcon_dra_p7_3_5_RotateSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.RotateSpaceObject );   continue;}
+    // 3.3.07a
+    if (commands[i] == "cvjs_loadSpaceObjectsUser"){cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_059", "cvjs_loadSpaceObjectsUser", floorplan_div, "cvjsIcon_dra_p5_7_1_LoadSpaceOverlay.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.LoadSpaceObjects );  continue;}	
+    
+    -->          
+    
+    <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+        </td>
+        <td>
+        <canvas id="dummy" width="10" height="10"></canvas>
+        </td>
+        <td>
+    </td>
+
+
+        
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_mergeQR('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p6_2_1_MergeQR.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_mergeQR">cvjs_mergeQR()</a>             
+        </td>
+    
+
+<!--   change pos with 3-->
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_compareDrawings_ToggleDrawings('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p4_1_2_ToggleCompareIndividually.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_compareDrawings_ToggleDrawings">cvjs_compareDrawings_ToggleDrawings()</a>             
+        </td>
+        
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_resizeSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p7_3_1_ResizeSpaceImageObject.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+            <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_resizeSpaceObject">cvjs_resizeSpaceObject()</a>             
+        </td>
+        
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_moveSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p7_3_3_DragSpaceObject.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_moveSpaceObject">cvjs_moveSpaceObject()</a>             
+        </td>
+        
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_rotateSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p7_3_5_RotateSpaceObject.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_rotateSpaceObject">cvjs_rotateSpaceObject()</a>             
+        </td>
+
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_rotateSpaceObject('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p7_3_5_RotateSpaceObject.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_rotateSpaceObject">cvjs_rotateSpaceObject()</a>             
+        </td>
+                        
+    </tr>        
+                        
+
+    <tr style="background-color:rgb(255,255,255)" >
+
+        <!-- 
+    if (commands[i] == "cvjs_customCommand_01") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_01", "cvjs_customCommand_01", floorplan_div, "cvjs_customCommand_01", cvjs_customCommandText[0] );   continue;}
+    if (commands[i] == "cvjs_customCommand_20") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_02", "cvjs_customCommand_02", floorplan_div, "cvjsIcon_customCommand_02.png", cvjs_customCommandText[1] );   continue;}
+    if (commands[i] == "cvjs_mergeQR") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_069", "cvjs_mergeQR", floorplan_div, "cvjsIcon_dra_p6_2_1_MergeQR.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.MergeWithQR );   continue;}
+                
+        -->            
+            
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+        </td>
+     
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+        </td>
+          
+            <td>
+                <canvas id="dummy" width="10" height="10"></canvas>
+                </td>
+                <td>
+                    <a href="javascript:cvjs_customCommand_01('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_customCommand_01.png" height="24px" /></a>
+                </td>
+                <td>
+                <canvas id="dummy" width="10" height="10"></canvas>
+                </td>
+                <td>
+                    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_customCommand_01">cvjs_customCommand_01() .. through...</a>             
+            </td>
+            <td>
+                <canvas id="dummy" width="10" height="10"></canvas>
+                </td>
+                <td>
+                    <a href="javascript:cvjs_customCommand_20('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_customCommand_01.png" height="24px" /></a>
+                </td>
+                <td>
+                <canvas id="dummy" width="10" height="10"></canvas>
+                </td>
+                <td>
+                    <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_customCommand_20">cvjs_customCommand_20()</a>             
+                   
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_setSpacePolygonOnLayer('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_5_2_MakeSpaceObjectOnPolygon.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_setSpacePolygonOnLayer">cvjs_setSpacePolygonOnLayer()</a>             
+        </td>
+
+        <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="javascript:cvjs_loadDrawingsWithSpaceObjects('floorPlan')"><img src="../app/images/singleIcons/cvjsIcon_dra_p5_2_1_LoadPreProcessSpaceObjects.png" height="24px" /></a>
+            </td>
+            <td>
+            <canvas id="dummy" width="10" height="10"></canvas>
+            </td>
+            <td>
+                <a href="https://cadviewer.com/cadviewerproapi/global.html#cvjs_loadDrawingsWithSpaceObjects">cvjs_loadDrawingsWithSpaceObjects()</a>             
+        </td>
+    
+    
+    </tr>        
+
+
+</table>
+    
+
+<font size="+1"> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+
+ 
+
+    
+    if (commands[i] == "cvjs_saveAsSVG") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_060", "cvjs_saveAsSVG", floorplan_div, "cvjsIcon_dra_p5_6_2_DownloadProcessedSpaceObjects.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.DownloadSVG );   continue;}
+
+    // 3.3.05d
+// 		add 20 new placeholders for custom commands
+    if (commands[i] == "cvjs_customCommand_01") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_01", "cvjs_customCommand_01", floorplan_div, "cvjsIcon_customCommand_01.png", cvjs_customCommandText[0] );   continue;}
+    if (commands[i] == "cvjs_customCommand_02") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_02", "cvjs_customCommand_02", floorplan_div, "cvjsIcon_customCommand_02.png", cvjs_customCommandText[1] );   continue;}
+    if (commands[i] == "cvjs_customCommand_03") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_03", "cvjs_customCommand_03", floorplan_div, "cvjsIcon_customCommand_03.png", cvjs_customCommandText[2] );   continue;}
+    if (commands[i] == "cvjs_customCommand_04") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_04", "cvjs_customCommand_04", floorplan_div, "cvjsIcon_customCommand_04.png", cvjs_customCommandText[3] );   continue;}
+    if (commands[i] == "cvjs_customCommand_05") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_05", "cvjs_customCommand_05", floorplan_div, "cvjsIcon_customCommand_05.png", cvjs_customCommandText[4] );   continue;}
+    if (commands[i] == "cvjs_customCommand_06") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_06", "cvjs_customCommand_06", floorplan_div, "cvjsIcon_customCommand_06.png", cvjs_customCommandText[5] );   continue;}
+    if (commands[i] == "cvjs_customCommand_07") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_07", "cvjs_customCommand_07", floorplan_div, "cvjsIcon_customCommand_07.png", cvjs_customCommandText[6] );   continue;}
+    if (commands[i] == "cvjs_customCommand_08") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_08", "cvjs_customCommand_08", floorplan_div, "cvjsIcon_customCommand_08.png", cvjs_customCommandText[7] );   continue;}
+    if (commands[i] == "cvjs_customCommand_09") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_09", "cvjs_customCommand_09", floorplan_div, "cvjsIcon_customCommand_09.png", cvjs_customCommandText[8] );   continue;}
+    if (commands[i] == "cvjs_customCommand_10") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_10", "cvjs_customCommand_10", floorplan_div, "cvjsIcon_customCommand_10.png", cvjs_customCommandText[9] );   continue;}
+    if (commands[i] == "cvjs_customCommand_11") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_11", "cvjs_customCommand_11", floorplan_div, "cvjsIcon_customCommand_01.png", cvjs_customCommandText[0] );   continue;}
+    if (commands[i] == "cvjs_customCommand_12") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_12", "cvjs_customCommand_12", floorplan_div, "cvjsIcon_customCommand_02.png", cvjs_customCommandText[11] );   continue;}
+    if (commands[i] == "cvjs_customCommand_13") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_13", "cvjs_customCommand_13", floorplan_div, "cvjsIcon_customCommand_03.png", cvjs_customCommandText[12] );   continue;}
+    if (commands[i] == "cvjs_customCommand_14") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_14", "cvjs_customCommand_14", floorplan_div, "cvjsIcon_customCommand_04.png", cvjs_customCommandText[13] );   continue;}
+    if (commands[i] == "cvjs_customCommand_15") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_15", "cvjs_customCommand_15", floorplan_div, "cvjsIcon_customCommand_05.png", cvjs_customCommandText[14] );   continue;}
+    if (commands[i] == "cvjs_customCommand_16") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_16", "cvjs_customCommand_16", floorplan_div, "cvjsIcon_customCommand_06.png", cvjs_customCommandText[15] );   continue;}
+    if (commands[i] == "cvjs_customCommand_17") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_17", "cvjs_customCommand_17", floorplan_div, "cvjsIcon_customCommand_07.png", cvjs_customCommandText[16] );   continue;}
+    if (commands[i] == "cvjs_customCommand_18") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_18", "cvjs_customCommand_18", floorplan_div, "cvjsIcon_customCommand_08.png", cvjs_customCommandText[17] );   continue;}
+    if (commands[i] == "cvjs_customCommand_19") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_19", "cvjs_customCommand_19", floorplan_div, "cvjsIcon_customCommand_09.png", cvjs_customCommandText[18] );   continue;}
+    if (commands[i] == "cvjs_customCommand_20") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_custom_20", "cvjs_customCommand_20", floorplan_div, "cvjsIcon_customCommand_10.png", cvjs_customCommandText[19] );   continue;}
+
+
+    
+    // 4.1.02i   - new Space Image (Sensor) commands
+    if (commands[i] == "cvjs_addFixedSizeImageSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_061", "cvjs_addFixedSizeImageSpaceObject", floorplan_div, "cvjsIcon_dra_p7_2_1_FixedSpaceImageObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.InsertSpaceImage );   continue;}
+    if (commands[i] == "cvjs_addDragRectangleImageSpaceObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_062", "cvjs_addDragRectangleImageSpaceObject", floorplan_div, "cvjsIcon_dra_p7_2_2_RectangleSpaceImageObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.DragSpaceImage );   continue;}
+    if (commands[i] == "cvjs_resizeSpaceImageObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_063", "cvjs_resizeSpaceImageObject", floorplan_div, "cvjsIcon_dra_p7_3_1_ResizeSpaceImageObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.ResizeSpaceImage );   continue;}
+    if (commands[i] == "cvjs_deleteSpaceImageObject") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_064", "cvjs_deleteSpaceImageObject", floorplan_div, "cvjsIcon_dra_p5_5_1_DeleteSpaceObject.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.Delete );   continue;}
+    // 4.1.03a  - have change saveAsSVGOnServer to saveAsSVG
+    if (commands[i] == "cvjs_saveAsSVGOnServer") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_065", "cvjs_saveAsSVG", floorplan_div, "cvjsIcon_dra_p6_2_1_PublishSVG.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.DownloadSVG );   continue;}
+    //if (commands[i] == "cvjs_saveAsSVGOnServer") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_p_1_5", "cvjs_saveAsSVGOnServer", floorplan_div, "cvjsIcon_dra_p6_2_1_PublishSVG.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.DownloadSVG );   continue;}
+
+
+    // 3.3.02g
+//			<command>cvjs_customLayerList</command>
+//			<command>cvjs_downloadAsSVG</command>
+//			<command>cvjs_mergeQR</command>
+    if (commands[i] == "cvjs_customFileLoad"){ cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_066", "cvjs_customFileLoad", floorplan_div, "cvjsIcon_dra_p1_5_1_CustomFileLoad.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.FileLoad );   continue;} 
+    if (commands[i] == "cvjs_customLayerList") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_067", "cvjs_customLayerList", floorplan_div, "cvjsIcon_dra_p5_2_2_CustomLayerList.png", languageTable.languages[cvjs_currentLanguage].IconPage_p1_8.LayerList );   continue;}
+    if (commands[i] == "cvjs_downloadAsSVG") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_068", "cvjs_downloadAsSVG", floorplan_div, "cvjsIcon_dra_p6_2_1_PublishSVG.png", languageTable.languages[cvjs_currentLanguage].IconPage_p5_8.DownloadSVG );   continue;}
+    if (commands[i] == "cvjs_mergeQR") {cvjs_insertSingleIconImage(floorplan_div,"topIconMenu_placeholder_1" , "cvjs_cmd_069", "cvjs_mergeQR", floorplan_div, "cvjsIcon_dra_p6_2_1_MergeQR.png", languageTable.languages[cvjs_currentLanguage].IconPage_p2_8.MergeWithQR );   continue;}
+
+
+
+*/
+
+-->
+
+
+
+
+<style>
+
+#cadviewer_table_01 {
+	position: relative; 
+	left: 10px; 
+	top: 20px; 
+}
+
+
+#icon_div_popup {
+	position: absolute;
+	border: 1px solid black;
+	background: #F5F5F5;
+	
+	font-family:Verdana;
+	font-size:9pt;
+	
+	
+}
+
+
+</style>
+
+
+<div id="myImagesToDrag"></div>
+
+<div id="icon_div_popup"></div>
+
+<script>
+
+
+var insertImageSelected = 0;
+
+var highlight_colorgrade_C_legend_1 = "#fe50d9";
+var highlight_colorgrade_C_1 = {
+            fill: '#fe50d9',
+            "fill-opacity": "0.9",
+            stroke: '#fe50d9',
+            'stroke-width': 1,
+            'stroke-opacity': "1",
+            'stroke-linejoin': 'round'
+        };
+
+var highlight_colorgrade_C_legend_2 = "#0dff8a";
+var highlight_colorgrade_C_2 = {
+            fill: '#0dff8a',
+            "fill-opacity": "0.9",
+            stroke: '#0dff8a',
+            'stroke-width': 1,
+            'stroke-opacity': "1",
+            'stroke-linejoin': 'round'
+        };
+
+var highlight_colorgrade_C_legend_3 = "#0c8dff";
+var highlight_colorgrade_C_3 = {
+            fill: '#0c8dff',
+            "fill-opacity": "0.9",
+            stroke: '#0c8dff',
+            'stroke-width': 1,
+            'stroke-opacity': "1",
+            'stroke-linejoin': 'round'
+        };
+
+var highlight_colorgrade_C_legend_4 = "#fafa00";
+var highlight_colorgrade_C_4 = {
+            fill: '#fafa00',
+            "fill-opacity": "0.9",
+            stroke: '#fafa00',
+            'stroke-width': 1,
+            'stroke-opacity': "1",
+            'stroke-linejoin': 'round'
+        };
+
+var highlight_colorgrade_C_legend_5 = "#ff00dd";
+var highlight_colorgrade_C_5 = {
+            fill: '#ff00dd',
+            "fill-opacity": "0.9",
+            stroke: '#ff00dd',
+            'stroke-width': 1,
+            'stroke-opacity': "1",
+            'stroke-linejoin': 'round'
+        };
+
+
+var no_colorgrade_C_reading = {
+            fill: '#A2C2A2',
+            "fill-opacity": "0.5",
+            stroke: '#D2D2D2',
+            'stroke-width': 1,
+            'stroke-opacity': "1",
+            'stroke-linejoin': 'round'
+        };
+
+
+
+
+</script>
+	<table id="cadviewer_table_01">
+	<tr>
+	<td>
+	<!--This is the CADViewer floorplan div declaration -->
+
+		<div id="floorPlan"  style="border:2px none; width:1800;height:1400;">
+		</div>
+	<!--End of CADViewer declaration -->
+	</td>
+	</tr>
+	</table>
+</body>
+</html>

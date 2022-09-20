@@ -1,0 +1,72 @@
+{
+  "name": "cadviewer-testapp-vue-01",
+  "version": "7.1.8",
+  "description": "CADViewer - JavaScript CAD Viewer sample implementation for VueJS",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "cadviewer": "^7.1.8",
+    "core-js": "^3.25.0",
+    "popper.js": "^1.16.1",
+    "vue": "^2.7.10",
+    "xml-loader": "^1.2.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.19",
+    "@vue/cli-service": "^4.5.19",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "vue-template-compiler": "^2.7.10"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "author": "charnung",
+  "license": "TMS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CADViewer/cadviewer-testapp-vue-01.git"
+  },
+  "bugs": {
+    "url": "https://github.com/CADViewer"
+  },
+  "homepage": "https://cadviewer.com",
+  "keywords": [
+    "CAD",
+    "javascript",
+    "CAD Viewer",
+    "DWG",
+    "DXF",
+    "DWF",
+    "PDF",
+    "DGN",
+    "TIFF",
+    "Annotate",
+    "Redline",
+    "Space Management",
+    "CAFM",
+    "IOT",
+    "Asset Management"
+  ],
+  "main": "CADViewerCanvas.vue"
+}

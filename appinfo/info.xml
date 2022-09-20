@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>cadviewer</id>
+    <name>Cadviewer</name>
+    <summary>A vue example app</summary>
+    <description><![CDATA[Nothing for now]]></description>
+    <version>0.0.1</version>
+    <licence>agpl</licence>
+    <author mail="kevin.wamba@kevmax.com" homepage="https://www.kevmax.com/">Kevin WAMBA</author>
+    <namespace>Cadviewer</namespace>
+    <category>files</category>
+    <category>tools</category>
+    <bugs>https://www.kevmax.com/</bugs>
+    <dependencies>
+        <nextcloud min-version="19" max-version="22"/>
+    </dependencies>
+</info>

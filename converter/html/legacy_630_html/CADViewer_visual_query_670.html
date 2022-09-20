@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <title>CADViewer</title>
+    <link rel="icon" href="https://cadviewer.com/images/cvlogo.png">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="TMS" />
+    <meta name="created" content="Fri, 17 Apr 2020 07:14:30 GMT" />
+    <meta name="description" content="Tailor Made Software  - CADViewer Online Sample " />
+    <meta name="keywords" content="" />
+
+
+	<script src="../app/js/jquery-2.2.3.js" type="text/javascript"></script>
+	<script src="../app/js/jquery.qtip.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery.qtip.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/popper.js" type="text/javascript"></script>
+
+	<script src="../app/js/bootstrap.min.js" type="text/javascript"></script>
+	<link href="../app/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/jquery-ui-1.11.4.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery-ui-1.11.4.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+	<script src="../app/cv/cv-pro/cadviewer.min.js" type="text/javascript" ></script> 
+	<script src="../app/cv/cv-custom_commands/CADViewer_custom_commands.js" type="text/javascript" ></script>
+
+
+	<script src="../app/cv/cvlicense.js" type="text/javascript" ></script>
+	 
+	<script src="../app/js/bootstrap-multiselect.js" type="text/javascript" ></script>
+	<link href="../app/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+
+	<link href="../app/css/cvjs_7.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/library_js_svg_path.js" type="text/javascript"></script>			
+	<script src="../app/js/snap.svg-min.js" type="text/javascript" ></script>
+
+	<script src="../app/js/cvjs_api_styles_2_0_26.js" type="text/javascript" ></script>
+	<script src="../app/js/rgbcolor.js"type="text/javascript" ></script>
+	<script src="../app/js/StackBlur.js"type="text/javascript" ></script>
+	<script src="../app/js/canvg.js" type="text/javascript"  ></script>
+	<script src="../app/js/list.js" type="text/javascript"></script>
+	<script src="../app/js/jscolor.js" type="text/javascript" ></script>
+	
+	<script src="../app/js/jstree/jstree.min.js"></script>
+	<script src="../app/js/xml2json.min.js"></script>
+	<script src="../app/js/d3.v3.min.js"></script>  <script src="../app/js/qrcode.min.js" type="text/javascript"></script> 
+
+	<script src="../app/js/imagetracer_v1.2.5.js" type="text/javascript"></script>	
+
+
+	<script src="../app/js/1.4.9/angular.js" type="text/javascript"></script>
+
+		
+		
+	<script type="text/javascript">
+
+
+    var ServerBackEndUrl = location.origin+"/cadviewer/";
+    var ServerUrl = location.origin+"/cadviewer/";
+    var ServerLocation = "";
+
+
+	// PATH and FILE to be loaded, can be in formats DWG, DXF, DWF, DGN, PCF, SVG , JS, DGN, PCF, JPG, GIF, PNG
+	var FileName = "../content/drawings/dwg/hq17_.dwg"
+
+
+	$(document).ready(function()
+		{
+
+		cvjs_CADViewerPro(true);
+		cvjs_debugMode(true);
+		
+        // Pass over the location of the installation, will update the internal paths
+  		cvjs_setServerLocationURL(ServerLocation, ServerUrl);
+        cvjs_setServerBackEndUrl(ServerBackEndUrl);
+        cvjs_setHandlerSettings("PHP", "floorPlan");  // remove for nodejs server
+
+
+		cvjs_PrintToPDFWindowRelativeSize(0.8);
+		cvjs_setFileModalEditMode(false);
+		cvjs_allowFileLoadToServer(true);
+
+				
+		// set the location to license key, typically the js folder in main app application folder ../app/js/
+		 cvjs_setLicenseKeyPath(ServerUrl+"/app/js/");
+		// alternatively, set the key directly, by pasting in the cvKey portion of the cvlicense.js file, note the JSON \" around all entities 	 
+		//cvjs_setLicenseKeyDirect('{ \"cvKey\": \"00110010 00110010 00110000 00110010 00110001 00111001 00111001 00110001 00110100 00111000 00110001 00110100 00110101 00110001 00110101 00110111 00110001 00110101 00111001 00110001 00110100 00111000 00110001 00110101 00110010 00110001 00110100 00110101 00110001 00110100 00110001 00110001 00110100 00110000 00110001 00111001 00110111 00110010 00110000 00110111 00110010 00110000 00110110 00110010 00110000 00110001 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00110111 00110001 00111001 00111000 00110010 00110000 00110110 00110010 00110000 00111000 00110010 00110000 00110111 00110001 00111001 00111001 00110010 00110001 00110001 00110010 00110000 00111000 00110010 00110000 00110111 00110010 00110001 00110001 00110010 00110000 00110101 00110010 00110000 00111000 \" }');		 
+
+
+//		cvjs_setRedlinesRelativePath('../redlines/demo/', ServerLocation+'/redlines/demo/');
+		cvjs_setRedlinesAbsolutePath(ServerUrl+'content/redlines/visual_query_610/', ServerLocation+'/content/redlines/visual_query_610/');
+
+
+		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES
+
+
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF LINKED IMAGE OBJECTS
+		// Redlines folder location used when file-manager is used for upload and redline selection
+//		cvjs_setInsertImageObjectsRelativePath('../drawings/demo/inserted_image_objects', ServerLocation+'/drawings/demo/inserted_image_objects/');
+//		cvjs_setInsertImageObjectsRelativePath(ServerUrl+'redlines/demo/', ServerLocation+'/drawings/demo/inserted_image_objects/');
+
+
+//		cvjs_setInsertImageObjectsRelativePath('../drawings/demo/inserted_image_objects', ServerLocation+'/drawings/demo/inserted_image_objects/');
+		cvjs_setInsertImageObjectsAbsolutePath(ServerUrl+'drawings/demo/inserted_image_objects/', ServerLocation+'/drawings/demo/inserted_image_objects/');
+
+		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF LINKED IMAGE OBJECTS
+
+
+
+		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF FILES AND FILE MANAGER
+
+		// I am setting the full path to the location of the floorplan drawings (typically  /home/myserver/drawings/floorplans/)
+		// and the relative location of floorplans drawings relative to my current location
+		// as well as the URL to the location of floorplan drawings with username and password if it is protected "" "" if not
+
+
+//		cvjs_setServerFileLocation( ServerLocation+'/drawings/demo/floorplans/', '../drawings/demo/floorplans/', ServerUrl+'drawings/demo/floorplans/',"","");
+		cvjs_setServerFileLocation_AbsolutePaths( ServerLocation+'/content/drawings/dwg/', ServerUrl+'/content/drawings/dwg/',"","");
+
+//      set funtional attributes for popup menu body when clicking on an object
+
+		var cvjsPopUpBody = "<div>Name:<br>";
+		    cvjsPopUpBody += "Category:<br>";
+		    cvjsPopUpBody += "Type:<br>";
+		    cvjsPopUpBody += "Standard:</div>";
+
+//      Setting Space Object Modals Display to be based on a callback method - VisualQuery mode -
+        cvjs_setCallbackForModalDisplay(true, myCustomPopUpBody, populateMyCustomPopUpBody);
+
+		
+		// CHANGE LANGUAGE - DEFAULT IS ENGLISH
+		cvjs_loadCADViewerLanguage("English", "/app/cv/cv-pro/language_table/cadviewerProLanguage.xml");
+		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Portuguese (Brazil)" ;  "Russian" ; "Malay" ;  "Chinese-Simplified"
+				
+		// Set Icon Menu Interface controls. Users can: 
+		// 1: Disable all icon interfaces
+		//  cvjs_displayAllInterfaceControls(false, "floorPlan");  // disable all icons for user control of interface
+		// 2: Disable either top menu icon menus or navigation menu, or both
+		//	cvjs_displayTopMenuIconBar(false, "floorPlan");  // disable top menu icon bar
+		//	cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
+		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/
+
+		cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/app/cv/cv-pro/menu_config/");
+		
+		
+		
+		// Initialize CADViewer JS  - needs the div name on the svg element on page that contains CADViewerJS and the relative location of the images and javascripts folder
+		// relative the (this) calling document, custom definition of space management popup menu and highlight attributes
+
+		//cvjs_InitCADViewerJS_highLight_popUp_app("floorPlan", "../app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, cvjsPopUpBody );
+		cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+"app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, cvjsPopUpBody );
+
+
+		// NOTE ABOVE: THESE SETTINGS ARE FOR CUSTOM POP-UP MENU DESIGN FOR LOADING OF MENU ITEMS VIA ANGULAR JS AND MYSQL
+		cvjs_conversion_clearAXconversionParameters();
+//		cvjs_conversion_addAXconversionParameter("POSTFIX", "");
+			
+		// WE SET THE RL/TL processing to create clickable hyperlinks in the drawing
+		 cvjs_conversion_addAXconversionParameter("RL", "RM_");
+		 cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
+		//cvjs_conversion_addAXconversionParameter("lpath",  ServerLocation+'/converters/ax2020');
+
+
+
+		// Load file - needs the svg div name and name and path of file to load
+		cvjs_LoadDrawing("floorPlan", FileName );
+
+
+		// set maximum CADViewer JS canvas side
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer JS canvas size
+		//	cvjs_windowResize_fixedSize( 800, 600, "floorPlan");		
+   });  // end ready()
+
+
+
+
+   $(window).resize(function() {
+		// set maximum CADViewer JS canvas side
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer JS canvas size
+		//	cvjs_resizeWindow_fixedSize(800, 600, "floorPlan");		
+   });
+
+
+/// NOTE: THESE METHODS BELOW ARE JS SCRIPT CALLBACK METHODS FROM CADVIEWER JS, THEY NEED TO BE IMPLEMENTED BUT CAN BE EMPTY
+
+
+	function cvjs_OnLoadEnd(){
+			// generic callback method, called when the drawing is loaded
+			// here you fill in your stuff, call DB, set up arrays, etc..
+			// this method MUST be retained as a dummy method! - if not implemeted -
+
+			cvjs_resetZoomPan("floorPlan");
+
+
+			// declare layers for room and text handling
+			textLayer1 = cvjs_newLayer(textLayer1);
+			roomLayer1 = cvjs_newLayer(roomLayer1);
+
+
+
+	}
+
+
+	function cvjs_OnLoadEndRedlines(){
+			// generic callback method, called when the redline is loaded
+			// here you fill in your stuff, hide specific users and lock specific users
+			// this method MUST be retained as a dummy method! - if not implemeted -
+	}
+
+
+//	// generic callback method, tells which FM object has been clicked
+//	function cvjs_change_space(){
+//
+//	}
+
+	function cvjs_graphicalObjectCreated(graphicalObject){
+	// do something with the graphics object created!
+//		window.alert(graphicalObject);
+	}
+
+
+	function cvjs_ObjectSelected(rmid){
+		// Visual Query ,update scrollbar with Space Items
+		vqUpdateScrollbar(rmid);
+	}
+
+/// NOTE: THESE METHODS ABOVE ARE JS SCRIPT CALLBACK METHODS FROM CADVIEWER JS, THEY NEED TO BE IMPLEMENTED BUT CAN BE EMPTY
+
+
+/// NOTE: THESE METHODS BELOW ARE SIMPLE SAMPLE METHODS OF CADVIEWER JS API USING THE HTML INPUT AND BUTTONS DEFINED ON THIS PAGE
+
+
+// This method is linked to the save redline icon in the imagemap
+function cvjs_saveStickyNotesRedlinesUser(){
+
+	// there are two modes, user handling of redlines
+	// alternatively use the build in redline file manager
+	 cvjs_openRedlineSaveModal("floorPlan");
+
+	// custom method startMethodRed to set the name and location of redline to save
+	// see implementation below
+	//startMethodRed();
+	// API call to save stickynotes and redlines
+	//cvjs_saveStickyNotesRedlines("floorPlan");
+
+
+
+
+}
+
+
+// This method is linked to the load redline icon in the imagemap
+function cvjs_loadStickyNotesRedlinesUser(){
+
+	// there are two modes, user handling of redlines
+	// alternatively use the build in redline file manager
+	 cvjs_openRedlineLoadModal("floorPlan");
+
+	// first the drawing needs to be cleared of stickynotes and redlines
+	//cvjs_deleteAllStickyNotes();
+	//cvjs_deleteAllRedlines();
+
+	// custom method startMethodRed to set the name and location of redline to load
+	// see implementation below
+	//startMethodRed();
+
+	// API call to load stickynotes and redlines
+	//cvjs_loadStickyNotesRedlines("floorPlan");
+}
+
+
+
+function startMethodRed(){
+
+	var v1 = $('#load_redline_url').val();
+	var v2 = $('#save_redline_url').val();
+
+	cvjs_setStickyNoteRedlineUrl(v1);
+	cvjs_setStickyNoteSaveRedlineUrl(v2);
+}
+
+
+function set_user_credentials(){
+
+	var user_name = $('#user_name').val();
+	var user_id = $('#user_id').val();
+//	window.alert("Redline/StickyNote user settings: "+user_name+" "+user_id+" ");
+
+	cvjs_setCurrentStickyNoteValues_NameUserId(user_name, user_id );
+	cvjs_setCurrentRedlineValues_NameUserid(user_name, user_id);
+
+}
+
+
+
+function add_user_to_hide_list(){
+
+	var user_hide = $('#user_hide').val();
+	cvjs_addUserIdToHiddenRedlineUsers(user_hide);
+
+}
+
+
+function show_hidden_users_list(){
+
+window.alert(cvjs_getRedlineHiddenUsersList());
+
+}
+
+
+function clear_hidden_users_list(){
+
+	cvjs_clearAllRedlineHiddenUsers();
+}
+
+
+
+
+function add_user_to_locked_list(){
+
+	var user_hide = $('#user_lock').val();
+	cvjs_addUserIdToLockedRedlineUsers(user_hide);
+
+}
+
+
+function show_locked_users_list(){
+
+window.alert(cvjs_getRedlineLockedUsersList());
+
+}
+
+
+function clear_locked_users_list(){
+
+	cvjs_clearAllRedlineLockedUsers();
+}
+
+
+
+// GENERIC CALLBACK METHOD FOR DATAMAP SELECTION FOR EITHER STATIC OR DYNAMIC DISPLAY
+function cvjs_ParseDisplayDataMaps(map){
+
+	window.alert("I have select map nr="+map);
+}
+
+function change_objects_generic(object){
+
+	window.alert("I have selected this from the list "+object);
+
+	$("#drop_locations_sensors").html(lTable.languages[cvjs_currentLanguage].HeaderObjectLayers.ObjectLayer[object]+' <span class="caret"></span>');
+
+}
+// GENERIC CALLBACK METHOD FOR DATAMAP SELECTION FOR EITHER STATIC OR DYNAMIC DISPLAY
+
+
+
+
+
+// NOTE BELOW: THESE SETTINGS ARE FOR CUSTOM POP-UP MENU DESIGN FOR LOADING OF MENU ITEMS VIA ANGULAR JS AND MYSQL
+
+
+	function cvjs_ObjectSelected(rmid){
+		// Visual Query ,update scrollbar with Space Items
+		vqUpdateScrollbar(rmid);
+	}
+
+
+
+	var cvjsPopUpBody;
+	function myCustomPopUpBody(rmid){
+
+		var cvjsPopUpBody = "<div>Name: <span id=\"mymodal_name_"+rmid+"\" ></span><br>";
+//		    cvjsPopUpBody += "Category: <span id=\"mymodal_cat_"+rmid+"\" ></span><br>";
+		    cvjsPopUpBody += "Type: <span id=\"mymodal_type_"+rmid+"\" ></span><br>";
+//		    cvjsPopUpBody += "Standard: <span id=\"mymodal_std_"+rmid+"\" ></span></div>";
+		    cvjsPopUpBody += "Phone: <span id=\"mymodal_phone_"+rmid+"\" ></span><br>";
+		    cvjsPopUpBody += "Department: <span id=\"mymodal_dept_"+rmid+"\" ></span></div>";
+
+		return cvjsPopUpBody;
+
+	}
+
+	function populateMyCustomPopUpBody(rmid, node){
+//window.alert(rmid+"  "+ node);
+
+		var str = cvjs_getAttributeFromSpaceObjectNode(node, "FirstName")+" "+cvjs_getAttributeFromSpaceObjectNode(node, "LastName");
+		if (str.length === 1)
+			str = "Unoccupied";
+		var link = "#mymodal_name_"+rmid;
+		$(link).html(str);
+
+		str = cvjs_getAttributeFromSpaceObjectNode(node, "Category");
+		link = "#mymodal_cat_"+rmid;
+		$(link).html(str);
+
+		str = cvjs_getAttributeFromSpaceObjectNode(node, "Type");
+		link = "#mymodal_type_"+rmid;
+		$(link).html(str);
+
+//		str = cvjs_getAttributeFromSpaceObjectNode(node, "Standard");
+//		link = "#mymodal_std_"+rmid;
+//		$(link).html(str);
+
+
+		str = cvjs_getAttributeFromSpaceObjectNode(node, "Phone");
+		link = "#mymodal_phone_"+rmid;
+		$(link).html(str);
+
+		str = cvjs_getAttributeFromSpaceObjectNode(node, "Department");
+		link = "#mymodal_dept_"+rmid;
+		$(link).html(str);
+
+	}
+
+	function cvjs_callbackForModalDisplay(rmid, node){
+
+		if (typeof(vqGetRoom) == 'function') { vqGetRoom(rmid, node); }
+		// window.alert("We populate with angular methods on the server, then we update the modal");
+		populateMyCustomPopUpBody(rmid, node);
+	}
+
+
+	function cvjs_NoObjectSelected(){
+		// we have closed the popup modal, now we want to clean up the leftside toolbar
+		vqClearScrollbar();
+
+	}
+
+
+	var app = angular.module('myApp', []);
+	
+	
+	app.controller('customersCtrl', function($scope, $http) {
+	   $http.get("../php/getVisualQuery_MySQL_public_demo.php?user=root&pwd=")
+//	   $http.get("../php/getVisualQuery_MySQL_public_demo_vq.php?user=root&pwd=")
+	   .success(function (response) {
+
+   		$scope.names = response.records;
+
+		var rowFromScroll = false;
+		$scope.highlightRoom = function (i)
+			{
+
+			//window.alert("row ="+i);
+			 $scope.row = i;   // set color to yellow
+
+			 rowFromScroll = true;
+
+			var rmid = $scope.names[i].Room;
+	// 		cvjs_highlightRoomRGB(rmid, 127,127,127);
+	//		cvjs_highlightRoomImmediate(rmid);
+			change_space_fixed_location(rmid);
+			};
+
+
+		$scope.getRoom = function(rmid, node) {
+			for (i=0; i < $scope.names.length; ++i)
+				{
+				var sRoom = $scope.names[i].Room;
+				if (sRoom === rmid)
+					{
+					cvjs_setAttributeStatus(node,"populated");
+					cvjs_setAttributeInSpaceObjectNode(node, "Room Id", rmid);
+					cvjs_setAttributeInSpaceObjectNode(node, "FirstName", $scope.names[i].FirstName);
+					cvjs_setAttributeInSpaceObjectNode(node, "LastName", $scope.names[i].LastName);
+					cvjs_setAttributeInSpaceObjectNode(node, "Phone", $scope.names[i].Phone);
+					cvjs_setAttributeInSpaceObjectNode(node, "Department", $scope.names[i].Department);
+					cvjs_setAttributeInSpaceObjectNode(node, "Category", $scope.names[i].Category);
+					cvjs_setAttributeInSpaceObjectNode(node, "Type", $scope.names[i].Type);
+					cvjs_setAttributeInSpaceObjectNode(node, "Standard", $scope.names[i].Standard);
+					}
+				}
+			};
+
+		var GetRoom = function(rmid, node)
+		{
+			$scope.getRoom(rmid, node);
+		}
+
+
+		var UpdateScrollbar = function(rmid)
+		{
+
+			try{
+				if (rowFromScroll){
+					rowFromScroll = false;
+				}
+				else{
+					for (i=0; i < $scope.names.length; ++i)
+						{
+						var sRoom = $scope.names[i].Room;
+						if (sRoom === rmid){
+							//window.alert("2 we have found the row! "+i);
+							$scope.row = i;
+							// this update is only needed when calling from clicking in drawing, therefore try-catch
+							var appRoot = document.querySelector('[ng-app]');
+							angular.element(appRoot).scope().$apply();
+						} // set color to yellow
+					}
+				}
+
+			}catch (err){}
+
+		}
+
+		var ClearScrollbar = function()
+		{
+
+			$scope.row = -1;
+			var appRoot = document.querySelector('[ng-app]');
+			angular.element(appRoot).scope().$apply();
+		}
+
+
+
+
+		var PopulateAllRooms = function(){
+
+		// Populate all data objects in drawing with data from DataBase
+
+		for (i=0; i < $scope.names.length; ++i)
+			{
+				var sRoom = $scope.names[i].Room;
+				var node = cvjs_getSpaceObjectNodefromId(sRoom);
+
+				var status = cvjs_getAttributeFromSpaceObjectNode(node, "populated");
+
+				// if unpoplated, we populate the space
+				if (status == -1){
+
+					cvjs_setAttributeStatus(node,"populated");
+					cvjs_setAttributeInSpaceObjectNode(node, "Room Id", sRoom);
+					cvjs_setAttributeInSpaceObjectNode(node, "FirstName", $scope.names[i].FirstName);
+					cvjs_setAttributeInSpaceObjectNode(node, "LastName", $scope.names[i].LastName);
+					cvjs_setAttributeInSpaceObjectNode(node, "Phone", $scope.names[i].Phone);
+					cvjs_setAttributeInSpaceObjectNode(node, "Department", $scope.names[i].Department);
+					cvjs_setAttributeInSpaceObjectNode(node, "Category", $scope.names[i].Category);
+					cvjs_setAttributeInSpaceObjectNode(node, "Type", $scope.names[i].Type);
+					cvjs_setAttributeInSpaceObjectNode(node, "Standard", $scope.names[i].Standard);
+				}
+			}
+		}
+
+		window.vqClearScrollbar =  ClearScrollbar;
+
+		window.vqUpdateScrollbar =  UpdateScrollbar;
+
+		window.vqGetRoom = GetRoom;
+
+		window.vqPopulateAllRooms= PopulateAllRooms;
+
+		});
+	});
+
+
+
+// NOTE ABOVE: THESE SETTINGS ARE FOR CUSTOM POP-UP MENU DESIGN FOR LOADING OF MENU ITEMS VIA ANGULAR JS AND MYSQL
+
+
+
+
+
+// NOTE BELOW: THESE ARE THE METHODS FOR HIGHLIGT OF SPACES
+
+
+	var roomLayer1;      // The room layer for room highlight
+	var textLayer1;	     // The text layer for text in rooms
+
+
+
+
+// This is the function that illustrates how to color and label stuff
+function color_all_departments(){
+
+	// First we call the angular method to populate all spaces with data
+	vqPopulateAllRooms();
+
+	var Node_id = "NODE_";
+	var dept;
+
+	for (var i=1; i<74; i++){
+
+		// We pull the space data from the room
+		Node_id = "NODE_"+i;
+		dept = cvjs_getAttributeFromSpaceObjectNode(Node_id, "Department");
+
+		//if (i<5) window.alert(Node_id+" "+dept+ "   XXX");
+
+
+		// VARIOUS COLORS OF SPACES
+
+		if (dept.indexOf("I.T.") == 0 && dept.length == 4){
+				node = cvjs_getSpaceObjectNamefromNode(Node_id);
+				cvjs_highlightSpaceObjectIdDiv(node, highlight_power_3, roomLayer1, "floorPlan");
+		}
+
+		if (dept.indexOf("PROD_ENGINEERING") == 0 ){
+				node = cvjs_getSpaceObjectNamefromNode(Node_id);
+				cvjs_highlightSpaceObjectIdDiv(node, highlight_power_5, roomLayer1, "floorPlan");
+		}
+
+		if (dept.indexOf("ATM") == 0 ){
+				node = cvjs_getSpaceObjectNamefromNode(Node_id);
+				cvjs_highlightSpaceObjectIdDiv(node, highlight_temperature_2 , roomLayer1, "floorPlan");
+		}
+
+
+		if (dept.indexOf("UK IT") == 0 ){
+				node = cvjs_getSpaceObjectNamefromNode(Node_id);
+				cvjs_highlightSpaceObjectIdDiv(node, highlight_temperature_4 , roomLayer1, "floorPlan");
+		}
+
+		if (dept.indexOf("FINANCE SYSTEMS") == 0){
+				node = cvjs_getSpaceObjectNamefromNode(Node_id);
+				cvjs_highlightSpaceObjectIdDiv(node, highlight_occupancy_1, roomLayer1, "floorPlan");
+		}
+
+		if (dept.indexOf("I.T. ENG") == 0){
+				node = cvjs_getSpaceObjectNamefromNode(Node_id);
+				cvjs_highlightSpaceObjectIdDiv(node, highlight_occupancy_4, roomLayer1, "floorPlan");
+		}
+
+
+		// VARIOUS PATTERNS OF SPACES
+
+		if (dept.indexOf("I.T. TECH") == 0){
+				cvjs_ApplyPatternOnSpaceObjectNode(roomLayer1, Node_id, "pattern_45degree_crosshatch_fine", "#550055" , "0.5");
+		}
+
+		if (dept.indexOf("CORP_EXECUTIVES") == 0){
+				cvjs_ApplyPatternOnSpaceObjectNode(roomLayer1, Node_id, "pattern_45degree_standard", "#AA2200" , "0.5");
+		}
+
+		if (dept.indexOf("POS_DEPT") == 0){
+				cvjs_ApplyPatternOnSpaceObjectNode(roomLayer1, Node_id, "pattern_135degree_wide", "#0055BB" , "0.5");
+		}
+
+		if (dept.indexOf("FINANCE_SYSTEMS") == 0){
+				cvjs_ApplyPatternOnSpaceObjectNode(roomLayer1, Node_id, "pattern_90degree_wide", "#220088" , "0.5");
+		}
+
+		if (dept.indexOf("I.T. TRAINING") == 0){
+				cvjs_ApplyPatternOnSpaceObjectNode(roomLayer1, Node_id, "pattern_45degree_crosshatch_fine", "#FF0055" , "0.7");
+		}
+
+		// GRADIENT PATTERNS
+
+		if (dept.indexOf("CORP_LEGAL") == 0){
+				cvjs_ApplyRelativeLinearGradientStandard3ColorsOnSpaceObjectNode(roomLayer1, Node_id, '#AA2200', '#009922', '#0000FF', "0.7")
+		}
+
+		if (dept.indexOf("PROD_LOGISTICS") == 0){
+				cvjs_ApplyRelativeLinearGradientStandard3ColorsOnSpaceObjectNode(roomLayer1, Node_id, '#FFF', '#00CC00', '#0000FF', "0.4")
+		}
+
+	}
+}
+
+
+
+// method to capture all content and pass over to user as a CSV
+function saveAsCsv(){
+
+	var myCSV = "";
+	vqPopulateAllRooms();
+	for (var i=1; i<30; i++){
+			// We pull the space data from the room
+			Node_id = "NODE_"+i;
+			myCSV += cvjs_getAttributeFromSpaceObjectNode(Node_id, "LastName")+";"+cvjs_getAttributeFromSpaceObjectNode(Node_id, "FirstName")+";";
+			myCSV += cvjs_getAttributeFromSpaceObjectNode(Node_id, "Department")+";"+cvjs_getAttributeFromSpaceObjectNode(Node_id, "Phone")+";";
+			myCSV += cvjs_getAttributeFromSpaceObjectNode(Node_id, "Type")+"\n";
+
+			//console.log(i);
+	}
+
+	//console.log("myCSV " +myCSV);
+
+	// save file on server
+	// File location is relative to the PHP install foder
+	var fileLocation = 'temp_thumbnails/';
+
+	// we make a random filename
+	var random = Math.random().toString().substring(2,5);
+	var fileName = 'csvdump_'+random+'.csv';
+
+	var js_data = {};
+	js_data['file'] = fileLocation+fileName;
+	js_data['file_content'] = myCSV;
+
+	var serverUrl = cvjs_serverHandlersPath + cvjs_serverSaveFileControllerRedlines;
+	var downloadFile = cvjs_phpPath+fileLocation+fileName;
+
+	//window.alert(serverUrl);
+
+	$.ajax({
+	  url: serverUrl,
+	  type: 'post',
+	  data: js_data,
+	  success: function(html){
+		console.log(downloadFile)
+		cvjs_downloadFile(downloadFile);
+	  },
+	  error:function(data_e){console.log("Error "+data_e); return;}
+
+	});
+
+}
+
+
+
+function clear_label_colors(){
+
+	roomLayer1 = cvjs_clearLayer(roomLayer1);
+
+	// We use the command clearTextLayer, as the text objects are placed in a special structure
+	// so they dynamically can be changed (see next example)
+	textLayer1 = cvjs_clearTextLayer(textLayer1);
+
+}
+
+
+
+
+/** text style for adding text into Space Objects */
+var text_style_arial_11pt_bold = {
+			'stroke': "#00539B",
+			'fill': "#00539B",
+			'font-family': "Arial",
+			'font-size': "11pt",
+			'font-weight': "bold",
+			'margin': 0,
+			'cursor': "pointer",
+			'text-align': "left",
+
+			'z-index': 1980
+		};
+
+/** text style for adding text into Space Objects */
+var text_style_arial_9pt_normal = {
+			'stroke': "#00539B",
+			'fill': "#00539B",
+			'font-family': "Arial",
+			'font-size': "9pt",
+			'font-weight': "normal",
+			'margin': 0,
+			'margin-top': "-10px",
+			'cursor': "pointer",
+			'text-align': "left",
+			'vertical-align': "top",
+			'width': "128px",
+			'z-index': 1980
+		};
+
+/** text style for adding text into Space Objects */
+var text_style_dialog = {
+			'text-font' : "Dialog",
+			'font-family' : "Dialog",
+			'font-size' : "7pt",
+			'text-anchor' : "start",
+			'font-weight': "normal",
+			'font-style': "italic",
+			stroke : "#88539B",
+			fill : "#88539B"
+		};
+
+
+
+
+
+
+
+
+
+
+// This is the function that illustrates how to label text inside room polygons
+function txt_all_departments(){
+
+
+	// First we call the angular method to populate all spaces with data
+	vqPopulateAllRooms();
+
+
+
+
+	var Node_id = "NODE_";
+
+	// We loop over the nodes, we set a hatch pattern on the layer roomLayer1
+	// And we set text objects on the layer textLayer1
+
+	var hatchtype = 0;
+
+	for (var i=1; i<73; i++){
+
+		Node_id = "NODE_"+(i);
+
+		if ((i % 3) ==0){
+
+
+			var dept = cvjs_getAttributeFromSpaceObjectNode(Node_id, "Department");
+			var firstname = cvjs_getAttributeFromSpaceObjectNode(Node_id, "FirstName");
+			var lastname =  cvjs_getAttributeFromSpaceObjectNode(Node_id, "LastName");
+
+
+			var textString = new Array(firstname, lastname, dept);
+//			var textStyles = new Array(text_style_arial_9pt_normal, text_style_arial_11pt_bold, text_style_dialog);
+			var textStyles = new Array(text_style_arial_9pt_normal,text_style_arial_9pt_normal, text_style_arial_9pt_normal);
+			var scaleText = new Array(0.15, 0.15, 0.15 );
+			var hexColorText = new Array("#AB5500", "#66D200", "#0088DF");
+
+			// here we clip the roomlables so they are inside the room polygon
+			cvjs_AddTextAndTBorderOnSpaceObjectNode(textLayer1, Node_id,  0.05, textString, textStyles, scaleText, hexColorText, true);
+
+		}
+		else{
+			if ((i % 3) == 1){
+
+
+				var dept = cvjs_getAttributeFromSpaceObjectNode(Node_id, "Department");
+				var phone = cvjs_getAttributeFromSpaceObjectNode(Node_id, "Phone");
+
+
+
+				var textString = new Array(dept, phone);
+				var textStyles = new Array(text_style_arial_9pt_normal, text_style_dialog);
+				var scaleText = new Array(0.20, 0.2 );
+				var hexColorText = new Array("#00D2AA", "#AB0055");
+
+				// here we clip the roomlables so they are inside the room polygon
+				cvjs_AddTextAndTBorderOnSpaceObjectNode(textLayer1, Node_id,  0.1, textString, textStyles, scaleText, hexColorText, true);
+
+			}
+			else{
+
+				var dept = cvjs_getAttributeFromSpaceObjectNode(Node_id, "Department");
+				var firstname = cvjs_getAttributeFromSpaceObjectNode(Node_id, "FirstName");
+				var lastname =  cvjs_getAttributeFromSpaceObjectNode(Node_id, "LastName");
+				var phone = cvjs_getAttributeFromSpaceObjectNode(Node_id, "Phone");
+
+				var textString = new Array(firstname, lastname, phone, dept);
+				var textStyles = new Array(text_style_arial_9pt_normal, text_style_arial_9pt_normal, text_style_arial_9pt_normal, text_style_arial_9pt_normal);
+				var scaleText = new Array(0.15, 0.15, 0.15, 0.15 );
+				var hexColorText = new Array("#00AADF", "#AB5500", "#66D244", "#FF00DF");
+
+				// here we clip the roomlables so they are inside the room polygon
+				cvjs_AddTextAndTBorderOnSpaceObjectNode(textLayer1, Node_id,  0.03, textString, textStyles, scaleText, hexColorText, true);
+			}
+		}
+	}
+}
+
+// NOTE ABOVE: HERE ARE THE METHODS FOR HIGHLIGT OF SPACES
+
+
+
+
+/// NOTE: BELOW METHODS FOR SAVE SCREEN AS PDF
+
+	function saveScreenAsPDF(){
+
+		// define orientation, page size and resolution of the screenshot in the PDF
+		var pageOrientation = "landscape";
+		var pageSize = "A4";
+		var pageResolution = '300';
+
+		cvjs_saveScreenAsPDF(pageOrientation, pageSize, pageResolution);
+
+	}
+
+
+/// NOTE: ABOVE METHODS FOR SAVE SCREEN AS PDF
+
+
+        // Callback Method on Creation and Delete
+        function cvjs_graphicalObjectOnChange(type, graphicalObject, spaceID) {
+            // do something with the graphics object created!
+            window.alert(" cvjs_graphicalObjectOnChange: " + type + " " + graphicalObject + " " + spaceID + " indexSpace: " + graphicalObject.toLowerCase().indexOf("space"));
+
+            if (type == 'Create' && graphicalObject.toLowerCase().indexOf("space") > -1 && graphicalObject.toLowerCase().indexOf("circle") == -1) {
+
+                /*
+                * Return a JSON structure of all content of a space object clicked: <br>
+                * 	var jsonStructure =  	{	"path":   path, <br>
+                *								"tags": tags, <br>
+                *								"node": node, <br>
+                *								"area": area, <br>
+                *								"outerhtml": outerHTML, <br>
+                *								"occupancy": occupancy, <br>
+                *								"name": name, <br>
+                *								"type": type, <br>
+                *								"id": id, <br>
+                *								"defaultcolor": defaultcolor, <br>
+                *								"layer": layer, <br>
+                *								"group": group, <br>
+                *								"linked": linked, <br>
+                *								"attributes": attributes, <br>
+                *								"attributeStatus": attributeStatus, <br>
+                *								"displaySpaceObjects": displaySpaceObjects, <br>
+                *								"translate_x": translate_x, <br>
+                *								"translate_y": translate_y, <br>
+                *								"scale_x": scale_x ,<br>
+                *								"scale_y": scale_y ,<br>
+                *								"rotate": rotate, <br>
+                *								"transform": transform} <br>
+                * @return {Object} jsonSpaceObject - Object with the entire space objects content
+                */
+
+                myobject = cvjs_returnSpaceObjectID(spaceID);
+
+                // I can save this object into my database, and then use command
+                // cvjs_setSpaceObjectDirect(jsonSpaceObject)
+                // when I am recreating the content of the drawing at load
+
+                // for the fun of it, display the SVG geometry of the space:
+                console.log("This is the SVG path: " + myobject.path)
+
+            }
+
+
+            if (type == 'Delete' && graphicalObject.toLowerCase().indexOf("space") > -1) {
+                // remove this entry from my DB
+
+                window.alert("We have deleted: " + spaceID)
+            }
+
+
+            if (type == 'Move' && graphicalObject.toLowerCase().indexOf("space") > -1) {
+                // remove this entry from my DB
+
+                console.log("This object has been moved: " + spaceID)
+                myobject = cvjs_returnSpaceObjectID(spaceID);
+
+            }
+        }
+
+
+
+
+
+
+
+
+
+ 	</script>
+
+  </head>
+  <body bgcolor="white" style="margin:0" >
+
+	<table width="100%" height="100%" border="0" cellspacing="0" border-spacing="0" id="mainTable">
+	<tr style="background-color:rgb(255,255,255)" height="100px" >
+		<td height="10">
+				<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td>
+			<a href="https://cadviewer.com"><img src="https://cadviewer.com/images/cadviewer/cv-logo.gif" width="240" height="60" alt="Tailor Made logo" /></a>
+		</td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td>
+		<h4><b>Visual Query encapsulation of CADViewer, using AngularJS and PHP to dynamically load content from MySQL database.</b></h4>
+		<p>Check out the API at <a href="https://cadviewer.com/cadviewertechdocs">documentation</a> and <a href="https://cadviewer.com/download">download samples</a>. Contact us at: <a href="mailto:developer@tailormade.com">developer@tailormade.com</a> or <a href="mailto:internationalsales@tailormade.com">internationalsales@tailormade.com</a>.
+		</p>
+		<p><strong>Note 1:</strong> Sample requires server with php and MySQL. <strong>Install database ./cadviewer/php/vizquery_public_demo.sql prior to running this sample.</strong>
+		<br><strong>Note 2:</strong> Hotspots in this SVG drawing are created with AutoXchange 2022 on-the-fly, see our Tech Guides: <a href="https://cadviewer.com/highlight/main/">Generating Hotspots</a> on how to create Hotspots in drawings.
+
+		</p>
+		</td>
+	</tr>
+	</table>
+
+
+	<table width="1000">
+	<tr>
+	<td>
+	<!--This is the CADViewer Space Objects User Interface declaration,, that is used for modals -->
+	<div id="cvjs_spaceObjectUserDisplay">
+	</div>
+
+	<!--This is the CADViewer Space Objects User Interface declaration,, that is used for modals -->
+
+	</td>
+	</tr>
+	</table>
+
+
+	<table>
+	<tr>
+	<td>
+	<!--This is the left side scroll-bar for listing objects using angular js and pulling data from mysql using php -->
+	<div>
+	<h4>Interactive Content pulled<br> from MySQL (click on item)</h4>
+	</div>
+	<div ng-app="myApp" ng-controller="customersCtrl" style="width:280px;overflow: scroll;height: 600px; float:left;overflow-x: hidden;">
+	<table>
+	  <tr ng-repeat="x in names" ng-class="{yellowBackground : $index == row}">
+		    <td ng-click="highlightRoom($index)" style="cursor:pointer">{{ x.Room }}&nbsp;&nbsp;</td>
+		    <td ng-click="highlightRoom($index)" style="cursor:pointer">{{ x.FirstName }} {{ x.LastName }}</td>
+	  	</tr>
+	  </tbody>
+	</table>
+
+	</div>
+	</td>
+
+	<td style="vertical-align:top;" >
+
+
+
+	<table id="tablerows" border="0">
+
+		<td>
+		<canvas id="dummy" width="20" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button21" value="Higlight all Departments (data pulled from DB)" onClick="color_all_departments();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button25" value="Download Content as CSV" onClick="saveAsCsv();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button22" value="Add custom style text to all Spaces (data pulled from DB)" onClick="txt_all_departments();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button23" value="Clear all highlight and text" onClick="clear_label_colors();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button24" value="Save screen as PDF (for reports)" onClick="saveScreenAsPDF();" ></td>
+		</tr>
+	</table>
+
+
+
+	<table>
+
+	<tr>
+	<td style="vertical-align:bottom;" >
+
+	<!--This is the CADViewer JS declaration, an SVG element with the canvas size, and a <div> cvjs_Modal, that is used for modals -->
+
+		<div id="floorPlan" >
+		</div>
+
+	<!--End of CADViewer JS declaration -->
+
+	</td>
+	</tr>
+
+	</table>
+
+
+	 </td>
+
+	</tr>
+	</table>
+
+
+</body>
+</html>

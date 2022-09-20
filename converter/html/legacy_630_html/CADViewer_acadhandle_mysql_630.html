@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html >
+<head>
+
+    <title>CADViewer - AutoCAD Handles connected with MySQL Demo</title>
+    <link rel="icon" href="https://cadviewer.com/images/cvlogo.png">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="created" content="Thur, 12 Nov 2020 11:14:30 GMT" />
+    <meta name="description" content="Tailor Made Software  - CADViewer Sample Page." />
+    <meta name="keywords" content="" />
+
+
+ <meta name="description" content="Visual Query encapsulation of CADViewer, using AngularJS and PHP to dynamically load content from MySQL database">
+  <meta name="keywords" content="CADViewer, CAD, Viewer, API, JavaScript, Angular, PHP, Online,  MySQL, DWG, SVG, PDF, TIFF, AutoCAD, Adobe, Spatial, Linkage, dynamic, highlight, FM ">
+  <meta name="author" content="Tailor Made Software, Ltd.">
+
+<!--
+<script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="50b89d34-074d-4a85-9a53-61c3705a2c51";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-169083546-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-169083546-1');
+</script>
+-->
+
+	<script src="../app/js/jquery-2.2.3.js" type="text/javascript"></script>
+	<script src="../app/js/jquery.qtip.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery.qtip.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/popper.js" type="text/javascript"></script>
+
+	<script src="../app/js/bootstrap.min.js" type="text/javascript"></script>
+	<link href="../app/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/jquery-ui-1.11.4.min.js" type="text/javascript"></script>
+	<link href="../app/css/jquery-ui-1.11.4.min.css" media="screen" rel="stylesheet" type="text/css" />
+
+
+<!--	<script src="../app/cv/cv-core/cadviewer_base_6_2_77.js" type="text/javascript" ></script> 
+	<script src="../app/cv/cv-pro/cadviewer_pro_6_2_77.js" type="text/javascript" ></script> 
+
+	<script src="../app/cv/cv-core/cadviewer_base.min.js" type="text/javascript" ></script> --> 
+	<script src="../app/cv/cv-pro/cadviewer.min.js" type="text/javascript" ></script> 
+	<script src="../app/cv/cv-custom_commands/CADViewer_custom_commands.js" type="text/javascript" ></script>
+
+	<script src="../app/cv/cvlicense.js" type="text/javascript" ></script>
+	 
+
+	<script src="../app/js/bootstrap-multiselect.js" type="text/javascript" ></script>
+	<link href="../app/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+
+	<link href="../app/css/cvjs_6.1.0.css" media="screen" rel="stylesheet" type="text/css" />
+
+	<script src="../app/js/library_js_svg_path.js" type="text/javascript"></script>			
+	<script src="../app/js/snap.svg-min.js" type="text/javascript" ></script>
+
+	<script src="../app/js/cvjs_api_styles_2_0_26.js" type="text/javascript" ></script>
+	<script src="../app/js/rgbcolor.js"type="text/javascript" ></script>
+	<script src="../app/js/StackBlur.js"type="text/javascript" ></script>
+	<script src="../app/js/canvg.js" type="text/javascript"  ></script>
+	<script src="../app/js/list.js" type="text/javascript"></script>
+	<script src="../app/js/jscolor.js" type="text/javascript" ></script>
+	
+	<script src="../app/js/jstree/jstree.min.js"></script>
+	<script src="../app/js/xml2json.min.js"></script>
+	<script src="../app/js/d3.v3.min.js"></script>  <script src="../app/js/qrcode.min.js" type="text/javascript"></script> 
+
+
+	<script src="../app/js/1.4.9/angular.js" type="text/javascript"></script>
+
+
+	<script src="../app/cv/CADViewer_PHPHandlerSettings.js" type="text/javascript"></script>		
+<!--	<script src="../app/cv/CADViewer_ServletHandlerSettings.js" type="text/javascript"></script> -->
+<!--	<script src="../app/cv/CADViewer_AshxHandlerSettings.js" type="text/javascript"></script> -->
+<!--	<script src="../app/cv/CADViewer_NodeJSHandlerSettings.js" type="text/javascript"></script> -->
+	
+	
+	<script type="text/javascript">
+
+
+	// PATH and FILE to be loaded, can be in formats DWG, DXF, DWF, DGN, PCF, SVG , JS, DGN, PCF, JPG, GIF, PNG
+//	var FileName = "../content/drawings/dwg/onlinedemo/hq17_.dwg"
+	var FileName = "../content/drawings/dwg/one_of_simple.dwg"
+
+	// Location of installation folders
+	// NOTE: THE LOCATION OF THE ServerLocation/ServerUrl VARIABLES ARE DEFINED IN /cadviewer/html/CV-JS_ServerSettings.js
+	// PLEASE MOVE OR RENAME APPROPRIATELY
+	
+	//	var ServerLocation = 
+	//	var ServerUrl = 
+
+	$(document).ready(function()
+		{
+
+/*
+			window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {		
+				if (errorMsg.indexOf("axuploader")>-1) 
+					window.alert("File upload is disabled in this demo. To upload and test your own drawings with CADViewer, please go to https://cadviewer.com/demoaccess and follow instructions.")
+//				console.log('Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
+//				+ ' Column: ' + column + ' StackTrace: ' +  errorObj);
+			}
+*/
+		cvjs_CADViewerPro(true);
+		cvjs_debugMode(true);
+		
+		
+		cvjs_print_to_pdf_windowRelativeSize = 0.8;
+
+
+		cvjs_allowFileLoadToServer(true);
+
+		cvjs_setFileModalEditMode(false);
+
+		// Pass over the location of the installation
+		cvjs_setServerLocationURL(ServerLocation, ServerUrl);
+		
+		cvjs_loadCADViewerLanguage("English", "/app/cv/cv-pro/language_table/cadviewerProLanguage.xml");
+		
+		// set the location to license key, typically the js folder in main app application folder ../app/js/
+		 cvjs_setLicenseKeyPath(ServerUrl+"/app/cv/");
+
+
+		cvjs_setRedlinesAbsolutePath(ServerUrl+'/content/redlines/fileloader_610/', ServerLocation+'/content/redlines/fileloader_610/');
+
+		cvjs_setInsertImageObjectsAbsolutePath(ServerUrl+'drawings/demo/inserted_image_objects/', ServerLocation+'/drawings/demo/inserted_image_objects/');
+
+		cvjs_setServerFileLocation_AbsolutePaths( ServerLocation+'/content/drawings/dwg/', ServerUrl+'/content/drawings/dwg/',"","");
+
+		cvjs_conversion_clearAXconversionParameters();				
+		cvjs_conversion_addAXconversionParameter("hlall", "");
+
+	
+		// Set Icon Menu Interface controls. Users can: 
+		// 1: Disable all icon interfaces
+		//  cvjs_displayAllInterfaceControls(false, "floorPlan");  // disable all icons for user control of interface
+		// 2: Disable either top menu icon menus or navigation menu, or both
+		//	cvjs_displayTopMenuIconBar(false, "floorPlan");  // disable top menu icon bar
+		//	cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
+		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/
+		//    cvjs_setCustomTopMenuXML("cadviewerjs_menu_all_items.xml", "floorPlan");
+		cvjs_setTopMenuXML("floorPlan", "cadviewer_visual_query.xml", "/app/cv/cv-pro/menu_config/");
+	
+
+		cvjs_InitCADViewer_app("floorPlan", ServerUrl+"app/");
+
+
+		// Load file - needs the svg div name and name and path of file to load
+		cvjs_LoadDrawing("floorPlan", FileName );
+		// set maximum CADViewer JS canvas side
+		
+		
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer JS canvas size
+		//	cvjs_windowResize_fixedSize( 800, 600, "floorPlan");		
+   });  // end ready()
+
+
+
+
+   $(window).resize(function() {
+		// set maximum CADViewer JS canvas side
+	    cvjs_resizeWindow_position("floorPlan" );
+		// alternatively set a fixed CADViewer JS canvas size
+		//	cvjs_resizeWindow_fixedSize(800, 600, "floorPlan");		
+   });
+
+
+/// NOTE: THESE METHODS BELOW ARE JS SCRIPT CALLBACK METHODS FROM CADVIEWER JS, THEY NEED TO BE IMPLEMENTED BUT CAN BE EMPTY
+
+
+	function cvjs_OnLoadEnd(){
+			// generic callback method, called when the drawing is loaded
+			// here you fill in your stuff, call DB, set up arrays, etc..
+			// this method MUST be retained as a dummy method! - if not implemeted -
+
+			cvjs_resetZoomPan("floorPlan");
+
+			// declare layers for room and text handling
+			textLayer1 = cvjs_newLayer(textLayer1);
+			roomLayer1 = cvjs_newLayer(roomLayer1);
+						
+	}
+
+
+	function cvjs_OnLoadEndRedlines(){
+			// generic callback method, called when the redline is loaded
+			// here you fill in your stuff, hide specific users and lock specific users
+			// this method MUST be retained as a dummy method! - if not implemeted -
+	}
+
+
+//	// generic callback method, tells which FM object has been clicked
+//	function cvjs_change_space(){
+//
+//	}
+
+	function cvjs_graphicalObjectCreated(graphicalObject){
+	// do something with the graphics object created!
+//		window.alert(graphicalObject);
+	}
+
+
+	function cvjs_ObjectSelected(rmid){
+		// Visual Query ,update scrollbar with Space Items
+	}
+
+
+	// Callback Method on Creation and Delete 
+	function cvjs_graphicalObjectOnChange(type, graphicalObject, spaceID){	
+
+	};
+
+
+
+// This method is linked to the save redline icon in the imagemap
+function cvjs_saveStickyNotesRedlinesUser(){
+
+	// there are two modes, user handling of redlines
+	// alternatively use the build in redline file manager
+	 cvjs_openRedlineSaveModal("floorPlan");
+
+	// custom method startMethodRed to set the name and location of redline to save
+	// see implementation below
+	//startMethodRed();
+	// API call to save stickynotes and redlines
+	//cvjs_saveStickyNotesRedlines("floorPlan");
+
+}
+
+
+// This method is linked to the load redline icon in the imagemap
+function cvjs_loadStickyNotesRedlinesUser(){
+
+	// there are two modes, user handling of redlines
+	// alternatively use the build in redline file manager
+	 cvjs_openRedlineLoadModal("floorPlan");
+
+	// first the drawing needs to be cleared of stickynotes and redlines
+	//cvjs_deleteAllStickyNotes();
+	//cvjs_deleteAllRedlines();
+
+	// custom method startMethodRed to set the name and location of redline to load
+	// see implementation below
+	//startMethodRed();
+	// API call to load stickynotes and redlines
+	//cvjs_loadStickyNotesRedlines("floorPlan");
+}
+
+
+
+function startMethodRed(){
+
+	var v1 = $('#load_redline_url').val();
+	var v2 = $('#save_redline_url').val();
+
+	cvjs_setStickyNoteRedlineUrl(v1);
+	cvjs_setStickyNoteSaveRedlineUrl(v2);
+}
+
+
+function set_user_credentials(){
+
+	var user_name = $('#user_name').val();
+	var user_id = $('#user_id').val();
+//	window.alert("Redline/StickyNote user settings: "+user_name+" "+user_id+" ");
+	cvjs_setCurrentStickyNoteValues_NameUserId(user_name, user_id );
+	cvjs_setCurrentRedlineValues_NameUserid(user_name, user_id);
+}
+
+function add_user_to_hide_list(){
+	var user_hide = $('#user_hide').val();
+	cvjs_addUserIdToHiddenRedlineUsers(user_hide);
+
+}
+
+
+function show_hidden_users_list(){
+	window.alert(cvjs_getRedlineHiddenUsersList());
+}
+
+
+function clear_hidden_users_list(){
+	cvjs_clearAllRedlineHiddenUsers();
+}
+
+function add_user_to_locked_list(){
+	var user_hide = $('#user_lock').val();
+	cvjs_addUserIdToLockedRedlineUsers(user_hide);
+}
+
+
+function show_locked_users_list(){
+	window.alert(cvjs_getRedlineLockedUsersList());
+}
+
+function clear_locked_users_list(){
+	cvjs_clearAllRedlineLockedUsers();
+}
+
+
+
+
+// ENABLE ALL API EVENT HANDLES FOR AUTOCAD Handles
+function cvjs_mousedown(id, handle, entity){
+
+}
+
+function cvjs_click(id, handle, entity){
+
+	console.log("click "+id+"  "+handle);
+	// tell to update the Scroll bar 
+	vqUpdateScrollbar(id, handle);
+	// window.alert("We have clicked an entity: "+entity.substring(4)+"\r\nThe AutoCAD Handle id: "+handle+"\r\nThe svg id is: "+id+"\r\nHighlight SQL pane entry");
+}
+
+function cvjs_dblclick(id, handle, entity){
+
+	console.log("click "+id+"  "+handle);
+	window.alert("We have double clicked entity with AutoCAD Handle: "+handle+"\r\nThe svg id is: "+id);
+}
+
+function cvjs_mouseout(id, handle, entity){
+	cvjs_mouseout_handleObjectStyles(id, handle);
+	
+}
+
+function cvjs_mouseover(id, handle, entity){
+
+	console.log("mouseover "+id+"  "+handle+"  "+jQuery("#"+id).css("color"))
+	//cvjs_mouseover_handleObjectPopUp(id, handle);	
+}
+
+function cvjs_mouseleave(id, handle, entity){
+
+	console.log("mouseleave "+id+"  "+handle+"  "+jQuery("#"+id).css("color"));
+}
+
+
+function cvjs_mouseenter(id, handle, entity){
+//	cvjs_mouseenter_handleObjectStyles("#a0a000", 4.0, 1.0, id, handle);
+	cvjs_mouseenter_handleObjectStyles("#F00", 10.0, 1.0, true, id, handle);
+	
+}
+
+
+// AngularJS implementation of the left sidebar  - this can be any other technology really....
+// We pull the MySQL content from cadviewer_handles_public_demo.php, and then massage it and display it
+
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+   $http.get(ServerUrl +"/php/cadviewer_handles_public_demo.php?user=root&pwd=")
+   .success(function (response) {
+
+	// Let me find all the Groups in the Server Response
+	var groupsList = [];
+	for (k=0; k<response.records.length; k++){
+		var myGroup = response.records[k].CustomGroup1;
+		if (myGroup !=""){
+			var groupFlag = false;
+			for (j=0; j<groupsList.length; j++){
+				if (groupsList[j] == myGroup) 
+					groupFlag = true;         // this is already a Group in the list
+			}
+			// we only add the Group if it is not in the list
+			if (!groupFlag)
+				groupsList[groupsList.length] = myGroup;
+		}
+	}		
+	
+	// we label them GR1 - GRnn , and add them to the scroll list, response.records
+	for (k=groupsList.length-1; k>=0; k--){
+		var pos = response.records.length;			
+		var element = {"Handle": "GR"+(k+1), "ID": "GR"+(k+1), "Entity":groupsList[k], "CustomGroup1":groupsList[k]};
+		response.records.unshift(element); 
+	}
+
+	$scope.handles = response.records;
+
+	var rowFromScroll = false;
+	
+	$scope.highlightEntityOrGroup = function (i) {
+		//window.alert("row ="+i);
+		$scope.row = i;   // set color to yellow
+
+		rowFromScroll = true;
+		var handleid = $scope.handles[i].Handle;
+		var id = $scope.handles[i].ID;
+		var groupname = $scope.handles[i].CustomGroup1;
+
+		// clear all highlights
+		cvjs_clearAllHighlightHandleObjectStyles();
+					
+		// make new highlight depending on group or single handle
+		if (id.indexOf("GR")>-1){ // This is a group
+			// let us get stuff for the info box
+			var infoboxcontent = groupname+" consists of:";
+
+			// we clear all highlight, and then we simply highlight all object that are part of the same group
+			for (j=0; j< $scope.handles.length; j++){
+				if ($scope.handles[j].CustomGroup1 == groupname && $scope.handles[j].ID!="" && $scope.handles[j].ID.indexOf("GR")==-1){
+					cvjs_HighlightHandleObjectStyles("#0FF", 10.0, 1.0, true, $scope.handles[j].ID, $scope.handles[j].Handle);
+					// let us write into the info box
+					infoboxcontent+= "<br>"+$scope.handles[j].Handle+" - "+$scope.handles[j].Entity;
+				}
+			}
+
+			// let us write into the info box
+			$("#handle_group_content").html(infoboxcontent);
+		}
+		else{  // this is a single handle
+			cvjs_HighlightHandleObjectStyles("#0F0", 10.0, 1.0, true, id, handleid);
+			// let us write into the info box
+			$("#handle_group_content").html("AutoCAD Handle: "+handleid+"<br>Entity: "+$scope.handles[i].Entity+"<br>Block: "+$scope.handles[i].Block+"<br>Group: "+$scope.handles[i].CustomGroup1);
+		}
+			
+	};
+
+
+	var UpdateScrollbar = function(id, handle)
+	{
+			
+		try{
+			if (rowFromScroll){
+				rowFromScroll = false;
+			}
+			else{
+				for (i=0; i < $scope.handles.length; ++i)
+					{
+					var myID = $scope.handles[i].ID;
+					if (myID === id){
+						//window.alert("2 we have found the row! "+i);
+						$scope.row = i;
+						// this update is only needed when calling from clicking in drawing, therefore try-catch
+						var appRoot = document.querySelector('[ng-app]');
+						angular.element(appRoot).scope().$apply();
+					} // set color to yellow
+				}
+			}
+
+		}catch (err){}
+	}
+
+	var ClearScrollbar = function()
+	{
+		$scope.row = -1;
+		var appRoot = document.querySelector('[ng-app]');
+		angular.element(appRoot).scope().$apply();
+	}
+
+	window.vqClearScrollbar =  ClearScrollbar;
+	window.vqUpdateScrollbar =  UpdateScrollbar;
+
+	});
+});
+
+
+function cvjs_NoObjectSelected(){
+	// we have closed the popup modal, now we want to clean up the leftside toolbar
+	vqClearScrollbar();
+
+}
+
+// NOTE ABOVE: THESE SETTINGS ARE FOR CUSTOM POP-UP MENU DESIGN FOR LOADING OF MENU ITEMS VIA ANGULAR JS AND MYSQL
+
+
+ </script>
+
+  </head>
+  <body bgcolor="white" style="margin:0" >
+
+	<table width="100%" height="100%" border="0" cellspacing="0" border-spacing="0" id="mainTable">
+	<tr style="background-color:rgb(255,255,255)" height="100px" >
+		<td height="10">
+				<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td>
+			<a href="https://cadviewer.com/cadviewerdemo"><img src="https://cadviewer.com/images/cadviewer/cv-logo.gif" width="240" height="60" alt="Tailor Made logo" /></a>
+		</td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td>
+		<h4><b>Drawings with AutoCAD Handles, dynamically linking content from MySQL database using AngularJS and PHP</b></h4>
+		<p>Check out the <a href="https://cadviewer.com/cadviewertechdocs/api">API</a> and <a href="https://cadviewer.com/download">download samples</a>. Contact us at: <a href="mailto:developer@tailormade.com">developer@tailormade.com</a> or <a href="mailto:internationalsales@tailormade.com">internationalsales@tailormade.com</a>.
+		</p>
+		<p><strong>Note 1:</strong> Sample requires server with php and MySQL. Install database <strong>cadviewer_handles_public_demo.sql</strong> prior to running sample.
+		<br><strong>Note 2:</strong> AutoCAD Handles in this drawing are retained with AutoXchange 2020, see <a href="https://cadviewer.com/handles/main">How to Interact With Drawing Handles</a>.
+
+		</p>
+		</td>
+	</tr>
+	</table>
+
+
+
+	<table>
+	<tr>
+	
+	<td>
+	<!--This is the left side scroll-bar for listing objects using angular js and pulling data from mysql using php -->
+	<div>
+	<h4>Scroll Content pulled<br>from MySQL</h4>
+	</div>
+	<div ng-app="myApp" ng-controller="customersCtrl" style="width:200px;overflow: scroll;height: 500px; float:left;overflow-x: hidden;">
+	<table>
+	  <tr ng-repeat="x in handles" ng-class="{yellowBackground : $index == row}">
+		    <td ng-click="highlightEntityOrGroup($index)" style="cursor:pointer">{{ x.Handle }}&nbsp;&nbsp;</td>
+		    <td ng-click="highlightEntityOrGroup($index)" style="cursor:pointer">{{ x.Entity }}&nbsp;&nbsp;</td>
+	  	</tr>
+	</table>
+	</div>
+	
+	<div id="handle_group_content" style="width:200px; margin-top: 10px; ">
+	</div>
+	<div id="clear_canvas" style="width:200px; margin-top: 10px; ">
+		<input type="button" name="Button21" value="Clear Canvas" onClick="cvjs_clearAllHighlightHandleObjectStyles();$('#handle_group_content').html('');vqClearScrollbar();" >
+	</div>
+
+
+	</td>
+
+	<td style="vertical-align:top;" >
+
+<!--
+	<table id="tablerows" border="0">
+		<td>
+		<canvas id="dummy" width="20" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button21" value="Higlight all Departments (data pulled from DB)" onClick="color_all_departments();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button25" value="Download Content as CSV" onClick="saveAsCsv();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button22" value="Add custom style text to all Spaces (data pulled from DB)" onClick="txt_all_departments();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button23" value="Clear all highlight and text" onClick="clear_label_colors();" ></td>
+		<td>
+		<canvas id="dummy" width="10" height="10"></canvas>
+		</td>
+		<td><input type="button" name="Button24" value="Save screen as PDF (for reports)" onClick="saveScreenAsPDF();" ></td>
+	</table>
+
+-->
+	<table>
+	<tr>
+	<td style="vertical-align:bottom;" >
+
+	<!--This is the CADViewer JS declaration, an SVG element with the canvas size, and a <div> cvjs_Modal, that is used for modals -->
+
+		<div id="floorPlan" >
+		</div>
+
+	<!--End of CADViewer JS declaration -->
+
+	</td>
+	</tr>
+
+	</table>
+
+
+	 </td>
+
+	</tr>
+	</table>
+
+
+</body>
+</html>
