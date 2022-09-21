@@ -1,4 +1,4 @@
-# Cadviewer Intégration for nextcloud
+# Cadviewer Integration for nextcloud
 
 To make this application cadviewer for nextcloud work you have to proceed as follows 
 
