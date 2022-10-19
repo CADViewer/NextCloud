@@ -1,6 +1,6 @@
 <template>
   <div id="iframe_container" class="modal__content">
-    <NcModal v-if="modal" @close="closeModal" :title="title" size="full">
+    <NcModal v-if="modal" @close="closeModal" title="Cadviewer" size="full">
       <CADViewerCanvas
         ref="cadviewercanvas"
         :ServerBackEndUrl="ServerBackEndUrl"
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       modal: false,
-      title: '',
+      ModalTitle: '',
       ServerBackEndUrl: '',
       ServerLocation: '',
       ServerUrl: '',
@@ -40,7 +40,6 @@ export default {
         iconClass: "icon-visibility-button",
         order: 1000,
         actionHandler: (filename, context) => {
-          console.log({ filename, context });
           var tr = context.fileList.findFileEl(filename);
           context.fileList.showFileBusyState(tr, true);
           var data = {
@@ -61,7 +60,7 @@ export default {
                 this.ServerLocation = `/var/www/html/apps/cadviewer/converter`
                 this.ServerUrl = `${window.location.origin}/apps/cadviewer/`
                 this.FileName = `${content_dir}/${filename}`
-                this.title = filename
+                this.ModalTitle = filename
                 this.modal = true;
               } else {
                 OC.dialogs.alert(
@@ -93,7 +92,7 @@ export default {
 
   },
 
-  mounted () {
+  created () {
     this.init();
     OCA.Files.fileActions.setDefault("application/octet-stream", "view_dwg");
   },
