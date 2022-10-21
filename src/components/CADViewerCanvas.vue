@@ -46,14 +46,8 @@ function cvjs_OnLoadEnd(){
 	textLayer1 = cadviewer.cvjs_clearLayer(textLayer1);
 	
 
-	// cadviewer.cvjs_LayerOff("EC1 Space Names");
-	// cadviewer.cvjs_LayerOff("EC1 Space Status Descs");
-	// cadviewer.cvjs_LayerOff("EC1 Space Project");
-	// cadviewer.cvjs_LayerOff("EC1 Space Function Descs");
-	// cadviewer.cvjs_LayerOff("EC1 Space Type Descs");
-	// cadviewer.cvjs_LayerOff("EC1 Tenant Names");
-	// cadviewer.cvjs_LayerOff("EC1 UDA Design Capacity");
-	// cadviewer.cvjs_LayerOff("EC1 UDA Is Secured");
+	// resize the floorplan drawing at load
+	cadviewer.cvjs_resizeWindow_position("floorPlan" );
 
 }
 
@@ -376,10 +370,15 @@ export default {
 		cadviewer.cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "ReactJS", "floorPlan");
 		
         //      Setting all callback methods  - they have to be injected into the CADViewer class componnet
-        cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => {
+        /*
+		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => {
 			cvjs_OnLoadEnd();
 			self.onResize();
 		});
+		*/
+		// 
+
+		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", cvjs_OnLoadEnd);
         cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectOnChange", cvjs_graphicalObjectOnChange);
         cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEndRedlines", cvjs_OnLoadEndRedlines);
         cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelected", cvjs_ObjectSelected);
@@ -437,7 +436,7 @@ export default {
 		cadviewer.cvjs_emailSettings_PDF_publish("From CAD Server", "my_from_address@mydomain.com", "my_cc_address@mydomain.com", "my_reply_to@mydomain.com");
 		   	 
 		// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
-		cadviewer.cvjs_loadCADViewerLanguage("French", ""); //English
+		cadviewer.cvjs_loadCADViewerLanguage("English", ""); //English
 		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
 		//cadviewer.cvjs_loadCADViewerLanguage("English", "/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
 
