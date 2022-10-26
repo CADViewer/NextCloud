@@ -426,7 +426,11 @@ export default {
 		  //	var ServerLocation = 
 		  //	var ServerUrl =    
 		 cadviewer.cvjs_CADViewerPro(true);
-		 
+		 cadviewer.cvjs_setCADViewerInterfaceVersion(7);
+		 cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
+
+		cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converter/converters/files/");   // 7.4.45
+
 		 // Pass over the location of the installation, will update the internal paths
 		 cadviewer.cvjs_PrintToPDFWindowRelativeSize(0.8);
 		 cadviewer.cvjs_setFileModalEditMode(false);

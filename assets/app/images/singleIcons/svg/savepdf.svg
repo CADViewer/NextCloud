@@ -66,7 +66,7 @@
      inkscape:label="Lager 2"
      style="display:inline">
     <rect
-       style="opacity:1;fill:#0588CF;fill-opacity:1;fill-rule:evenodd;stroke:#0588CF;stroke-width:4;stroke-opacity:1"
+       style="opacity:1;fill:#333333;fill-opacity:1;fill-rule:evenodd;stroke:#333333;stroke-width:4;stroke-opacity:1"
        id="rect1472"
        width="196"
        height="196"
@@ -93,7 +93,7 @@
          y="456.84898"
          id="tspan32324"><tspan
            dx="0 106.78125 138.65625"
-           id="tspan32322"></tspan></tspan></text>
+           id="tspan32322">SVG</tspan></tspan></text>
   </g>
   <g
      inkscape:groupmode="layer"
