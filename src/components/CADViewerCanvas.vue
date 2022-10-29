@@ -442,7 +442,8 @@ export default {
 		// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
 		cadviewer.cvjs_loadCADViewerLanguage("English", ""); //English
 		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
-		//cadviewer.cvjs_loadCADViewerLanguage("English", "/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
+		//cadviewer.cvjs_loadCADViewerLanguage("English", "/assets/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
+
 
 
 
@@ -466,9 +467,8 @@ export default {
 
 		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/    		
 		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
-		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/cadviewer/app/cv/cv-pro/menu_config/");
-		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_menu_all_items_custom_commands.xml", "cadviewer/app/cv/cv-pro/menu_config/");
-
+		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
+		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_menu_all_items_custom_commands.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
 		
 		// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
 		// main application "app" folder. It can be either absolute or relative
@@ -510,11 +510,11 @@ export default {
 			// And we intialize with the Space Object Custom values
 		//  cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+"app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody);
 
-		//      cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+ "/cadviewer/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
+		//      cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+ "/assets/cadviewer/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
 		cadviewer.cvjs_InitCADViewer_highLight_popUp_app("floorPlan", "/apps/cadviewer/assets/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
-				
+
 		// set the location to license key, typically the js folder in main app application folder ../app/cv/
-		//cadviewer.cvjs_setLicenseKeyPath("/cadviewer/app/cv/");
+		//cadviewer.cvjs_setLicenseKeyPath("/assets/cadviewer/app/cv/");
 		// alternatively, set the key directly, by pasting in the cvKey portion of the cvlicense.js file, note the JSON \" around all entities 	 
 		cadviewer.cvjs_setLicenseKeyDirect('{ \"cvKey\": \"00110010 00110010 00110000 00110001 00110010 00110000 00110100 00110001 00110100 00111000 00110001 00110100 00110101 00110001 00110101 00110111 00110001 00110101 00111001 00110001 00110100 00111000 00110001 00110101 00110010 00110001 00110100 00110101 00110001 00110100 00110001 00110001 00110100 00110000 00110001 00111001 00110111 00110010 00110000 00110111 00110010 00110000 00110110 00110010 00110000 00110001 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00110111 00110001 00111001 00111000 00110010 00110000 00110110 00110010 00110000 00111000 00110010 00110000 00110110 00110010 00110000 00110101 00110010 00110001 00110001 00110010 00110000 00111000 00110010 00110000 00110111 00110010 00110001 00110001 00110010 00110000 00110101 00110010 00110000 00110111 00110001 00111001 00111000 00110001 00110100 00110001 00110001 00110100 00110100 00110001 00110101 00111001 00110001 00110101 00110111 00110001 00110101 00110101 \" }');		 
 			

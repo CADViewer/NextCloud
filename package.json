@@ -19,7 +19,7 @@
 		"@nextcloud/l10n": "^1.4.1",
 		"@nextcloud/router": "^2.0.0",
 		"@nextcloud/vue": "^7.0.0",
-		"cadviewer": "^7.4.47",
+		"cadviewer": "^7.6.2",
 		"core-js": "^3.25.0",
 		"popper.js": "^1.16.1",
 		"vue": "^2.7.13",
