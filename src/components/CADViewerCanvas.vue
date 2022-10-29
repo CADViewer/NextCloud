@@ -559,8 +559,6 @@ export default {
 		// alternatively set a fixed CADViewer canvas size
 		//	cvjs_resizeWindow_fixedSize(600, 400, "floorPlan");			   
   },
-
-  name: 'CADViewer01',
   methods: {
     onResize(e) {
         console.log("RESIZE");

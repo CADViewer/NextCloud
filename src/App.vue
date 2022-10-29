@@ -1,14 +1,15 @@
 <template>
   <div id="iframe_container" class="modal__content">
-    <NcModal v-if="modal" @close="closeModal" title="Cadviewer" size="full">
-      <CADViewerCanvas
+    <app-nc-modal v-if="modal" @close="closeModal" :title="ModalTitle" size="full">
+      <app-cadviewercanvas
+        v-if="modal"
         ref="cadviewercanvas"
         :ServerBackEndUrl="ServerBackEndUrl"
         :ServerLocation="ServerLocation"
         :ServerUrl="ServerUrl"
         :FileName="FileName"
-      ></CADViewerCanvas>
-    </NcModal>
+      ></app-cadviewercanvas>
+    </app-nc-modal>
   </div>
 </template>
 
@@ -17,7 +18,6 @@ import CADViewerCanvas from "./components/CADViewerCanvas.vue";
 import NcModal from "@nextcloud/vue/dist/Components/NcModal.js";
 
 export default {
-  name: "App",
   data() {
     return {
       modal: false,
@@ -88,6 +88,11 @@ export default {
     },
     closeModal() {
 			this.modal = false
+      this.ModalTitle = ''
+      this.ServerBackEndUrl = ''
+      this.ServerLocation = ''
+      this.ServerUrl = ''
+      this.FileName = ''
 		},
 
   },
@@ -97,8 +102,8 @@ export default {
     OCA.Files.fileActions.setDefault("application/octet-stream", "view_dwg");
   },
   components: {
-    CADViewerCanvas,
-    NcModal,
+    'app-nc-modal': NcModal,
+    'app-cadviewercanvas': CADViewerCanvas,
   },
 };
 </script>
