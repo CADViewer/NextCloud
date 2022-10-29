@@ -1,21 +1,7 @@
-<template>
-  <div id="iframe_container" class="modal__content">
-    <app-nc-modal v-if="modal" @close="closeModal" :title="ModalTitle" size="full">
-      <app-cadviewercanvas
-        v-if="modal"
-        ref="cadviewercanvas"
-        :ServerBackEndUrl="ServerBackEndUrl"
-        :ServerLocation="ServerLocation"
-        :ServerUrl="ServerUrl"
-        :FileName="FileName"
-      ></app-cadviewercanvas>
-    </app-nc-modal>
-  </div>
-</template>
-
+<template></template>
 <script>
-import CADViewerCanvas from "./components/CADViewerCanvas.vue";
-import NcModal from "@nextcloud/vue/dist/Components/NcModal.js";
+import CADViewerCanvasVue from "./components/CADViewerCanvas.vue";
+import Vue from 'vue'
 
 export default {
   data() {
@@ -52,7 +38,6 @@ export default {
             url: OC.filePath("cadviewer", "ajax", "cadviewer.php"),
             data: data,
             success: async (element) => {
-              context.fileList.showFileBusyState(tr, false);
               console.log(element);
               if (element.path) {
                 const content_dir = element.path;
@@ -61,8 +46,34 @@ export default {
                 this.ServerUrl = `${window.location.origin}/apps/cadviewer/`
                 this.FileName = `${content_dir}/${filename}`
                 this.ModalTitle = filename
-                this.modal = true;
+                // this.modal = true;
+
+                const myDiv = document.createElement("div");
+                myDiv.id = 'cadviewer_app_canvas';
+
+                document.body.appendChild(myDiv);
+
+                setTimeout(() => {
+                  context.fileList.showFileBusyState(tr, false);
+                    const appCanvas = new Vue({
+                        el: '#cadviewer_app_canvas',
+                        render: h => h(CADViewerCanvasVue, {props:{ 
+                          ServerBackEndUrl: this.ServerBackEndUrl,
+                          ServerLocation: this.ServerLocation,
+                          ServerUrl: this.ServerUrl,
+                          FileName: this.FileName,
+                          ModalTitle: this.ModalTitle,
+                          closeModal: () => {
+                            appCanvas.$destroy();
+                            // appCanvas.$el.parentNode.removeChild(this.$el);
+                            document.querySelector(".modal-mask").remove();
+                            document.querySelector("#cadviewer_app_canvas").remove();
+                          }
+                        }})
+                    });
+                }, 200);
               } else {
+                context.fileList.showFileBusyState(tr, false);
                 OC.dialogs.alert(
                   t(
                     "cadviewer",
@@ -102,9 +113,11 @@ export default {
     OCA.Files.fileActions.setDefault("application/octet-stream", "view_dwg");
   },
   components: {
-    'app-nc-modal': NcModal,
-    'app-cadviewercanvas': CADViewerCanvas,
+    'app-cadviewercanvas': CADViewerCanvasVue,
   },
+  props: {
+    foo: String,
+  }
 };
 </script>
 <style>

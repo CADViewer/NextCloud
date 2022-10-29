@@ -1,16 +1,17 @@
 <template>
-  <div class="cadviewerCanvasTest01">
-<!--    <h1>{{ msg }}</h1>  -->
-    <div id="floorPlan"></div>
-    
-  </div>
+	<div id="cadviewer_app_canvas" class="modal__content">
+		<app-nc-modal @close="closeModal" :title="ModalTitle" size="full">
+			<div class="cadviewerCanvasTest01">
+				<div id="floorPlan"></div>
+			</div>
+		</app-nc-modal>
+	</div>
 </template>
 
 
 <script>
-
-import jQuery from 'jquery';
 import cadviewer from 'cadviewer';
+import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
 
 import {eventBus} from "../main.js";
 
@@ -339,11 +340,12 @@ export default {
 
   },
   props: {
-    msg: String,
+    ModalTitle: String,
     ServerBackEndUrl: String,
     ServerLocation: String,
     ServerUrl: String,
     FileName: String,
+	closeModal: Function,
   },
 
   mounted: function (){
@@ -571,8 +573,11 @@ export default {
 
 	clearTextLayer(){
 		textLayer1 = cadviewer.cvjs_clearLayer(textLayer1);
-	}
+	},
 
+  },
+  components: {
+    'app-nc-modal': NcModalVue,
   }
 }
 </script>

@@ -21,14 +21,15 @@ __webpack_public_path__ = OC.linkTo('cadviewer', 'js/')
 window.addEventListener('DOMContentLoaded', () => {
 	
     const myDiv = document.createElement("div");
-    myDiv.id = 'iframe_container';
+    myDiv.id = 'cadviewer_app';
 
     document.body.appendChild(myDiv);
 
     setTimeout(() => {
         const app = new Vue({
-            render: h => h(App),
-        }).$mount('#iframe_container');
+            el: '#cadviewer_app',
+            render: h => h(App, {props:{ foo:' source prop'}})
+        });
     }, 1000);
 
 })
