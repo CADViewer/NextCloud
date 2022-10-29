@@ -25,12 +25,12 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="0.733172"
-     inkscape:cx="391.44976"
+     inkscape:cx="390.08582"
      inkscape:cy="484.19743"
      inkscape:window-width="1285"
      inkscape:window-height="967"
-     inkscape:window-x="416"
-     inkscape:window-y="44"
+     inkscape:window-x="175"
+     inkscape:window-y="11"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer3"
      showguides="false" />
@@ -71,7 +71,7 @@
      inkscape:label="Lager 2"
      style="display:inline">
     <rect
-       style="opacity:1;fill:#0588CF;fill-opacity:1;fill-rule:evenodd;stroke:#0588CF;stroke-width:4;stroke-opacity:1"
+       style="opacity:1;fill:#333333;fill-opacity:1;fill-rule:evenodd;stroke:#333333;stroke-width:4;stroke-opacity:1"
        id="rect1472"
        width="196"
        height="196"
@@ -90,7 +90,7 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:133.333px;line-height:1.25;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman, ';white-space:pre;shape-inside:url(#rect4563);fill:#ff2a2a;fill-opacity:1;stroke:#ff2a2a;stroke-opacity:1"><tspan
          x="102.29492"
          y="239.73977"
-         id="tspan875">T</tspan></text>
+         id="tspan16175">T</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
@@ -101,21 +101,21 @@
          id="tspan11069"
          style="stroke-width:0.264583"
          x="223.02066"
-         y="172.1373" /><tspan
+         y="172.1373"></tspan><tspan
          sodipodi:role="line"
          style="stroke-width:0.264583"
          id="tspan11073"
          x="223.02066"
          y="185.36642" /></text>
     <rect
-       style="fill:none;fill-rule:evenodd;stroke:#ff2a2a;stroke-width:10;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke-width:8;stroke:#ff2a2a;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none"
        id="rect15733"
-       width="155.89799"
+       width="155.89793"
        height="123.05832"
        x="20.93074"
        y="42.944107" />
     <rect
-       style="fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke:#ff2a2a;stroke-width:8;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke:#ff2a2a;stroke-width:6;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect15963"
        width="37.170105"
        height="7.2174973"
