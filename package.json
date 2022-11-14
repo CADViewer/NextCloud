@@ -1,7 +1,7 @@
 {
 	"name": "cadviewer",
 	"description": "A Cadviewer Nextcloud App",
-	"version": "7.6.18",
+	"version": "7.6.23",
 	"contributors": [
 		"Kevin WAMBA <kevin.wamba@kevmax.com>",
                 "CADViewer <casper.harnung@tailormade.com>"
@@ -20,7 +20,7 @@
 		"@nextcloud/l10n": "^1.4.1",
 		"@nextcloud/router": "^2.0.0",
 		"@nextcloud/vue": "^7.0.0",
-		"cadviewer": "^7.6.18",
+		"cadviewer": "^7.6.24",
 		"core-js": "^3.25.0",
 		"popper.js": "^1.16.1",
 		"vue": "^2.7.13",
