@@ -463,7 +463,7 @@ export default {
 
 		// 6.9.18
 		// set SpaceObjectsCustomMenu location and json config file,  flag true to display SpaceObject Menu, false to hide
-		cadviewer.cvjs_setSpaceObjectsCustomMenu( "/content/customInsertSpaceObjectMenu/", "cadviewercustomspacecommands.json", true);
+		//cadviewer.cvjs_setSpaceObjectsCustomMenu( "/content/customInsertSpaceObjectMenu/", "cadviewercustomspacecommands.json", true);
 
 
 
@@ -477,9 +477,9 @@ export default {
 		//cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
 
 		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/    		
-		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
+		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
 		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
-		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_menu_all_items_custom_commands.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
+		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
 		
 		// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
 		// main application "app" folder. It can be either absolute or relative
@@ -543,7 +543,7 @@ export default {
 
 		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES, FILES, SPACE OBJECTS
 		cadviewer.cvjs_setServerFileLocation_AbsolutePaths(ServerLocation+'/content/drawings/dwg/', ServerBackEndUrl+'content/drawings/dwg/',"","");
-		cadviewer.cvjs_setRedlinesAbsolutePath(ServerBackEndUrl+'/content/redlines/v7/', ServerLocation+'/content/redlines/v7/');
+		cadviewer.cvjs_setRedlinesAbsolutePath(ServerBackEndUrl+'/content/redlines/v7/', ServerLocation+'/content/redlines/v7/', true);
 		cadviewer.cvjs_setSpaceObjectsAbsolutePath(ServerBackEndUrl+'/content/spaceObjects/', ServerLocation+'/content/spaceObjects/');
 		cadviewer.cvjs_setInsertImageObjectsAbsolutePath(ServerBackEndUrl+'/content/inserted_image_objects/', ServerLocation+'/content/inserted_image_objects/')
 
