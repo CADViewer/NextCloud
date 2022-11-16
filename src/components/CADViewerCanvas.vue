@@ -11,6 +11,7 @@
 
 <script>
 import cadviewer from 'cadviewer';
+import { getLanguage } from '@nextcloud/l10n'
 import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
 
 import {eventBus} from "../main.js";
@@ -346,6 +347,7 @@ export default {
     ServerUrl: String,
     FileName: String,
 	closeModal: Function,
+	LicenceKey: String,
   },
 
   mounted: function (){
@@ -359,6 +361,7 @@ export default {
     console.log('mounted');
 
 		var ServerBackEndUrl = this.ServerBackEndUrl;
+		var LicenceKey = this.LicenceKey;
 		var ServerLocation = this.ServerLocation;
 		var ServerUrl = this.ServerUrl;
 		var FileName = this.FileName;
@@ -442,7 +445,13 @@ export default {
 		cadviewer.cvjs_emailSettings_PDF_publish("From CAD Server", "my_from_address@mydomain.com", "my_cc_address@mydomain.com", "my_reply_to@mydomain.com");
 		   	 
 		// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
-		cadviewer.cvjs_loadCADViewerLanguage("English", ""); //English
+		const languages = {
+			"fr": "French",
+			"en": "English"
+		}
+
+		console.log("i18n", languages[getLanguage()], getLanguage())
+		cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English
 		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
 		//cadviewer.cvjs_loadCADViewerLanguage("English", "/assets/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
 
@@ -518,7 +527,7 @@ export default {
 		// set the location to license key, typically the js folder in main app application folder ../app/cv/
 		//cadviewer.cvjs_setLicenseKeyPath("/assets/cadviewer/app/cv/");
 		// alternatively, set the key directly, by pasting in the cvKey portion of the cvlicense.js file, note the JSON \" around all entities 	 
-		cadviewer.cvjs_setLicenseKeyDirect('{ \"cvKey\": \"00110010 00110010 00110000 00110001 00110010 00110000 00110100 00110001 00110100 00111000 00110001 00110100 00110101 00110001 00110101 00110111 00110001 00110101 00111001 00110001 00110100 00111000 00110001 00110101 00110010 00110001 00110100 00110101 00110001 00110100 00110001 00110001 00110100 00110000 00110001 00111001 00110111 00110010 00110000 00110111 00110010 00110000 00110110 00110010 00110000 00110001 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00111000 00110010 00110001 00110000 00110010 00110000 00110111 00110001 00111001 00111000 00110010 00110000 00110110 00110010 00110000 00111000 00110010 00110000 00110110 00110010 00110000 00110101 00110010 00110001 00110001 00110010 00110000 00111000 00110010 00110000 00110111 00110010 00110001 00110001 00110010 00110000 00110101 00110010 00110000 00110111 00110001 00111001 00111000 00110001 00110100 00110001 00110001 00110100 00110100 00110001 00110101 00111001 00110001 00110101 00110111 00110001 00110101 00110101 \" }');		 
+		cadviewer.cvjs_setLicenseKeyDirect(`{"cvKey": "${LicenceKey}"}`);		 
 			
 		// Sets the icon interface for viewing, layerhanding, measurement, etc. only
 		//cvjs_setIconInterfaceControls_ViewingOnly();

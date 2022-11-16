@@ -12,6 +12,7 @@ export default {
       ServerLocation: '',
       ServerUrl: '',
       FileName: '',
+      licenceKey: '',
     };
   },
 
@@ -37,15 +38,16 @@ export default {
             async: "false",
             url: OC.filePath("cadviewer", "ajax", "cadviewer.php"),
             data: data,
-            success: async (element) => {
-              console.log(element);
-              if (element.path) {
-                const content_dir = element.path;
+            success: async (response) => {
+              console.log(response);
+              if (response.path) {
+                const content_dir = response.path;
                 this.ServerBackEndUrl = `${window.location.origin}/apps/cadviewer/converter/`
                 this.ServerLocation = `/var/www/html/apps/cadviewer/converter`
                 this.ServerUrl = `${window.location.origin}/apps/cadviewer/`
                 this.FileName = `${content_dir}/${filename}`
                 this.ModalTitle = filename
+                this.licenceKey = response.licenceKey
                 // this.modal = true;
 
                 const myDiv = document.createElement("div");
@@ -63,6 +65,7 @@ export default {
                           ServerUrl: this.ServerUrl,
                           FileName: this.FileName,
                           ModalTitle: this.ModalTitle,
+                          LicenceKey: this.licenceKey,
                           closeModal: () => {
                             appCanvas.$destroy();
                             // appCanvas.$el.parentNode.removeChild(this.$el);
@@ -104,6 +107,7 @@ export default {
       this.ServerLocation = ''
       this.ServerUrl = ''
       this.FileName = ''
+      this.licenceKey  = ''
 		},
 
   },

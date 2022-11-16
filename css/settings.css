@@ -1,0 +1,54 @@
+#content .section-cadviewer .icon-info {
+    box-sizing: content-box;
+    padding-top: 6px;
+}
+.cadviewer-header {
+    display: inline-block;
+    margin-top: 16px;
+}
+.section-cadviewer input {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+}
+.cadviewer-hide {
+    display: none;
+}
+#cadviewerAdv {
+    cursor: pointer;
+    text-decoration: none;
+}
+#cadviewerAdv .icon {
+    display: inline-block;
+    margin-bottom: -3px;
+}
+#cadviewerAddrSave {
+    float: left;
+}
+.cadviewer-demo {
+    margin-left: 90px;
+}
+#s2id_cadviewerLimitGroups,
+#s2id_cadviewerWatermark_allGroupsList,
+#s2id_cadviewerWatermark_allTagsList,
+#s2id_cadviewerWatermark_linkTagsList {
+    margin-bottom: 16px;
+    margin-left: 18px;
+    margin-top: 6px;
+    width: 250px;
+}
+.cadviewer-exts {
+    column-width: 100px;
+    -moz-column-width: 100px;
+    -webkit-column-width: 100px;
+}
+.cadviewer-tables {
+    margin-top: 4px;
+    line-height: initial;
+    column-width: 140px;
+    -moz-column-width: 140px;
+    -webkit-column-width: 140px;
+}
+#cadviewerSecret-show {
+    left: 240px;
+}
