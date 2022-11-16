@@ -1,0 +1,46 @@
+.icon-add {
+    opacity: 0.5;
+    padding-left: 44px;
+}
+.icon-add:hover {
+    opacity: 0.7;
+}
+
+.cadviewer-template-container li {
+    margin-bottom: 10px;
+}
+.cadviewer-template-item img,
+.cadviewer-template-delete,
+.cadviewer-template-download,
+.cadviewer-template-item p {
+    display: inline-block;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.cadviewer-template-delete,
+.cadviewer-template-download {
+    margin-bottom: -4px;
+}
+.cadviewer-template-delete {
+    opacity: .6;
+}
+.cadviewer-template-download {
+    background-image: url("../../../core/img/actions/download.svg");
+    height: 16px;
+    width: 16px;
+    opacity: .6;
+}
+.cadviewer-template-item img {
+    float: left;
+    margin-top: 5px;
+}
+.cadviewer-template-item input {
+    position: absolute;
+    left: -10000px;
+}
+.cadviewer-template-item input:checked + label {
+    color: rgb(55, 137, 243);
+}
+.section-cadviewer-templates input {
+    display: none;
+}

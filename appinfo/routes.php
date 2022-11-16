@@ -23,10 +23,7 @@
 
 return [
 	'routes' => [
-		[
-            'name' => 'cadviewer#path',
-            'url'  => 'ajax/cadviewer.php',
-            'verb' => 'POST'
-        ],
+		['name' => 'cadviewer#path','url'  => 'ajax/cadviewer.php','verb' => 'POST'],
+        ["name" => "settings#save_common", "url" => "/ajax/settings/common", "verb" => "PUT"],
 	]
 ];

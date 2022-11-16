@@ -3,16 +3,23 @@
       xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
     <id>cadviewer</id>
     <name>Cadviewer</name>
-    <summary>A vue example app</summary>
+    <summary>A cadviewer integration for nextcloud</summary>
     <description><![CDATA[Nothing for now]]></description>
-    <version>0.0.1</version>
+    <version>0.0.3</version>
     <licence>agpl</licence>
     <author mail="kevin.wamba@kevmax.com" homepage="https://www.kevmax.com/">Kevin WAMBA</author>
     <namespace>Cadviewer</namespace>
     <category>files</category>
+    <category>integration</category>
+    <category>office</category>
     <category>tools</category>
-    <bugs>https://www.kevmax.com/</bugs>
+    <website>https://www.cadviewer.com</website>
+    <bugs>https://github.com/kevmax1/cadviewer-nextcloud/issues</bugs>
     <dependencies>
-        <nextcloud min-version="19" max-version="22"/>
+        <nextcloud min-version="19" max-version="25"/>
     </dependencies>
+    <settings>
+        <admin>OCA\Cadviewer\AdminSettings</admin>
+        <admin-section>OCA\Cadviewer\AdminSection</admin-section>
+    </settings>
 </info>
