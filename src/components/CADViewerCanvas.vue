@@ -368,6 +368,8 @@ export default {
 
 		// Set all paths, and handlers, changes these depending on back-end server
 		cadviewer.cvjs_debugMode(true);
+
+                console.log("ServerBackEndUrl="+ServerBackEndUrl+"X ServerLocation="+ServerLocation+"X FileName="+FileName+"X");
 		
 		cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
 		
