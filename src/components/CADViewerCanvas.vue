@@ -452,7 +452,6 @@ export default {
 			"en": "English"
 		}
 
-		console.log("i18n", languages[getLanguage()], getLanguage())
 		cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English
 		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
 		//cadviewer.cvjs_loadCADViewerLanguage("English", "/assets/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
