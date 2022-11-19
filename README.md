@@ -29,10 +29,11 @@ ServerLocation=/var/www/html/apps/cadviewer/converter
 
 7. Activate the NextCloud application
 
-8. You can now visualize your AutoCAD and MicroStation files with a simple click in NextCloud!
+8. ***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
 
+9. Please try out the CADViewer features including print, measurements, layer handling and the Redline annotation interface.
 
-9. ***[Optional]*** If you are on Windows you will have to modify the file ***cadviewer/converter/php/CADViewer_config.php*** to adapt the configuration to Windows (change executeable name and folders). You will also have to install the Windows back-end CAD converters. Pull the /converters/ax2023/windows/ tree from [cadviewer-script-library](https://github.com/CADViewer/cadviewer-script-library) and replace into the /apps/cadviewer/converter/converters/ tree. In ***cadviewer/converter/php/CADViewer_config.php***, update ***$platform*** and ***$ax2023_executable***.
+10. ***[Optional]*** If you are on Windows you will have to modify the file ***cadviewer/converter/php/CADViewer_config.php*** to adapt the configuration to Windows (change executeable name and folders). You will also have to install the Windows back-end CAD converters. Pull the /converters/ax2023/windows/ tree from [cadviewer-script-library](https://github.com/CADViewer/cadviewer-script-library) and replace into the /apps/cadviewer/converter/converters/ tree. In ***cadviewer/converter/php/CADViewer_config.php***, update ***$platform*** and ***$ax2023_executable***.
 
 
 

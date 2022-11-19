@@ -1,3 +1,5 @@
+var ServerLocation = "/var/www/html/apps/cadviewer/converter/";  // Server  Location  Path added here
+
 $(document).ready(function () {
     function removeIframeContainerItem(){
         if(document.querySelector("#iframe_container")){
@@ -54,7 +56,7 @@ $(document).ready(function () {
                 <iframe id="inlineFrameExample"
                     width="100%"
                     height="100%"
-                    src="${window.location.origin}/apps/cadviewer/dist/index.html?ServerBackEndUrl=${window.location.origin}/apps/cadviewer/converter/&ServerLocation=/var/www/html/apps/cadviewer/converter&ServerUrl=${window.location.origin}/&FileName=${content_dir}/${filename}">
+                    src="${window.location.origin}/apps/cadviewer/dist/index.html?ServerBackEndUrl=${window.location.origin}/apps/cadviewer/converter/&ServerLocation=/var/www/html/apps/cadviewer/converter/&ServerUrl=${window.location.origin}/&FileName=${content_dir}/${filename}">
                     <div style="display: flex; justify-content: center; align-items: center;height:50vh;">Chargement...</div>
                 </iframe>
             </div>

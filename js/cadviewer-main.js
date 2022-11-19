@@ -5389,6 +5389,7 @@ function cvjs_ObjectSelectedStickyNotes() {}
 
     // Set all paths, and handlers, changes these depending on back-end server
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_debugMode(true);
+    console.log("ServerBackEndUrl=" + ServerBackEndUrl + "X ServerLocation=" + ServerLocation + "X FileName=" + FileName + "X");
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setIconImageSize("floorPlan", 34, 44);
 
     // Set all paths, and handlers, changes these depending on back-end server
@@ -5477,7 +5478,7 @@ function cvjs_ObjectSelectedStickyNotes() {}
 
     // 6.9.18
     // set SpaceObjectsCustomMenu location and json config file,  flag true to display SpaceObject Menu, false to hide
-    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setSpaceObjectsCustomMenu("/content/customInsertSpaceObjectMenu/", "cadviewercustomspacecommands.json", true);
+    //cadviewer.cvjs_setSpaceObjectsCustomMenu( "/content/customInsertSpaceObjectMenu/", "cadviewercustomspacecommands.json", true);
 
     // Set Icon Menu Interface controls. Users can: 
     // 1: Disable all icon interfaces
@@ -5489,9 +5490,9 @@ function cvjs_ObjectSelectedStickyNotes() {}
     //cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
 
     // 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/    		
-    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");
+    //cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
     //cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/apps/cadviewer/assets/app/cv/cv-pro/menu_config/");
-    //cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_menu_all_items_custom_commands.xml", "/apps/cadviewer/assets/app/cv/cv-pro/menu_config/");
+    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
 
     // Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
     // main application "app" folder. It can be either absolute or relative
@@ -5554,7 +5555,7 @@ function cvjs_ObjectSelectedStickyNotes() {}
 
     // NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES, FILES, SPACE OBJECTS
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setServerFileLocation_AbsolutePaths(ServerLocation + '/content/drawings/dwg/', ServerBackEndUrl + 'content/drawings/dwg/', "", "");
-    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setRedlinesAbsolutePath(ServerBackEndUrl + '/content/redlines/v7/', ServerLocation + '/content/redlines/v7/');
+    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setRedlinesAbsolutePath(ServerBackEndUrl + '/content/redlines/v7/', ServerLocation + '/content/redlines/v7/', true);
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setSpaceObjectsAbsolutePath(ServerBackEndUrl + '/content/spaceObjects/', ServerLocation + '/content/spaceObjects/');
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_setInsertImageObjectsAbsolutePath(ServerBackEndUrl + '/content/inserted_image_objects/', ServerLocation + '/content/inserted_image_objects/');
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_conversion_clearAXconversionParameters();
@@ -37258,4 +37259,4 @@ const computePosition = (reference, floating, options) => (0,_floating_ui_core__
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=cadviewer-main.js.map?v=3f8025c6e519b5b5732b
+//# sourceMappingURL=cadviewer-main.js.map?v=16d6fa191827dff0be48
