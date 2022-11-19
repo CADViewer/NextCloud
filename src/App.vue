@@ -42,8 +42,9 @@ export default {
               console.log(response);
               if (response.path) {
                 const content_dir = response.path;
+                console.log({content_dir})
                 this.ServerBackEndUrl = `${window.location.origin}/apps/cadviewer/converter/`
-                this.ServerLocation = `/var/www/html/apps/cadviewer/converter`
+                this.ServerLocation = `${response.serverLocation}`
                 this.ServerUrl = `${window.location.origin}/apps/cadviewer/`
                 this.FileName = `${content_dir}/${filename}`
                 this.ModalTitle = filename

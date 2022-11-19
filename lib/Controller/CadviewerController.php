@@ -62,6 +62,7 @@ class CadviewerController extends Controller {
 		$response = array();
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["path"] = $dir;
+		$response["serverLocation"] = str_replace("lib/Controller", "converter", dirname(__FILE__));
 		
 		return $response;
 	}

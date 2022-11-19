@@ -4996,8 +4996,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                         console.log(response);
                         if (response.path) {
                           content_dir = response.path;
+                          console.log({
+                            content_dir: content_dir
+                          });
                           _this.ServerBackEndUrl = "".concat(window.location.origin, "/apps/cadviewer/converter/");
-                          _this.ServerLocation = "/var/www/html/apps/cadviewer/converter";
+                          _this.ServerLocation = "".concat(response.serverLocation);
                           _this.ServerUrl = "".concat(window.location.origin, "/apps/cadviewer/");
                           _this.FileName = "".concat(content_dir, "/").concat(filename);
                           _this.ModalTitle = filename;
@@ -5466,7 +5469,6 @@ function cvjs_ObjectSelectedStickyNotes() {}
       "fr": "French",
       "en": "English"
     };
-    console.log("i18n", languages[(0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_1__.getLanguage)()], (0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_1__.getLanguage)());
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_loadCADViewerLanguage(languages[(0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_1__.getLanguage)()] ? languages[(0,_nextcloud_l10n__WEBPACK_IMPORTED_MODULE_1__.getLanguage)()] : "English", ""); //English
     // Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
     //cadviewer.cvjs_loadCADViewerLanguage("English", "/apps/cadviewer/assets/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
@@ -37256,4 +37258,4 @@ const computePosition = (reference, floating, options) => (0,_floating_ui_core__
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=cadviewer-main.js.map?v=ba5067e39014c39be75c
+//# sourceMappingURL=cadviewer-main.js.map?v=3f8025c6e519b5b5732b
