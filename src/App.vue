@@ -67,6 +67,8 @@ export default {
                           FileName: this.FileName,
                           ModalTitle: this.ModalTitle,
                           LicenceKey: this.licenceKey,
+                          UserName: OC.getCurrentUser().displayName,
+                          UserId: OC.getCurrentUser().uid,
                           closeModal: () => {
                             appCanvas.$destroy();
                             // appCanvas.$el.parentNode.removeChild(this.$el);

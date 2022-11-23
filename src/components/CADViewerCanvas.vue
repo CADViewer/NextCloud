@@ -29,19 +29,16 @@ var  current_selected_handle = "";
 
 //export function cvjs_OnLoadEnd(){
 
-function cvjs_OnLoadEnd(){
+function cvjs_OnLoadEnd(UserName, UserId){
 	// generic callback method, called when the drawing is loaded
 	// here you fill in your stuff, call DB, set up arrays, etc..
 	// this method MUST be retained as a dummy method! - if not implemeted -
 
 	cadviewer.cvjs_resetZoomPan("floorPlan");
 
-	var user_name = "Bob Smith";
-	var user_id = "user_1";
-
 	// set a value for redlines
-	cadviewer.cvjs_setCurrentStickyNoteValues_NameUserId(user_name, user_id );
-	cadviewer.cvjs_setCurrentRedlineValues_NameUserid(user_name, user_id);
+	cadviewer.cvjs_setCurrentStickyNoteValues_NameUserId(UserName, UserId );
+	cadviewer.cvjs_setCurrentRedlineValues_NameUserid(UserName, UserId);
 	// cadviewer.cvjs_dragBackgroundToFront_SVG("floorPlan");					
 	//cvjs_initZeroWidthHandling("floorPlan", 1.0);			
 
@@ -348,6 +345,8 @@ export default {
     FileName: String,
 	closeModal: Function,
 	LicenceKey: String,
+	UserName: String,
+    UserId: String
   },
 
   mounted: function (){
@@ -365,6 +364,8 @@ export default {
 		var ServerLocation = this.ServerLocation;
 		var ServerUrl = this.ServerUrl;
 		var FileName = this.FileName;
+		var UserName = this.UserName;
+    	var UserId = this.UserId;
 
 		// Set all paths, and handlers, changes these depending on back-end server
 		cadviewer.cvjs_debugMode(true);
@@ -385,7 +386,7 @@ export default {
 		*/
 		// 
 
-		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", cvjs_OnLoadEnd);
+		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
         cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectOnChange", cvjs_graphicalObjectOnChange);
         cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEndRedlines", cvjs_OnLoadEndRedlines);
         cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelected", cvjs_ObjectSelected);
