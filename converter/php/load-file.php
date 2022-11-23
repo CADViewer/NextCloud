@@ -98,10 +98,17 @@ if ( $loadtype == "serverfilelist"){
 // 7.6.26
 $pos1 = strpos($fullPath, "http:");
 $pos2 = strpos($fullPath, "https:");
+$basepathpos = strpos($fullPath, $home_dir);
 //echo "pos1".is_numeric($pos1)."pos2".is_numeric($pos2);
 // home dir . for server location   only if not 
 if ( $loadtype == "redline" && !(is_numeric($pos1) || is_numeric($pos2) )){
-	$fullPath = $home_dir . $fullPath;
+		
+	if (is_numeric($basepathpos)) {
+		// do nothing, the serverpath is part of the complete filename
+	}
+	else 
+		$fullPath = $home_dir . $fullPath;
+
 }
 
 //echo "  fullPath:" . $fullPath. "XYZXYZ " . $loadtype ."XXXX";
