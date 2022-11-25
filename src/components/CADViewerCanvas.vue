@@ -44,9 +44,16 @@ function cvjs_OnLoadEnd(UserName, UserId){
 
 	textLayer1 = cadviewer.cvjs_clearLayer(textLayer1);
 	
-
 	// resize the floorplan drawing at load
 	cadviewer.cvjs_resizeWindow_position("floorPlan" );
+
+
+	// load in redlines
+
+	startMethodRed();
+	// API call to load stickynotes and redlines
+	cadviewer.cvjs_loadStickyNotesRedlines("floorPlan");
+
 
 }
 
@@ -132,27 +139,37 @@ function cvjs_graphicalObjectOnChange(type, graphicalObject, spaceID){
 
 }
 
+function startMethodRed(){
+
+	// we keep all redlines in one single file  NOTE! issues with delete?  
+	var v1 = "/content/redlines/v7/"+cadviewer.cvjs_computeDynamicRedlineNamePath()+"all-users.json";
+	var v2 = "/content/redlines/v7/"+cadviewer.cvjs_computeDynamicRedlineNamePath()+"all-users.json";
+
+	cadviewer.cvjs_setStickyNoteRedlineUrl(v1);
+	cadviewer.cvjs_setStickyNoteSaveRedlineUrl(v2);
+}
+
+
 
 function cvjs_saveStickyNotesRedlinesUser(){
 
 // there are two modes, user handling of redlines
 // alternatively use the build in redline file manager
 
-cadviewer.cvjs_openRedlineSaveModal("floorPlan");
+//cadviewer.cvjs_openRedlineSaveModal("floorPlan");
 
 // custom method startMethodRed to set the name and location of redline to save
 // see implementation below
-//startMethodRed();
-// API call to save stickynotes and redlines
-//cvjs_saveStickyNotesRedlines("floorPlan");
+	startMethodRed();
+	// API call to save stickynotes and redlines
+	cadviewer.cvjs_saveStickyNotesRedlines("floorPlan");
 }
 
 
 // This method is linked to the load redline icon in the imagemap
 function cvjs_loadStickyNotesRedlinesUser(){
 
-
-cadviewer.cvjs_openRedlineLoadModal("floorPlan");
+//cadviewer.cvjs_openRedlineLoadModal("floorPlan");
 
 // first the drawing needs to be cleared of stickynotes and redlines
 //cvjs_deleteAllStickyNotes();
@@ -160,11 +177,12 @@ cadviewer.cvjs_openRedlineLoadModal("floorPlan");
 
 // custom method startMethodRed to set the name and location of redline to load
 // see implementation below
-// startMethodRed();
 
-// API call to load stickynotes and redlines
-//cvjs_loadStickyNotesRedlines("floorPlan");
+	startMethodRed();
+	// API call to load stickynotes and redlines
+	cadviewer.cvjs_loadStickyNotesRedlines("floorPlan");
 }
+
 
 // Here we are writing a basic function that will be used in the PopUpMenu
 // this is template on all the good stuff users can add
