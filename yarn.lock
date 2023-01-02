@@ -4741,10 +4741,10 @@ cached-path-relative@^1.0.0:
   resolved "https://registry.yarnpkg.com/cached-path-relative/-/cached-path-relative-1.1.0.tgz#865576dfef39c0d6a7defde794d078f5308e3ef3"
   integrity sha512-WF0LihfemtesFcJgO7xfOoOcnWzY/QHR4qeDqV44jPU3HTI54+LnfXK3SA27AVVGCdZFgjjFFaqUA9Jx7dMJZA==
 
-cadviewer@^7.6.24:
-  version "7.6.24"
-  resolved "https://registry.yarnpkg.com/cadviewer/-/cadviewer-7.6.24.tgz#98dedc7337e1c74eb5d1073cf2820d9cfce6946c"
-  integrity sha512-5uObkVmBN1beJ7nVaJ/kqPRyD5TShACjzCGCIFbf8IjqqmdpHMwoPAAeB5kuUJZZJBz0Fxo0UQBAujsaEZo/WA==
+cadviewer@^7.7.6:
+  version "7.7.6"
+  resolved "https://registry.yarnpkg.com/cadviewer/-/cadviewer-7.7.6.tgz#dfa54e17909903ce20d07a230aff5a55e7ae301d"
+  integrity sha512-tMWNB41wsjSvN8yVYPOakNFNeiSMJe6M6cAy3ohbhRqgPro8Sw1z9vb5t617S/DyRSM9wGLMfeDHKZw7nw9WiQ==
   dependencies:
     "@eastdesire/jscolor" "^2.4.6"
     bootstrap "^4.6.0"

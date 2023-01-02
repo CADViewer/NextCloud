@@ -118,6 +118,10 @@ export default {
   created () {
     this.init();
     OCA.Files.fileActions.setDefault("application/octet-stream", "view_dwg");
+    OCA.Files.fileActions.setDefault("aapplication/acad", "view_dwg");
+    OCA.Files.fileActions.setDefault("application/dxf", "view_dwg");
+    OCA.Files.fileActions.setDefault("application/x-dwf	", "view_dwg");
+    OCA.Files.fileActions.setDefault("application/dgn	", "view_dwg");
   },
   components: {
     'app-cadviewercanvas': CADViewerCanvasVue,

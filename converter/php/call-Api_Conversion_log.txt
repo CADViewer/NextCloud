@@ -6,11 +6,11 @@ before _ isset()x2
 first in file   
 $json_data:    
 $json_request(conv): ,   
-$temp_var is null:, this must be a post call, also:$jsonp_flag=, isset:1 request={"action":"svg_creation","converter":"AutoXchange AX2020","version":"V1.00","contentType":"file","customConversionEndpointExtension":false,"contentLocation":"%2Fvar%2Fwww%2Fhtml%2Fdata%2Fkevin%2Ffiles%2FCity_map_3.dwg","contentFormat":"DWG","contentUsername":"","contentPassword":"","userLabel":"fromCADViewerJS","contentResponse":"stream","leaveStreamOnServer":0,"parameters":[{"paramName":"f","paramValue":"svg"},{"paramName":"RL","paramValue":"RM_"},{"paramName":"TL","paramValue":"RM_TXT"},{"paramName":"LA","paramValue":""},{"paramName":"last","paramValue":""},{"paramName":"hlall","paramValue":""}]}<end request>$json_data isset, requestconverter:AutoXchange AX2020 
+$temp_var is null:, this must be a post call, also:$jsonp_flag=, isset:1 request={"action":"svg_creation","converter":"AutoXchange AX2020","version":"V1.00","contentType":"file","customConversionEndpointExtension":false,"contentLocation":"%2Fvar%2Fwww%2Fhtml%2Fdata%2Fnextcloud%2Ffiles%2FCity_map.dwg","contentFormat":"DWG","contentUsername":"","contentPassword":"","userLabel":"fromCADViewerJS","contentResponse":"stream","leaveStreamOnServer":0,"parameters":[{"paramName":"f","paramValue":"svg"},{"paramName":"RL","paramValue":"RM_"},{"paramName":"TL","paramValue":"RM_TXT"},{"paramName":"LA","paramValue":""},{"paramName":"last","paramValue":""},{"paramName":"hlall","paramValue":""}]}<end request>$json_data isset, requestconverter:AutoXchange AX2020 
 AGENT operating_system_detection():  $agent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36  
 AGENT PHP_OS : Linux
-$contentlocation:  %2Fvar%2Fwww%2Fhtml%2Fdata%2Fkevin%2Ffiles%2FCity_map_3.dwg  
-$contentlocation:  /var/www/html/data/kevin/files/City_map_3.dwg  
+$contentlocation:  %2Fvar%2Fwww%2Fhtml%2Fdata%2Fnextcloud%2Ffiles%2FCity_map.dwg  
+$contentlocation:  /var/www/html/data/nextcloud/files/City_map.dwg  
 $max: 6  
 param f : svg  
 param RL : RM_  
@@ -18,24 +18,24 @@ param TL : RM_TXT
   $output_file_extension:svg   $param_string:  -f="svg" -RL="RM_" -TL="RM_TXT" -LA -last -hlall  
 We are setting $server_load:  1  
 after content location check $server_load:  1  , content-type: (file 
- location X004  contentlocation:/var/www/html/data/kevin/files/City_map_3.dwg 
-X005 In action: contentype file: /var/www/html/data/kevin/files/City_map_3.dwg  
+ location X004  contentlocation:/var/www/html/data/nextcloud/files/City_map.dwg 
+X005 In action: contentype file: /var/www/html/data/nextcloud/files/City_map.dwg  
 before download file  
- Before COPY: from /var/www/html/data/kevin/files/City_map_3.dwg to /var/www/html/apps/cadviewer/converter/converters/files/f2042539950.dwg  
-$fullPath: /var/www/html/apps/cadviewer/converter/converters/files/f2042539950.dwg  
-$fullPath: /var/www/html/apps/cadviewer/converter/converters/files/f2042539950.dwg  
+ Before COPY: from /var/www/html/data/nextcloud/files/City_map.dwg to /var/www/html/apps/cadviewer/converter/converters/files/f404016022.dwg  
+$fullPath: /var/www/html/apps/cadviewer/converter/converters/files/f404016022.dwg  
+$fullPath: /var/www/html/apps/cadviewer/converter/converters/files/f404016022.dwg  
 AA: before setting $fullPath:  $server_load 1   $contenttype file 
-$fullPath: /var/www/html/data/kevin/files/City_map_3.dwg  
+$fullPath: /var/www/html/data/nextcloud/files/City_map.dwg  
 $max_conv: 5  
 $engine_path: /var/www/html/apps/cadviewer/converter/converters/ax2023/linux//ax2023_L64_23_10_97  
 new $add_xpath    
 In loop to add xpath  
 after first loop $command_line_parameter_xpath: 0  
-$command_line: "/var/www/html/apps/cadviewer/converter/converters/ax2023/linux//ax2023_L64_23_10_97" -i="/var/www/html/data/kevin/files/City_map_3.dwg" -o="/var/www/html/apps/cadviewer/converter/converters/files/f2042539950.svg"  -f="svg" -RL="RM_" -TL="RM_TXT" -LA -last -hlall -lpath="/var/www/html/apps/cadviewer/converter/converters/ax2023/linux/"  XXXXXXX  
+$command_line: "/var/www/html/apps/cadviewer/converter/converters/ax2023/linux//ax2023_L64_23_10_97" -i="/var/www/html/data/nextcloud/files/City_map.dwg" -o="/var/www/html/apps/cadviewer/converter/converters/files/f404016022.svg"  -f="svg" -RL="RM_" -TL="RM_TXT" -LA -last -hlall -lpath="/var/www/html/apps/cadviewer/converter/converters/ax2023/linux/"  XXXXXXX  
 library path before new env: /var/www/html/apps/cadviewer/converter/converters/ax2023/linux/  
 this is the value we got setting the environment 1  
 getenv after putenv: /var/www/html/apps/cadviewer/converter/converters/ax2023/linux/   
-before call to exec:  "/var/www/html/apps/cadviewer/converter/converters/ax2023/linux//ax2023_L64_23_10_97" -i="/var/www/html/data/kevin/files/City_map_3.dwg" -o="/var/www/html/apps/cadviewer/converter/converters/files/f2042539950.svg"  -f="svg" -RL="RM_" -TL="RM_TXT" -LA -last -hlall -lpath="/var/www/html/apps/cadviewer/converter/converters/ax2023/linux/"     
+before call to exec:  "/var/www/html/apps/cadviewer/converter/converters/ax2023/linux//ax2023_L64_23_10_97" -i="/var/www/html/data/nextcloud/files/City_map.dwg" -o="/var/www/html/apps/cadviewer/converter/converters/files/f404016022.svg"  -f="svg" -RL="RM_" -TL="RM_TXT" -LA -last -hlall -lpath="/var/www/html/apps/cadviewer/converter/converters/ax2023/linux/"     
 before call to exec, engine_path:  /var/www/html/apps/cadviewer/converter/converters/ax2023/linux//ax2023_L64_23_10_97    
 current script owner: www-data    
 AGENT operating_system_detection():  $agent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36  
@@ -43,13 +43,13 @@ AGENT PHP_OS : Linux
 operating_system_detection(): Linux    
 exec return1  0   
 exec return1 check  0   
-unlink1  /var/www/html/data/kevin/files/City_map_3.dwg   
-unlink2  /var/www/html/apps/cadviewer/converter/converters/files/f2042539950_ac1024.dwg   
+unlink1  /var/www/html/data/nextcloud/files/City_map.dwg   
+unlink2  /var/www/html/apps/cadviewer/converter/converters/files/f404016022_ac1024.dwg   
 Q1 contentresponse  stream   
 Q2:svg_creation   
-Q4: $general_response{"completedAction":"svg_creation","errorCode":"E0","converter":"AutoXchange AX2020","version":"V1.00","userLabel":"fromCADViewerJS","contentLocation":"/var/www/html/data/kevin/files/City_map_3.dwg","contentResponse":"stream","contentStreamData":"http://localhost:8080/apps/cadviewer/converter/php//getFile_09.php?remainOnServer=0&fileTag=f2042539950&Type=svg"}   
-Q5: 0  1  $json_response"{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/kevin\/files\/City_map_3.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8080\/apps\/cadviewer\/converter\/php\/\/getFile_09.php?remainOnServer=0&fileTag=f2042539950&Type=svg\"}"   
-$json_response = "{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/kevin\/files\/City_map_3.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8080\/apps\/cadviewer\/converter\/php\/\/getFile_09.php?remainOnServer=0&fileTag=f2042539950&Type=svg\"}"  
+Q4: $general_response{"completedAction":"svg_creation","errorCode":"E0","converter":"AutoXchange AX2020","version":"V1.00","userLabel":"fromCADViewerJS","contentLocation":"/var/www/html/data/nextcloud/files/City_map.dwg","contentResponse":"stream","contentStreamData":"http://localhost:8080/apps/cadviewer/converter/php//getFile_09.php?remainOnServer=0&fileTag=f404016022&Type=svg"}   
+Q5: 0  1  $json_response"{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/nextcloud\/files\/City_map.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8080\/apps\/cadviewer\/converter\/php\/\/getFile_09.php?remainOnServer=0&fileTag=f404016022&Type=svg\"}"   
+$json_response = "{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/nextcloud\/files\/City_map.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8080\/apps\/cadviewer\/converter\/php\/\/getFile_09.php?remainOnServer=0&fileTag=f404016022&Type=svg\"}"  
 $post_request_flag=1 $json_response only  
 LAST BEFORE CALLBACK   
  
