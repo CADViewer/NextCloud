@@ -4,30 +4,17 @@
 require 'CADViewer_config.php';
 
 
-
 $http_origin = '';
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {
-  $http_origin = $_SERVER['HTTP_ORIGIN'];
+$http_origin = $_SERVER['HTTP_ORIGIN'];
 }
 elseif (isset($_SERVER['HTTP_REFERER'])) {
-  $http_origin = $_SERVER['HTTP_REFERER'];
+$http_origin = $_SERVER['HTTP_REFERER'];
 }
 
-// allow CORS or control it
-if (true){
-    header("Access-Control-Allow-Origin: $http_origin");
-    header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
-    header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
-}
-else{
-
-	$allowed_domains = array(
-	  'http://localhost:8080',
-	  'http://localhost:8081',
-	  'http://localhost',
-	);
-
+if ($checkorigin){
+	
 	if (in_array($http_origin, $allowed_domains))
 	{
 		header("Access-Control-Allow-Origin: $http_origin");
@@ -35,6 +22,13 @@ else{
 		header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
 	}	
 }
+else{
+	header("Access-Control-Allow-Origin: *");
+	header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+	header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token , Authorization');
+}
+
+
 
 
 $fullPath = $_POST['file'];
@@ -78,10 +72,33 @@ try {
 	// do nothing
 }
 
-// we user a server side path 
-if ($listtype == "serverfolder"){
-	$fullPath = $home_dir . $fullPath;
+
+// 7.6.26   7.7.11
+$pos1 = strpos($fullPath, "http:");
+$pos2 = strpos($fullPath, "https:");
+$basepathpos = strpos($fullPath, $home_dir);
+//echo "pos1".is_numeric($pos1)."pos2".is_numeric($pos2);
+// home dir . for server location   only if not 
+if ( $listtype == "redline" && !(is_numeric($pos1) || is_numeric($pos2) )){
+		
+	if (is_numeric($basepathpos) && $basepathpos == 0) {
+		// do nothing, only if the serverpath is the beginning part of the complete filename
+	}
+	else 
+		$fullPath = $home_dir . $fullPath;
 }
+
+
+if ( $listtype == "serverfolder"){
+		
+	if (is_numeric($basepathpos) && $basepathpos == 0) {
+		// do nothing, only if the serverpath is the beginning part of the complete filename
+	}
+	else 
+		$fullPath = $home_dir . $fullPath;
+}
+
+
 
 
 
@@ -126,13 +143,31 @@ if ($fd = fopen ($fullPath, "w+")) {
     }
     fclose($fd);
 
+
+	// if HTML file, we need to convert the encoding. 
+	$htmlfilepos= strpos($fullPath, ".html");
+	if (is_numeric($htmlfilepos) && $htmlfilepos > 0){
+
+		$html = file_get_contents($fullPath);
+		$html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
+
+		// echo "html: " .$html;
+
+		$ifp = fopen($fullPath, "wb");
+		fwrite($ifp, $html);
+		fclose($ifp);
+
+	}
+
+
+
 //	fwrite($fd, $file_content);
 //	fclose ($fd);	
 		
 	$time = time() + 1;
 	touch($fullPath, $time);
 		
- 	echo "Succes";
+ 	echo "Succes "; // .$fullPath;
 	exit;
 }
 
