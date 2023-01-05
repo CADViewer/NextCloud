@@ -1,9 +1,19 @@
 <template>
 	<div id="cadviewer_app_canvas" class="modal__content">
-		<app-nc-modal @close="closeModal" :title="ModalTitle" size="full">
+		<app-nc-modal @close="closeModal" :title="ModalTitle" size="full" :canClose="canClose">
 			<div class="cadviewerCanvasTest01">
 				<div id="floorPlan"></div>
 			</div>
+			<app-nc-button
+				:aria-label="closeButtonAriaLabel"
+				class="header-close close_button"
+				type="tertiary"
+				@click="closeModal">
+				<template #icon>
+					<app-close :size="iconSize" />
+				</template>
+			</app-nc-button>
+			
 		</app-nc-modal>
 	</div>
 </template>
@@ -13,6 +23,8 @@
 import cadviewer from 'cadviewer';
 import { getLanguage } from '@nextcloud/l10n'
 import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
+import NcButton from "@nextcloud/vue/dist/Components/NcButton.js";
+import Close from 'vue-material-design-icons/Close.vue'
 
 import {eventBus} from "../main.js";
 
@@ -355,6 +367,17 @@ export default {
    	  console.log('created CADViewerCanvas');
 
   },
+  data() {
+		return {
+			canClose: false,
+			iconSize: 24,
+		}
+  },
+  computed: {
+	closeButtonAriaLabel() {
+			return t('Close modal')
+	},
+  },
   props: {
     ModalTitle: String,
     ServerBackEndUrl: String,
@@ -607,6 +630,8 @@ export default {
   },
   components: {
     'app-nc-modal': NcModalVue,
+	'app-nc-button': NcButton,
+	'app-close': Close
   }
 }
 </script>
@@ -620,5 +645,10 @@ export default {
   	margin-left: 2px;   /* margin-left: 50px;   */
 } 
  
+.close_button {
+	position: absolute !important;
+    top: 4px;
+    right: 4px;
+}
 
 </style>
