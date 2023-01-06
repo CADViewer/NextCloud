@@ -594,10 +594,10 @@ export default {
 		cadviewer.cvjs_conversion_clearAXconversionParameters();
 
 		// process layers for spaces  RL/TL
-		cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
-		cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
+		// cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
+		// cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
 		// calculate areas of spaces
-		cadviewer.cvjs_conversion_addAXconversionParameter("LA", "");		 
+		cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
 		cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
 		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
 

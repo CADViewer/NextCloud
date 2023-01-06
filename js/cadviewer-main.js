@@ -5071,19 +5071,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         order: 1001,
         actionHandler: this.viewCadFileActionHandler
       });
-      if (is_default) {
-        OCA.Files.fileActions.registerAction({
-          name: "open_cadviewer_modal_default",
-          displayName: "Open with CADViewer",
-          mime: mine_type,
-          permissions: OC.PERMISSION_NONE,
-          type: OCA.Files.FileActions.TYPE_DROPDOWN,
-          iconClass: "icon-visibility-button",
-          order: 1002,
-          actionHandler: this.viewCadFileActionHandler
-        });
-        OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal_default");
-      }
+      if (is_default) OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal");
     },
     closeModal: function closeModal() {
       this.modal = false;
@@ -5630,10 +5618,10 @@ function cvjs_ObjectSelectedStickyNotes() {}
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_conversion_clearAXconversionParameters();
 
     // process layers for spaces  RL/TL
-    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_conversion_addAXconversionParameter("RL", "RM_");
-    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");
+    // cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
+    // cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
     // calculate areas of spaces
-    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_conversion_addAXconversionParameter("LA", "");
+    cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_conversion_addAXconversionParameter("strokea", "");
     cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_conversion_addAXconversionParameter("last", "");
     // NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
 
@@ -37351,4 +37339,4 @@ const computePosition = (reference, floating, options) => (0,_floating_ui_core__
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=cadviewer-main.js.map?v=d0c9712f641beb302195
+//# sourceMappingURL=cadviewer-main.js.map?v=2646e743a2edabc79240
