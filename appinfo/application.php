@@ -4,6 +4,7 @@ namespace OCA\Cadviewer\AppInfo;
 
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
 use OCP\Dashboard\RegisterWidgetEvent;
 use OCP\DirectEditing\RegisterDirectEditorEvent;
@@ -16,9 +17,27 @@ use OCA\Viewer\Event\LoadViewer;
 use OCA\Cadviewer\Controller\SettingsController;
 use OCA\Cadviewer\AppConfig;
 
-use Psr\Container\ContainerInterface;
+use OC\Files\Filesystem;
 
-class Application extends App {
+use Psr\Container\ContainerInterface;
+use OCP\Util;
+
+$eventDispatcher = \OC::$server->getEventDispatcher();
+
+$eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function(){
+    Util::addScript('cadviewer', 'cadviewer-main' );
+    Util::addStyle('cadviewer', 'style' );
+    Util::addStyle('cadviewer', 'bootstrap-multiselect');
+    Util::addStyle('cadviewer', 'cvjs_7');
+    // Util::addStyle('cadviewer', 'cadviewer_bootstrap.min');
+    // Util::addStyle('cadviewer', 'font-awesome.min');
+    // Util::addStyle('cadviewer', 'jquery.qtip.min');
+    // Util::addStyle('cadviewer', 'jquery-ui-1.11.4.min');
+    // Util::addStyle('cadviewer', 'cvjs_jquery.qtip.min');
+    Util::addStyle('cadviewer', 'bootstrap-cadviewer');
+});
+
+class Application extends App implements IBootstrap {
 
 
     /**
@@ -36,8 +55,7 @@ class Application extends App {
     }
 
     public function register(IRegistrationContext $context): void {
-       
-
+        
         $context->registerService("L10N", function (ContainerInterface $c) {
             return $c->get("ServerContainer")->getL10N($c->get("AppName"));
         });
@@ -89,6 +107,6 @@ class Application extends App {
     }
 
     public function boot(IBootContext $context): void {
-
+        
     }
 }
