@@ -1,54 +1,213 @@
 #content .section-cadviewer .icon-info {
-    box-sizing: content-box;
-    padding-top: 6px;
+  box-sizing: content-box;
+  padding-top: 6px;
+}
+.section-cadviewer h1 {
+    font-weight: bold;
+    font-size: 26px;
+    margin-bottom: 22px;
+    line-height: 30px;
+    color: var(--color-text-light);
+}
+.section-cadviewer .content-verification {
+    max-width: 400px;
+    margin-bottom: 16px;
+}
+.section-cadviewer .content-url {
+    margin-bottom: 16px;
+
 }
 .cadviewer-header {
-    display: inline-block;
-    margin-top: 16px;
+  display: inline-block;
+  margin-top: 16px;
 }
 .section-cadviewer input {
-    display: block;
-    width: 100%;
-    max-width: 700px;
+  display: block;
+  width: 100%;
+  max-width: 700px;
 }
 .cadviewer-hide {
-    display: none;
+  display: none;
 }
 #cadviewerAdv {
-    cursor: pointer;
-    text-decoration: none;
+  cursor: pointer;
+  text-decoration: none;
 }
 #cadviewerAdv .icon {
-    display: inline-block;
-    margin-bottom: -3px;
+  display: inline-block;
+  margin-bottom: -3px;
 }
 #cadviewerAddrSave {
-    float: left;
+  float: left;
 }
 .cadviewer-demo {
-    margin-left: 90px;
+  margin-left: 90px;
 }
 #s2id_cadviewerLimitGroups,
 #s2id_cadviewerWatermark_allGroupsList,
 #s2id_cadviewerWatermark_allTagsList,
 #s2id_cadviewerWatermark_linkTagsList {
-    margin-bottom: 16px;
-    margin-left: 18px;
-    margin-top: 6px;
-    width: 250px;
+  margin-bottom: 16px;
+  margin-left: 18px;
+  margin-top: 6px;
+  width: 250px;
 }
 .cadviewer-exts {
-    column-width: 100px;
-    -moz-column-width: 100px;
-    -webkit-column-width: 100px;
+  column-width: 100px;
+  -moz-column-width: 100px;
+  -webkit-column-width: 100px;
 }
 .cadviewer-tables {
-    margin-top: 4px;
-    line-height: initial;
-    column-width: 140px;
-    -moz-column-width: 140px;
-    -webkit-column-width: 140px;
+  margin-top: 4px;
+  line-height: initial;
+  column-width: 140px;
+  -moz-column-width: 140px;
+  -webkit-column-width: 140px;
 }
 #cadviewerSecret-show {
-    left: 240px;
+  left: 240px;
 }
+
+.section-cadviewer input:focus,
+.section-cadviewer input:active {
+  padding-right: 30px;
+}
+.section-cadviewer .fileupload {
+  display: none;
+}
+.section-cadviewer div > label {
+  position: relative;
+}
+.section-cadviewer .theme-undo {
+  position: absolute;
+  top: -7px;
+  right: 4px;
+  cursor: pointer;
+  opacity: 0.3;
+  padding: 7px;
+  vertical-align: top;
+  display: inline-block;
+  visibility: hidden;
+  height: 32px;
+  width: 32px;
+}
+.section-cadviewer form.uploadButton {
+  width: 411px;
+  max-width: 90vw;
+  display: flex;
+  align-items: center;
+}
+.section-cadviewer form .theme-undo,
+.section-cadviewer .theme-remove-bg {
+  cursor: pointer;
+  opacity: 0.3;
+  padding: 7px;
+  vertical-align: top;
+  display: inline-block;
+  float: right;
+  position: relative;
+  top: 4px;
+  right: 0px;
+  visibility: visible;
+  height: 32px;
+  width: 32px;
+  margin-left: auto;
+}
+.section-cadviewer form .theme-undo:not([style*="display:"]) ~ .theme-remove-bg {
+  margin-left: 0;
+}
+.section-cadviewer input[type="text"]:hover + .theme-undo,
+.section-cadviewer input[type="text"] + .theme-undo:hover,
+.section-cadviewer input[type="text"]:focus + .theme-undo,
+.section-cadviewer input[type="text"]:active + .theme-undo,
+.section-cadviewer input[type="url"]:hover + .theme-undo,
+.section-cadviewer input[type="url"] + .theme-undo:hover,
+.section-cadviewer input[type="url"]:focus + .theme-undo,
+.section-cadviewer input[type="url"]:active + .theme-undo {
+  visibility: visible;
+}
+.section-cadviewer label span {
+  display: inline-block;
+  min-width: 175px;
+  max-width: 175px;
+  white-space: wrap;
+  padding: 8px 0px;
+  vertical-align: top;
+}
+.section-cadviewer .icon-upload,
+.section-cadviewer .uploadButton .icon-loading-small {
+  padding: 8px 20px;
+  width: 20px;
+  margin: 2px 0px;
+  min-height: 32px;
+  display: inline-block;
+}
+.section-cadviewer .section-cadviewer_settings_status {
+  height: 26px;
+  margin: 10px;
+}
+.section-cadviewer .section-cadviewer_settings_loading {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.section-cadviewer .section-cadviewer_settings_msg {
+  vertical-align: middle;
+  border-radius: 3px;
+}
+.section-cadviewer .section-cadviewer-preview {
+  width: 230px;
+  height: 140px;
+  background-size: cover;
+  background-position: center center;
+  text-align: center;
+  margin-left: 178px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  background-color: var(--color-primary-default);
+  background-image: var(
+    --image-background-default,
+    var(
+      --image-background-plain,
+      url("../../../core/img/app-background.jpg"),
+      linear-gradient(40deg, #0082c9 0%, #30b6ff 100%)
+    )
+  );
+}
+.section-cadviewer .theming-hints {
+  margin-top: 20px;
+}
+.section-cadviewer .image-preview {
+  display: inline-block;
+  width: 80px;
+  height: 36px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.section-cadviewer .section-cadviewer-preview-logoheader {
+  background-image: var(--image-logoheader);
+}
+.section-cadviewer .section-cadviewer-preview-favicon {
+  background-image: var(--image-favicon);
+}
+.section-cadviewer #user-theming {
+  margin-top: 44px;
+  display: flex;
+}
+.section-cadviewer #user-theming > div {
+  max-width: 400px;
+  margin-bottom: 44px;
+}
+
+/* transition effects for theming value changes */
+#header {
+  transition: background-color 500ms linear;
+}
+#header svg,
+#header img {
+  transition: 500ms filter linear;
+}
+
+/*# sourceMappingURL=settings-admin.css.map */

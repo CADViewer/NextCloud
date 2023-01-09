@@ -25,5 +25,7 @@ return [
 	'routes' => [
 		['name' => 'cadviewer#path','url'  => 'ajax/cadviewer.php','verb' => 'POST'],
         ["name" => "settings#save_common", "url" => "/ajax/settings/common", "verb" => "PUT"],
+        ["name" => "settings#check_auto_exchange_licence_key", "url" => "/ajax/settings/autoexchange-verify", "verb" => "GET"],
+        ["name" => "settings#save_axlic_file", "url" => "/ajax/settings/autoexchange-save-axlic", "verb" => "POST"],
 	]
 ];
