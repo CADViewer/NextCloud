@@ -394,6 +394,7 @@ export default {
     // Register an event listener when the Vue component is ready
     window.addEventListener('resize', this.onResize)
 	var self = this;
+	
 	setTimeout(function() {
 		self.onResize()
 	}, 1000)
@@ -622,6 +623,22 @@ export default {
         //  cadviewer resize event 
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
+
+	movePdf(pdfFileName) {
+
+		// Make api call for move pdf file into markup folder
+		$.ajax({
+			method: "POST",
+			url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer/move-pdf"),
+			data: {
+				pdfFileName: pdfFileName
+			},
+			success: function onSuccess(response) {
+				// Todo did we need to notify user when the're is a success or failure message
+			}
+		});
+
+	},
 
 	clearTextLayer(){
 		textLayer1 = cadviewer.cvjs_clearLayer(textLayer1);
