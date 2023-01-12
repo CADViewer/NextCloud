@@ -5436,8 +5436,6 @@ function cvjs_ObjectSelectedStickyNotes() {}
     // Register an event listener when the Vue component is ready
     window.addEventListener('resize', this.onResize);
     var self = this;
-    this.movePdf("f2079098778.pdf"); //Todo remove, this is only for demonstration purpose
-
     setTimeout(function () {
       self.onResize();
     }, 1000);
@@ -37360,4 +37358,4 @@ const computePosition = (reference, floating, options) => (0,_floating_ui_core__
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=cadviewer-main.js.map?v=23a608108154a55b52a4
+//# sourceMappingURL=cadviewer-main.js.map?v=736b2dfb039e65159a38
