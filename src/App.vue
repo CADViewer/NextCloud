@@ -3,6 +3,14 @@
 import CADViewerCanvasVue from "./components/CADViewerCanvas.vue";
 import Vue from "vue";
 
+OCA.Cadviewer = _.extend({}, OCA.Cadviewer);
+
+if (!OCA.Cadviewer.AppName) {
+    OCA.Cadviewer = {
+        AppName: "cadviewer"
+    };
+}
+
 export default {
   data() {
     return {
@@ -27,7 +35,7 @@ export default {
       $.ajax({
         type: "POST",
         async: "false",
-        url: OC.filePath("cadviewer", "ajax", "cadviewer.php"),
+        url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
         data: data,
         success: async (response) => {
           console.log(response);

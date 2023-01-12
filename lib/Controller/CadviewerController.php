@@ -14,6 +14,8 @@ use OCP\IUserSession;
 use OCP\IGroupManager;
 use OCP\Share\IShare;
 use OCP\Files\IRootFolder;
+use OCP\AppFramework\Http;
+use OCP\AppFramework\Http\JSONResponse;
 
 use OCA\Cadviewer\AppConfig;
 
@@ -38,7 +40,7 @@ class CadviewerController extends Controller {
 	private IRootFolder $rootFolder;
 	private $userId;
 
-	private $folder_name = "CADViewer - Markup";
+	private $markup_folder_name = "CADViewer - Markup";
 
 	public function __construct(
 		$AppName, 
@@ -81,12 +83,12 @@ class CadviewerController extends Controller {
 		if ($this->groupManager->isAdmin($this->userId)){
 
 			// check if folder already exists
-			if (Filesystem::getView()->file_exists($this->folder_name)){
+			if (Filesystem::getView()->file_exists($this->markup_folder_name)){
 				// return;
 			}
 
 			// Create a folder at the root directory of nextcloud data "CADViewer - Markup"
-			$res  = Filesystem::getView()->mkdir($this->folder_name);
+			$res  = Filesystem::getView()->mkdir($this->markup_folder_name);
 			
 			// Share with all user
 			
@@ -95,7 +97,7 @@ class CadviewerController extends Controller {
 
 			// Try to get the folder with the specified name
 			try {
-				$folder = $userFolder->get($this->folder_name);
+				$folder = $userFolder->get($this->markup_folder_name);
 				if ($folder) {
 					// get list of users id present in system
 					$userManager = \OC::$server->getUserManager();
@@ -108,7 +110,7 @@ class CadviewerController extends Controller {
 								$share = $this->shareManager->newShare();
 								$share->setNode($folder)
 									->setShareType(IShare::TYPE_USER)
-									->setPermissions(\OCP\Constants::PERMISSION_READ)
+									->setPermissions(\OCP\Constants::PERMISSION_ALL)
 									->setSharedBy($this->userId)
 									->setSharedWith($userId)
 									->setStatus(IShare::STATUS_ACCEPTED);
@@ -123,6 +125,35 @@ class CadviewerController extends Controller {
 
 		}
 
+	}
+
+	
+	/**
+	 *  @NoAdminRequired
+	 */
+	public function movePdf($pdfFileName){
+
+		// Construct path to converter folder
+        $currentpath = __FILE__;
+        $pos1 = stripos($currentpath, "cadviewer");
+        $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+
+        // include CADViewer config for be able to acces to the location of ax2023 executable file
+        require($home_dir."/php/CADViewer_config.php");
+
+		$pdfRelativePath = $fileLocation . "" . $pdfFileName;
+		
+		// move pdf into markup_folder
+		$markup_folder = $this->markup_folder_name;
+
+		$file = $this->getFile($markup_folder."/".$pdfFileName, "");
+
+		if (!rename($pdfRelativePath, $file)) {
+            return new JSONResponse(array(), Http::STATUS_EXPECTATION_FAILED);
+		}
+		// Notify nextcloud the presence of new file
+		Filesystem::touch($markup_folder."/".$pdfFileName, "");
+		return new JSONResponse(array(), Http::STATUS_NO_CONTENT);
 	}
 
 	/**

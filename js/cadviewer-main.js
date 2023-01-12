@@ -4963,6 +4963,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+OCA.Cadviewer = _.extend({}, OCA.Cadviewer);
+if (!OCA.Cadviewer.AppName) {
+  OCA.Cadviewer = {
+    AppName: "cadviewer"
+  };
+}
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -4987,7 +4993,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       $.ajax({
         type: "POST",
         async: "false",
-        url: OC.filePath("cadviewer", "ajax", "cadviewer.php"),
+        url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
         data: data,
         success: function () {
           var _success = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(response) {
@@ -5643,6 +5649,19 @@ function cvjs_ObjectSelectedStickyNotes() {}
       console.log("RESIZE");
       //  cadviewer resize event 
       cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_resizeWindow_position("floorPlan");
+    },
+    movePdf: function movePdf(pdfFileName) {
+      // Make api call for move pdf file into markup folder
+      $.ajax({
+        method: "POST",
+        url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer/move-pdf"),
+        data: {
+          pdfFileName: pdfFileName
+        },
+        success: function onSuccess(response) {
+          // Todo did we need to notify user when the're is a success or failure message
+        }
+      });
     },
     clearTextLayer: function clearTextLayer() {
       textLayer1 = cadviewer__WEBPACK_IMPORTED_MODULE_0___default().cvjs_clearLayer(textLayer1);
@@ -37339,4 +37358,4 @@ const computePosition = (reference, floating, options) => (0,_floating_ui_core__
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=cadviewer-main.js.map?v=2646e743a2edabc79240
+//# sourceMappingURL=cadviewer-main.js.map?v=736b2dfb039e65159a38
