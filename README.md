@@ -1,4 +1,8 @@
-# CADViewer Integration for NextCloud
+# DEPRECATED
+
+This repository has been deprecated and is no longer maintained. We apologize for any inconvenience this may cause. We have moved the project to a new repository at https://github.com/CADViewer/NextCloud. Please update your bookmarks and references to the new repository. The new repository contains the latest updates and bug fixes. Thank you for your understanding.
+
+## CADViewer Integration for NextCloud
 
 To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows:
 
