@@ -2,13 +2,13 @@
 
     style("cadviewer", "settings");
     style("cadviewer", "template");
-    script("cadviewer", "settings");
+    OCP\Util::addScript('cadviewer/settings', 'script' );
 
 ?>
 <div class="section section-cadviewer section-cadviewer-addr">
     <h1>
         Cadviewer
-        <a target="_blank" class="icon-info svg" title="" href="https://github.com/kevmax1/cadviewer-nextcloud/blob/main/README.md" data-original-title="<?php p($l->t("Documentation")) ?>"></a>
+        <a target="_blank" class="icon-info svg" title="" href="https://github.com/CADViewer/NextCloud/blob/main/README.md" data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h1>
 
     <h2><?php p($l->t("Credentials for License Key")) ?></h2>
