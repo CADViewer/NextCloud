@@ -2661,7 +2661,7 @@ var handle_selector = false;
 var current_selected_handle = "";
 
 // We should to define all the CADViewer methods in which we are getting information return from CADViewer 
-// THEY CAN BE PLACEHOLDERS ONLY  
+// THEY CAN BE PLACEHOLDERS ONLY    -
 
 //export function cvjs_OnLoadEnd(){
 
@@ -39479,4 +39479,4 @@ const computePosition = (reference, floating, options) => (0,_floating_ui_core__
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=cadviewer-nextcloud-main.js.map?v=e88a0915619d161c6851
+//# sourceMappingURL=cadviewer-nextcloud-main.js.map?v=fd49e3d0bdfc395e8e7c
