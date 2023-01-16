@@ -35,8 +35,8 @@ var  handle_selector = false;
 var  current_selected_handle = "";
 
 
-// We should to define all the CADViewer methods in which we are getting information return from CADViewer
-// THEY CAN BE PLACEHOLDERS ONLY 
+// We should to define all the CADViewer methods in which we are getting information return from CADViewer 
+// THEY CAN BE PLACEHOLDERS ONLY  
 
 
 //export function cvjs_OnLoadEnd(){
@@ -598,6 +598,8 @@ export default {
 		// cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
 		// cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
 		// calculate areas of spaces
+
+		// we add -strokea for processing
 		cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
 		cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
 		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files

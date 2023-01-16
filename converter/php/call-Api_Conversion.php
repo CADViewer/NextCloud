@@ -9,7 +9,9 @@
         $_GET  = JSON (jsonp)formatted request according to TMS REST Api specification
 		alternatively the content directly posted to the RESTful API, JSON formatted,
 
-    Output: A formatted JSON HTTP response according to TME REST Api specification		
+    Output: A formatted JSON HTTP response according to TME REST Api specification	
+	
+	
 	
 */
 
@@ -82,6 +84,7 @@
 	// Settings of variables, not defined in configuration files
 	$add_xpath = false;  	// NOTE: We are overwriting the configuration file settings with the contentlocation setting. 		
 	$add_lpath = true;  	// we are adding lpath from configuration file
+	$add_fpath = true;
 	$remainOnServer = 0;  	// general flag to tell pickup stream to to leave on server
 
 	//  try-catch  1.5.09
@@ -91,8 +94,8 @@
 	// 2016-01-28
 	// create debug file
 	if ($debug) {
-		if ($fd_log = fopen ("call-Api_Conversion_log.txt", "w")) {
-			fwrite($fd_log, "\r\n NEW-FILE-CONVERSION-BEGIN   v7.1.15  \r\n \r\n");
+		if ($fd_log = fopen ("call-Api_Conversion_log.txt", "a+")) {
+			fwrite($fd_log, "\r\n NEW-FILE-CONVERSION-BEGIN   v7.1.7  \r\n \r\n");
 			fwrite($fd_log, "Opening call-Api_Conversion_log.txt for new conversion: \r\n");
 		}		
 	}
@@ -374,11 +377,18 @@
 			$contentlocation = $json_request['contentLocation'];
 
 
+
+
 		// 7.1.7
 		fwrite($fd_log, "\$contentlocation:  $contentlocation  \r\n");
 		$contentlocation = str_replace("%3A", ":", $contentlocation);	
 		$contentlocation = str_replace("%2F", "/", $contentlocation);	
 		fwrite($fd_log, "\$contentlocation:  $contentlocation  \r\n");
+
+
+		// 7.9.14
+		$contentlocation = urldecode($contentlocation);	
+
 
 
 
@@ -443,6 +453,7 @@
 							else{  // general case for creating the parameter string!!
 								if ($parameters[$i]['paramName'] == 'xpath') $add_xpath = false;  // we are not using the config xpath, instead we use the one in the parameters
 								if ($parameters[$i]['paramName'] == 'lpath') $add_lpath = false;  // we are not using the config xpath, instead we use the one in the parameters
+								if ($parameters[$i]['paramName'] == 'fpath') $add_fpath = false;  // we are not using the config xpath, instead we use the one in the parameters
 
 								$v1 = $parameters[$i]['paramName'];
 								$v2 = $parameters[$i]['paramValue'];
@@ -558,11 +569,6 @@
 								$contentlocation = str_replace(' ', '%20', $contentlocation);
 							}
 						}
-						else{
-							// we are on this server, so we dont want %20
-							// we try something new here, file on server opend
-							$contentlocation = str_replace('%20', ' ', $contentlocation);
-						}
 
 						if ($debug){
 							fwrite($fd_log, "X005 In action: contentype file: $contentlocation  \r\n");
@@ -577,7 +583,7 @@
 							}
 							try{   // 6.5.20
 								if ($debug){
-									fwrite($fd_log, " Before COPY: from $contentlocation to $fullPath  \r\n");
+									fwrite($fd_log, " HELLO! $fullPath  \r\n");
 								}
 								$newfname = $fullPath;
 								$file = fopen ($contentlocation, 'rb');
@@ -855,6 +861,14 @@
 
 		for ($i = 0; $i < $max_conv; $i++) {
 			if ($converter_list[$i]['converter'] == $converter &&  $converter_list[$i]['version'] == $version){
+				if ($add_fpath){ // 2022-12-20  - running as .bat
+					if (strpos($op_string, 'win') !== false) {
+						$command_line = $command_line . " \"-fpath=" . $fontLocation . "\" "  ;
+					}
+					else		
+						$command_line = $command_line . " -fpath=\"" . $fontLocation . "\" "  ;
+					//$command_line = $command_line . " -lpath=\"" . $licenseLocation . "\" "  ;
+				}
 				if ($add_lpath){ // 2019-06-28  - running as .bat
 					if (strpos($op_string, 'win') !== false) {
 						$command_line = $command_line . " \"-lpath=" . $licenseLocation . "\" "  ;

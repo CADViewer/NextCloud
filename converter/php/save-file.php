@@ -2,7 +2,7 @@
 
 // Configuration file for CADViewer Community and CADViewer Enterprise version and standard settings
 require 'CADViewer_config.php';
-
+    
 
 $http_origin = '';
 
