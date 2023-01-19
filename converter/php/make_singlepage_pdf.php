@@ -1,7 +1,7 @@
 <?php
 	
 	require 'CADViewer_config.php';
-
+   
 	$serverPath = $_POST['serverPath'];
 	$numberOfFiles = 1;
 	$originalFileName = $_POST['org_fileName_0'];

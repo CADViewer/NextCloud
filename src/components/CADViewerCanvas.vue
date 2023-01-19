@@ -35,8 +35,9 @@ var  handle_selector = false;
 var  current_selected_handle = "";
 
 
-// We should to define all the CADViewer methods in which we are getting information return from CADViewer
-// THEY CAN BE PLACEHOLDERS ONLY 
+// We should to define all the CADViewer methods in which we are getting information return from CADViewer 
+// THEY CAN BE PLACEHOLDERS ONLY     
+//
 
 
 //export function cvjs_OnLoadEnd(){
@@ -402,9 +403,20 @@ export default {
     console.log('mounted');
 
 		var ServerBackEndUrl = this.ServerBackEndUrl;
+
+		// CH test 2023-01-17
+//		ServerBackEndUrl = "http://localhost/nextcloud/apps/cadviewer/converter/";
+
+
+
 		var LicenceKey = this.LicenceKey;
 		var ServerLocation = this.ServerLocation;
 		var ServerUrl = this.ServerUrl;
+
+		// CH test 2023-01-17
+//		ServerUrl = "http://localhost/nextcloud/apps/cadviewer/converter/";
+
+
 		var FileName = this.FileName;
 		var UserName = this.UserName;
     	var UserId = this.UserId;
@@ -412,12 +424,12 @@ export default {
 		// Set all paths, and handlers, changes these depending on back-end server
 		cadviewer.cvjs_debugMode(true);
 
-                console.log("ServerBackEndUrl="+ServerBackEndUrl+"X ServerLocation="+ServerLocation+"X FileName="+FileName+"X");
+                console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
 		
 		cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
-		
+		// 
 		// Set all paths, and handlers, changes these depending on back-end server
-		cadviewer.cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "ReactJS", "floorPlan");
+		cadviewer.cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "VueJS", "floorPlan");
 		
         //      Setting all callback methods  - they have to be injected into the CADViewer class componnet
         /*
@@ -479,7 +491,13 @@ export default {
 		 cadviewer.cvjs_setCADViewerInterfaceVersion(7);
 		 cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
 
-		cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converter/converters/files/");   // 7.4.45
+
+		// 8.8.1
+		//cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converter/converters/files/");   // 7.4.45
+
+		cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converters/files/");   // 7.4.45
+
+
 
 		 // Pass over the location of the installation, will update the internal paths
 		 cadviewer.cvjs_PrintToPDFWindowRelativeSize(0.8);
@@ -563,10 +581,16 @@ export default {
 
 			// Initialize CADViewer - needs the div name on the svg element on page that contains CADViewerJS and the location of the
 			// And we intialize with the Space Object Custom values
-		//  cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+"app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody);
 
-		//      cvjs_InitCADViewer_highLight_popUp_app("floorPlan", ServerUrl+ "/assets/cadviewer/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
-		cadviewer.cvjs_InitCADViewer_highLight_popUp_app("floorPlan", "/apps/cadviewer/assets/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
+		var  cadviewertoplevel = "";
+
+		if (ServerUrl.indexOf("converter")>-1)
+			cadviewertoplevel = ServerUrl.substring(0, ServerUrl.indexOf("converter"));		
+		else
+			cadviewertoplevel = ServerUrl;
+
+
+		cadviewer.cvjs_InitCADViewer_highLight_popUp_app("floorPlan", cadviewertoplevel + "/assets/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
 
 		// set the location to license key, typically the js folder in main app application folder ../app/cv/
 		//cadviewer.cvjs_setLicenseKeyPath("/assets/cadviewer/app/cv/");
@@ -597,7 +621,11 @@ export default {
 		// process layers for spaces  RL/TL
 		// cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
 		// cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
+
+
 		// calculate areas of spaces
+
+		// we add -strokea for processing
 		cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
 		cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
 		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
