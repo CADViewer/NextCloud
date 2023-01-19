@@ -540,7 +540,7 @@
 			if ($pos_2 !== false) {
 				if ($pos_2 == 0){
 					$server_load = 1;  // we are on the same server, so we simply swap $httpHost for $home_dir
-					$contentlocation = str_replace($httpHost, $home_dir, $contentlocation);	
+					$contentlocation = str_replace($httpHost, $home_dir ."/", $contentlocation);	
 				}
 			}
 			
@@ -861,7 +861,8 @@
 
 		for ($i = 0; $i < $max_conv; $i++) {
 			if ($converter_list[$i]['converter'] == $converter &&  $converter_list[$i]['version'] == $version){
-				if ($add_fpath){ // 2022-12-20  - running as .bat
+				if ($add_fpath){ 
+					// 2022-12-20  - running as .bat
 					if (strpos($op_string, 'win') !== false) {
 						$command_line = $command_line . " \"-fpath=" . $fontLocation . "\" "  ;
 					}

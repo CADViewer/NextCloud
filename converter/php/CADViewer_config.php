@@ -3,11 +3,11 @@
 //  New: Use this code to find $httpHost and $home_dir based on current location, if under /cadviewer/
 	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	$pos1 = stripos($actual_link, "/cadviewer/");
-	$httpHost = substr($actual_link, 0, $pos1+ 11)."converter";
+	$httpHost = substr($actual_link, 0, $pos1+ 11);
 
 	$currentpath = __FILE__;
 	$pos1 = stripos($currentpath, "cadviewer");
-	$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+	$home_dir = substr($currentpath, 0, $pos1+ 10);
 
 //  Http Host   - note use direct setting if path different from /cadviewer/. 
 //  URL to the location of home directory the converter infrastructure
@@ -15,8 +15,10 @@
 
 //  Home directory, the local path corresponding to the http host - note use direct setting if path different from cadviewer. 
 //  Windows
-//	$home_dir = "/xampp/htdocs/cadviewer";
+//	$home_dir = "/xampp/htdocs/cadviewer/";
 //  Linux
+//	$home_dir = "/var/www/html/cadviewer/";
+
 
 //MOST PATHS ARE SET UP BASED ON HttpHost and home_dir    (Users can change this setting if an implementation needs to split up locations)
 // NEW  we make an $home_dir_app  to give the user the ability to freely move $fileLocation + $converterLocation away from web-structure
@@ -29,9 +31,9 @@
 	
 //  Conversion engines executables - names stays stable with each upgrade of conversion engines:
 // 	Linux
-	$ax2023_executable = "ax2023_L64_23_10_105";
+	$ax2023_executable = "ax2023_L64_23_12_106RC1";
 // 	Windows
-//	$ax2023_executable = "ax2023_L64_23_08_92.exe";
+//	$ax2023_executable = "AX2023_W64_23_10_105.exe";
 
 //  USE svgz compression
 	$svgz_compress = false;   // default is false
@@ -49,58 +51,66 @@
 // 	Windows
 //	$linklist2023_executable = "LinkList_2023_W64_23_05_25.exe";
 
-
 	// if checkorigin is false, all domains allowed * , if true, then checking from $allowed_domains
 	$checkorigin=false;
 	// allowed domains!
 	$allowed_domains = array(
-		'http://localhost:8081',
-		'http://127.0.0.1:8081',
 		'http://localhost:8080',
 		'http://localhost',
 		'*'
 	  );
+	// set to false for CADViewer 7.1.8 onwards,   true for previous versions of CADViewer
+	$jsonp_flag = false;
+	  
 
 
-// set to false for CADViewer 7.1.8 onwards,   true for previous versions of CADViewer
-$jsonp_flag = false;
 
 
 //  URL to the location of controlling php files
 //  Windows  Linux
-	$httpPhpUrl = $httpHost . "/php/";
+
+//  NOTE!!   - /converter/ for NextCloud
+
+	$httpPhpUrl = $httpHost . "/converter//php/";
 
 //  location of created files and temporary file folder
-//  Linux Windows
-	$fileLocation = $home_dir . "/converters/files/";
+//  Linux Windows     
+
+// NOTE!  - MUST INCLUDE /converter
+
+	$fileLocation = $home_dir . "/converter/converters/files/";
 
 
 //  location of created files and temporary file folder, http
 //  Linux Windows
-	$fileLocationUrl = $httpHost . "/converters/files/";
+	$fileLocationUrl = $httpHost . "/converter/converters/files/";
 
 
 //  Path to the location of the AutoXchange AX2023 converter infrastructure
-	$converterLocation = $home_dir . "/converters/ax2023/".$platform."/";
+	$converterLocation = $home_dir . "/converter/converters/ax2023/".$platform."/";
 
 
 //  Path to the location of the DWGMerge 2019 converter infrastructure
-	$dwgmergeLocation = $home_dir . "/converters/dwgmerge2023/".$platform."/";
+	$dwgmergeLocation = $home_dir . "/converter/converters/dwgmerge2023/".$platform."/";
 
 //  Path to the location of the Linklist converter infrastructure
-	$linklistLocation = $home_dir . "/converters/linklist2023/".$platform."/";
+	$linklistLocation = $home_dir . "/converter/converters/linklist2023/".$platform."/";
 
 
 //  Conversion engines executables - Community Version
 	$community_executable = "dwg2SVG.exe";
 
 //  Path to the location of the license key axlic.key file, typically this is the same location as AX2020
-	$licenseLocation = $home_dir . "/converters/ax2023/".$platform."/";
+	$licenseLocation = $home_dir . "/converter/converters/ax2023/".$platform."/";
+
+
+//  Path to the location of the license key axlic.key file, typically this is the same location as AX2020
+	$fontLocation = $home_dir . "/converter/converters/ax2023/". $platform. "/fonts/";
 
 
 //  Path to the XRef locations for external referenced drawings
 //  Linux Windows
-	$xpathLocation = $home_dir . "/converters/files/";
+	$xpathLocation = $home_dir . "/converter/converters/files/";
 
 	
 //  Name of PHP document that controls call-back file-transfer to CADViewerJS
@@ -120,7 +130,7 @@ $jsonp_flag = false;
 
 
 // Pdf converter folder
-	$pdfConverterFolder = $home_dir. "/converters/pdf_converter";
+	$pdfConverterFolder = $home_dir. "/converter/converters/pdf_converter";
 
 
 // Pdf converter batch executable
@@ -139,7 +149,7 @@ $jsonp_flag = false;
 
 // Batik install folder
 //  Linux
-//	$batikFolder = $home_dir . "/converters/pdf_converter/batik-1.9";
+//	$batikFolder = $home_dir . "/converter/converters/pdf_converter/batik-1.9";
 //  Windows
 	$batikFolder = $home_dir . "\\converters\\pdf_converter\\batik-1.9";
 
@@ -151,7 +161,7 @@ $jsonp_flag = false;
 
 // Pdfbox install folder
 //  Linux
-//	$pdfboxFolder = $home_dir . "/converters/pdf_converter/pdfbox";
+//	$pdfboxFolder = $home_dir . "/converter/converters/pdf_converter/pdfbox";
 //  Windows
 	$pdfboxFolder = $home_dir . "\\converters\\pdf_converter\\pdfbox";
 
