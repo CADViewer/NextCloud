@@ -16,7 +16,7 @@
     <website>https://www.cadviewer.com</website>
     <bugs>https://github.com/kevmax1/cadviewer-nextcloud/issues</bugs>
     <dependencies>
-        <nextcloud min-version="19" max-version="25"/>
+        <nextcloud min-version="22" max-version="25"/>
     </dependencies>
     <settings>
         <admin>OCA\Cadviewer\AdminSettings</admin>

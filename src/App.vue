@@ -42,9 +42,9 @@ export default {
           if (response.path) {
             const content_dir = response.path;
             console.log({ content_dir });
-            this.ServerBackEndUrl = `${window.location.origin}/apps/cadviewer/converter/`;
+            this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
             this.ServerLocation = `${response.serverLocation}`;
-            this.ServerUrl = `${window.location.origin}/apps/cadviewer/`;
+            this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
             this.FileName = `${content_dir}/${filename}`;
             this.ModalTitle = filename;
             this.licenceKey = response.licenceKey;
