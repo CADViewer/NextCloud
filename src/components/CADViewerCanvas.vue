@@ -1,4 +1,4 @@
-<template>
+'<template>
 	<div id="cadviewer_app_canvas" class="modal__content">
 		<app-nc-modal @close="closeModal" :title="ModalTitle" size="full" :canClose="canClose">
 			<div class="cadviewerCanvasTest01">
@@ -37,7 +37,7 @@ var  current_selected_handle = "";
 
 // We should to define all the CADViewer methods in which we are getting information return from CADViewer 
 // THEY CAN BE PLACEHOLDERS ONLY     
-//
+//   //  // 
 
 
 //export function cvjs_OnLoadEnd(){
@@ -404,18 +404,20 @@ export default {
 
 		var ServerBackEndUrl = this.ServerBackEndUrl;
 
-		// CH test 2023-01-17
-//		ServerBackEndUrl = "http://localhost/nextcloud/apps/cadviewer/converter/";
-
-
-
 		var LicenceKey = this.LicenceKey;
 		var ServerLocation = this.ServerLocation;
 		var ServerUrl = this.ServerUrl;
 
-		// CH test 2023-01-17
-//		ServerUrl = "http://localhost/nextcloud/apps/cadviewer/converter/";
+		if (ServerLocation.slice(-1) == "/"){
 
+		}
+		else{
+			ServerLocation += "/";
+		}
+
+		if (ServerUrl.indexOf("/converter") == -1){
+			ServerUrl += "converter/";
+		}
 
 		var FileName = this.FileName;
 		var UserName = this.UserName;
@@ -424,7 +426,7 @@ export default {
 		// Set all paths, and handlers, changes these depending on back-end server
 		cadviewer.cvjs_debugMode(true);
 
-                console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
+        console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
 		
 		cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
 		// 
@@ -541,7 +543,13 @@ export default {
 		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/    		
 		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
 		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
-		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
+		
+
+
+		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
+		// New NextCloud top bar
+		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_nextcloud_03.xml", "/app/cv/cv-pro/menu_config/");
+
 		
 		// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
 		// main application "app" folder. It can be either absolute or relative
