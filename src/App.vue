@@ -112,6 +112,7 @@ export default {
         mime: mine_type,
         permissions: OC.PERMISSION_NONE,
         type: OCA.Files.FileActions.TYPE_DROPDOWN,
+        icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=kevmax`,
         iconClass: "icon-visibility-button",
         order: 1001,
         actionHandler: this.viewCadFileActionHandler,
@@ -133,7 +134,7 @@ export default {
   created() {
     // Add context menu and default file open handler for autocad file
     this.initViewCadFile("application/octet-stream", true);
-    this.initViewCadFile("aapplication/acad", true);
+    this.initViewCadFile("application/acad", true);
     this.initViewCadFile("application/dxf", true);
     this.initViewCadFile("application/x-dwf", true);
     this.initViewCadFile("application/dgn", true);
