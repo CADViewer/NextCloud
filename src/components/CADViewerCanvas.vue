@@ -442,7 +442,17 @@ export default {
 		*/
 		// 
 
-		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
+
+// NextCloud setting of save screeen method for save to CADViewer-Markup
+
+	cadviewer.cvjs_saveScreenAsPDF_serverSettings(true, this.movePdf, "", "NextCloud", true, false, true);
+
+
+
+
+
+
+	cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
         cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectOnChange", cvjs_graphicalObjectOnChange);
         cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEndRedlines", cvjs_OnLoadEndRedlines);
         cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelected", cvjs_ObjectSelected);

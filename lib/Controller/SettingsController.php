@@ -31,7 +31,7 @@ class SettingsController extends Controller {
                                     IURLGenerator $urlGenerator,
                                     IL10N $trans,
                                     ILogger $logger,
-                                    AppConfig $config,
+                                    AppConfig $config
                                     ) {
         parent::__construct($AppName, $request);
 
