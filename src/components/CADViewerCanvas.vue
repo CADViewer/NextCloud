@@ -702,16 +702,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-#floorPlan {
-	text-align: left;
-	margin-top: 30px;
-  	margin-left: 2px;   /* margin-left: 50px;   */
-} 
- 
-.close_button {
-	position: absolute !important;
-    top: 4px;
-    right: 4px;
-}
+	#floorPlan {
+		text-align: left;
+		margin-top: 30px;
+		margin-left: 2px;   /* margin-left: 50px;   */
+	} 
+	
+	.close_button {
+		position: absolute !important;
+		top: 4px;
+		right: 4px;
+		z-index: 10000;
+		background-color: var(--color-background-plain, var(--color-main-background)) !important;
+	}
 
 </style>
