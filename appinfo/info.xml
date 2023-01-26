@@ -5,7 +5,7 @@
     <name>Cadviewer</name>
     <summary>A cadviewer integration for nextcloud</summary>
     <description><![CDATA[Nothing for now]]></description>
-    <version>0.0.5</version>
+    <version>0.0.7</version>
     <licence>agpl</licence>
     <author mail="kevin.wamba@kevmax.com" homepage="https://www.kevmax.com/">Kevin WAMBA</author>
     <namespace>Cadviewer</namespace>
@@ -22,4 +22,15 @@
         <admin>OCA\Cadviewer\AdminSettings</admin>
         <admin-section>OCA\Cadviewer\AdminSection</admin-section>
     </settings>
+    <repair-steps>
+        <install>
+            <step>OCA\Cadviewer\Migration\RegisterMimeType</step>
+        </install>
+        <post-migrate>
+            <step>OCA\Cadviewer\Migration\RegisterMimeType</step>
+        </post-migrate>
+        <uninstall>
+            <step>OCA\Cadviewer\Migration\UnregisterMimeType</step>
+        </uninstall>
+    </repair-steps>  
 </info>

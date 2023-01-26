@@ -110,7 +110,11 @@ class SettingsController extends Controller {
 
         $data = [
             "licenceKey" => $this->config->GetLicenceKey(),
-            "autoexchange" => $this->checkAutoExchangeLicenceKey()
+            "autoexchange" => [
+                "output" => $output,
+                "domaine_url" => $domaine_url,
+                "instance_id" => $instance_id
+            ]
         ];
         return new TemplateResponse($this->appName, "settings", $data, "blank");
     }

@@ -714,6 +714,12 @@ export default {
 		right: 4px;
 		z-index: 10000;
 		background-color: var(--color-background-plain, var(--color-main-background)) !important;
+		color: white !important;
+		cursor: pointer;
 	}
 
+	.close_button:hover {
+		color: var(--color-background-plain, var(--color-main-background)) !important;
+		background-color: white !important;
+	}
 </style>
