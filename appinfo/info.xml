@@ -34,7 +34,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 ]]></description>
     <version>8.12.2</version>
     <licence>agpl</licence>
-    <author mail="developer@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
+    <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
     <author>Kevin WAMBA</author>
     <namespace>Cadviewer</namespace>
     <category>files</category>
