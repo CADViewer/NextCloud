@@ -716,6 +716,10 @@ export default {
 		background-color: var(--color-background-plain, var(--color-main-background)) !important;
 		color: white !important;
 		cursor: pointer;
+		border-radius: 100%;
+		width: 44px;
+		height: 44px;
+		border: 2px solid #CCC;
 	}
 
 	.close_button:hover {
