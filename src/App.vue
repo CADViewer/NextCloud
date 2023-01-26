@@ -133,7 +133,7 @@ export default {
 
   created() {
     // Add context menu and default file open handler for autocad file
-    this.initViewCadFile("application/octet-stream", true);
+    // this.initViewCadFile("application/octet-stream", true);
     this.initViewCadFile("application/acad", true);
     this.initViewCadFile("application/dxf", true);
     this.initViewCadFile("application/x-dwf", true);
@@ -142,6 +142,10 @@ export default {
     this.initViewCadFile("application/pdf", false);
     this.initViewCadFile("image/tiff", false);
     this.initViewCadFile("image/tif", false);
+    // Add context menu for images
+    this.initViewCadFile("image/png", false);
+    this.initViewCadFile("image/jpeg", false);
+    this.initViewCadFile("image/gif", false);
   },
   components: {
     "app-cadviewercanvas": CADViewerCanvasVue,

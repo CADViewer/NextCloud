@@ -59,4 +59,15 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
         <admin>OCA\Cadviewer\AdminSettings</admin>
         <admin-section>OCA\Cadviewer\AdminSection</admin-section>
     </settings>
+    <repair-steps>
+        <install>
+            <step>OCA\Cadviewer\Migration\RegisterMimeType</step>
+        </install>
+        <post-migrate>
+            <step>OCA\Cadviewer\Migration\RegisterMimeType</step>
+        </post-migrate>
+        <uninstall>
+            <step>OCA\Cadviewer\Migration\UnregisterMimeType</step>
+        </uninstall>
+    </repair-steps>  
 </info>

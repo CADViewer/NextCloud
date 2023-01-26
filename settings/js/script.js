@@ -9,6 +9,7 @@
             success: function onSuccess(response) {
                 $(".section-cadviewer").removeClass("icon-loading");
                 if (response && (response.domaine_url != null)) {
+                    document.getElementById("verification-value").style.display = "block"
                     let installationUrl = response.domaine_url;
                     let verifyOutput = response.output;
                     let instanceID = response.instance_id;
