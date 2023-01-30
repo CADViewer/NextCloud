@@ -37,7 +37,7 @@ var  current_selected_handle = "";
 
 // We should to define all the CADViewer methods in which we are getting information return from CADViewer 
 // THEY CAN BE PLACEHOLDERS ONLY     
-//   //  // 
+//   //  // // 
 
 
 //export function cvjs_OnLoadEnd(){
