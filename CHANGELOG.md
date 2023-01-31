@@ -2,12 +2,12 @@
 ### Added
 - Nighly changes here
 
-## 8.16.10 – 2023-01-30
+## 8.17.3 – 2023-01-31
 ### Added
 - Ability to add custom file name when saving to CADViewer - Markup folder
 
 ### Changed
-- Apdated to CAD Converter AX2023 v23.12.107a 
+- Updated to CAD Converter AX2023 v23.12.107a 
 
 
 ### Fixed
