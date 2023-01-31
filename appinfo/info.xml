@@ -22,11 +22,11 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 - **Search**: Integrated text search method.
 
 
-## 🌐 Online Demo
+## ![CADViewer](https://cadviewer.com/logoJS.png) Online Demo
 - To test the look and feel of [CADViewer](https://cadviewer.com), check out our [Online Demos](https://cadviewer.com/cadviewerdemo/).
 
 
-## 🚀 Installation
+## ![CADViewer](https://cadviewer.com/logoJS.png) Installation
 1. Install the app from the Nextcloud app store or from CADViewer [GitHub repository](https://github.com/CADViewer/NextCloud/).
 2. Perform the [configuration steps](https://github.com/CADViewer/NextCloud/blob/main/README.md).
 3. **NOTE**: The configuration steps (permission settings for executable, log files, and folders) are needed for the back-end CAD conversion to work properly. Without permission settings, no drawings will display!
