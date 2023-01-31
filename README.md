@@ -18,8 +18,13 @@ To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https:
 /apps/cadviewer/converter/content/redlines/v7/
 ```
 
+4. Navigate to the following folder: /apps/cadviewer/converter/php/, the following files needs full permission (chmod 777)
 
-4. The file /apps/cadviewer/converter/php/call-Api_Conversion_log.txt  needs read write permissions for everyone (777).
+```
+call-Api_Conversion_log.txt
+call-Api_Conversion.php
+save-file.php
+```
 
 5. Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
 
