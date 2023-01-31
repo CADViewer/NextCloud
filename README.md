@@ -22,7 +22,7 @@ Redlines:
 /apps/cadviewer/converter/content/redlines/v7/
 ```
 
-4. Navigate to the PHP scripts folder: /apps/cadviewer/converter/php/, where the following files needs full permission (chmod 777)
+4. Navigate to the PHP scripts folder: /apps/cadviewer/converter/php/, where the following files needs full read/write/exe permission (chmod 777)
 
 ```
 call-Api_Conversion_log.txt
