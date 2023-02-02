@@ -713,7 +713,7 @@ export default {
 		top: 4px;
 		right: 4px;
 		z-index: 10000;
-		background-color: var(--color-background-plain, var(--color-main-background)) !important;
+		background-color: #0082c9 !important;
 		color: white !important;
 		cursor: pointer;
 		border-radius: 100%;
@@ -723,7 +723,7 @@ export default {
 	}
 
 	.close_button:hover {
-		color: var(--color-background-plain, var(--color-main-background)) !important;
+		color: #0082c9 !important;
 		background-color: white !important;
 	}
 </style>
