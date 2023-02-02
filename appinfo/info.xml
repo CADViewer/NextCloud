@@ -10,7 +10,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 - **AutoCAD**: Support for DWG, DXF and DWF files.
 - **MicroStation**: Support for DGN files.
 - **PDF**: Support for Vector Graphics PDF files. (use right click menu)
-- **TIFF**: Support for TIFF format.
+- **TIFF**: Support for TIFF format. (use right click menu)
 - **PNG, JPG, GIF**: Bitmap support. (use right click menu)
 - **Annotation**: Full redlining interface of drawings where each user has individually associated redlines.
 - **Collaboration**: Redlines/Annotation on drawings are shared to global "CADViewer-Markup" folder as PDF, where users can share internally/externally.
@@ -21,18 +21,16 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 - **Layers**: Retained layer structure for layer management.
 - **Search**: Integrated text search method.
 
-
-## 🌐 Online Demo
+## 🌐Online Demo
 - To test the look and feel of [CADViewer](https://cadviewer.com), check out our [Online Demos](https://cadviewer.com/cadviewerdemo/).
 
-
-## 🚀 Installation
+## 📦Installation
 1. Install the app from the Nextcloud app store or from CADViewer [GitHub repository](https://github.com/CADViewer/NextCloud/).
 2. Perform the [configuration steps](https://github.com/CADViewer/NextCloud/blob/main/README.md).
 3. **NOTE**: The configuration steps (permission settings for executable, log files, and folders) are needed for the back-end CAD conversion to work properly. Without permission settings, no drawings will display!
 4. Simply open your CAD drawings and start collaborate.. 😄 
 ]]></description>
-    <version>8.16.4</version>
+    <version>8.17.3</version>
     <licence>agpl</licence>
     <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
     <author>Kevin WAMBA</author>
