@@ -157,8 +157,12 @@ class CadviewerController extends Controller {
 		if (!rename($pdfRelativePath, $file)) {
             return new JSONResponse(array(), Http::STATUS_EXPECTATION_FAILED);
 		}
-		// Notify nextcloud the presence of new file
-		Filesystem::touch($markup_folder."/".$pdfFileName, "");
+
+		$userFolder = $this->rootFolder->getUserFolder($this->userId);
+		$markupFolder = $userFolder->get($this->markup_folder_name);
+		$savedFile = $markupFolder->newFile($pdfFileName);
+		$savedFile->touch();
+
 		return new JSONResponse(array(), Http::STATUS_NO_CONTENT);
 	}
 
@@ -180,9 +184,14 @@ class CadviewerController extends Controller {
 
 		$dir = dirname($file);
 		
+		$userFolder = $this->rootFolder->getUserFolder($this->userId);
+		$fileStat = $userFolder->newFile($directory."/".$nameOfFile)->stat();
+
 		$response = array();
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["path"] = $dir;
+		$response["size"] = $fileStat["size"];
+		$response["ISOtimeStamp"] = date(DATE_ISO8601, $fileStat["mtime"]);
 		$response["serverLocation"] = str_replace("lib/Controller", "converter", dirname(__FILE__));
 		
 		return $response;

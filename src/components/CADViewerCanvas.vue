@@ -383,6 +383,7 @@ export default {
     ModalTitle: String,
     ServerBackEndUrl: String,
     ServerLocation: String,
+	ISOtimeStamp: String,
     ServerUrl: String,
     FileName: String,
 	closeModal: Function,
@@ -407,6 +408,7 @@ export default {
 		var LicenceKey = this.LicenceKey;
 		var ServerLocation = this.ServerLocation;
 		var ServerUrl = this.ServerUrl;
+		var ISOtimeStamp = this.ISOtimeStamp;
 
 		if (ServerLocation.slice(-1) == "/"){
 
@@ -655,6 +657,7 @@ export default {
 
 
 		// Load file - needs the svg div name and name and path of file to load
+		// cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
 		cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 
 		// set maximum CADViewer canvas side

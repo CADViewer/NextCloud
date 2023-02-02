@@ -44,6 +44,7 @@ export default {
             console.log({ content_dir });
             this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
             this.ServerLocation = `${response.serverLocation}`;
+            this.ISOtimeStamp = `${response.ISOtimeStamp}`;
             this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
             this.FileName = `${content_dir}/${filename}`;
             this.ModalTitle = filename;
@@ -64,6 +65,7 @@ export default {
                     props: {
                       ServerBackEndUrl: this.ServerBackEndUrl,
                       ServerLocation: this.ServerLocation,
+                      ISOtimeStamp: this.ISOtimeStamp,
                       ServerUrl: this.ServerUrl,
                       FileName: this.FileName,
                       ModalTitle: this.ModalTitle,
@@ -128,6 +130,7 @@ export default {
       this.ServerUrl = "";
       this.FileName = "";
       this.licenceKey = "";
+      this.ISOtimeStamp = ""
     },
   },
 
