@@ -98,6 +98,28 @@
             });
         });
 
+        $("#flushCache").click(function () {
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/flush-cache"),
+                data: {},
+                processData: false,
+                contentType: false,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+
+                    if (response.error) {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to flush cache"));
+                    } else {
+                        checkAutoExchangeLicenceKey();
+                        OCP.Toast.success(t(OCA.Cadviewer.AppName, "Cache have been successfully flushed"));
+                    }
+                }
+            });
+        });
+
         // get the status of AutoExchange licence
 
         $("#getLicenseKeyInfo").click(function () {

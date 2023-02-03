@@ -133,6 +133,26 @@ class CadviewerController extends Controller {
 
 	}
 
+
+	public function flushCache(){
+		// Construct path to converter folder
+		$currentpath = __FILE__;
+		$pos1 = stripos($currentpath, "cadviewer");
+		$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+
+		// include CADViewer config for be able to acces to the location of ax2023 executable file
+		require($home_dir."/php/CADViewer_config.php");
+
+		
+		$files = glob($fileLocation."*"); //get all file names
+		foreach($files as $file){
+			if(is_file($file))
+			unlink($file); //delete file
+		}
+
+		return new JSONResponse(array(), Http::STATUS_NO_CONTENT);
+	}
+
 	
 	/**
 	 *  @NoAdminRequired

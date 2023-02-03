@@ -1,50 +1,70 @@
 <?php
 
-    style("cadviewer", "settings");
-    style("cadviewer", "template");
-    OCP\Util::addScript('cadviewer/settings', 'script' );
+style("cadviewer", "settings");
+style("cadviewer", "template");
+OCP\Util::addScript('cadviewer/settings', 'script');
 
 ?>
 <div class="section section-cadviewer section-cadviewer-addr">
     <h1>
         Cadviewer
-        <a target="_blank" class="icon-info svg" title="" href="https://github.com/CADViewer/NextCloud/blob/main/README.md" data-original-title="<?php p($l->t("Documentation")) ?>"></a>
+        <a target="_blank" class="icon-info svg" title=""
+            href="https://github.com/CADViewer/NextCloud/blob/main/README.md"
+            data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h1>
 
-    <h2><?php p($l->t("Licence Keys")) ?></h2>
+    <h2>
+        <?php p($l->t("Licence Keys")) ?>
+    </h2>
 
-	<div>
+    <div>
         <div id="cadviewerAddrSettings">
-            
-            <p><?php p($l->t("Cadviewer licence key")) ?></p>
-            <p><input id="cadviewerLicenceKey" value="<?php p($_["licenceKey"]) ?>" placeholder="00110010 00110010 00110000 00110001 00110010 00110000 00110100 00110001" type="text"></p>
+
+            <p>
+                <?php p($l->t("Cadviewer licence key")) ?>
+            </p>
+            <p><input id="cadviewerLicenceKey" value="<?php p($_["licenceKey"]) ?>"
+                    placeholder="00110010 00110010 00110000 00110001 00110010 00110000 00110100 00110001" type="text">
+            </p>
             <br />
-            <p class="settings-hint"><?php p($l->t("Pasting in the Licence key input the portion of the cvlicense.js file")) ?></p>
+            <p class="settings-hint">
+                <?php p($l->t("Pasting in the Licence key input the portion of the cvlicense.js file")) ?>
+            </p>
         </div>
-        <p><button id="cadviewerSave" class="button"><?php p($l->t("Apply Key")) ?></button></p>
+        <p><button id="cadviewerSave" class="button">
+                <?php p($l->t("Apply Key")) ?>
+            </button></p>
         <br />
-	</div>
+    </div>
 
     <!-- <h2><?php p($l->t("AutoXchange license key")) ?></h2> -->
 
-	<div>
+    <div>
         <div class="uploadButton">
-            <label for="uploadaxlic"><span><?php p($l->t('AutoXchange license key')) ?></span></label>
+            <label for="uploadaxlic"><span>
+                    <?php p($l->t('AutoXchange license key')) ?>
+                </span></label>
             <input id="uploadaxlic" class="fileupload" name="uploadaxlic" type="file" />
-            <label for="uploadaxlic" class="button icon-upload svg" id="uploadaxlic" title="<?php p($l->t('Upload new axlic')) ?>"></label>
-            <div data-toggle="tooltip" data-original-title="<?php p($l->t('Reset to default')); ?>" class="theme-undo icon icon-history"></div>
+            <label for="uploadaxlic" class="button icon-upload svg" id="uploadaxlic"
+                title="<?php p($l->t('Upload new axlic')) ?>"></label>
+            <div data-toggle="tooltip" data-original-title="<?php p($l->t('Reset to default')); ?>"
+                class="theme-undo icon icon-history"></div>
         </div>
         <div id="uploadaxlicName"></div>
         <br />
-        <p><button id="cadviewerSaveAxlic" class="button"><?php p($l->t("Apply Key")) ?></button></p>
+        <p><button id="cadviewerSaveAxlic" class="button">
+                <?php p($l->t("Apply Key")) ?>
+            </button></p>
         <br />
-	</div>
+    </div>
 
-    <h2><?php p($l->t("Credentials for License Key")) ?></h2>
+    <h2>
+        <?php p($l->t("Credentials for License Key")) ?>
+    </h2>
     <div id="verification-value" style="display: none;">
         <div class="content-verification">
             <div>
-                <b>Content of verification</b>: 
+                <b>Content of verification</b>:
             </div>
             <pre id="verifyOutput">
                 <?php p($_["autoexchange"]["output"]) ?>
@@ -52,16 +72,39 @@
         </div>
         <br />
         <div class="content-url">
-            <b>URL of the installation</b>: <span id="installationUrl"><?php p($_["autoexchange"]["domaine_url"]) ?></span>
+            <b>URL of the installation</b>: <span id="installationUrl">
+                <?php p($_["autoexchange"]["domaine_url"]) ?>
+            </span>
         </div>
         <div class="content-url">
-            <b>Nextcloud instance ID</b>: <span id="instanceID"><?php p($_["autoexchange"]["instance_id"]) ?></span>
+            <b>Nextcloud instance ID</b>: <span id="instanceID">
+                <?php p($_["autoexchange"]["instance_id"]) ?>
+            </span>
         </div>
         <br />
     </div>
     <p>
-        <button id="getLicenseKeyInfo" class="button"><?php p($l->t("Get Server Credentials for License Key")) ?></button>
+        <button id="getLicenseKeyInfo" class="button">
+            <?php p($l->t("Get Server Credentials for License Key")) ?>
+        </button>
     </p>
     <br />
 
+    <h2>
+        <?php p($l->t("Flush Cache")) ?>
+    </h2>
+
+    <div>
+        <div>
+            <p class="settings-hint">
+                <?php p($l->t("“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files")) ?>
+            </p>
+        </div>
+        <p>
+            <button id="flushCache" class="button">
+                <?php p($l->t("Flush cache")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
 </div>
