@@ -25,6 +25,14 @@
 	$home_dir_app = $home_dir;
 
 
+
+// New set cached conversion
+
+$cached_conversion = true;
+
+
+
+
 // set the platform for /converter subfolder
 //	$platform = "windows";
 	$platform = "linux";
@@ -36,7 +44,7 @@
 //	$ax2023_executable = "AX2023_W64_23_10_105.exe";
 
 //  USE svgz compression
-	$svgz_compress = false;   // default is false
+	$svgz_compress = true;   // default is false
 
 
 //  DwgMerge engines executables - names stays stable with each upgrade of conversion engines:
