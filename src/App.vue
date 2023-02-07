@@ -89,9 +89,9 @@ export default {
             OC.dialogs.alert(
               t(
                 "cadviewer",
-                "Impossible de visualiser ce fichier Autocad pour le moment"
+                "Unable to view this file for the moment"
               ) + filename,
-              t("cadviewer", "Une erreur inconnue c'est produite")
+              t("cadviewer", "Error when trying to connect")
             );
           }
         },
@@ -100,9 +100,9 @@ export default {
           OC.dialogs.alert(
             t(
               "cadviewer",
-              "Impossible de visualiser ce fichier Autocad pour le moment"
+              "Unable to view this file for the moment"
             ) + filename,
-            t("cadviewer", "Une erreur inconnue c'est produite")
+            t("cadviewer", "Error when trying to connect")
           );
         },
       });
@@ -110,7 +110,7 @@ export default {
     initViewCadFile(mine_type, is_default) {
       OCA.Files.fileActions.registerAction({
         name: "open_cadviewer_modal",
-        displayName: "Open with CADViewer",
+        displayName: t("cadviewer","Open with CADViewer"),
         mime: mine_type,
         permissions: OC.PERMISSION_NONE,
         type: OCA.Files.FileActions.TYPE_DROPDOWN,

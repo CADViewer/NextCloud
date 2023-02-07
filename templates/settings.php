@@ -64,7 +64,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     <div id="verification-value" style="display: none;">
         <div class="content-verification">
             <div>
-                <b>Content of verification</b>:
+                <b><?php p($l->t("Content of verification")) ?></b>:
             </div>
             <pre id="verifyOutput">
                 <?php p($_["autoexchange"]["output"]) ?>
@@ -72,12 +72,12 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         </div>
         <br />
         <div class="content-url">
-            <b>URL of the installation</b>: <span id="installationUrl">
+            <b><?php p($l->t("URL of the installation")) ?></b>: <span id="installationUrl">
                 <?php p($_["autoexchange"]["domaine_url"]) ?>
             </span>
         </div>
         <div class="content-url">
-            <b>Nextcloud instance ID</b>: <span id="instanceID">
+            <b><?php p($l->t("Nextcloud instance ID")) ?></b>: <span id="instanceID">
                 <?php p($_["autoexchange"]["instance_id"]) ?>
             </span>
         </div>

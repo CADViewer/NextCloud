@@ -1,0 +1,30 @@
+OC.L10N.register(
+    "cadviewer",
+    {
+        "Documentation": "Documentation",
+		"Licence Keys": "Clés de licence",
+        "Cadviewer licence key": "Clé de licence Cadviewer",
+        "Pasting in the Licence key input the portion of the cvlicense.js file": "Collez dans l'input la clé de licence pris dans le fichier cvlicense.js",
+        "Apply Key": "Appliquer la clé",
+        "AutoXchange license key": "Clé de licence AutoXchange",
+        "Upload new axlic": "Télécharger un nouvel axlic",
+        "Reset to default": "Réinitialisation aux valeurs par défaut",
+        "Credentials for License Key": "Informations sur la clé de licence",
+        "Content of verification": "Contenu de la vérification",
+        "URL of the installation": "URL de l'installation",
+        "Nextcloud instance ID": "ID de l'instance Nextcloud",
+        "Get Server Credentials for License Key": "Obtenir les informations d'identification du serveur pour la clé de licence",
+        "Flush Cache": "Vider le cache",
+        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "Le bouton “Vider le cache“ dans le panneau d'administration supprimera les fichiers .json , .svgz .rl et .svg du dossier. Ajoutez : les fichiers .html , .png , .pdf .",
+        "Error when trying to connect": "Erreur lors de la tentative de connexion",
+        "Settings have been successfully updated": "Les paramètres ont été mis à jour avec succès",
+        "Error when trying to save licence key": "Erreur lors de l'enregistrement de la clé de licence",
+        "AutoExchange licence key have been successfully saved": "La clé de licence AutoExchange a été enregistrée avec succès",
+        "version": "version",
+        "Error when trying to flush cache": "Erreur lors de la tentative de vidage du cache",
+        "Cache have been successfully flushed": "Le cache a été vidé avec succès",
+        "Unable to view this file for the moment": "Impossible de visualiser ce fichier pour le moment",
+        "Open with CADViewer": "Visualiser avec CADViewer"
+    },
+    "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
+);

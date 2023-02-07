@@ -1,0 +1,30 @@
+OC.L10N.register(
+	"cadviewer",
+	{
+		"Documentation": "Dokumentation",
+		"Licence Keys": "Lizenzschlüssel",
+        "Cadviewer licence key": "Cadviewer Lizenzschlüssel",
+        "Pasting in the Licence key input the portion of the cvlicense.js file": "Fügen Sie den Lizenzschlüssel aus der Datei cvlicense.js in den Input ein",
+        "Apply Key": "Schlüssel anwenden",
+        "AutoXchange license key": "AutoXchange-Lizenzschlüssel",
+        "Upload new axlic": "Hochladen eines neuen axlic",
+        "Reset to default": "Auf Standardwerte zurücksetzen",
+        "Credentials for License Key": "Informationen über den Lizenzschlüssel",
+        "Content of verification": "Inhalt der Überprüfung",
+        "URL der Installation": "URL der Installation",
+        "Nextcloud instance ID": "Nextcloud-Instanz-ID",
+        "Get Server Credentials for License Key": "Erhalten Sie die Anmeldeinformationen des Servers für den Lizenzschlüssel",
+        "Flush Cache": "Leeren Sie den Cache",
+        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "Die Schaltfläche “Cache leeren“ im Administrationsbereich wird die .json , .svgz .rl und .svg Dateien aus dem Ordner entfernen. Fügen Sie hinzu: die Dateien .html , .png , .pdf .",
+        "Error when trying to connect": "Fehler beim Versuch, eine Verbindung herzustellen",
+        "Settings have been successfully updated": "Die Einstellungen wurden erfolgreich aktualisiert",
+        "Error when trying to save licence key": "Fehler beim Speichern des Lizenzschlüssels",
+        "AutoExchange licence key have been successfully saved": "Der AutoExchange-Lizenzschlüssel wurde erfolgreich gespeichert",
+        "version": "version",
+        "Error when trying to flush cache": "Fehler beim Versuch, den Cache zu leeren",
+        "Cache have been successfully flushed": "Der Cache wurde erfolgreich geleert",
+        "Unable to view this file for the moment": "Diese Datei kann derzeit nicht angezeigt werden",
+        "Open with CADViewer": "Betrachten mit CADViewer"
+	},
+	"nplurals=2; plural=(n != 1);"
+);
