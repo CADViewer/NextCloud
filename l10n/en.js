@@ -1,0 +1,30 @@
+OC.L10N.register(
+	"cadviewer",
+	{
+		"Documentation": "Documentation",
+		"Licence Keys": "Licence Keys",
+        "Cadviewer licence key": "Cadviewer licence key",
+        "Pasting in the Licence key input the portion of the cvlicense.js file": "Pasting in the Licence key input the portion of the cvlicense.js file",
+        "Apply Key": "Apply Key",
+        "AutoXchange license key": "AutoXchange license key",
+        "Upload new axlic": "Upload new axlic",
+        "Reset to default": "Reset to default",
+        "Credentials for License Key": "Credentials for License Key",
+        "Content of verification": "Content of verification",
+        "URL of the installation": "URL of the installation",
+        "Nextcloud instance ID": "Nextcloud instance ID",
+        "Get Server Credentials for License Key": "Get Server Credentials for License Key",
+        "Flush Cache": "Flush Cache",
+        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files",
+        "Error when trying to connect": "Error when trying to connect",
+        "Settings have been successfully updated": "Settings have been successfully updated",
+        "Error when trying to save licence key": "Error when trying to save licence key",
+        "AutoExchange licence key have been successfully saved": "AutoExchange licence key have been successfully saved",
+        "version": "version",
+        "Error when trying to flush cache": "Error when trying to flush cache",
+        "Cache have been successfully flushed": "Cache have been successfully flushed",
+        "Unable to view this file for the moment": "Unable to view this file for the moment",
+        "Open with CADViewer": "Open with CADViewer"
+	},
+	"nplurals=2; plural=(n != 1);"
+);

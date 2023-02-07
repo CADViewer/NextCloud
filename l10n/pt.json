@@ -1,0 +1,29 @@
+{
+    "translations": {
+		"Documentation": "Documentação",
+		"Licence Keys": "Chaves de licença",
+        "Cadviewer licence key": "Chave de licença do Cadviewer",
+        "Pasting in the Licence key input the portion of the cvlicense.js file": "Colar na chave da licença introduzir a parte do ficheiro cvlicense.js",
+        "Apply Key": "Aplicar chave",
+        "AutoXchange license key": "Chave de licença AutoXchange",
+        "Upload new axlic": "Carregar novo axlic",
+        "Reset to default": "Repor para o padrão",
+        "Credentials for License Key": "Credenciais para chave de licença",
+        "Content of verification": "Conteúdo da verificação",
+        "URL of the installation": "URL da instalação",
+        "Nextcloud instance ID": "Próxima identificação da instância em nuvem",
+        "Get Server Credentials for License Key": "Obter Credenciais de Servidor para Chave de Licença",
+        "Flush Cache": "Flush Cache",
+        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "botão Flush drawings cache no painel de administração. removerá ficheiros .json , .svgz .rl e .svg da pasta. adicionar: .html , .png , ficheiros .pdf",
+        "Error when trying to connect": "Erro ao tentar ligar",
+        "Settings have been successfully updated": "As definições foram actualizadas com sucesso",
+        "Error when trying to save licence key": "Erro ao tentar salvar a chave de licença",
+        "AutoExchange licence key have been successfully saved": "A chave de licença AutoExchange foi guardada com sucesso",
+        "version": "versão",
+        "Error when trying to flush cache": "Erro ao tentar descarregar a cache",
+        "Cache have been successfully flushed": "A cache foi enxaguada com sucesso",
+        "Unable to view this file for the moment": "Impossibilidade de ver este ficheiro por enquanto",
+        "Open with CADViewer": "Abrir com CADViewer"
+	},
+    "pluralForm": "nplurals=2; plural=(n != 1);"
+}

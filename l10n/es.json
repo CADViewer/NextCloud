@@ -1,0 +1,29 @@
+{
+    "translations":{
+		"Documentation": "Documentación",
+		"Licence Keys": "Claves de licencia",
+        "Cadviewer licence key": "Clave de licencia de Cadviewer",
+        "Pasting in the Licence key input the portion of the cvlicense.js file": "Pegando en la entrada de la clave Licence la parte del archivo cvlicense.js",
+        "Apply Key": "Aplicar clave",
+        "AutoXchange license key": "Clave de licencia de AutoXchange",
+        "Upload new axlic": "Cargar nuevo axlic",
+        "Reset to default": "Restablecer valores por defecto",
+        "Credentials for License Key": "Credenciales para la clave de licencia",
+        "Content of verification": "Contenido de la verificación",
+        "URL of the installation": "URL de la instalación",
+        "Nextcloud instance ID": "ID de instancia de Nextcloud",
+        "Get Server Credentials for License Key": "Obtener credenciales de servidor para clave de licencia",
+        "Flush Cache": "Flush Cache",
+        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "botón Flush drawings cache en el panel de administración. eliminará los archivos .json , .svgz .rl y .svg de la carpeta. añadir: archivos .html , .png , .pdf",
+        "Error when trying to connect": "Error al intentar conectarse",
+        "Settings have been successfully updated": "La configuración se ha actualizado correctamente",
+        "Error when trying to save licence key": "Error al intentar guardar la clave de licencia",
+        "AutoExchange licence key have been successfully saved": "La clave de licencia de AutoExchange se ha guardado correctamente",
+        "version": "versión",
+        "Error when trying to flush cache": "Error al intentar vaciar la caché",
+        "Cache have been successfully flushed": "La caché se ha vaciado correctamente",
+        "Unable to view this file for the moment": "No se puede ver este archivo por el momento",
+        "Open with CADViewer": "Abrir con CADViewer"
+	},
+    "pluralForm": "nplurals=2; plural=(n != 1);"
+}

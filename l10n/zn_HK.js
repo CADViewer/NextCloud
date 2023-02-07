@@ -1,0 +1,30 @@
+OC.L10N.register(
+	"cadviewer",
+	{
+		"Documentation": "文檔",
+		"Licence Keys": "許可證密鑰",
+        "Cadviewer licence key": "Cadviewer 許可證密鑰",
+        "Pasting in the Licence key input the portion of the cvlicense.js file": "粘貼許可證密鑰輸入 cvlicense.js 文件的部分",
+        "Apply Key": "應用密鑰",
+        "AutoXchange license key": "AutoXchange 許可證密鑰",
+        "Upload new axlic": "上傳新軸",
+        "Reset to default": "重置為默認",
+        "Credentials for License Key": "許可證密鑰的憑據",
+        "Content of verification": "驗證內容",
+        "URL of the installation": "安裝地址",
+        "Nextcloud instance ID": "Nextcloud 實例 ID",
+        "Get Server Credentials for License Key": "獲取許可證密鑰的服務器憑據",
+        "Flush Cache": "刷新緩存",
+        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "管理窗格中的“刷新圖紙緩存”按鈕。 它將從文件夾中刪除 .json 、 .svgz 、 .rl 和 .svg 文件。 添加： .html , .png , .pdf 文件",
+        "Error when trying to connect": "嘗試連接時出錯",
+        "Settings have been successfully updated": "設置已成功更新",
+        "Error when trying to save licence key": "嘗試保存許可證密鑰時出錯",
+        "AutoExchange licence key have been successfully saved": "AutoExchange 許可證密鑰已成功保存",
+        "version": "版本",
+        "Error when trying to flush cache": "嘗試刷新緩存時出錯",
+        "Cache have been successfully flushed": "緩存已成功刷新",
+        "Unable to view this file for the moment": "暫時無法查看此文件",
+        "Open with CADViewer": "用 CADViewer 打開"
+	},
+	"nplurals=2; plural=(n != 1);"
+);

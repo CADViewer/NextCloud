@@ -1,0 +1,29 @@
+{
+    "translations": {
+		"Documentation": "Dokumentasi",
+		"Licence Keys": "Kunci Lisensi",
+        "Cadviewer licence key": "Kunci lisensi Cadviewer",
+        "Pasting in the Licence key input the portion of the cvlicense.js file": "Menempelkan bagian dari file cvlicense.js ke dalam tombol Lisensi",
+        "Apply Key": "Terapkan Kunci",
+        "AutoXchange license key": "Kunci lisensi AutoXchange",
+        "Upload new axlic": "Unggah aklik baru",
+        "Reset to default": "Mengatur ulang ke default",
+        "Credentials for License Key": "Kredensial untuk Kunci Lisensi",
+        "Content of verification": "Isi verifikasi",
+        "URL of the installation": "URL penginstalan",
+        "Nextcloud instance ID": "ID instance cloud berikutnya",
+        "Get Server Credentials for License Key": "Dapatkan Kredensial Server untuk Kunci Lisensi",
+        "Flush Cache": "Flush Cache",
+        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "Tombol Flush images cache di panel admin. ini akan menghapus file .json, .svgz .rl dan .svg dari folder. tambahkan: file .html, .png, .pdf",
+        "Error when trying to connect": "Kesalahan saat mencoba menyambung",
+        "Settings have been successfully updated": "Pengaturan telah berhasil diperbarui",
+        "Error when trying to save licence key": "Kesalahan saat mencoba menyimpan kunci lisensi",
+        "AutoExchange licence key have been successfully saved": "Kunci lisensi AutoExchange telah berhasil disimpan",
+        "version": "versi",
+        "Error when trying to flush cache": "Kesalahan saat mencoba menyiram cache",
+        "Cache have been successfully flushed": "Cache telah berhasil dibersihkan",
+        "Unable to view this file for the moment": "Tidak dapat melihat file ini untuk saat ini",
+        "Open with CADViewer": "Buka dengan CADViewer"
+	},
+    "pluralForm": "nplurals=2; plural=(n != 1);"
+}
