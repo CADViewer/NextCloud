@@ -657,7 +657,8 @@ export default {
 
 
 		// Load file - needs the svg div name and name and path of file to load
-		// cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
+		cadviewer.cvjs_setISOtimeStamp(FileName, this.ISOtimeStamp);
+		console.log("ISOtimeStamp="+ this.ISOtimeStamp);
 		cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 
 		// set maximum CADViewer canvas side

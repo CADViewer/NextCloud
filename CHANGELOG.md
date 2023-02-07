@@ -2,6 +2,15 @@
 ### Added
 - Nighly changes here
 
+
+## 8.22.2  - 2023-02-07
+### Added
+-Cached conversions of drawings
+
+
+
+
+
 ## 8.17.3 – 2023-01-31
 ### Added
 - Ability to add custom file name when saving to CADViewer - Markup folder
