@@ -40,9 +40,9 @@ save-file.php
 
 - **AutoCAD**: Support for DWG, DXF and DWF files.
 - **MicroStation**: Support for DGN files.
-- **PDF**: Support for Vector Graphics PDF files. (use right click menu)
-- **TIFF**: Support for TIFF format. (use right click menu)
-- **PNG, JPG, GIF**: Bitmap support. (use right click menu)
+- **PDF**: Support for Vector Graphics PDF files. (use ... menu)
+- **TIFF**: Support for TIFF format. (use ... menu)
+- **PNG, JPG, GIF**: Bitmap support. (use ... menu)
 - **Annotation**: Full redlining interface of drawings where each user has individually associated redlines.
 - **Collaboration**: Redlines/Annotation on drawings are shared to global "CADViewer-Markup" folder as PDF, where users can share internally/externally.
 - **Download**: Direct download of SVG or PDF image with/without redlines/annotations.
