@@ -36,7 +36,22 @@ save-file.php
 
 7. ***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
 
-8. Please try out the CADViewer features including print, measurements, layer handling and the Redline annotation interface.
+8. CADViewer implements CAD viewing, markup and collaboration on the NextCloud platform for AutoCAD, MicroStation, PDF and advanced raster graphics. Following CADViewer features are available in NextCloud:
+
+- **AutoCAD**: Support for DWG, DXF and DWF files.
+- **MicroStation**: Support for DGN files.
+- **PDF**: Support for Vector Graphics PDF files. (use ... menu)
+- **TIFF**: Support for TIFF format. (use ... menu)
+- **PNG, JPG, GIF**: Bitmap support. (use ... menu)
+- **Annotation**: Full redlining interface of drawings where each user has individually associated redlines.
+- **Collaboration**: Redlines/Annotation on drawings are shared to global "CADViewer-Markup" folder as PDF, where users can share internally/externally.
+- **Download**: Direct download of SVG or PDF image with/without redlines/annotations.
+- **Printing**: Printing of drawings to printer driver or as PDF.
+- **Measurement**: Global scale matrix preserved in drawing for measurement and calibration methods.
+- **Zoom**: Advanced zoom and pan controls.
+- **Layers**: Retained layer structure for layer management.
+- **Search**: Integrated text search method.
+
 
 9. ***[Optional]*** If you are on Windows you will have to modify the file ***cadviewer/converter/php/CADViewer_config.php*** to adapt the configuration to Windows (change executeable name and folders). You will also have to install the Windows back-end CAD converters. Pull the /converters/ax2023/windows/ tree from [cadviewer-script-library](https://github.com/CADViewer/cadviewer-script-library) and replace into the /apps/cadviewer/converter/converters/ tree. In ***cadviewer/converter/php/CADViewer_config.php***, update ***$platform*** and ***$ax2023_executable***.
 

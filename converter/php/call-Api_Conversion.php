@@ -15,6 +15,8 @@
 	
 */
 
+	$scriptversion = "8.20.1";
+
 	// Configuration file for CADViewer Community and CADViewer Enterprise version and standard settings
 	require 'CADViewer_config.php';
 
@@ -94,8 +96,8 @@
 	// 2016-01-28
 	// create debug file
 	if ($debug) {
-		if ($fd_log = fopen ("call-Api_Conversion_log.txt", "a+")) {
-			fwrite($fd_log, "\r\n NEW-FILE-CONVERSION-BEGIN   v7.1.7  \r\n \r\n");
+		if ($fd_log = fopen ("call-Api_Conversion_log.txt", "w")) {
+			fwrite($fd_log, "\r\n NEW-FILE-CONVERSION-BEGIN   $scriptversion  \r\n \r\n");
 			fwrite($fd_log, "Opening call-Api_Conversion_log.txt for new conversion: \r\n");
 		}		
 	}
@@ -368,6 +370,11 @@
 	$engine_path = "";
 	$userlabel = $json_request['userLabel'];
 
+
+	// 8.10.1
+
+	$fileStamp = "";
+
 //// THESE ARE HANDLING RELATED TO AUTOXCHANGE 2023 
 	if ($json_request['action'] == 'conversion' ||  $json_request['action'] == 'data_extraction' || $json_request['action'] == 'svg_js_creation_cvheadless' || $json_request['action'] == 'svg_js_creation' || $json_request['action'] == 'svg_creation' || $json_request['action'] == 'pdf_creation' || $json_request['action'] == 'svg_creation_sharepoint_REST' ) {
 
@@ -376,7 +383,9 @@
 		if (isset($json_request['contentLocation']))
 			$contentlocation = $json_request['contentLocation'];
 
-
+		// 8.20.1
+		if (isset($json_request['fileStamp']))
+			$fileStamp = $json_request['fileStamp'];
 
 
 		// 7.1.7
@@ -385,11 +394,8 @@
 		$contentlocation = str_replace("%2F", "/", $contentlocation);	
 		fwrite($fd_log, "\$contentlocation:  $contentlocation  \r\n");
 
-
 		// 7.9.14
 		$contentlocation = urldecode($contentlocation);	
-
-
 
 
 		if (isset($json_request['embeddedContent']))
@@ -1018,11 +1024,312 @@ set_time_limit(240);
 		fwrite($fd_log, "operating_system_detection(): " . operating_system_detection($debug, $fd_log)."    \r\n");
 	}
 
-		exec( $command_line, $out, $return1);
+
+	//$jsontemplate = '{"fullfilepath": "full file path","filename": "filename","filecreatestamp": "date1","filechangestamp": "2023-01-31T08:30:25.597Z","cachedfiles": [{ "fileName": "F1.svgz", "filecreatestamp": "datef1", "parameters": [{"paramName": "f", "paramValue": "svg"}]}]}';
+
+	$jsontemplate = '{\"fullfilepath\": \"full file path\",\"filename\": \"filename\",\"filecreatestamp\": \"date1\",\"filechangestamp\": \"2023-01-31T08:30:25.597Z\",\"cachedfiles\": [{ \"fileName\": \"F1.svgz\", \"filecreatestamp\": \"datef1\", \"parameters\": [{\"paramName\": \"f\", \"paramValue\": \"svg\"}]}]}';
+
+	/*
+						{
+							"fullfilepath": "full file path",
+							"filename": "filename",
+							"filecreatestamp": "date1",
+							"filechangestamp": "2023-01-31T08:30:25.597Z",
+							"cachedfiles": [{
+									"fileName": "F1- 533271c6c7ec58eda68a0f882.svgz",
+									"filecreatestamp": "datef1",
+									"parameters": [{
+										"paramName": "f",
+										"paramValue": "svg"
+									}, {
+										"paramName": "ak",
+										"paramValue": "FWK_1"
+									}, {
+										"paramName": "ia",
+										"paramValue": ""
+									}, {
+										"paramName": "extents",
+										"paramValue": ""
+									}, {
+										"paramName": "layout",
+										"paramValue": "Sheet1"
+									}]
+								},
+								{
+									"fileName": "Fab55b0ffbf5497e533271c6c7ec58eda68a0f882.svgz",
+									"filecreatestamp": "2023-01-31T08:30:25.597Z",
+									"parameters": [{
+										"paramName": "f",
+										"paramValue": "svg"
+									}, {
+										"paramName": "ak",
+										"paramValue": "FWK_DEVICE_TYPE"
+									}, {
+										"paramName": "ia",
+										"paramValue": ""
+									}, {
+										"paramName": "extents",
+										"paramValue": ""
+									}, {
+										"paramName": "last",
+										"paramValue": ""
+									}]
+								}
+							]
+						}
+
+	*/
+
+
+
+
+	$temp_file_name_org ="";
+	$this_conversion_cached = false;
+	if ($cached_conversion){
+
+		// we always leave the file on server if cached!!!!
+		$remainOnServer = 1;
+
+		fwrite($fd_log, "CACHED CONVERSION IMPLEMENT  $jsontemplate \n\r ");
+
+		// 8.19.3  8.19.2  8.20.1
+		$pos1 = strrpos ( $contentlocation , "/");
+		$filenamej = substr($contentlocation, $pos1+1);
+
+        $jsonfilename = $fileLocation . $filenamej . ".json";
+
+		fwrite($fd_log, "FILENAME:" . $jsonfilename . " \n\r");
+
+		// copy the code from NODEJS
+        $jsonfilename = $fileLocation . $filenamej . ".json";
+
+		// here we make wsure we get the reference file in
+		//$jsonfilename = "/xampp/htdocs/cadviewer_6_4//converters/files/reference-cache-file.json";
+
+		// load the json file
 		
-	if ($debug){
-		fwrite($fd_log, "exec return1  $return1   \r\n");
+		$jarray = "";
+		$paramflags = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+		$cachecontents = "";
+
+		fwrite($fd_log, "file exists: $jsonfilename " . file_exists($jsonfilename). "XXX\n\r" );
+
+		if (file_exists($jsonfilename)){
+
+			if ($fd = fopen ($jsonfilename, "rb")) {
+				while(!feof($fd)) {
+					$cachecontents .= fread($fd, 8192);
+				}
+				fclose ($fd);
+				$jarray = json_decode($cachecontents, true);	
+				// $this_conversion_cached = true;
+	
+				if ($jarray == null) {
+					fwrite($fd_log, "no good XXX\n\r" );
+
+					// if cannot open file IS NULL, we have to build the JSONstructure
+					$this_conversion_cached = false;
+					// add all content to jarray with content from this file
+					$jarray = json_decode($jsontemplate, true);	
+					//		$jarray = $jsontemplate;	
+								//if (is_array($jarray))  fwrite($fd_log, "jarray is an array! XXX \n\r" );
+					//fwrite($fd_log, "first attempt: " . $jarray['fullfilepath'] . " XXX \n\r" );
+					$jarray['fullfilepath']  =  substr($contentlocation, 0, $pos1);
+					$jarray['filename']  =  $filenamej;
+					$jarray['filecreatestamp']  = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"2023-01-31T08:30:25.597Z";  // current time stamp
+					$pos2 = strrpos ( $outputFile , "/");
+					$filenameout = substr($contentlocation, $pos1+1);
+					$jarray['cachedfiles'][0]['fileName'] = "f" . $temp_file_name . "." . $output_file_extension;  // current timestampt
+					$jarray['cachedfiles'][0]['filecreatestamp'] = date_format(date_timestamp_set(new DateTime(), time()), 'c');// "file exists but not correct json";  // current timestampt
+					$max = sizeof($parameters);
+					fwrite($fd_log, "parameters size: " . $max . "  XXX "); // . $jarray['cachedfiles'][0]['parameters'][0]['paramName'] . "\n\r" );
+					for ($i = 0; $i < $max; $i++) {
+						$jarray['cachedfiles'][0]['parameters'][$i]['paramName'] = $parameters[$i]['paramName'];
+						$jarray['cachedfiles'][0]['parameters'][$i]['paramValue'] = $parameters[$i]['paramValue'];
+					}
+
+					fwrite($fd_log, "jarray new file: " . json_encode($jarray) . " XXX \n\r" );
+					fwrite($fd_log, " single entry fullfilepath: " . $jarray['fullfilepath'] . " \n\r ");
+
+
+				
+				}
+				else{
+					fwrite($fd_log, "cashedfile likely  in array good XXX\n\r" );
+
+
+					$fsize = sizeof($jarray['cachedfiles']);
+					fwrite($fd_log, "number of conversion: " . $fsize . "XXX\n\r" );
+		
+					$continuecheckfiles = true;
+		
+					for ($i = 0; $i < $fsize; $i++) {
+		
+						if ($continuecheckfiles){
+		
+							fwrite($fd_log, "file: " . $i . "  " . $jarray['cachedfiles'][$i]['fileName'] . "XXX\n\r" );
+		
+							$max = sizeof($parameters);
+							$paramflags = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
+							for ($j = 0; $j < $max; $j++) {
+								$maxk = sizeof($jarray['cachedfiles'][$i]['parameters']);
+								for ($k = 0; $k < $maxk; $k++) {
+									if ($jarray['cachedfiles'][$i]['parameters'][$k]['paramName'] ==  $parameters[$j]['paramName'] 
+									&& $jarray['cachedfiles'][$i]['parameters'][$k]['paramValue'] == $parameters[$j]['paramValue']){
+										$paramflags[$j] = true;
+										fwrite($fd_log, "param match: " . $j . "  " . $parameters[$j]['paramName'] . " " . $parameters[$j]['paramValue'] . " XXX\n\r" );
+									};
+								}
+							}
+			
+							// check if param OK
+							// check if number of params OK
+							// check if date OK
+				
+		
+							// NOTE $paramcheck3  == is the DATE CHECK!   - to be done!
+
+							fwrite($fd_log, " timeStamp= " . $fileStamp . "  jarray['filecreatestamp']= ". $jarray['filecreatestamp'] . "\n\r" );
+									
+		
+
+							fwrite($fd_log, " timeStamp= " . strtotime($fileStamp) . "  jarray['filecreatestamp']= ". strtotime($jarray['filecreatestamp']) . "\n\r" );
+
+							$paramcheck3 = false;
+
+							if ($fileStamp =="none"){
+								$paramcheck3 = true;   // no time check, we pass through
+							}
+							else{   // if the time sent down to CV, is newer than the time on server then we must convert
+								if (strtotime($fileStamp)>strtotime($jarray['filecreatestamp'])){
+									$paramcheck3 = false;   // we MUST! convert
+								}
+								else{
+									$paramcheck3 = true;  // we pass through
+								}
+
+							}
+
+
+							$paramcheck1 = ($max == $maxk);
+							$paramcheck2 = true;
+				
+							if ($paramcheck1){
+								for ($l = 0; $l < $maxk; $l++) {
+									if (!$paramflags[$l]) $paramcheck2 = false;
+								}
+							}
+				
+							if ($paramcheck1 && $paramcheck2 && $paramcheck3){
+								$this_conversion_cached = true;
+								// update the temp name
+
+								$temp_file_name_org = $temp_file_name;
+
+								$temp_file_name = $jarray['cachedfiles'][$i]['fileName'];
+								// teemp file name is substring
+		
+								// type is the type
+								$poso = strrpos ( $temp_file_name , ".");
+								$output_file_extension = substr($temp_file_name, $poso+1);
+								$temp_file_name = substr($temp_file_name, 0, $poso);
+								fwrite($fd_log, "temp_file_name= " . $temp_file_name . "  XXX output_file_extension= ". $output_file_extension . "\n\r" );
+								$remainOnServer = 1;
+								$continuecheckfiles = false;
+							}
+			
+							//$this_conversion_cached = false;
+							//$output_file_extension = "svg";
+						}
+		
+					}
+	
+
+
+				}
+	
+			
+				//if ok then set flag to abort conversion, but make new return JSON
+				//if OK set flag to not continue loop.
+	
+				if (!$this_conversion_cached){
+					// if NOT OK, then we need make a new entry into the JSON file, and trigger conversion
+	
+					$fsize = sizeof($jarray['cachedfiles']);
+	
+					$filenameout = substr($contentlocation, $pos1+1);
+					$jarray['cachedfiles'][$fsize]['fileName'] = "f" . $temp_file_name . "." . $output_file_extension ;  
+					$jarray['cachedfiles'][$fsize]['filecreatestamp'] = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"not cached but exists";  // current timestampt
+					$max = sizeof($parameters);
+					fwrite($fd_log, "parameters size: " . $max . "  XXX ". $jarray['cachedfiles'][0]['parameters'][0]['paramName'] . "\n\r" );
+					for ($i = 0; $i < $max; $i++) {
+						$jarray['cachedfiles'][$fsize]['parameters'][$i]['paramName'] = $parameters[$i]['paramName'];
+						$jarray['cachedfiles'][$fsize]['parameters'][$i]['paramValue'] = $parameters[$i]['paramValue'];
+					}
+		
+				}
+	
+	
+			}
+
+
+		}
+		else{
+			// if cannot open file, we have to build the JSONstructure
+			$this_conversion_cached = false;
+			// add all content to jarray with content from this file
+			$jarray = json_decode($jsontemplate, true);	
+			//		$jarray = $jsontemplate;	
+						//if (is_array($jarray))  fwrite($fd_log, "jarray is an array! XXX \n\r" );
+			fwrite($fd_log, "CANNOT OPEN FILE, NEED TO BUILD JSON STRUCTURE  XXX \n\r" );
+			$jarray['fullfilepath']  =  substr($contentlocation, 0, $pos1);
+			$jarray['filename']  =  $filenamej;
+			$jarray['filecreatestamp']  = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"2023-01-31T08:30:25.597Z";  // current time stamp
+			$pos2 = strrpos ( $outputFile , "/");
+			$filenameout = substr($contentlocation, $pos1+1);
+			$jarray['cachedfiles'][0]['fileName'] = "f" . $temp_file_name . "." . $output_file_extension ;  // 
+			$jarray['cachedfiles'][0]['filecreatestamp'] = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"cannot open file";  // current timestampt
+			$max = sizeof($parameters);
+			fwrite($fd_log, "parameters size: " . $max . "  XXX "); // . $jarray['cachedfiles'][0]['parameters'][0]['paramName'] . "\n\r" );
+			for ($i = 0; $i < $max; $i++) {
+				$jarray['cachedfiles'][0]['parameters'][$i]['paramName'] = $parameters[$i]['paramName'];
+				$jarray['cachedfiles'][0]['parameters'][$i]['paramValue'] = $parameters[$i]['paramValue'];
+			}
+
+			fwrite($fd_log, "jarray new file: " . json_encode($jarray) . " XXX \n\r" );
+			fwrite($fd_log, " single entry fullfilepath: " . $jarray['fullfilepath'] . " \n\r ");
+
+		}
+		// check against the incoming json
+		// if new conversion, make a new json / update json
+		// if already cached, then skip conversion and update of json
+		// we have to make the temp file the temp file from the json file
+
+		if (!$this_conversion_cached){
+
+			// here we save the JSON to the server
+			file_put_contents($jsonfilename,  json_encode($jarray));
+
+		}
+
+
 	}
+
+ 
+	$return1 = "";
+	if ($this_conversion_cached){
+
+		fwrite($fd_log, "Do nothing! we are just loading in the old temp svgz....");
+
+	}
+	else{
+		exec( $command_line, $out, $return1);
+		if ($debug){
+			fwrite($fd_log, "exec return1  $return1   \r\n");
+		}
+
+	}
+		
 
 	if ($return1 < -128 || $return1>256)
 		$return1 = 0;	
@@ -1032,32 +1339,35 @@ set_time_limit(240);
 	}
 
 
-		// clean out originating file + temp w2d file (if present)
-		//$file_1 = $home_dir. '/' . $fullPath;
-		$file_1 = $fullPath;
+	//8.19.2
+//	if (!$debug)
+	if (true){
+
+		$pose = strrpos ( $contentlocation , ".");
+		$exte = substr($contentlocation, $pose+1);
+		$file_1 = $fileLocation  . 'f' . $temp_file_name_org . '.' . $exte;
+		if (file_exists($file_1)){
+			unlink($file_1);
+		}
+
+		if ($debug){
+			fwrite($fd_log, "unlink2  $file_1   \r\n");
+		}
+
+		$file_1 = $fileLocation  . 'f' . $temp_file_name . '.' . $exte;
+		if (file_exists($file_1)){
+			unlink($file_1);
+		}
+		
+		if ($debug){
+			fwrite($fd_log, "unlink2  $file_1   \r\n");
+		}
 
 
-//if ($debug) echo "  unlink1 " . $file_1;
-	if ($debug){
-		fwrite($fd_log, "unlink1  $file_1   \r\n");
+
 	}
-
-	// 3.3.02c - we only delete the source file, if not same server load
-	if (!$debug && $server_load == 0)
-		if (file_exists($file_1)){
-			unlink($file_1);
-		}
-
-		$file_1 = $fileLocation  . 'f' . $temp_file_name . '_ac1024.dwg';
-	if (!$debug)
-		if (file_exists($file_1)){
-			unlink($file_1);
-		}
 
 //if ($debug) echo " unlink2 " . $file_1;
-	if ($debug){
-		fwrite($fd_log, "unlink2  $file_1   \r\n");
-	}
 
 
 //echo  " \$output_file_extension = $output_file_extension \n";
@@ -1109,7 +1419,12 @@ if ($debug){
 
 		if ( $contentresponse == 'stream'){
 			$embed_cont = "";
-			$cont_loc = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=f" . $temp_file_name . "&Type=" . $output_file_extension;
+
+			if ($this_conversion_cached)   // 8.19.3
+				$cont_loc = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=" . $temp_file_name . "&Type=" . $output_file_extension;
+			else
+				$cont_loc = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=f" . $temp_file_name . "&Type=" . $output_file_extension;
+
 		}
 
 
@@ -1179,11 +1494,12 @@ if ($debug){
 			if ( $contentresponse == 'stream'){
 				$embed_cont = "";
 
-				$cont_loc3 = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=" . 'f' . $temp_file_name . "&Type=" . $output_file_extension;
-
+				if ($this_conversion_cached)   // 8.19.3
+					$cont_loc3 = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=" . $temp_file_name . "&Type=" . $output_file_extension;
+				else
+					$cont_loc3 = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=" . 'f' . $temp_file_name . "&Type=" . $output_file_extension;
 
 			}
-
 
 
 			// array with response - for type "file" and "stream" - below we rewrite it if of type "embedded"
