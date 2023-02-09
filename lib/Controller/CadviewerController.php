@@ -205,8 +205,7 @@ class CadviewerController extends Controller {
 		$dir = dirname($file);
 		
 		$userFolder = $this->rootFolder->getUserFolder($this->userId);
-		$fileStat = $userFolder->newFile($directory."/".$nameOfFile)->stat();
-
+		$fileStat = $userFolder->get($directory."/".$nameOfFile)->stat();
 		$response = array();
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["path"] = $dir;
