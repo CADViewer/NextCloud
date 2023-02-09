@@ -23,9 +23,11 @@
 
 return [
 	'routes' => [
-		['name' => 'cadviewer#path','url'  => '/ajax/cadviewer.php','verb' => 'POST'],
+        ['name' => 'cadviewer#path','url'  => '/ajax/cadviewer.php','verb' => 'POST'],
         ["name" => "cadviewer#move_pdf", "url" => "/ajax/cadviewer/move-pdf", "verb" => "POST"],
         ["name" => "cadviewer#flush_cache", "url" => "/ajax/cadviewer/flush-cache", "verb" => "POST"],
+		['name' => 'cadviewer#ping', 'url' => '/ajax/cadviewer/ping','verb' => 'GET'],
+        ["name" => "settings#doctor", "url" => "/ajax/settings/doctor", "verb" => "POST"],
         ["name" => "settings#save_common", "url" => "/ajax/settings/common", "verb" => "PUT"],
         ["name" => "settings#check_auto_exchange_licence_key", "url" => "/ajax/settings/autoexchange-verify", "verb" => "GET"],
         ["name" => "settings#save_axlic_file", "url" => "/ajax/settings/autoexchange-save-axlic", "verb" => "POST"],

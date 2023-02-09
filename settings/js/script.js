@@ -98,6 +98,67 @@
             });
         });
 
+        
+
+        $("#cadviewerDoctor").click(function () {
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/doctor"),
+                data: {},
+                processData: false,
+                contentType: false,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+
+                    if (response.error) {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to debug the application"));
+                    } else {
+                        let responseContent = "";
+                        responseContent += `<div class="access-status"><div class="${response.exec_command_is_activate ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.exec_command_is_activate ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, '"exec" command activated on PHP')}</div>`;
+                        responseContent += `<div class="access-status"><div class="${response.can_execute_script_file ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.can_execute_script_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Permission 777 for the "ax2023_L64_xx_yy_zz" executable')}</div>`;
+                        responseContent += `<div class="access-status"><div class="${response.can_write_in_log_file ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.can_write_in_log_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Writing to the log file "call-Api_Conversion_log.txt"')}</div>`;
+                        responseContent += `<div class="access-status"><div class="${response.htaccess_is_whell_configured ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.htaccess_is_whell_configured ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, '.htaccess well configured')}</div>`;
+                        responseContent += `<div class="access-status">
+                                <div class="${response.can_write_in_files_folder ? "success" : "error"}">
+                                    <img src="/apps/cadviewer/img/${response.can_write_in_files_folder ? "check" : "x"}.svg" />
+                                </div> 
+                                ${t(OCA.Cadviewer.AppName, 'Read and write permission for folder')} /converter/converters/files/
+                            </div>`;
+                        
+                        const otherFolders = [
+                            "linux",
+                            "merge",
+                            "print",
+                            "pdf",
+                            "redlines",
+                            "redlines_v7",
+                            "php"
+                        ]
+                        const otherFoldersPath = {
+                            "linux": "/converter/converters/ax2023/linux/",
+                            "merge": "/converter/converters/files/merged/",
+                            "print": "/converter/converters/files/print/",
+                            "pdf": "/converter/converters/files/pdf/",
+                            "redlines": "/converter/content/redlines/",
+                            "redlines_v7": "/converter/content/redlines/v7/",
+                            "php": "/converter/php/"
+                        }
+                        otherFolders.forEach(folder => {
+                            responseContent += `<div class="access-status">
+                                <div class="${response["can_write_in_files_folder_"+folder] ? "success" : "error"}">
+                                    <img src="/apps/cadviewer/img/${response["can_write_in_files_folder_"+folder] ? "check" : "x"}.svg" />
+                                </div> 
+                                ${t(OCA.Cadviewer.AppName, 'Read and write permission for folder')}${" "+otherFoldersPath[folder]}
+                            </div>`;
+                        });
+                        $("#cadviewerDoctorResponse").html(responseContent);
+                    }
+                }
+            });
+        });
+
         $("#flushCache").click(function () {
             $(".section-cadviewer").addClass("icon-loading");
 

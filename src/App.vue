@@ -75,7 +75,8 @@ export default {
                       closeModal: () => {
                         appCanvas.$destroy();
                         // appCanvas.$el.parentNode.removeChild(this.$el);
-                        document.querySelector(".modal-mask").remove();
+                        if(document.querySelector(".modal-mask"))
+                          document.querySelector(".modal-mask").remove();
                         document
                           .querySelector("#cadviewer_app_canvas")
                           .remove();

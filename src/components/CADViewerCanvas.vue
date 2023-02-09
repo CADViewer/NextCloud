@@ -1,6 +1,6 @@
 '<template>
 	<div id="cadviewer_app_canvas" class="modal__content">
-		<app-nc-modal @close="closeModal" :title="ModalTitle" size="full" :canClose="canClose">
+		<app-nc-modal @close="closeModal" :title="title" size="full" :canClose="canClose">
 			<div class="cadviewerCanvasTest01">
 				<div id="floorPlan"></div>
 			</div>
@@ -13,7 +13,21 @@
 					<app-close :size="iconSize" />
 				</template>
 			</app-nc-button>
-			
+
+			<!--
+			<app-nc-button
+				class="header-close compare_button"
+				type="tertiary"
+				@click="chooseFileToCompareWith">
+				Compare
+			</app-nc-button>
+			<app-nc-button
+				class="header-close load_button"
+				type="tertiary"
+				@click="chooseFileToLoad">
+				Load
+			</app-nc-button>
+			-->
 		</app-nc-modal>
 	</div>
 </template>
@@ -370,6 +384,7 @@ export default {
   },
   data() {
 		return {
+			title: this.ModalTitle,
 			canClose: false,
 			iconSize: 24,
 		}
@@ -674,6 +689,122 @@ export default {
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
 
+	chooseFileToCompareWith() {
+		OC.dialogs.filepicker(
+			t("cadviewer", "Chose file to compare with"),
+			(path) => {
+				if(path){
+					let nameOfFile = path.split("/").reverse()[0]
+					let directory = path.replace(nameOfFile, "")
+					var data = { nameOfFile, directory };
+					$.ajax({
+						type: "POST",
+						async: "false",
+						url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
+						data: data,
+						success: async (response) => {
+							console.log(response);
+							if (response.path) {
+								const content_dir = response.path;
+								const ISOtimeStamp = `${response.ISOtimeStamp}`;
+								const FileName = `${content_dir}/${nameOfFile}`;
+								//cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName)
+							} else {
+								OC.dialogs.alert(
+									t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
+									t("cadviewer", "Error when trying to connect")
+								);
+							}
+						},
+						error: (resultat) => {
+							OC.dialogs.alert(
+								t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
+								t("cadviewer", "Error when trying to connect")
+							);
+						},
+					});
+					
+				}
+			},
+			false,
+			[
+				"application/acad",
+				"application/dxf",
+				"application/x-dwf",
+				"application/dgn",
+				// Add context menu for others documents
+				"application/pdf",
+				"image/tiff",
+				"image/tif",
+				// Add context menu for images
+				"image/png",
+				"image/jpeg",
+				"image/gif",
+			],
+			true,
+			OC.dialogs.FILEPICKER_TYPE_CHOOSE
+		);
+	},
+
+	chooseFileToLoad() {
+		OC.dialogs.filepicker(
+			t("cadviewer", "Chose file to load"),
+			(path) => {
+				if(path){
+					let nameOfFile = path.split("/").reverse()[0]
+					let directory = path.replace(nameOfFile, "")
+					var data = { nameOfFile, directory };
+					$.ajax({
+						type: "POST",
+						async: "false",
+						url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
+						data: data,
+						success: async (response) => {
+							console.log(response);
+							if (response.path) {
+								const content_dir = response.path;
+								const ISOtimeStamp = `${response.ISOtimeStamp}`;
+								const FileName = `${content_dir}/${nameOfFile}`;
+								this.title = nameOfFile;
+								cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
+								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
+							} else {
+								OC.dialogs.alert(
+									t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
+									t("cadviewer", "Error when trying to connect")
+								);
+							}
+						},
+						error: (resultat) => {
+							OC.dialogs.alert(
+								t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
+								t("cadviewer", "Error when trying to connect")
+							);
+						},
+					});
+					
+				}
+			},
+			false,
+			[
+				"application/acad",
+				"application/dxf",
+				"application/x-dwf",
+				"application/dgn",
+				// Add context menu for others documents
+				"application/pdf",
+				"image/tiff",
+				"image/tif",
+				// Add context menu for images
+				"image/png",
+				"image/jpeg",
+				"image/gif",
+			],
+			true,
+			OC.dialogs.FILEPICKER_TYPE_CHOOSE
+		);
+	},
+
 	movePdf(pdfFileName) {
 
 		// Make api call for move pdf file into markup folder
@@ -711,6 +842,31 @@ export default {
 		margin-top: 30px;
 		margin-left: 2px;   /* margin-left: 50px;   */
 	} 
+
+	.load_button {
+		position: absolute !important;
+		top: 96px;
+		right: 4px;
+		z-index: 10000;
+		background-color: #0082c9 !important;
+		color: white !important;
+		cursor: pointer;
+		border-radius: 10px;
+		height: 44px;
+		border: 2px solid #CCC;
+	} 
+	.compare_button {
+		position: absolute !important;
+		top: 52px;
+		right: 4px;
+		z-index: 10000;
+		background-color: #0082c9 !important;
+		color: white !important;
+		cursor: pointer;
+		border-radius: 10px;
+		height: 44px;
+		border: 2px solid #CCC;
+	}
 	
 	.close_button {
 		position: absolute !important;
