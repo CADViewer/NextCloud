@@ -211,3 +211,34 @@
 }
 
 /*# sourceMappingURL=settings-admin.css.map */
+
+.access-status {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 0px;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 30px;
+  color: var(--color-text-light);
+}
+.access-status img{
+  width: 20px;
+}
+.access-status div{
+  display: flex;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.access-status .success {
+  background-color: #0082c9;
+}
+
+.access-status .error {
+  background-color: #f45353;
+}

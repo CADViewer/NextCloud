@@ -12,7 +12,7 @@ Conversion:
 ```
 /apps/cadviewer/converter/converters/ax2023/linux/
 /apps/cadviewer/converter/converters/files/
-/apps/cadviewer/converter/converters/files/merge/
+/apps/cadviewer/converter/converters/files/merged/
 /apps/cadviewer/converter/converters/files/print/
 /apps/cadviewer/converter/converters/files/pdf/
 ```

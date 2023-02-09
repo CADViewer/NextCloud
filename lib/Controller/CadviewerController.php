@@ -215,6 +215,14 @@ class CadviewerController extends Controller {
 		
 		return $response;
 	}
-	
+
+	/**
+	 * @NoAdminRequired
+     * @NoCSRFRequired
+	 * @PublicPage
+	 */
+	public function ping(){
+		return new JSONResponse(array(), Http::STATUS_OK);
+	}
 	
 }

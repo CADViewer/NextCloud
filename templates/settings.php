@@ -107,4 +107,24 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         </p>
         <br />
     </div>
+
+    <h2>
+        <?php p($l->t("Debug")) ?>
+    </h2>
+
+    <div>
+        <div>
+            <p class="settings-hint">
+                <?php p($l->t("The Cadviewer Doctor button is an option created to facilitate debugging during the installation and configuration of Cadviewer. This tool will allow an analysis of the elements that are essential to the proper functioning of the application.")) ?>
+            </p>
+        </div>
+        <div id="cadviewerDoctorResponse">
+        </div>
+        <p>
+            <button id="cadviewerDoctor" class="button">
+                <?php p($l->t("Cadviewer Doctor")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
 </div>

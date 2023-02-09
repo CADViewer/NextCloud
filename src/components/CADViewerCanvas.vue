@@ -674,6 +674,32 @@ export default {
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
 
+	chooseFileToCompareWith() {
+		OC.dialogs.filepicker(
+			t("cadviewer", "Chose file to compare with"),
+			function (path) {
+				console.log({ path });
+			},
+			false,
+			[
+				"application/acad",
+				"application/dxf",
+				"application/x-dwf",
+				"application/dgn",
+				// Add context menu for others documents
+				"application/pdf",
+				"image/tiff",
+				"image/tif",
+				// Add context menu for images
+				"image/png",
+				"image/jpeg",
+				"image/gif",
+			],
+			true,
+			OC.dialogs.FILEPICKER_TYPE_CHOOSE
+		);
+	},
+
 	movePdf(pdfFileName) {
 
 		// Make api call for move pdf file into markup folder
