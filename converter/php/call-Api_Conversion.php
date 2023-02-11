@@ -15,7 +15,7 @@
 	
 */
 
-	$scriptversion = "8.20.1";
+	$scriptversion = "8.26.4";
 
 	// Configuration file for CADViewer Community and CADViewer Enterprise version and standard settings
 	require 'CADViewer_config.php';
@@ -470,20 +470,47 @@
 									$parameters[$i]['paramValue'] = "svgz";
 								}
 
-								if ($parameters[$i]['paramName'] == 'layout'){
-									if (strpos($op_string, 'win') !== false) { // 2019-06-28  - running as .bat
-										$param_string = $param_string . " \"-" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'] ."\"";
+
+								// 8.26.4
+								if ($parameters[$i]['paramName'] == 'compare'){
+
+									$compare_location = $parameters[$i]['paramValue'];
+									$pos_2 = strpos($compare_location, $httpHost);
+									
+									if ($pos_2 !== false) {
+										if ($pos_2 == 0){
+//											$server_load = 1;  // we are on the same server, so we simply swap $httpHost for $home_dir
+											$compare_location = str_replace($httpHost, $home_dir ."/", $compare_location);	
+										}
 									}
-									else
-										$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=\"". $parameters[$i]['paramValue'] ."\"";
+
+									if (strpos($op_string, 'win') !== false) { // 2019-06-28  - running as .bat
+										$param_string = $param_string . " \"-" . $parameters[$i]['paramName'] ."=". $compare_location ."\"";
+									}
+									else{
+										$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=\"". $compare_location ."\"";
+									}
+								
+
 								}
-								else {
-									if (strpos($op_string, 'win') !== false) { // 2019-06-28  - running as .bat
-										$param_string = $param_string . " \"-" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'] ."\"";
+								else{
+									if ($parameters[$i]['paramName'] == 'layout'){
+										if (strpos($op_string, 'win') !== false) { // 2019-06-28  - running as .bat
+											$param_string = $param_string . " \"-" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'] ."\"";
+										}
+										else
+											$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=\"". $parameters[$i]['paramValue'] ."\"";
 									}
-									else
-										$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=\"". $parameters[$i]['paramValue'] ."\"";
+									else {
+										if (strpos($op_string, 'win') !== false) { // 2019-06-28  - running as .bat
+											$param_string = $param_string . " \"-" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'] ."\"";
+										}
+										else
+											$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=\"". $parameters[$i]['paramValue'] ."\"";
 									}
+	
+								}
+					
 							}
 							//	$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'];            ;
 					  	}

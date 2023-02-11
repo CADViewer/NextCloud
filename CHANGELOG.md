@@ -3,9 +3,18 @@
 - Nighly changes here
 
 
+
+
+## 8.27.2 - 2023-02-12
+### Added
+- Compare method for drawings
+- Integrated fileloader in CADViewer
+- CADViewer Doctor admin tool
+
+
 ## 8.22.2  - 2023-02-07
 ### Added
--Cached conversions of drawings
+- Cached conversions of drawings
 
 
 

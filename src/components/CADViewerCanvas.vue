@@ -13,8 +13,8 @@
 					<app-close :size="iconSize" />
 				</template>
 			</app-nc-button>
-
-			<!--
+<!--
+			
 			<app-nc-button
 				class="header-close compare_button"
 				type="tertiary"
@@ -27,7 +27,7 @@
 				@click="chooseFileToLoad">
 				Load
 			</app-nc-button>
-			-->
+-->			
 		</app-nc-modal>
 	</div>
 </template>
@@ -51,7 +51,7 @@ var  current_selected_handle = "";
 
 // We should to define all the CADViewer methods in which we are getting information return from CADViewer 
 // THEY CAN BE PLACEHOLDERS ONLY     
-// // //  // // // // // //  //
+// // //  // // // // // //   // //
 
 
 //export function cvjs_OnLoadEnd(){
@@ -460,16 +460,15 @@ export default {
 		// 
 
 
-// NextCloud setting of save screeen method for save to CADViewer-Markup
+		// NextCloud setting of save screeen method for save to CADViewer-Markup
+		cadviewer.cvjs_saveScreenAsPDF_serverSettings(true, this.movePdf, "", "NextCloud", true, false, true);
 
-	cadviewer.cvjs_saveScreenAsPDF_serverSettings(true, this.movePdf, "", "NextCloud", true, false, true);
+		// 8.26.1  8.26.6  
+		cadviewer.cvjs_compareDrawings_externalModal(true, this.chooseFileToCompareWith, "NextCloud");
+		cadviewer.cvjs_fileLoadModal_externalModal(true, this.chooseFileToLoad, "NextCloud");
 
 
-
-
-
-
-	cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
+		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
         cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectOnChange", cvjs_graphicalObjectOnChange);
         cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEndRedlines", cvjs_OnLoadEndRedlines);
         cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelected", cvjs_ObjectSelected);
@@ -517,15 +516,15 @@ export default {
 		  //	var ServerLocation = 
 		  //	var ServerUrl =    
 		 cadviewer.cvjs_CADViewerPro(true);
-		 cadviewer.cvjs_setCADViewerInterfaceVersion(7);
+		 cadviewer.cvjs_setCADViewerInterfaceVersion(8);
 		 cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
+
+
 
 
 		// 8.8.1
 		//cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converter/converters/files/");   // 7.4.45
-
 		cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converters/files/");   // 7.4.45
-
 
 
 		 // Pass over the location of the installation, will update the internal paths
@@ -575,9 +574,13 @@ export default {
 
 		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
 		// New NextCloud top bar
-		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_nextcloud_03.xml", "/app/cv/cv-pro/menu_config/");
+		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_nextcloud_03.xml", "/app/cv/cv-pro/menu_config/");
 
+		// 8.26.6
+		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_04.xml", "/app/cv/cv-pro/menu_config/");
 		
+
+
 		// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
 		// main application "app" folder. It can be either absolute or relative
 				
@@ -691,7 +694,7 @@ export default {
 
 	chooseFileToCompareWith() {
 		OC.dialogs.filepicker(
-			t("cadviewer", "Chose file to compare with"),
+			t("cadviewer", "Choose file to compare with"),
 			(path) => {
 				if(path){
 					let nameOfFile = path.split("/").reverse()[0]
@@ -708,7 +711,8 @@ export default {
 								const content_dir = response.path;
 								const ISOtimeStamp = `${response.ISOtimeStamp}`;
 								const FileName = `${content_dir}/${nameOfFile}`;
-								//cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName)
+								cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName);
+								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );   // 8.26.6
 							} else {
 								OC.dialogs.alert(
 									t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
@@ -748,7 +752,7 @@ export default {
 
 	chooseFileToLoad() {
 		OC.dialogs.filepicker(
-			t("cadviewer", "Chose file to load"),
+			t("cadviewer", "Choose file to load"),
 			(path) => {
 				if(path){
 					let nameOfFile = path.split("/").reverse()[0]
