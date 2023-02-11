@@ -51,7 +51,7 @@ save-file.php
 - **Zoom**: Advanced zoom and pan controls.
 - **Layers**: Retained layer structure for layer management.
 - **Search**: Integrated text search method.
-
+- **Compare**: Advanced compare of drawings.
 
 9. ***[Optional]*** If you are on Windows you will have to modify the file ***cadviewer/converter/php/CADViewer_config.php*** to adapt the configuration to Windows (change executeable name and folders). You will also have to install the Windows back-end CAD converters. Pull the /converters/ax2023/windows/ tree from [cadviewer-script-library](https://github.com/CADViewer/cadviewer-script-library) and replace into the /apps/cadviewer/converter/converters/ tree. In ***cadviewer/converter/php/CADViewer_config.php***, update ***$platform*** and ***$ax2023_executable***.
 
