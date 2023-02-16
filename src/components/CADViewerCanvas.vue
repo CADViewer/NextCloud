@@ -1,8 +1,11 @@
 '<template>
 	<div id="cadviewer_app_canvas" class="modal__content">
-		<app-nc-modal @close="closeModal" :title="title" size="full" :canClose="canClose">
+		<app-nc-modal @close="closeModal" v-if="modal" :title="title" size="full" :canClose="canClose">
 			<div class="cadviewerCanvasTest01">
 				<div id="floorPlan"></div>
+			</div>
+			<div class="loading-bloc" v-if="showLoading">
+				<app-nc-loading-icon :size="40"/>
 			</div>
 			<app-nc-button
 				:aria-label="closeButtonAriaLabel"
@@ -13,8 +16,8 @@
 					<app-close :size="iconSize" />
 				</template>
 			</app-nc-button>
-<!--
-			
+
+		<!--	
 			<app-nc-button
 				class="header-close compare_button"
 				type="tertiary"
@@ -27,7 +30,7 @@
 				@click="chooseFileToLoad">
 				Load
 			</app-nc-button>
--->			
+		-->
 		</app-nc-modal>
 	</div>
 </template>
@@ -38,6 +41,7 @@ import cadviewer from 'cadviewer';
 import { getLanguage } from '@nextcloud/l10n'
 import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
 import NcButton from "@nextcloud/vue/dist/Components/NcButton.js";
+import NcLoadingIcon from "@nextcloud/vue/dist/Components/NcLoadingIcon.js"
 import Close from 'vue-material-design-icons/Close.vue'
 
 import {eventBus} from "../main.js";
@@ -370,24 +374,50 @@ export default {
     eventBus.$on('clearTextLayer', () => {
               
               this.clearTextLayer();
-      });
+	});
     
 
     eventBus.$on('AddTextOnSpaceObject_wrapper', (Id, leftScale, textStringArr, textStyleArr, scaleTextArr, hexColorTextArr, clipping, centering) => {
 			  //window.alert(this.textLayer1+" "+textLayer1)
               // we add text on space object based on the textLayer1 layer defined in this component 
 			  cadviewer.cvjs_AddTextOnSpaceObject(textLayer1, Id, leftScale, textStringArr, textStyleArr, scaleTextArr, hexColorTextArr, clipping, centering)
-	 })
+	});
 
-   	  console.log('created CADViewerCanvas');
+	// Add context menu and default file open handler for autocad file
+    // this.initViewCadFile("application/octet-stream", true);
+    this.initViewCadFile("application/acad", true);
+    this.initViewCadFile("application/dxf", true);
+    this.initViewCadFile("application/x-dwf", true);
+    this.initViewCadFile("application/dgn", true);
+    // Add context menu for others documents
+    this.initViewCadFile("application/pdf", false);
+    this.initViewCadFile("image/tiff", false);
+    this.initViewCadFile("image/tif", false);
+    // Add context menu for images
+    this.initViewCadFile("image/png", false);
+    this.initViewCadFile("image/jpeg", false);
+    this.initViewCadFile("image/gif", false);
 
   },
   data() {
-		return {
-			title: this.ModalTitle,
-			canClose: false,
-			iconSize: 24,
-		}
+	return {
+		showLoading: true,
+		title: "",
+		parentDir: "",
+		canClose: false,
+		modal: false,
+		iconSize: 24,
+		ModalTitle: "",
+		ServerBackEndUrl: "",
+		ServerLocation: "",
+		ServerUrl: "",
+		FileName: "",
+		licenceKey: "",
+		ISOtimeStamp: "",
+		ContentDir: "",
+		UserName: "",
+		UserId: "",
+	}
   },
   computed: {
 	closeButtonAriaLabel() {
@@ -395,303 +425,295 @@ export default {
 	},
   },
   props: {
-    ModalTitle: String,
-    ServerBackEndUrl: String,
-    ServerLocation: String,
-	ISOtimeStamp: String,
-    ServerUrl: String,
-    FileName: String,
-	closeModal: Function,
-	LicenceKey: String,
-	UserName: String,
-    UserId: String
   },
 
-  mounted: function (){
-    // Register an event listener when the Vue component is ready
-    window.addEventListener('resize', this.onResize)
-	var self = this;
-	
-	setTimeout(function() {
-		self.onResize()
-	}, 1000)
+  mounted: () => {
 
-    console.log('mounted');
-
-		var ServerBackEndUrl = this.ServerBackEndUrl;
-
-		var LicenceKey = this.LicenceKey;
-		var ServerLocation = this.ServerLocation;
-		var ServerUrl = this.ServerUrl;
-		var ISOtimeStamp = this.ISOtimeStamp;
-
-		if (ServerLocation.slice(-1) == "/"){
-
-		}
-		else{
-			ServerLocation += "/";
-		}
-
-		if (ServerUrl.indexOf("/converter") == -1){
-			ServerUrl += "converter/";
-		}
-
-		var FileName = this.FileName;
-		var UserName = this.UserName;
-    	var UserId = this.UserId;
-
-		// Set all paths, and handlers, changes these depending on back-end server
-		cadviewer.cvjs_debugMode(true);
-
-        console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
-		
-		cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
-		// 
-		// Set all paths, and handlers, changes these depending on back-end server
-		cadviewer.cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "VueJS", "floorPlan");
-		
-        //      Setting all callback methods  - they have to be injected into the CADViewer class componnet
-        /*
-		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => {
-			cvjs_OnLoadEnd();
-			self.onResize();
-		});
-		*/
-		// 
-
-
-		// NextCloud setting of save screeen method for save to CADViewer-Markup
-		cadviewer.cvjs_saveScreenAsPDF_serverSettings(true, this.movePdf, "", "NextCloud", true, false, true);
-
-		// 8.26.1  8.26.6  
-		cadviewer.cvjs_compareDrawings_externalModal(true, this.chooseFileToCompareWith, "NextCloud");
-		cadviewer.cvjs_fileLoadModal_externalModal(true, this.chooseFileToLoad, "NextCloud");
-
-
-		cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
-        cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectOnChange", cvjs_graphicalObjectOnChange);
-        cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEndRedlines", cvjs_OnLoadEndRedlines);
-        cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelected", cvjs_ObjectSelected);
-        cadviewer.cvjs_setCallbackMethod("cvjs_measurementCallback", cvjs_measurementCallback);
-        cadviewer.cvjs_setCallbackMethod("cvjs_CalibrateMeasurementCallback", cvjs_CalibrateMeasurementCallback);
-        cadviewer.cvjs_setCallbackMethod("cvjs_Url_callback", cvjs_Url_callback);
-        cadviewer.cvjs_setCallbackMethod("cvjs_loadSpaceImage_UserConfiguration", cvjs_loadSpaceImage_UserConfiguration);
-        cadviewer.cvjs_setCallbackMethod("cvjs_NoObjectSelected", cvjs_NoObjectSelected);
-        cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectClicked", cvjs_SVGfileObjectClicked);
-        cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectMouseEnter", cvjs_SVGfileObjectMouseEnter);
-        cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectMouseLeave", cvjs_SVGfileObjectMouseLeave);
-        cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectMouseMove", cvjs_SVGfileObjectMouseMove);
-		cadviewer.cvjs_setCallbackMethod("cvjs_ParseDisplayDataMaps", cvjs_ParseDisplayDataMaps);
-        cadviewer.cvjs_setCallbackMethod("cvjs_QuickCountCallback", cvjs_QuickCountCallback);
-        cadviewer.cvjs_setCallbackMethod("cvjs_OnHyperlinkClick", cvjs_OnHyperlinkClick);
-        cadviewer.cvjs_setCallbackMethod("cvjs_setUpStickyNotesRedlines", cvjs_setUpStickyNotesRedlines);
-        cadviewer.cvjs_setCallbackMethod("custom_host_parser_PopUpMenu", custom_host_parser_PopUpMenu);
-        cadviewer.cvjs_setCallbackMethod("cvjs_customHostParser", cvjs_customHostParser);
-        cadviewer.cvjs_setCallbackMethod("drawPathsGeneric", drawPathsGeneric );
-        cadviewer.cvjs_setCallbackMethod("cvjs_callbackForModalDisplay", cvjs_callbackForModalDisplay);
-        cadviewer.cvjs_setCallbackMethod("cvjs_populateMyCustomPopUpBody", cvjs_populateMyCustomPopUpBody);
-        cadviewer.cvjs_setCallbackMethod("cvjs_customModalPopUpBody", cvjs_customModalPopUpBody);
-        cadviewer.cvjs_setCallbackMethod("cvjs_NoObjectSelectedStickyNotes", cvjs_NoObjectSelectedStickyNotes);
-        cadviewer.cvjs_setCallbackMethod("cvjs_NoObjectSelectedHyperlinks", cvjs_NoObjectSelectedHyperlinks);
-        cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelectedHyperlink", cvjs_ObjectSelectedHyperlink);
-        cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelectedStickyNotes", cvjs_ObjectSelectedStickyNotes);
-		cadviewer.cvjs_setCallbackMethod("cvjs_saveStickyNotesRedlinesUser", cvjs_saveStickyNotesRedlinesUser);
-        cadviewer.cvjs_setCallbackMethod("cvjs_loadStickyNotesRedlinesUser", cvjs_loadStickyNotesRedlinesUser);
-        cadviewer.cvjs_setCallbackMethod("my_own_clickmenu1", my_own_clickmenu1);
-        cadviewer.cvjs_setCallbackMethod("my_own_clickmenu2", my_own_clickmenu2);
-        cadviewer.cvjs_setCallbackMethod("cvjs_popupTitleClick", cvjs_popupTitleClick);
-        cadviewer.cvjs_setCallbackMethod("cvjs_mousedown", cvjs_mousedown);
-        cadviewer.cvjs_setCallbackMethod("cvjs_click", cvjs_click);
-        cadviewer.cvjs_setCallbackMethod("cvjs_dblclick", cvjs_dblclick);
-        cadviewer.cvjs_setCallbackMethod("cvjs_mouseout", cvjs_mouseout);
-        cadviewer.cvjs_setCallbackMethod("cvjs_mouseover", cvjs_mouseover);
-        cadviewer.cvjs_setCallbackMethod("cvjs_mouseleave", cvjs_mouseleave);
-        cadviewer.cvjs_setCallbackMethod("cvjs_mouseenter", cvjs_mouseenter);
-        cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectCreated", cvjs_graphicalObjectCreated);
-
-		// END set all callback methods
-
-		  // Location of installation folders
-		  // NOTE: THE LOCATION OF THE ServerLocation/ServerUrl VARIABLES ARE DEFINED IN /cadviewer/app/cv/XXXHandlerSettings.js	
-		  //	var ServerLocation = 
-		  //	var ServerUrl =    
-		 cadviewer.cvjs_CADViewerPro(true);
-		 cadviewer.cvjs_setCADViewerInterfaceVersion(8);
-		 cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
-
-
-
-
-		// 8.8.1
-		//cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converter/converters/files/");   // 7.4.45
-		cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converters/files/");   // 7.4.45
-
-
-		 // Pass over the location of the installation, will update the internal paths
-		 cadviewer.cvjs_PrintToPDFWindowRelativeSize(0.8);
-		 cadviewer.cvjs_setFileModalEditMode(false);
-	   		   
-		// For "Merge DWG" / "Merge PDF" commands, set up the email server to send merged DWG files or merged PDF files with redlines/interactive highlight.
-		// See php / xampp documentation on how to prepare your server
-		cadviewer.cvjs_emailSettings_PDF_publish("From CAD Server", "my_from_address@mydomain.com", "my_cc_address@mydomain.com", "my_reply_to@mydomain.com");
-		   	 
-		// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
-		const languages = {
-			"fr": "French",
-			"en": "English"
-		}
-
-		cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English
-		// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
-		//cadviewer.cvjs_loadCADViewerLanguage("English", "/assets/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
-
-
-
-
-
-		 cadviewer.cvjs_DisplayCoordinatesMenu("floorPlan",true);
-
-		// 6.9.18
-		// set SpaceObjectsCustomMenu location and json config file,  flag true to display SpaceObject Menu, false to hide
-		//cadviewer.cvjs_setSpaceObjectsCustomMenu( "/content/customInsertSpaceObjectMenu/", "cadviewercustomspacecommands.json", true);
-
-
-
-		// Set Icon Menu Interface controls. Users can: 
-		// 1: Disable all icon interfaces
-		//  cvjs_displayAllInterfaceControls(false, "floorPlan");  // disable all icons for user control of interface
-
-		// 2: Disable either top menu icon menus or navigation menu, or both
-
-		//cvjs_displayTopMenuIconBar(false, "floorPlan");  // disable top menu icon bar
-		//cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
-
-		// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/    		
-		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
-		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
-		
-
-
-		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
-		// New NextCloud top bar
-		//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_nextcloud_03.xml", "/app/cv/cv-pro/menu_config/");
-
-		// 8.26.6
-		cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_04.xml", "/app/cv/cv-pro/menu_config/");
-		
-
-
-		// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
-		// main application "app" folder. It can be either absolute or relative
-				
-		// SETTINGS OF THE COLORS OF SPACES
-		var cvjsRoomPolygonBaseAttributes = {
-				fill: '#d8e1e3', //'#d8e1e3', // '#ffd7f4', //'#D3D3D3',   // #FFF   #ffd7f4
-				"fill-opacity": 0.04,    //"0.05",   // 0.1
-				stroke: '#CCC',  
-				'stroke-width': 0.25,
-				'stroke-linejoin': 'round',
-			};
-		
-		var cvjsRoomPolygonHighlightAttributes = {
-				fill: '#a4d7f4',
-				"fill-opacity": "0.5",
-				stroke: '#a4d7f4',
-				'stroke-width': 0.75
-			};
-			
-		var cvjsRoomPolygonSelectAttributes = {
-				fill: '#5BBEF6',
-				"fill-opacity": "0.5",
-				stroke: '#5BBEF6',
-				'stroke-width': 0.75
-			};
-	
-		/** FIXED POP-UP MODAL  **/
-		
-			// THIS IS THE DESIGN OF THE pop-up MODAL WHEN CLICKING ON SPACES
-		// KEEP METHODS NAME AS IS FOR NOW...............
-
-		var my_cvjsPopUpBody = "<div class=\'cvjs_modal_1\' id=\'my_own_clickmenu1()\'>Custom<br>Menu 1<br><i class=\'fa fa-undo\'></i></div>";
-		my_cvjsPopUpBody += "<div class=\'cvjs_modal_1\' id=\'my_own_clickmenu2()\'>Custom<br>Menu 2<br><i class=\'fa fa-info-circle\'></i></div>";
-		my_cvjsPopUpBody += "<div class=\'cvjs_modal_1\' id=\'cvjs_zoomHere()\'>Zoom<br>Here<br><i class=\'fa fa-search-plus\'></i></div>";
-			
-
-			// Initialize CADViewer - needs the div name on the svg element on page that contains CADViewerJS and the location of the
-			// And we intialize with the Space Object Custom values
-
-		var  cadviewertoplevel = "";
-
-		if (ServerUrl.indexOf("converter")>-1)
-			cadviewertoplevel = ServerUrl.substring(0, ServerUrl.indexOf("converter"));		
-		else
-			cadviewertoplevel = ServerUrl;
-
-
-		cadviewer.cvjs_InitCADViewer_highLight_popUp_app("floorPlan", cadviewertoplevel + "/assets/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
-
-		// set the location to license key, typically the js folder in main app application folder ../app/cv/
-		//cadviewer.cvjs_setLicenseKeyPath("/assets/cadviewer/app/cv/");
-		// alternatively, set the key directly, by pasting in the cvKey portion of the cvlicense.js file, note the JSON \" around all entities 	 
-		cadviewer.cvjs_setLicenseKeyDirect(`{"cvKey": "${LicenceKey}"}`);		 
-			
-		// Sets the icon interface for viewing, layerhanding, measurement, etc. only
-		//cvjs_setIconInterfaceControls_ViewingOnly();
-		// disable canvas interface.  For developers building their own interface
-		// cvjs_setIconInterfaceControls_DisableIcons(true);
-
-		cadviewer.cvjs_allowFileLoadToServer(true);
-		
-		//		cvjs_setUrl_singleDoubleClick(1);
-		//		cvjs_encapsulateUrl_callback(true);
-		
-		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES
-
-		// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES, FILES, SPACE OBJECTS
-		cadviewer.cvjs_setServerFileLocation_AbsolutePaths(ServerLocation+'/content/drawings/dwg/', ServerBackEndUrl+'content/drawings/dwg/',"","");
-		cadviewer.cvjs_setRedlinesAbsolutePath(ServerBackEndUrl+'/content/redlines/v7/', ServerLocation+'/content/redlines/v7/', true);
-		cadviewer.cvjs_setSpaceObjectsAbsolutePath(ServerBackEndUrl+'/content/spaceObjects/', ServerLocation+'/content/spaceObjects/');
-		cadviewer.cvjs_setInsertImageObjectsAbsolutePath(ServerBackEndUrl+'/content/inserted_image_objects/', ServerLocation+'/content/inserted_image_objects/')
-
-			
-		cadviewer.cvjs_conversion_clearAXconversionParameters();
-
-		// process layers for spaces  RL/TL
-		// cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
-		// cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
-
-
-		// calculate areas of spaces
-
-		// we add -strokea for processing
-		cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
-		cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
-		// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
-
-
-		// FOR MEASUREMENT ENABLE HANDLE PROCESSING
-	    cadviewer.cvjs_conversion_addAXconversionParameter("hlall", "");		 							
-
-
-
-		// Load file - needs the svg div name and name and path of file to load
-		cadviewer.cvjs_setISOtimeStamp(FileName, this.ISOtimeStamp);
-		console.log("ISOtimeStamp="+ this.ISOtimeStamp);
-		cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
-
-		// set maximum CADViewer canvas side
-		cadviewer.cvjs_resizeWindow_position("floorPlan" );
-
-		// alternatively set a fixed CADViewer canvas size
-		//	cvjs_resizeWindow_fixedSize(600, 400, "floorPlan");			   
   },
   methods: {
+	initCadviewer(){
+		// Register an event listener when the Vue component is ready
+		window.addEventListener('resize', this.onResize)
+		var self = this;
+		
+		setTimeout(function() {
+			self.onResize()
+		}, 1000)
+
+		console.log('mounted');
+
+			var ServerBackEndUrl = this.ServerBackEndUrl;
+
+			var LicenceKey = this.LicenceKey;
+			var ServerLocation = this.ServerLocation;
+			var ServerUrl = this.ServerUrl;
+			var ISOtimeStamp = this.ISOtimeStamp;
+
+			if (ServerLocation.slice(-1) == "/"){
+
+			}
+			else{
+				ServerLocation += "/";
+			}
+
+			if (ServerUrl.indexOf("/converter") == -1){
+				ServerUrl += "converter/";
+			}
+
+			var FileName = this.FileName;
+			var UserName = this.UserName;
+			var UserId = this.UserId;
+
+			// Set all paths, and handlers, changes these depending on back-end server
+			cadviewer.cvjs_debugMode(true);
+
+			console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
+			
+			cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
+			// 
+			// Set all paths, and handlers, changes these depending on back-end server
+			cadviewer.cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "VueJS", "floorPlan");
+			
+			//      Setting all callback methods  - they have to be injected into the CADViewer class componnet
+			/*
+			cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => {
+				cvjs_OnLoadEnd();
+				self.onResize();
+			});
+			*/
+			// 
+
+
+			// NextCloud setting of save screeen method for save to CADViewer-Markup
+			cadviewer.cvjs_saveScreenAsPDF_serverSettings(true, this.movePdf, "", "NextCloud", true, false, true);
+
+			// 8.26.1  8.26.6  
+			cadviewer.cvjs_compareDrawings_externalModal(true, this.chooseFileToCompareWith, "NextCloud");
+			cadviewer.cvjs_fileLoadModal_externalModal(true, this.chooseFileToLoad, "NextCloud");
+
+
+			cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
+			cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectOnChange", cvjs_graphicalObjectOnChange);
+			cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEndRedlines", cvjs_OnLoadEndRedlines);
+			cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelected", cvjs_ObjectSelected);
+			cadviewer.cvjs_setCallbackMethod("cvjs_measurementCallback", cvjs_measurementCallback);
+			cadviewer.cvjs_setCallbackMethod("cvjs_CalibrateMeasurementCallback", cvjs_CalibrateMeasurementCallback);
+			cadviewer.cvjs_setCallbackMethod("cvjs_Url_callback", cvjs_Url_callback);
+			cadviewer.cvjs_setCallbackMethod("cvjs_loadSpaceImage_UserConfiguration", cvjs_loadSpaceImage_UserConfiguration);
+			cadviewer.cvjs_setCallbackMethod("cvjs_NoObjectSelected", cvjs_NoObjectSelected);
+			cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectClicked", cvjs_SVGfileObjectClicked);
+			cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectMouseEnter", cvjs_SVGfileObjectMouseEnter);
+			cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectMouseLeave", cvjs_SVGfileObjectMouseLeave);
+			cadviewer.cvjs_setCallbackMethod("cvjs_SVGfileObjectMouseMove", cvjs_SVGfileObjectMouseMove);
+			cadviewer.cvjs_setCallbackMethod("cvjs_ParseDisplayDataMaps", cvjs_ParseDisplayDataMaps);
+			cadviewer.cvjs_setCallbackMethod("cvjs_QuickCountCallback", cvjs_QuickCountCallback);
+			cadviewer.cvjs_setCallbackMethod("cvjs_OnHyperlinkClick", cvjs_OnHyperlinkClick);
+			cadviewer.cvjs_setCallbackMethod("cvjs_setUpStickyNotesRedlines", cvjs_setUpStickyNotesRedlines);
+			cadviewer.cvjs_setCallbackMethod("custom_host_parser_PopUpMenu", custom_host_parser_PopUpMenu);
+			cadviewer.cvjs_setCallbackMethod("cvjs_customHostParser", cvjs_customHostParser);
+			cadviewer.cvjs_setCallbackMethod("drawPathsGeneric", drawPathsGeneric );
+			cadviewer.cvjs_setCallbackMethod("cvjs_callbackForModalDisplay", cvjs_callbackForModalDisplay);
+			cadviewer.cvjs_setCallbackMethod("cvjs_populateMyCustomPopUpBody", cvjs_populateMyCustomPopUpBody);
+			cadviewer.cvjs_setCallbackMethod("cvjs_customModalPopUpBody", cvjs_customModalPopUpBody);
+			cadviewer.cvjs_setCallbackMethod("cvjs_NoObjectSelectedStickyNotes", cvjs_NoObjectSelectedStickyNotes);
+			cadviewer.cvjs_setCallbackMethod("cvjs_NoObjectSelectedHyperlinks", cvjs_NoObjectSelectedHyperlinks);
+			cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelectedHyperlink", cvjs_ObjectSelectedHyperlink);
+			cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelectedStickyNotes", cvjs_ObjectSelectedStickyNotes);
+			cadviewer.cvjs_setCallbackMethod("cvjs_saveStickyNotesRedlinesUser", cvjs_saveStickyNotesRedlinesUser);
+			cadviewer.cvjs_setCallbackMethod("cvjs_loadStickyNotesRedlinesUser", cvjs_loadStickyNotesRedlinesUser);
+			cadviewer.cvjs_setCallbackMethod("my_own_clickmenu1", my_own_clickmenu1);
+			cadviewer.cvjs_setCallbackMethod("my_own_clickmenu2", my_own_clickmenu2);
+			cadviewer.cvjs_setCallbackMethod("cvjs_popupTitleClick", cvjs_popupTitleClick);
+			cadviewer.cvjs_setCallbackMethod("cvjs_mousedown", cvjs_mousedown);
+			cadviewer.cvjs_setCallbackMethod("cvjs_click", cvjs_click);
+			cadviewer.cvjs_setCallbackMethod("cvjs_dblclick", cvjs_dblclick);
+			cadviewer.cvjs_setCallbackMethod("cvjs_mouseout", cvjs_mouseout);
+			cadviewer.cvjs_setCallbackMethod("cvjs_mouseover", cvjs_mouseover);
+			cadviewer.cvjs_setCallbackMethod("cvjs_mouseleave", cvjs_mouseleave);
+			cadviewer.cvjs_setCallbackMethod("cvjs_mouseenter", cvjs_mouseenter);
+			cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectCreated", cvjs_graphicalObjectCreated);
+
+			// END set all callback methods
+
+			// Location of installation folders
+			// NOTE: THE LOCATION OF THE ServerLocation/ServerUrl VARIABLES ARE DEFINED IN /cadviewer/app/cv/XXXHandlerSettings.js	
+			//	var ServerLocation = 
+			//	var ServerUrl =    
+			cadviewer.cvjs_CADViewerPro(true);
+			cadviewer.cvjs_setCADViewerInterfaceVersion(8);
+			cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
+
+
+
+
+			// 8.8.1
+			//cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converter/converters/files/");   // 7.4.45
+			cadviewer.cvjs_setRelativeConversionFilesFolder("/converters/files/","/converters/files/");   // 7.4.45
+
+
+			// Pass over the location of the installation, will update the internal paths
+			cadviewer.cvjs_PrintToPDFWindowRelativeSize(0.8);
+			cadviewer.cvjs_setFileModalEditMode(false);
+				
+			// For "Merge DWG" / "Merge PDF" commands, set up the email server to send merged DWG files or merged PDF files with redlines/interactive highlight.
+			// See php / xampp documentation on how to prepare your server
+			cadviewer.cvjs_emailSettings_PDF_publish("From CAD Server", "my_from_address@mydomain.com", "my_cc_address@mydomain.com", "my_reply_to@mydomain.com");
+				
+			// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
+			const languages = {
+				"fr": "French",
+				"en": "English"
+			}
+
+			cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English
+			// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
+			//cadviewer.cvjs_loadCADViewerLanguage("English", "/assets/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
+
+
+
+
+
+			cadviewer.cvjs_DisplayCoordinatesMenu("floorPlan",true);
+
+			// 6.9.18
+			// set SpaceObjectsCustomMenu location and json config file,  flag true to display SpaceObject Menu, false to hide
+			//cadviewer.cvjs_setSpaceObjectsCustomMenu( "/content/customInsertSpaceObjectMenu/", "cadviewercustomspacecommands.json", true);
+
+
+
+			// Set Icon Menu Interface controls. Users can: 
+			// 1: Disable all icon interfaces
+			//  cvjs_displayAllInterfaceControls(false, "floorPlan");  // disable all icons for user control of interface
+
+			// 2: Disable either top menu icon menus or navigation menu, or both
+
+			//cvjs_displayTopMenuIconBar(false, "floorPlan");  // disable top menu icon bar
+			//cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
+
+			// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/    		
+			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
+			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
+			
+
+
+			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
+			// New NextCloud top bar
+			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_nextcloud_03.xml", "/app/cv/cv-pro/menu_config/");
+
+			// 8.26.6
+			cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_04.xml", "/app/cv/cv-pro/menu_config/");
+			
+
+
+			// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the
+			// main application "app" folder. It can be either absolute or relative
+					
+			// SETTINGS OF THE COLORS OF SPACES
+			var cvjsRoomPolygonBaseAttributes = {
+					fill: '#d8e1e3', //'#d8e1e3', // '#ffd7f4', //'#D3D3D3',   // #FFF   #ffd7f4
+					"fill-opacity": 0.04,    //"0.05",   // 0.1
+					stroke: '#CCC',  
+					'stroke-width': 0.25,
+					'stroke-linejoin': 'round',
+				};
+			
+			var cvjsRoomPolygonHighlightAttributes = {
+					fill: '#a4d7f4',
+					"fill-opacity": "0.5",
+					stroke: '#a4d7f4',
+					'stroke-width': 0.75
+				};
+				
+			var cvjsRoomPolygonSelectAttributes = {
+					fill: '#5BBEF6',
+					"fill-opacity": "0.5",
+					stroke: '#5BBEF6',
+					'stroke-width': 0.75
+				};
+		
+			/** FIXED POP-UP MODAL  **/
+			
+				// THIS IS THE DESIGN OF THE pop-up MODAL WHEN CLICKING ON SPACES
+			// KEEP METHODS NAME AS IS FOR NOW...............
+
+			var my_cvjsPopUpBody = "<div class=\'cvjs_modal_1\' id=\'my_own_clickmenu1()\'>Custom<br>Menu 1<br><i class=\'fa fa-undo\'></i></div>";
+			my_cvjsPopUpBody += "<div class=\'cvjs_modal_1\' id=\'my_own_clickmenu2()\'>Custom<br>Menu 2<br><i class=\'fa fa-info-circle\'></i></div>";
+			my_cvjsPopUpBody += "<div class=\'cvjs_modal_1\' id=\'cvjs_zoomHere()\'>Zoom<br>Here<br><i class=\'fa fa-search-plus\'></i></div>";
+				
+
+				// Initialize CADViewer - needs the div name on the svg element on page that contains CADViewerJS and the location of the
+				// And we intialize with the Space Object Custom values
+
+			var  cadviewertoplevel = "";
+
+			if (ServerUrl.indexOf("converter")>-1)
+				cadviewertoplevel = ServerUrl.substring(0, ServerUrl.indexOf("converter"));		
+			else
+				cadviewertoplevel = ServerUrl;
+
+
+			cadviewer.cvjs_InitCADViewer_highLight_popUp_app("floorPlan", cadviewertoplevel + "/assets/app/", cvjsRoomPolygonBaseAttributes, cvjsRoomPolygonHighlightAttributes, cvjsRoomPolygonSelectAttributes, my_cvjsPopUpBody );
+
+			// set the location to license key, typically the js folder in main app application folder ../app/cv/
+			//cadviewer.cvjs_setLicenseKeyPath("/assets/cadviewer/app/cv/");
+			// alternatively, set the key directly, by pasting in the cvKey portion of the cvlicense.js file, note the JSON \" around all entities 	 
+			cadviewer.cvjs_setLicenseKeyDirect(`{"cvKey": "${LicenceKey}"}`);		 
+				
+			// Sets the icon interface for viewing, layerhanding, measurement, etc. only
+			//cvjs_setIconInterfaceControls_ViewingOnly();
+			// disable canvas interface.  For developers building their own interface
+			// cvjs_setIconInterfaceControls_DisableIcons(true);
+
+			cadviewer.cvjs_allowFileLoadToServer(true);
+			
+			//		cvjs_setUrl_singleDoubleClick(1);
+			//		cvjs_encapsulateUrl_callback(true);
+			
+			// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES
+
+			// NOTE BELOW: THESE SETTINGS ARE FOR SERVER CONTROLS FOR UPLOAD OF REDLINES, FILES, SPACE OBJECTS
+			cadviewer.cvjs_setServerFileLocation_AbsolutePaths(ServerLocation+'/content/drawings/dwg/', ServerBackEndUrl+'content/drawings/dwg/',"","");
+			cadviewer.cvjs_setRedlinesAbsolutePath(ServerBackEndUrl+'/content/redlines/v7/', ServerLocation+'/content/redlines/v7/', true);
+			cadviewer.cvjs_setSpaceObjectsAbsolutePath(ServerBackEndUrl+'/content/spaceObjects/', ServerLocation+'/content/spaceObjects/');
+			cadviewer.cvjs_setInsertImageObjectsAbsolutePath(ServerBackEndUrl+'/content/inserted_image_objects/', ServerLocation+'/content/inserted_image_objects/')
+
+				
+			cadviewer.cvjs_conversion_clearAXconversionParameters();
+
+			// process layers for spaces  RL/TL
+			// cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
+			// cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
+
+
+			// calculate areas of spaces
+
+			// we add -strokea for processing
+			cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
+			cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
+			// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
+
+
+			// FOR MEASUREMENT ENABLE HANDLE PROCESSING
+			cadviewer.cvjs_conversion_addAXconversionParameter("hlall", "");		 							
+
+
+
+			// Load file - needs the svg div name and name and path of file to load
+			cadviewer.cvjs_setISOtimeStamp(FileName, this.ISOtimeStamp);
+			console.log("ISOtimeStamp="+ this.ISOtimeStamp);
+			cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
+
+			// set maximum CADViewer canvas side
+			cadviewer.cvjs_resizeWindow_position("floorPlan" );
+
+			// alternatively set a fixed CADViewer canvas size
+			//	cvjs_resizeWindow_fixedSize(600, 400, "floorPlan");			   
+	},
     onResize(e) {
         console.log("RESIZE");
         //  cadviewer resize event 
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
-
 	chooseFileToCompareWith() {
 		OC.dialogs.filepicker(
 			t("cadviewer", "Choose file to compare with"),
@@ -746,11 +768,12 @@ export default {
 				"image/gif",
 			],
 			true,
-			OC.dialogs.FILEPICKER_TYPE_CHOOSE
+			OC.dialogs.FILEPICKER_TYPE_CHOOSE,
+			this.parentDir
 		);
 	},
-
 	chooseFileToLoad() {
+		console.log(this.parentDir)
 		OC.dialogs.filepicker(
 			t("cadviewer", "Choose file to load"),
 			(path) => {
@@ -770,6 +793,7 @@ export default {
 								const ISOtimeStamp = `${response.ISOtimeStamp}`;
 								const FileName = `${content_dir}/${nameOfFile}`;
 								this.title = nameOfFile;
+								this.parentDir = directory;
 								cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
 								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 							} else {
@@ -805,10 +829,10 @@ export default {
 				"image/gif",
 			],
 			true,
-			OC.dialogs.FILEPICKER_TYPE_CHOOSE
+			OC.dialogs.FILEPICKER_TYPE_CHOOSE,
+			this.parentDir
 		);
 	},
-
 	movePdf(pdfFileName) {
 
 		// Make api call for move pdf file into markup folder
@@ -824,16 +848,97 @@ export default {
 		});
 
 	},
-
 	clearTextLayer(){
 		textLayer1 = cadviewer.cvjs_clearLayer(textLayer1);
 	},
-
+	viewCadFileActionHandler(filename, context) {
+	  this.showLoading = true;
+      var tr = context.fileList.findFileEl(filename);
+      context.fileList.showFileBusyState(tr, true);
+      var data = {
+        nameOfFile: filename,
+        directory: context.dir,
+      };
+	  this.modal = true;
+      $.ajax({
+        type: "POST",
+        async: "false",
+        url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
+        data: data,
+        success: async (response) => {
+	  	  this.showLoading = false;
+          context.fileList.showFileBusyState(tr, false);
+          if (response.path) {
+            const content_dir = response.path;
+            console.log({ content_dir });
+            this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
+            this.ServerLocation = `${response.serverLocation}`;
+            this.ISOtimeStamp = `${response.ISOtimeStamp}`;
+            this.parentDir = context.dir;
+            this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
+            this.FileName = `${content_dir}/${filename}`;
+            this.ModalTitle = filename;
+            this.LicenceKey = response.licenceKey;
+			this.UserName  = OC.getCurrentUser().displayName;
+			this.UserId  = OC.getCurrentUser().uid;
+			this.initCadviewer();
+          } else {
+	  		this.modal = false;
+            OC.dialogs.alert(
+              t(
+                "cadviewer",
+                "Unable to view this file for the moment"
+              ) + filename,
+              t("cadviewer", "Error when trying to connect")
+            );
+          }
+        },
+        error: (resultat) => {
+          context.fileList.showFileBusyState(tr, false);
+          OC.dialogs.alert(
+            t(
+              "cadviewer",
+              "Unable to view this file for the moment"
+            ) + filename,
+            t("cadviewer", "Error when trying to connect")
+          );
+        },
+      });
+    },
+    initViewCadFile(mine_type, is_default) {
+      OCA.Files.fileActions.registerAction({
+        name: "open_cadviewer_modal",
+        displayName: t("cadviewer","Open with CADViewer"),
+        mime: mine_type,
+        permissions: OC.PERMISSION_NONE,
+        type: OCA.Files.FileActions.TYPE_DROPDOWN,
+        icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=kevmax`,
+        iconClass: "icon-visibility-button",
+        order: 1001,
+        actionHandler: this.viewCadFileActionHandler,
+      });
+      if(is_default)
+        OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal");
+    },
+    closeModal() {
+      this.modal = false;
+      this.ModalTitle = "";
+      this.ServerBackEndUrl = "";
+      this.ServerLocation = "";
+      this.ServerUrl = "";
+      this.FileName = "";
+      this.licenceKey = "";
+      this.ISOtimeStamp = ""
+      this.ContentDir = ""
+	  this.UserName = ""
+	  this.UserId = ""
+    },
   },
   components: {
     'app-nc-modal': NcModalVue,
 	'app-nc-button': NcButton,
-	'app-close': Close
+	'app-close': Close,
+	'app-nc-loading-icon': NcLoadingIcon
   }
 }
 </script>
@@ -889,5 +994,16 @@ export default {
 	.close_button:hover {
 		color: #0082c9 !important;
 		background-color: white !important;
+	}
+
+	.loading-bloc {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
 	}
 </style>

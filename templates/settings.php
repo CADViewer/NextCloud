@@ -127,4 +127,25 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         </p>
         <br />
     </div>
+    <h2>
+        <?php p($l->t("Api Conversion log")) ?>
+    </h2>
+
+    <div>
+        <div>
+            <p>
+                <?php p($l->t("View the contents of the conversion API log file.")) ?>
+            </p>
+        </div>
+        <br />
+        <p>
+            <button id="displayLog" class="button">
+                <?php p($l->t("Display log")) ?>
+            </button>
+            <button id="downloadLog" class="button">
+                <?php p($l->t("Download log")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
 </div>

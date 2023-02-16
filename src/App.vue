@@ -12,150 +12,24 @@ if (!OCA.Cadviewer.AppName) {
 }
 
 export default {
-  data() {
-    return {
-      modal: false,
-      ModalTitle: "",
-      ServerBackEndUrl: "",
-      ServerLocation: "",
-      ServerUrl: "",
-      FileName: "",
-      licenceKey: "",
-    };
-  },
-
-  methods: {
-    viewCadFileActionHandler(filename, context) {
-      var tr = context.fileList.findFileEl(filename);
-      context.fileList.showFileBusyState(tr, true);
-      var data = {
-        nameOfFile: filename,
-        directory: context.dir,
-      };
-      $.ajax({
-        type: "POST",
-        async: "false",
-        url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
-        data: data,
-        success: async (response) => {
-          console.log(response);
-          if (response.path) {
-            const content_dir = response.path;
-            console.log({ content_dir });
-            this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
-            this.ServerLocation = `${response.serverLocation}`;
-            this.ISOtimeStamp = `${response.ISOtimeStamp}`;
-            this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
-            this.FileName = `${content_dir}/${filename}`;
-            this.ModalTitle = filename;
-            this.licenceKey = response.licenceKey;
-            // this.modal = true;
-
-            const myDiv = document.createElement("div");
-            myDiv.id = "cadviewer_app_canvas";
-
-            document.body.appendChild(myDiv);
-
-            setTimeout(() => {
-              context.fileList.showFileBusyState(tr, false);
-              const appCanvas = new Vue({
-                el: "#cadviewer_app_canvas",
-                render: (h) =>
-                  h(CADViewerCanvasVue, {
-                    props: {
-                      ServerBackEndUrl: this.ServerBackEndUrl,
-                      ServerLocation: this.ServerLocation,
-                      ISOtimeStamp: this.ISOtimeStamp,
-                      ServerUrl: this.ServerUrl,
-                      FileName: this.FileName,
-                      ModalTitle: this.ModalTitle,
-                      LicenceKey: this.licenceKey,
-                      UserName: OC.getCurrentUser().displayName,
-                      UserId: OC.getCurrentUser().uid,
-                      closeModal: () => {
-                        appCanvas.$destroy();
-                        // appCanvas.$el.parentNode.removeChild(this.$el);
-                        if(document.querySelector(".modal-mask"))
-                          document.querySelector(".modal-mask").remove();
-                        document
-                          .querySelector("#cadviewer_app_canvas")
-                          .remove();
-                      },
-                    },
-                  }),
-              });
-            }, 200);
-          } else {
-            context.fileList.showFileBusyState(tr, false);
-            OC.dialogs.alert(
-              t(
-                "cadviewer",
-                "Unable to view this file for the moment"
-              ) + filename,
-              t("cadviewer", "Error when trying to connect")
-            );
-          }
-        },
-        error: (resultat) => {
-          context.fileList.showFileBusyState(tr, false);
-          OC.dialogs.alert(
-            t(
-              "cadviewer",
-              "Unable to view this file for the moment"
-            ) + filename,
-            t("cadviewer", "Error when trying to connect")
-          );
-        },
+  created: function () {
+    setTimeout(() => {
+      const myDiv = document.createElement("div");
+      myDiv.id = "cadviewer_app_canvas";
+      document.body.appendChild(myDiv);
+      const appCanvas = new Vue({
+        el: "#cadviewer_app_canvas",
+        render: (h) =>
+          h(CADViewerCanvasVue, {
+            props: {},
+          }),
       });
-    },
-    initViewCadFile(mine_type, is_default) {
-      OCA.Files.fileActions.registerAction({
-        name: "open_cadviewer_modal",
-        displayName: t("cadviewer","Open with CADViewer"),
-        mime: mine_type,
-        permissions: OC.PERMISSION_NONE,
-        type: OCA.Files.FileActions.TYPE_DROPDOWN,
-        icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=kevmax`,
-        iconClass: "icon-visibility-button",
-        order: 1001,
-        actionHandler: this.viewCadFileActionHandler,
-      });
-      if(is_default)
-        OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal");
-    },
-    closeModal() {
-      this.modal = false;
-      this.ModalTitle = "";
-      this.ServerBackEndUrl = "";
-      this.ServerLocation = "";
-      this.ServerUrl = "";
-      this.FileName = "";
-      this.licenceKey = "";
-      this.ISOtimeStamp = ""
-    },
-  },
-
-  created() {
-    // Add context menu and default file open handler for autocad file
-    // this.initViewCadFile("application/octet-stream", true);
-    this.initViewCadFile("application/acad", true);
-    this.initViewCadFile("application/dxf", true);
-    this.initViewCadFile("application/x-dwf", true);
-    this.initViewCadFile("application/dgn", true);
-    // Add context menu for others documents
-    this.initViewCadFile("application/pdf", false);
-    this.initViewCadFile("image/tiff", false);
-    this.initViewCadFile("image/tif", false);
-    // Add context menu for images
-    this.initViewCadFile("image/png", false);
-    this.initViewCadFile("image/jpeg", false);
-    this.initViewCadFile("image/gif", false);
+    }, 200);
   },
   components: {
     "app-cadviewercanvas": CADViewerCanvasVue,
   },
   props: {
-    foo: String,
   },
 };
 </script>
