@@ -200,4 +200,37 @@ class SettingsController extends Controller {
         ), Http::STATUS_OK);
 	}
 
+    public function  displayLog() {
+        // Construct path to converter folder
+		$currentpath = __FILE__;
+		$pos1 = stripos($currentpath, "cadviewer");
+		$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+
+		// include CADViewer config for be able to acces to the location of ax2023 executable file
+		require($home_dir."/php/CADViewer_config.php");
+
+        $url = str_replace("converter/", "ajax/cadviewer/ping", $httpHost);
+        // Check if w're are inside docker container
+        if(is_file("/.dockerenv"))
+            $url = str_replace(":8080/", "/", $url);
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        $output = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $htaccess_is_whell_configured = $httpcode == 200;
+
+        $logFile = $home_dir."/php/call-Api_Conversion_log.txt";
+        $log_content = "";
+        try {
+            $log_content = file_get_contents($logFile);
+        } catch (\Exception $e) {
+		}
+
+        return new JSONResponse(array(
+            "log_content"  => $log_content,
+        ), Http::STATUS_OK);
+    }
 }

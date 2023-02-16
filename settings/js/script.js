@@ -1,4 +1,13 @@
 (function ($, OC) {
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
 
     function checkAutoExchangeLicenceKey  () {
         $(".section-cadviewer").addClass("icon-loading");
@@ -98,7 +107,48 @@
             });
         });
 
-        
+        $("#displayLog").click(function () {
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/log"),
+                data: {},
+                processData: false,
+                contentType: false,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response.error) {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to display Api conversion log"));
+                    } else {
+                        OC.dialogs.message(
+                            response.log_content,
+                            t(OCA.Cadviewer.AppName, "Api Conversion log")
+                        )
+                    }
+                }
+            });
+        });
+
+        $("#downloadLog").click(function () {
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/log"),
+                data: {},
+                processData: false,
+                contentType: false,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response.error) {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to download Api conversion log"));
+                    } else {
+                        download("call-Api_Conversion_log.txt", response.log_content);
+                    }
+                }
+            });
+        });
 
         $("#cadviewerDoctor").click(function () {
             $(".section-cadviewer").addClass("icon-loading");
