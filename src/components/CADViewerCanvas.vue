@@ -781,6 +781,7 @@ export default {
 					let nameOfFile = path.split("/").reverse()[0]
 					let directory = path.replace(nameOfFile, "")
 					var data = { nameOfFile, directory };
+					this.title = nameOfFile;
 					$.ajax({
 						type: "POST",
 						async: "false",
@@ -792,7 +793,6 @@ export default {
 								const content_dir = response.path;
 								const ISOtimeStamp = `${response.ISOtimeStamp}`;
 								const FileName = `${content_dir}/${nameOfFile}`;
-								this.title = nameOfFile;
 								this.parentDir = directory;
 								cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
 								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
@@ -860,6 +860,7 @@ export default {
         directory: context.dir,
       };
 	  this.modal = true;
+	  this.title = filename;
       $.ajax({
         type: "POST",
         async: "false",
@@ -948,8 +949,8 @@ export default {
 
 	#floorPlan {
 		text-align: left;
-		margin-top: 30px;
-		margin-left: 2px;   /* margin-left: 50px;   */
+		margin-top: 0px;
+		margin-left: 0px;   /* margin-left: 50px;   */
 	} 
 
 	.load_button {
