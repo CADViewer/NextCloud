@@ -3,7 +3,7 @@
 - Nighly changes here
 
 
-### 8.31.1 - 2023-02-18
+### 8.32.3 - 2023-02-18
 ### FIxed
 - Tooltip on integrated help icon selection
 
