@@ -80,56 +80,18 @@ class CadviewerController extends Controller {
 
 		try {
 
-			// check if nextcloud user is admin
-			if ($this->groupManager->isAdmin($this->userId)){
-				
-				\OC_Util::tearDownFS();
-				\OC_Util::setupFS($this->userId);
+			\OC_Util::tearDownFS();
+			\OC_Util::setupFS($this->userId);
 
-				// check if folder already exists
-				if (Filesystem::getView()->file_exists($this->markup_folder_name)){
-					// return;
-				}
-
-				// Create a folder at the root directory of nextcloud data "CADViewer - Markup"
-				$res  = Filesystem::getView()->mkdir($this->markup_folder_name);
-				
-				// Share with all user
-				
-				// Retrieve the user's folder
-				$userFolder = $this->rootFolder->getUserFolder($this->userId);
-
-				// Try to get the folder with the specified name
-				try {
-					$folder = $userFolder->get($this->markup_folder_name);
-					if ($folder) {
-						// get list of users id present in system
-						$userManager = \OC::$server->getUserManager();
-						foreach ($userManager->getBackends() as $backend) {
-							$users = $backend->getUsers();
-
-							foreach ($users as $userId) {
-								if ($userId != $this->userId) {
-									// Set the share settings for the folder
-									$share = $this->shareManager->newShare();
-									$share->setNode($folder)
-										->setShareType(IShare::TYPE_USER)
-										->setPermissions(\OCP\Constants::PERMISSION_ALL)
-										->setSharedBy($this->userId)
-										->setSharedWith($userId)
-										->setStatus(IShare::STATUS_ACCEPTED);
-									$this->shareManager->createShare($share);
-								}
-							}
-						}
-					}
-				} catch (\OCP\Files\NotFoundException $e) {
-					// Handle the exception if the folder was not found
-				}
-
+			// check if folder already exists
+			if (Filesystem::getView()->file_exists($this->markup_folder_name)){
+				return;
 			}
-		} catch (\Exception $e) {
-		}
+
+			// Create a folder at the root directory of nextcloud data "CADViewer - Markup"
+			$res  = Filesystem::getView()->mkdir($this->markup_folder_name);
+			
+		} catch (\Exception $e) {}
 
 	}
 
