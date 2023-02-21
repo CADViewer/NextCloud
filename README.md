@@ -44,7 +44,7 @@ save-file.php
 - **TIFF**: Support for TIFF format. (use ... menu)
 - **PNG, JPG, GIF**: Bitmap support. (use ... menu)
 - **Annotation**: Full redlining interface of drawings where each user has individually associated redlines.
-- **Collaboration**: Redlines/Annotation on drawings are shared to global "CADViewer-Markup" folder as PDF, where users can share internally/externally.
+- **PDF Collaboration**: Redlines/Annotation on drawings can be shared as PDF to local *CADViewer-Markup* folder, where the user can then share internally/externally.
 - **Download**: Direct download of SVG or PDF image with/without redlines/annotations.
 - **Printing**: Printing of drawings to printer driver or as PDF.
 - **Measurement**: Global scale matrix preserved in drawing for measurement and calibration methods.

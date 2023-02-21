@@ -2,9 +2,10 @@
 ### Added
 - Nighly changes here
 
-### 8.33.1 - 2023-02-21
+### 8.34.1 - 2023-02-21
 ### Fixed
 - Markup folder have local scope only. Created only on request.
+- Direct load of SVG files
 
 
 ### 8.32.3 - 2023-02-18

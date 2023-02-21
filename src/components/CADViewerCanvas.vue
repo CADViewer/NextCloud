@@ -469,7 +469,8 @@ export default {
 			// Set all paths, and handlers, changes these depending on back-end server
 			cadviewer.cvjs_debugMode(true);
 
-			console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
+			console.log("ServerBackEndUrl, ServerLocation, ServerUrl, FileName declared");
+			//console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
 			
 			cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
 			// 
@@ -484,6 +485,20 @@ export default {
 			});
 			*/
 			// 
+
+			// we need to handle SVG separately from bitmaps and drawings
+			if (FileName.indexOf(".svg")>-1 || FileName.indexOf("SVG")>-1) {
+				//console.log("FileName is SVG");
+
+				if (FileName.indexOf("/var/www/html/")>-1){
+
+					//console.log("Filename is /var/www/html/");
+
+					FileName =  ServerBackEndUrl.substring(0, ServerBackEndUrl.indexOf("/apps")+1) + FileName.substring(FileName.indexOf("/data/"));
+				}
+			}
+
+			//console.log("FileName="+FileName);
 
 
 			// NextCloud setting of save screeen method for save to CADViewer-Markup
@@ -712,7 +727,7 @@ export default {
 			//	cvjs_resizeWindow_fixedSize(600, 400, "floorPlan");			   
 	},
     onResize(e) {
-        console.log("RESIZE");
+        console.log("RESIZE - cvjs_resizeWindow_position");
         //  cadviewer resize event 
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
