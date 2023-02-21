@@ -397,6 +397,8 @@ export default {
     this.initViewCadFile("image/png", false);
     this.initViewCadFile("image/jpeg", false);
     this.initViewCadFile("image/gif", false);
+	this.initViewCadFile("image/svg+xml", false);
+
 
   },
   data() {
