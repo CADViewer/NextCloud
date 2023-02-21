@@ -121,6 +121,8 @@ class CadviewerController extends Controller {
 	 */
 	public function movePdf($pdfFileName){
 
+		$this->createCadviewerFolder();
+
 		// Construct path to converter folder
         $currentpath = __FILE__;
         $pos1 = stripos($currentpath, "cadviewer");
@@ -152,8 +154,6 @@ class CadviewerController extends Controller {
 	 *  @NoAdminRequired
 	 */
 	public function path($nameOfFile, $directory){
-
-		$this->createCadviewerFolder();
 
 
 		if ($this->encryptionManager->isEnabled()) {

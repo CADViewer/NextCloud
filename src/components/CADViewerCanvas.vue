@@ -1,4 +1,4 @@
-'<template>
+<template>
 	<div id="cadviewer_app_canvas" class="modal__content">
 		<app-nc-modal @close="closeModal" v-if="modal" :title="title" size="full" :canClose="canClose">
 			<div class="cadviewerCanvasTest01">
@@ -55,7 +55,7 @@ var  current_selected_handle = "";
 
 // We should to define all the CADViewer methods in which we are getting information return from CADViewer 
 // THEY CAN BE PLACEHOLDERS ONLY     
-// // //  // // // // // //   // //
+// // //  // // // //
 
 
 //export function cvjs_OnLoadEnd(){

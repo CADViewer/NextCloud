@@ -37,6 +37,7 @@
 			<command>cvjs_clearCurrentRedline</command>
 			<command>cvjs_About</command>
 			<command>cvjs_Settings</command>
+			<command>cvjs_Help</command>
 		</page>
 	</pages>
 	<icons_per_row>0</icons_per_row>

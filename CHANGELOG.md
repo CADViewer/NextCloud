@@ -3,6 +3,16 @@
 - Nighly changes here
 
 
+### 8.32.3 - 2023-02-18
+### FIxed
+- Tooltip on integrated help icon selection
+
+## 8.30.20 - 2023-02-17
+### Added
+- Integrated help icon
+### Fixed
+- Fileloader location on second load
+
 
 
 ## 8.27.2 - 2023-02-12
