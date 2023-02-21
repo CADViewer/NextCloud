@@ -2,9 +2,13 @@
 ### Added
 - Nighly changes here
 
+### 8.33.1 - 2023-02-21
+### Fixed
+- Markup folder have local scope only. Created only on request.
+
 
 ### 8.32.3 - 2023-02-18
-### FIxed
+### Fixed
 - Tooltip on integrated help icon selection
 
 ## 8.30.20 - 2023-02-17
