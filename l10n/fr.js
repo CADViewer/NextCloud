@@ -15,7 +15,7 @@ OC.L10N.register(
         "Nextcloud instance ID": "ID de l'instance Nextcloud",
         "Get Server Credentials for License Key": "Obtenir les informations d'identification du serveur pour la clé de licence",
         "Flush Cache": "Vider le cache",
-        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "Le bouton “Vider le cache“ dans le panneau d'administration supprimera les fichiers .json , .svgz .rl et .svg du dossier. Ajoutez : les fichiers .html , .png , .pdf .",
+        "Remove cached content, so all conversions will redone": "Supprimez le contenu mis en cache, de sorte que toutes les conversions seront refaites",
         "Error when trying to connect": "Erreur lors de la tentative de connexion",
         "Settings have been successfully updated": "Les paramètres ont été mis à jour avec succès",
         "Error when trying to save licence key": "Erreur lors de l'enregistrement de la clé de licence",

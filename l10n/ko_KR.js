@@ -15,7 +15,7 @@ OC.L10N.register(
         "Nextcloud instance ID": "Nextcloud 인스턴스 ID",
         "Get Server Credentials for License Key": "라이선스 키에 대한 서버 자격 증명 가져오기",
         "Flush Cache": "캐시 플러시",
-        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "관리창의 도면 캐시 플러시 버튼을 누르면 폴더에서 .json, .svgz .rl, .svg 파일이 제거됩니다. 추가: .html, .png, .pdf 파일",
+        "Remove cached content, so all conversions will redone": "모든 전환이 다시 실행되도록 캐시된 콘텐츠를 제거합니다.",
         "Error when trying to connect": "연결 시도 시 오류 발생",
         "Settings have been successfully updated": "설정이 성공적으로 업데이트되었습니다.",
         "Error when trying to save licence key": "라이선스 키를 저장하려고 할 때 오류가 발생했습니다.",

@@ -15,7 +15,7 @@ OC.L10N.register(
         "Nextcloud instance ID": "Nextcloud 實例 ID",
         "Get Server Credentials for License Key": "獲取許可證密鑰的服務器憑據",
         "Flush Cache": "刷新緩存",
-        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "管理窗格中的“刷新圖紙緩存”按鈕。 它將從文件夾中刪除 .json 、 .svgz 、 .rl 和 .svg 文件。 添加： .html , .png , .pdf 文件",
+        "Remove cached content, so all conversions will redone": "刪除緩存內容，因此所有轉換都將重做",
         "Error when trying to connect": "嘗試連接時出錯",
         "Settings have been successfully updated": "設置已成功更新",
         "Error when trying to save licence key": "嘗試保存許可證密鑰時出錯",

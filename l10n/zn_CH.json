@@ -14,7 +14,7 @@
         "Nextcloud instance ID": "Nextcloud实例ID",
         "Get Server Credentials for License Key": "获取许可证密钥的服务器凭证",
         "Flush Cache": "冲洗缓存",
-        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "它将从文件夹中删除.json、.svgz、rl和.svg文件。增加：.html、.png、.pdf文件",
+        "Remove cached content, so all conversions will redone": "删除缓存内容，因此所有转换都将重做",
         "Error when trying to connect": "尝试连接时出现错误",
         "Settings have been successfully updated": "设置已被成功更新",
         "Error when trying to save licence key": "试图保存许可证密钥时出错",

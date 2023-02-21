@@ -14,7 +14,7 @@
         "Nextcloud instance ID": "Nextcloud instance ID",
         "Get Server Credentials for License Key": "Get Server Credentials for License Key",
         "Flush Cache": "Flush Cache",
-        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files",
+        "Remove cached content, so all conversions will redone": "Remove cached content, so all conversions will redone",
         "Error when trying to connect": "Error when trying to connect",
         "Settings have been successfully updated": "Settings have been successfully updated",
         "Error when trying to save licence key": "Error when trying to save licence key",

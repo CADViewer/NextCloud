@@ -14,7 +14,7 @@
         "Nextcloud instance ID": "ID instance cloud berikutnya",
         "Get Server Credentials for License Key": "Dapatkan Kredensial Server untuk Kunci Lisensi",
         "Flush Cache": "Flush Cache",
-        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "Tombol Flush images cache di panel admin. ini akan menghapus file .json, .svgz .rl dan .svg dari folder. tambahkan: file .html, .png, .pdf",
+        "Remove cached content, so all conversions will redone": "Hapus konten yang di-cache, sehingga semua konversi akan diulang",
         "Error when trying to connect": "Kesalahan saat mencoba menyambung",
         "Settings have been successfully updated": "Pengaturan telah berhasil diperbarui",
         "Error when trying to save licence key": "Kesalahan saat mencoba menyimpan kunci lisensi",

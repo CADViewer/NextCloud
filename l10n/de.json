@@ -14,7 +14,7 @@
         "Nextcloud instance ID": "Nextcloud-Instanz-ID",
         "Get Server Credentials for License Key": "Erhalten Sie die Anmeldeinformationen des Servers für den Lizenzschlüssel",
         "Flush Cache": "Leeren Sie den Cache",
-        "“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files": "Die Schaltfläche “Cache leeren“ im Administrationsbereich wird die .json , .svgz .rl und .svg Dateien aus dem Ordner entfernen. Fügen Sie hinzu: die Dateien .html , .png , .pdf .",
+        "Remove cached content, so all conversions will redone": "Entfernen Sie zwischengespeicherte Inhalte, sodass alle Konvertierungen erneut durchgeführt werden",
         "Error when trying to connect": "Fehler beim Versuch, eine Verbindung herzustellen",
         "Settings have been successfully updated": "Die Einstellungen wurden erfolgreich aktualisiert",
         "Error when trying to save licence key": "Fehler beim Speichern des Lizenzschlüssels",

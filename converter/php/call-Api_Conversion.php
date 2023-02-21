@@ -15,7 +15,7 @@
 	
 */
 
-	$scriptversion = "8.26.4";
+	$scriptversion = "8.33.1";
 
 	// Configuration file for CADViewer Community and CADViewer Enterprise version and standard settings
 	require 'CADViewer_config.php';
@@ -87,7 +87,7 @@
 	$add_xpath = false;  	// NOTE: We are overwriting the configuration file settings with the contentlocation setting. 		
 	$add_lpath = true;  	// we are adding lpath from configuration file
 	$add_fpath = true;
-	$remainOnServer = 0;  	// general flag to tell pickup stream to to leave on server
+	$remainOnServer = 1;  	// general flag to tell pickup stream to to leave on server
 
 	//  try-catch  1.5.09
 	try {
@@ -408,6 +408,7 @@
 		if (isset($json_request['leaveStreamOnServer']))
 			$remainOnServer = $json_request['leaveStreamOnServer'];
 
+//		$remainOnServer = 1;
 
 		$contentformat = $json_request['contentFormat'];
 		$userlabel = $json_request['userLabel'];
@@ -619,6 +620,9 @@
 									fwrite($fd_log, " HELLO! $fullPath  \r\n");
 								}
 								$newfname = $fullPath;
+
+								$contentlocation = urldecode($contentlocation);
+
 								$file = fopen ($contentlocation, 'rb');
 								if ($file) {
 									$newf = fopen ($newfname, 'wb');
@@ -949,12 +953,21 @@
 				fwrite($fd_log, "after first loop \$command_line_parameter_xpath: $command_line_parameter_xpath  \r\n");
 			}
 
-			if ($command_line_parameter_xpath == 0   &&  strrpos($converter , "LinkList")==-1){   // 6.5.20
-				// strip off file name of $contentlocation		
+			$axconv = strrpos($converter , "AutoXchange");
+
+			fwrite($fd_log, "after first loop \$command_line_parameter_xpath: $command_line_parameter_xpath  converter $converter   axconv $axconv \r\n");
+
+
+
+//			if (($command_line_parameter_xpath == 0)   &&  (>0)){  
+			if (($command_line_parameter_xpath == 0)  &&  ($axconv == 0)){  
+					// strip off file name of $contentlocation		
 				$pos1 = strrpos ( $contentlocation , "/");
 				$xloc = substr($contentlocation, 0, $pos1+1);
 				// use contentlocation as xpath
 				//	$command_line = $command_line  . " -xpath=\"" . $xloc . "\" " ;    // content location is used as xpath
+
+				fwrite($fd_log, "adding xpath: ");
 
 // 2019-06-28  - running as .bat
 					if (strpos($op_string, 'win') !== false) {
