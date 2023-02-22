@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+
+### 8.35.1 - 2023-02-22
+### Fixed
+- Extents of drawing overlapping top toolbar. 
+
 ### 8.34.1 - 2023-02-21
 ### Fixed
 - Markup folder have local scope only. Created only on request.

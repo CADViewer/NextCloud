@@ -710,9 +710,9 @@ export default {
 			// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
 
 
-			// FOR MEASUREMENT ENABLE HANDLE PROCESSING
-			cadviewer.cvjs_conversion_addAXconversionParameter("hlall", "");		 							
-
+//			// FOR MEASUREMENT ENABLE HANDLE PROCESSING
+//			cadviewer.cvjs_conversion_addAXconversionParameter("hlall", "");		 							
+// we do not enable now!!! 2023-02-.22
 
 
 			// Load file - needs the svg div name and name and path of file to load
