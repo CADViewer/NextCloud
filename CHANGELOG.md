@@ -2,6 +2,9 @@
 ### Added
 - Nighly changes here
 
+### 8.36.1 - 2023-02-23
+- Debug statements added
+
 
 ### 8.35.1 - 2023-02-22
 ### Fixed
