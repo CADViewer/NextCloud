@@ -97,7 +97,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     <div>
         <div>
             <p class="settings-hint">
-                <?php p($l->t("Remove cached content, so all conversions will redon")) ?>
+                <?php p($l->t("Remove cached content, so all conversions will redone")) ?>
             </p>
         </div>
         <p>
