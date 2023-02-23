@@ -97,7 +97,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     <div>
         <div>
             <p class="settings-hint">
-                <?php p($l->t("“Flush drawings cache” button in admin pane. it will remove .json , .svgz .rl and .svg files from the folder.    add:  .html , .png , .pdf  files")) ?>
+                <?php p($l->t("Remove cached content, so all conversions will redon")) ?>
             </p>
         </div>
         <p>
@@ -144,6 +144,27 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             </button>
             <button id="downloadLog" class="button">
                 <?php p($l->t("Download log")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
+    <h2>
+        <?php p($l->t("Font Mapping Controls")) ?>
+    </h2>
+    <div>
+        <div>
+            <p>
+                <?php p($l->t("See the documentation on how to control Font Mapping in AutoXchange CAD converter: ")) ?><a href="https://tailormade.com/ax2020techdocs/operation/fontmapping/" target="_blank"><?php p($l->t("Font Mapping")) ?></a>
+            </p>
+        </div>
+        <br />
+        <div>
+            <textarea id="fontMap" style="width: 100%" rows="7"><?=p($_["ax_font_map"])?></textarea>
+        </div>
+        <br />
+        <p>
+            <button id="saveFontMap" class="button">
+                <?php p($l->t("Save")) ?>
             </button>
         </p>
         <br />
