@@ -398,7 +398,7 @@ export default {
     this.initViewCadFile("image/jpeg", false);
     this.initViewCadFile("image/gif", false);
 	this.initViewCadFile("image/svg+xml", false);
-
+	this.initViewCadFile("application/octet-stream", false);
 
   },
   data() {
