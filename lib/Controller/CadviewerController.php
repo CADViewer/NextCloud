@@ -119,7 +119,7 @@ class CadviewerController extends Controller {
 	/**
 	 *  @NoAdminRequired
 	 */
-	public function movePdf($pdfFileName){
+	public function movePdf($pdfFileName, $pdfFolderName){
 
 		$this->createCadviewerFolder();
 
@@ -135,6 +135,13 @@ class CadviewerController extends Controller {
 		
 		// move pdf into markup_folder
 		$markup_folder = $this->markup_folder_name;
+		if (strpos($pdfFolderName, '/') === 0) {
+			$pdfFolderName  = substr($pdfFolderName, 1);
+		}
+		
+		if ($pdfFolderName != null &&  $pdfFolderName != "markup") {
+			$markup_folder = $pdfFolderName;
+		}
 
 		$file = $this->getFile($markup_folder."/".$pdfFileName, "");
 
@@ -143,7 +150,7 @@ class CadviewerController extends Controller {
 		}
 
 		$userFolder = $this->rootFolder->getUserFolder($this->userId);
-		$markupFolder = $userFolder->get($this->markup_folder_name);
+		$markupFolder = $userFolder->get($markup_folder);
 		$savedFile = $markupFolder->newFile($pdfFileName);
 		$savedFile->touch();
 

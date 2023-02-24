@@ -398,7 +398,7 @@ export default {
     this.initViewCadFile("image/jpeg", false);
     this.initViewCadFile("image/gif", false);
 	this.initViewCadFile("image/svg+xml", false);
-
+	this.initViewCadFile("application/octet-stream", false);
 
   },
   data() {
@@ -434,6 +434,7 @@ export default {
   },
   methods: {
 	initCadviewer(){
+		// this.movePdf("f1613016134.svg","/Photos");
 		// Register an event listener when the Vue component is ready
 		window.addEventListener('resize', this.onResize)
 		var self = this;
@@ -850,14 +851,15 @@ export default {
 			this.parentDir
 		);
 	},
-	movePdf(pdfFileName) {
+	movePdf(pdfFileName, pdfFolderName="markup") {
 
 		// Make api call for move pdf file into markup folder
 		$.ajax({
 			method: "POST",
 			url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer/move-pdf"),
 			data: {
-				pdfFileName: pdfFileName
+				pdfFileName: pdfFileName,
+				pdfFolderName: pdfFolderName
 			},
 			success: function onSuccess(response) {
 				// Todo did we need to notify user when the're is a success or failure message

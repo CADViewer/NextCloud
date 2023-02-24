@@ -211,21 +211,41 @@
 
         $("#flushCache").click(function () {
             $(".section-cadviewer").addClass("icon-loading");
-
             $.ajax({
                 method: "POST",
-                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/flush-cache"),
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer/flush-cache"),
                 data: {},
                 processData: false,
                 contentType: false,
                 success: function onSuccess(response) {
                     $(".section-cadviewer").removeClass("icon-loading");
 
-                    if (response.error) {
+                    if (response && response.error) {
                         OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to flush cache"));
                     } else {
                         checkAutoExchangeLicenceKey();
                         OCP.Toast.success(t(OCA.Cadviewer.AppName, "Cache have been successfully flushed"));
+                    }
+                }
+            });
+            
+        });
+
+        $("#saveFontMap").click(function () {
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/save-font-map"),
+                data: {
+                   "ax_font_map": $("#fontMap").val()
+                },
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response.error) {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to update font map"));
+                    } else {
+                        OCP.Toast.success(t(OCA.Cadviewer.AppName, "Font map successfully saved"));
                     }
                 }
             });

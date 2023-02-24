@@ -148,4 +148,25 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         </p>
         <br />
     </div>
+    <h2>
+        <?php p($l->t("Font Mapping Controls")) ?>
+    </h2>
+    <div>
+        <div>
+            <p>
+                <?php p($l->t("See the documentation on how to control Font Mapping in AutoXchange CAD converter: ")) ?><a href="https://tailormade.com/ax2020techdocs/operation/fontmapping/" target="_blank"><?php p($l->t("Font Mapping")) ?></a>
+            </p>
+        </div>
+        <br />
+        <div>
+            <textarea id="fontMap" style="width: 100%" rows="7"><?=p($_["ax_font_map"])?></textarea>
+        </div>
+        <br />
+        <p>
+            <button id="saveFontMap" class="button">
+                <?php p($l->t("Save")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
 </div>

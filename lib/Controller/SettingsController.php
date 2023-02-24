@@ -107,8 +107,21 @@ class SettingsController extends Controller {
 
     public function index() {
     
+		// Construct path to converter folder
+		$currentpath = __FILE__;
+		$pos1 = stripos($currentpath, "cadviewer");
+		$home_dir = substr($currentpath, 0, $pos1+ 10);
+
+        $axFontMapFile = $home_dir."/converter/converters/ax2023/linux/ax_font_map.txt";
+
+        $ax_font_map = "";
+        try {
+            $ax_font_map = file_get_contents($axFontMapFile);
+        } catch (\Exception $e) {
+		}
 
         $data = [
+            "ax_font_map" => $ax_font_map,
             "licenceKey" => $this->config->GetLicenceKey(),
             "autoexchange" => [
                 "output" => "",
@@ -233,4 +246,24 @@ class SettingsController extends Controller {
             "log_content"  => $log_content,
         ), Http::STATUS_OK);
     }
+
+
+    /** 
+     * Save ax font map content in file 
+    */
+    public function saveAxFontMap($ax_font_map) {
+        
+        
+		// Construct path to converter folder
+		$currentpath = __FILE__;
+		$pos1 = stripos($currentpath, "cadviewer");
+		$home_dir = substr($currentpath, 0, $pos1+ 10);
+
+        $axFontMapFile = $home_dir."/converter/converters/ax2023/linux/ax_font_map.txt";
+
+        file_put_contents($axFontMapFile, $ax_font_map);
+        
+        return new JSONResponse(array(), Http::STATUS_OK);
+    }
+
 }

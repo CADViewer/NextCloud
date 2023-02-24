@@ -32,5 +32,6 @@ return [
         ["name" => "settings#check_auto_exchange_licence_key", "url" => "/ajax/settings/autoexchange-verify", "verb" => "GET"],
         ["name" => "settings#save_axlic_file", "url" => "/ajax/settings/autoexchange-save-axlic", "verb" => "POST"],
         ["name" => "settings#display_log", "url" => "/ajax/settings/log", "verb" => "POST"],
+        ["name" => "settings#save_ax_font_map", "url" => "/ajax/settings/save-font-map", "verb" => "POST"],
 	]
 ];
