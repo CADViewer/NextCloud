@@ -2,6 +2,12 @@
 ### Added
 - Nighly changes here
 
+
+### 8.37.5 - 2023-02-25
+### Fixed
+- Ability to load SVG/SVGZ directly when in Docker container
+
+
 ### 8.36.3 - 2023-02-23
 - Debug statements added
 

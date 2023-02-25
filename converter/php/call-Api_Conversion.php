@@ -15,7 +15,7 @@
 	
 */
 
-	$scriptversion = "8.33.1";
+	$scriptversion = "8.37.2";
 
 	// Configuration file for CADViewer Community and CADViewer Enterprise version and standard settings
 	require 'CADViewer_config.php';
@@ -551,6 +551,19 @@
 		$fullPath	 =  $fileLocation  . 'f' . $temp_file_name . '.' . strtolower($contentformat) ;
 
 
+		// 8.37.1
+		$svginputfile = 0;
+		if (($json_request['contentFormat'] == 'SVG') || ($json_request['contentFormat'] == 'svg') || ($json_request['contentFormat'] == 'svgz') || ($json_request['contentFormat'] == 'SVGZ') ){
+			$svginputfile = 1;
+		}
+
+
+
+		if ($debug){
+			fwrite($fd_log, "  \$svginputfile: $svginputfile  \r\n");
+		}
+
+
 
 		// 6.5.20
 		$newload = false;
@@ -562,10 +575,14 @@
 			// 1.5.12
 			$server_load = 1;  // we are assuming server load
 			if ($debug){
-				fwrite($fd_log, "We are setting \$server_load:  $server_load  \r\n");
+				fwrite($fd_log, "We are setting \$server_load:  $server_load   $contentlocation \r\n");
 			}
 			$pos = strpos($contentlocation, 'http');
 			$pos_2 = strpos($contentlocation, $httpHost);
+
+
+
+
 			if ($pos !== false) {
 				if ($pos == 0){
 					$server_load = 0;  // we are loading via http, we therefore need to input file to temp folder
@@ -610,14 +627,15 @@
 
 						if ($contentusername == '' || $contentpassword == ''  ){
 
-
-
 							if ($debug){
 								fwrite($fd_log, "before download file  \r\n");
 							}
+
+
+
 							try{   // 6.5.20
 								if ($debug){
-									fwrite($fd_log, " HELLO! $fullPath  \r\n");
+									fwrite($fd_log, " HELLO! $fullPath  $contentlocation \r\n");
 								}
 								$newfname = $fullPath;
 
@@ -1121,11 +1139,13 @@ set_time_limit(240);
 	*/
 
 
-
-
 	$temp_file_name_org ="";
 	$this_conversion_cached = false;
-	if ($cached_conversion){
+
+	fwrite($fd_log, "BEFORE CACHED CONVERSION t:$this_conversion_cached c: $cached_conversion" .($svginputfile==0) ."  $svginputfile    \n\r ");
+
+	// 8.37.1
+	if ($cached_conversion && ($svginputfile==0)){
 
 		// we always leave the file on server if cached!!!!
 		$remainOnServer = 1;
@@ -1355,6 +1375,9 @@ set_time_limit(240);
 
 	}
 
+
+
+
  
 	$return1 = "";
 	if ($this_conversion_cached){
@@ -1363,11 +1386,20 @@ set_time_limit(240);
 
 	}
 	else{
-		exec( $command_line, $out, $return1);
-		if ($debug){
-			fwrite($fd_log, "exec return1  $return1   \r\n");
-		}
 
+
+		// 8.37.1
+		if ($svginputfile == 1){
+			// this is an svg we do not convert!!!!
+		} 
+		else{
+
+			exec( $command_line, $out, $return1);
+			if ($debug){
+				fwrite($fd_log, "exec return1  $return1   \r\n");
+			}
+
+		}
 	}
 		
 
@@ -1386,26 +1418,36 @@ set_time_limit(240);
 		$pose = strrpos ( $contentlocation , ".");
 		$exte = substr($contentlocation, $pose+1);
 		$file_1 = $fileLocation  . 'f' . $temp_file_name_org . '.' . $exte;
-		if (file_exists($file_1)){
+		if (file_exists($file_1) && $svginputfile == 0){  // 8.37.1
 			unlink($file_1);
+			if ($debug){
+				fwrite($fd_log, "unlink2  $file_1   \r\n");
+			}
 		}
 
-		if ($debug){
-			fwrite($fd_log, "unlink2  $file_1   \r\n");
-		}
 
 		$file_1 = $fileLocation  . 'f' . $temp_file_name . '.' . $exte;
-		if (file_exists($file_1)){
+		if (file_exists($file_1) && $svginputfile == 0){   // 8.37.1
 			unlink($file_1);
+			if ($debug){
+				fwrite($fd_log, "unlink2  $file_1   \r\n");
+			}
 		}
 		
-		if ($debug){
-			fwrite($fd_log, "unlink2  $file_1   \r\n");
-		}
 
 
 
 	}
+
+
+	// 8.37.2  - we have to make the output format the same as the originating file
+	if ($svginputfile == 1){
+		$output_file_extension = strtolower($contentformat);
+	}
+
+
+
+
 
 //if ($debug) echo " unlink2 " . $file_1;
 
@@ -1460,10 +1502,12 @@ if ($debug){
 		if ( $contentresponse == 'stream'){
 			$embed_cont = "";
 
-			if ($this_conversion_cached)   // 8.19.3
+			if ($this_conversion_cached){   // 8.19.3{
 				$cont_loc = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=" . $temp_file_name . "&Type=" . $output_file_extension;
-			else
+			}
+			else{
 				$cont_loc = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=f" . $temp_file_name . "&Type=" . $output_file_extension;
+			}
 
 		}
 
@@ -1534,10 +1578,12 @@ if ($debug){
 			if ( $contentresponse == 'stream'){
 				$embed_cont = "";
 
-				if ($this_conversion_cached)   // 8.19.3
+				if ($this_conversion_cached)  { // 8.19.3
 					$cont_loc3 = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=" . $temp_file_name . "&Type=" . $output_file_extension;
-				else
+				}
+				else{
 					$cont_loc3 = $stream_response_cgi . "?remainOnServer=" . $remainOnServer . "&fileTag=" . 'f' . $temp_file_name . "&Type=" . $output_file_extension;
+				}
 
 			}
 

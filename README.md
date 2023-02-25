@@ -6,7 +6,7 @@ To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https:
 
 2.  In the NextCloud /apps/ folder-structure, navigate to /apps/cadviewer/converter/converters/ax2023/linux/. In this folder the executable, ax2023_L64_xx_yy_zz  needs to have chmod 777 permission for read, write and exe rights.
 
-3. In the NextCloud /apps/ folder-structure, the following folders needs to have full read/write/exe permissions (chmod 777):
+3. In the NextCloud /apps/ folder-structure, the following folders needs to have full read/write permissions (chmod 766):
 
 Conversion:
 ```
@@ -22,7 +22,7 @@ Redlines:
 /apps/cadviewer/converter/content/redlines/v7/
 ```
 
-4. Navigate to the PHP scripts folder: /apps/cadviewer/converter/php/, where the following files needs full read/write/exe permission (chmod 777)
+4. Navigate to the PHP scripts folder: /apps/cadviewer/converter/php/, where the following files needs full read/write permission (chmod 766)
 
 ```
 call-Api_Conversion_log.txt

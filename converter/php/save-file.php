@@ -99,56 +99,28 @@ if ( $listtype == "serverfolder"){
 }
 
 
+
+
+
 $fullPath = urldecode($fullPath);
 
 
-//echo "before replace: " . $fullPath;
-// NEXTCLOUD remove whitespaces!!!!!!!!!   - this is a hack
-$fullPath = str_replace(' ', ' ', $fullPath);
-//$fullPath = "'" . $fullPath . "'";
-// NOTE-NOTE-NOTE
+//echo 'XX'. $fullPath . 'XX';
+
 
 if (strpos ( $fullPath , 'http' )>-1){
 
 	$fullPath = str_replace(" ", "%20", $fullPath);
 }
 
-
-//$fullPath = str_replace(" ", "%20", $fullPath);
-
-
-
 //echo "$fullPath";
 //echo "$file_content";
 echo "";
 
-//echo "fullpath before basepath: " . $fullPath;
-
-
 $basepath =    substr( $fullPath, 0, strrpos ( $fullPath , '/' ));
 
-
-// NEXTCLOUD
-//$basepath = "'" . $basepath . "'";
-
-
-
-
-
-
-//echo " basepath: " .  $basepath;
-//$basepath  = realpath($basepath);
-//echo"     realpath: " . realpath($basepath);
-// echo  "    basepath as realpath: " . $basepath;
-
-
 if (!file_exists($basepath)) {
-	if (mkdir($basepath, 0777, true)){
-//		echo "  mkdir ok ";
-	}
-	else{
-//		echo "  mkdir fail ";
-	};
+	mkdir($basepath, 0777, true);
 }
 
 if (file_exists($fullPath)) {	
@@ -199,7 +171,7 @@ if ($fd = fopen ($fullPath, "w+")) {
 	exit;
 }
 
- 	echo "save-file.php: Could not save file " . $fullPath;
+ 	echo "Could not save file " . $fullPath;
 	exit;
 
 ?>

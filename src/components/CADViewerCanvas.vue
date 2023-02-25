@@ -487,6 +487,8 @@ export default {
 			*/
 			// 
 
+
+			/*
 			// we need to handle SVG separately from bitmaps and drawings
 			if (FileName.indexOf(".svg")>-1 || FileName.indexOf("SVG")>-1) {
 				//console.log("FileName is SVG");
@@ -500,7 +502,7 @@ export default {
 			}
 
 			//console.log("FileName="+FileName);
-
+			*/
 
 			// NextCloud setting of save screeen method for save to CADViewer-Markup
 			cadviewer.cvjs_saveScreenAsPDF_serverSettings(true, this.movePdf, "", "NextCloud", true, false, true);

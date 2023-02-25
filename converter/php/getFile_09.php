@@ -75,6 +75,7 @@ try{
 		// none
 }
 
+
 if ($Type == "svg" )
 	header('Content-type: image/svg+xml');
 
@@ -89,9 +90,12 @@ $file_content = file_get_contents($returnFile);
 
 echo $file_content;
 
+
+
 if (file_exists($returnFile)){
 	if ($remainOnServer==0)
 		unlink($returnFile);
 }
+
 
 ?>
