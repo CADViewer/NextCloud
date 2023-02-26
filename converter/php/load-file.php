@@ -3,6 +3,18 @@
 // Configuration file for CADViewer Community and CADViewer Enterprise version and standard settings
 require 'CADViewer_config.php';
 
+
+if (! function_exists('str_ends_with')) {
+    function str_ends_with(string $haystack, string $needle): bool
+    {
+        $needle_len = strlen($needle);
+        return ($needle_len === 0 || 0 === substr_compare($haystack, $needle, - $needle_len));
+    }
+}
+
+
+
+
 $http_origin = '';
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -73,6 +85,21 @@ else{
 		$listtype = $_POST['listtype'];
 	}
 }
+
+
+
+if (str_ends_with($fullPath, ".json") || str_ends_with($fullPath, ".xml") || str_ends_with($fullPath, ".svg") || str_ends_with($fullPath, ".png") || str_ends_with($fullPath, ".jpg") || str_ends_with($fullPath, ".gif") ){
+	// no problem, this is a valid file
+}
+else{
+	echo "FAILURE: load is not allowed: " . $fullPath;
+	exit;
+}
+
+
+
+
+
 
 
 

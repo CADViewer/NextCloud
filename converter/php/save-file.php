@@ -4,6 +4,17 @@
 require 'CADViewer_config.php';
     
 
+if (! function_exists('str_ends_with')) {
+    function str_ends_with(string $haystack, string $needle): bool
+    {
+        $needle_len = strlen($needle);
+        return ($needle_len === 0 || 0 === substr_compare($haystack, $needle, - $needle_len));
+    }
+}
+
+
+
+
 $http_origin = '';
 
 if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -41,6 +52,15 @@ try {
 	}
 } catch (Exception $e) {
 	// do nothing
+}
+
+
+if (str_ends_with($fullPath, ".json") || str_ends_with($fullPath, ".png") || str_ends_with($fullPath, ".xml") || str_ends_with($fullPath, ".rw")){
+	// no problem, this is a json redline file or png to pdf convesion
+}
+else{
+	echo("FAILURE: save is not allowed: " . $fullPath);
+	exit;
 }
 
 

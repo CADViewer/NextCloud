@@ -30,6 +30,8 @@
 	try {
 
 		for ($i = 0; $i < $numberOfFiles; $i++) {
+
+
 			$file_id = "fileName_". $i;
 			$fileNameArray[$i] = $_POST[$file_id];
 
@@ -42,10 +44,39 @@
 			$resolution_id = "page_resolution_". $i;
 			$pageResolutionArray[$i] = $_POST[$resolution_id];
 
+
+
+			// close all security issues
+			if($rotationArray[$i] == 'landscape' || $rotationArray[$i] == 'portrait' || $rotationArray[$i] == ''){
+				// no problem
+			}
+			else{
+				echo 'ABORTED: Illegal rotation';
+				exit;
+			}
+
+
+			if($paperSizeArray[$i] == "A4" || $paperSizeArray[$i] == "A3" || $paperSizeArray[$i] == "A2" || $paperSizeArray[$i] == "" ){
+				// no problem
+			}
+			else{
+				echo 'ABORTED: Illegal page format';
+				exit;
+			}
+
+
 			// 7.9.14
 			$base64_string = file_get_contents($home_dir . '/converters/files/' .  urldecode($fileNameArray[$i]) . '_base64.png');
-			$data = explode(',', $base64_string);
 
+
+			if ($base64_string == false){
+				echo 'ABORTED: no bitmap file on server';
+				exit;
+			}
+
+
+
+			$data = explode(',', $base64_string);
 			// 7.9.14
 			$temp_file_name = rand();
 			$output_file = $home_dir . '/converters/files/' . $temp_file_name .'.png';
