@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+### 8.40.2 - 2023-03-02
+### Fixed
+- Layer list selection in nested front-end application folders
+- Removed redundant NextCloud event listeners
+
 ### 8.37.5 - 2023-02-26
 ### Added
 - load/save checks in php files
