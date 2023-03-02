@@ -92,17 +92,16 @@ class Application extends App implements IBootstrap {
             );
         });
 
-        
+    
+        // $context->registerEventListener(LoadAdditionalScriptsEvent::class, FilesListener::class);
+        // $context->registerEventListener(RegisterDirectEditorEvent::class, DirectEditorListener::class);
+        // $context->registerEventListener(LoadViewer::class, ViewerListener::class);
+        // $context->registerEventListener(BeforeTemplateRenderedEvent::class, FileSharingListener::class);
+        // $context->registerEventListener(RegisterWidgetEvent::class, WidgetListener::class);
 
-        $context->registerEventListener(LoadAdditionalScriptsEvent::class, FilesListener::class);
-        $context->registerEventListener(RegisterDirectEditorEvent::class, DirectEditorListener::class);
-        $context->registerEventListener(LoadViewer::class, ViewerListener::class);
-        $context->registerEventListener(BeforeTemplateRenderedEvent::class, FileSharingListener::class);
-        $context->registerEventListener(RegisterWidgetEvent::class, WidgetListener::class);
-
-        if (interface_exists("OCP\Files\Template\ICustomTemplateProvider")) {
-            $context->registerTemplateProvider(TemplateProvider::class);
-        }
+        // if (interface_exists("OCP\Files\Template\ICustomTemplateProvider")) {
+        //     $context->registerTemplateProvider(TemplateProvider::class);
+        // }
 
     }
 
