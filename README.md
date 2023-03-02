@@ -43,7 +43,7 @@ save-file.php
 
 Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
 
-Activate the NextCloud application
+Activate the NextCloud application.
 
 ***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
 
