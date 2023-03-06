@@ -2,15 +2,15 @@
 
 To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows:
 
-#### Copy CADViewer to /apps/cadviewer
+### 1. Copy CADViewer to /apps/cadviewer
 
 Copy the content of this cadviewer install folder and put it in the /apps/ folder of your nextcloud installation under /apps/cadviewer/.
 
-#### Excecute permission script
+### 2A. Excecute permission script
 
 Navigate to the ***/apps/cadviewer/scripts/*** */ folder and execute the ***permission.sh*** script. This script will do the permission settings for the CADViewer folders. If preferred, the user can as an alternative set these permissions manually using the instructions below 
 
-#### Manually set permissions  - alternative to permission script
+### 2B. Manually set permissions  - alternative to permission script
 
 In the NextCloud ***/apps/*** */ folder-structure, navigate to ***/apps/cadviewer/converter/converters/ax2023/linux/** */. In this folder the executable, ax2023_L64_xx_yy_zz  needs to have chmod 777 permission for read, write and exe rights.
 
@@ -39,7 +39,7 @@ save-file.php
 ```
 
 
-#### Activate CADViewer
+### 3. Activate CADViewer
 
 Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
 
@@ -49,7 +49,7 @@ Activate the NextCloud application.
 
 
 
-#### CADViewer Features
+### CADViewer Features
 
 CADViewer implements CAD viewing, markup and collaboration on the NextCloud platform for AutoCAD, MicroStation, PDF and advanced raster graphics. Following CADViewer features are available in NextCloud:
 
@@ -68,7 +68,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 - **Search**: Integrated text search method.
 - **Compare**: Advanced compare of drawings.
 
-#### Instructions on Windows
+### Instructions on Windows
 
 ***[Optional]*** If you are on Windows you will have to modify the file ***cadviewer/converter/php/CADViewer_config.php*** to adapt the configuration to Windows (change executeable name and folders). You will also have to install the Windows back-end CAD converters. Pull the /converters/ax2023/windows/ tree from [cadviewer-script-library](https://github.com/CADViewer/cadviewer-script-library) and replace into the /apps/cadviewer/converter/converters/ tree. In ***cadviewer/converter/php/CADViewer_config.php***, update ***$platform*** and ***$ax2023_executable***.
 
