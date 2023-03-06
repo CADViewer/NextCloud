@@ -10,7 +10,7 @@ Copy the content of this cadviewer install folder and put it in the /apps/ folde
 
 Navigate to the ***/apps/cadviewer/scripts/*** */ folder and execute the ***permission.sh*** script. This script will do the permission settings for the CADViewer folders. If preferred, the user can as an alternative set these permissions manually using the instructions below 
 
-### 2B. Manually set permissions  - alternative to permission script
+### 2B. Manually set permissions  - alternative to permission script 2A)
 
 In the NextCloud ***/apps/*** */ folder-structure, navigate to ***/apps/cadviewer/converter/converters/ax2023/linux/** */. In this folder the executable, ax2023_L64_xx_yy_zz  needs to have chmod 777 permission for read, write and exe rights.
 
@@ -41,11 +41,11 @@ save-file.php
 
 ### 3. Activate CADViewer
 
-Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
+1.  Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
 
-Activate the NextCloud application.
+2.  Activate the NextCloud application.
 
-***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
+3.  ***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
 
 
 
