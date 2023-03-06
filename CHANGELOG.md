@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+### 8.42.90 - 2023-03-06
+### Fixed
+- Dynamic lineweight for all linetypes, zoom level and page canvas resize
+
+
 ### 8.40.2 - 2023-03-02
 ### Fixed
 - Layer list selection in nested front-end application folders
