@@ -8,3 +8,5 @@ chmod -R 777 $PWD/../converter/php/
 chmod -R 777 $PWD/../converter/converters/files/
 chmod 777 $PWD/../converter/php/call-Api_Conversion_log.txt
 chmod 777 $PWD/../converter/converters/ax2023/linux/ax2023_L64_23_12_107a
+chmod 777 $PWD/../converter/php/call-Api_Conversion.php
+chmod 777 $PWD/../converter/php/save-file.php
