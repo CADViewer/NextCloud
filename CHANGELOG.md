@@ -2,6 +2,13 @@
 ### Added
 - Nighly changes here
 
+### 8.44.5 - 2023-03-09
+### Fixed
+- Dynamic Lineweight in step of 0.1
+- zoom-in cursor for window selection
+- AutoXchange ax2023_L64_23_12_109 installed
+
+
 ### 8.42.90 - 2023-03-06
 ### Fixed
 - Dynamic lineweight for all linetypes, zoom level and page canvas resize

@@ -12,13 +12,13 @@ Navigate to the ***/apps/cadviewer/scripts/*** */ folder and execute the ***perm
 
 ### 2B. Manually set permissions  - alternative to permission script 2A)
 
-In the NextCloud ***/apps/*** */ folder-structure, navigate to ***/apps/cadviewer/converter/converters/ax2023/linux/** */. In this folder the executable, ax2023_L64_xx_yy_zz  needs to have chmod 777 permission for read, write and exe rights.
+In the NextCloud ***/apps/*** */ folder-structure, navigate to ***/apps/cadviewer/converter/converters/ax2024/linux/** */. In this folder the executable, ax2023_L64_xx_yy_zz  needs to have chmod 777 permission for read, write and exe rights.
 
 In the NextCloud /apps/ folder-structure, the following folders needs to have full read/write/exe permissions (chmod 777):
 
 **Conversion:**
 ```
-/apps/cadviewer/converter/converters/ax2023/linux/
+/apps/cadviewer/converter/converters/ax2024/linux/
 /apps/cadviewer/converter/converters/files/
 /apps/cadviewer/converter/converters/files/merged/
 /apps/cadviewer/converter/converters/files/print/
