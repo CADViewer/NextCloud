@@ -38,7 +38,6 @@ call-Api_Conversion.php
 save-file.php
 ```
 
-
 ### 3. Activate CADViewer
 
 1.  Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
@@ -46,6 +45,18 @@ save-file.php
 2.  Activate the NextCloud application.
 
 3.  ***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
+
+
+### 4. Troubleshooting
+
+In some cases the automated update of the ***.htacess*** file is not done. This means that the CADViewer does not connect to the back-end scripts for CAD file conversion. The user experience is that the canvas is white and the "loading.." modal will keep appearing on the screen.
+
+1. Go to the install folder of **NextCloud**, this is typically ***/var/www/nextcloud/*** (or where your installation is done)
+
+2. Locate the rewrite rule in place:  ***RewriteRule . index.php [PT,E=PATH_INFO:$1]***
+
+3. Add the rewrite condition before the rewrite rule: *** RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.* ***
+
 
 
 
