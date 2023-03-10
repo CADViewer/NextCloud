@@ -55,7 +55,7 @@ In some cases the automated update of the ***.htaccess*** file is not done. This
 
 2. Locate the rewrite rule in place:  ***RewriteRule . index.php [PT,E=PATH_INFO:$1]***
 
-3. Add the rewrite condition before the rewrite rule: ***RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.***
+3. Add the rewrite condition before the rewrite rule: RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.*
 
 4. If needed, add both the RewriteRule and RewriteCond. 
 
