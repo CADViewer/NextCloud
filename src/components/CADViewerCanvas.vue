@@ -12,7 +12,6 @@
 				@click="closeModal">
 					<app-close :size="iconSize" />
 			</div>
-
 			<div id="cvjs_controls_min_right" class="cvjs_controls_min" style="height: 60px; width: 29px; position: absolute; right: 10px; top: 100px; left: auto; z-index: 100000;">
 				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" id="zoom-extents_floorPlan_svg" @click="shareThisFile">
 					<i class="fa fa-share" style="height: 20px; width: 27px; font-size: 14px;"></i>
