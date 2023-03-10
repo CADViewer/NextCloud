@@ -7,30 +7,33 @@
 			<div class="loading-bloc" v-if="showLoading">
 				<app-nc-loading-icon :size="40"/>
 			</div>
-			<app-nc-button
-				:aria-label="closeButtonAriaLabel"
+			<div
 				class="header-close close_button"
-				type="tertiary"
 				@click="closeModal">
-				<template #icon>
 					<app-close :size="iconSize" />
-				</template>
-			</app-nc-button>
+			</div>
 
-		<!--	
-			<app-nc-button
+			<div id="cvjs_controls_min_right" class="cvjs_controls_min" style="height: 60px; width: 29px; position: absolute; right: 10px; top: 100px; left: auto; z-index: 100000;">
+				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" id="zoom-extents_floorPlan_svg" @click="shareThisFile">
+					<i class="fa fa-share" style="height: 20px; width: 27px; font-size: 14px;"></i>
+				</li>
+				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" @click="commentThisFile">
+					<i class="fa fa-comment" style="height: 20px; width: 27px; font-size: 14px;"></i>
+				</li>
+			</div>
+<!-- 
+			<div
 				class="header-close compare_button"
-				type="tertiary"
-				@click="chooseFileToCompareWith">
-				Compare
-			</app-nc-button>
-			<app-nc-button
+				@click="shareThisFile">
+				<span class="icon-share"></span>
+				Share
+			</div>
+			<div
 				class="header-close load_button"
-				type="tertiary"
-				@click="chooseFileToLoad">
-				Load
-			</app-nc-button>
-		-->
+				@click="commentThisFile">
+				<span class="icon-comment"></span>
+				Comment
+			</div> -->
 		</app-nc-modal>
 	</div>
 </template>
@@ -40,7 +43,6 @@
 import cadviewer from 'cadviewer';
 import { getLanguage } from '@nextcloud/l10n'
 import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
-import NcButton from "@nextcloud/vue/dist/Components/NcButton.js";
 import NcLoadingIcon from "@nextcloud/vue/dist/Components/NcLoadingIcon.js"
 import Close from 'vue-material-design-icons/Close.vue'
 
@@ -792,6 +794,36 @@ export default {
 			this.parentDir
 		);
 	},
+	commentThisFile() {
+		if (!$("#app-sidebar-vue").is(":visible")) {
+			// add class cadviewer-open to body
+			$("body").addClass("cadviewer-open");
+			OCA.Files.Sidebar.open(this.parentDir + "/" + this.title);
+			OCA.Files.Sidebar.setActiveTab("comments");
+		} else {
+			this.closeCommentScreen();
+		}
+	},
+	closeCommentScreen() {
+		// remove class cadviewer-open to body
+		$("body").removeClass("cadviewer-open");
+		OCA.Files.Sidebar.close();
+	},
+	shareThisFile() {
+		if (!$("#app-sidebar-vue").is(":visible")) {
+			// add class cadviewer-open to body
+			$("body").addClass("cadviewer-open");
+			OCA.Files.Sidebar.open(this.parentDir + "/" + this.title);
+			OCA.Files.Sidebar.setActiveTab("sharing");
+		} else {
+			this.closeShareScreen();
+		}
+	},
+	closeShareScreen() {
+		// remove class cadviewer-open to body
+		$("body").removeClass("cadviewer-open");
+		OCA.Files.Sidebar.close();
+	},
 	chooseFileToLoad() {
 		console.log(this.parentDir)
 		OC.dialogs.filepicker(
@@ -875,6 +907,7 @@ export default {
 	viewCadFileActionHandler(filename, context) {
 	  this.showLoading = true;
       var tr = context.fileList.findFileEl(filename);
+	  console.log({context, tr, filename})
       context.fileList.showFileBusyState(tr, true);
       var data = {
         nameOfFile: filename,
@@ -943,6 +976,7 @@ export default {
         OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal");
     },
     closeModal() {
+	  this.closeShareScreen();
       this.modal = false;
       this.ModalTitle = "";
       this.ServerBackEndUrl = "";
@@ -958,7 +992,6 @@ export default {
   },
   components: {
     'app-nc-modal': NcModalVue,
-	'app-nc-button': NcButton,
 	'app-close': Close,
 	'app-nc-loading-icon': NcLoadingIcon
   }
@@ -976,7 +1009,7 @@ export default {
 
 	.load_button {
 		position: absolute !important;
-		top: 96px;
+		top: 100px;
 		right: 4px;
 		z-index: 10000;
 		background-color: #0082c9 !important;
@@ -985,6 +1018,10 @@ export default {
 		border-radius: 10px;
 		height: 44px;
 		border: 2px solid #CCC;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0px 10px;
 	} 
 	.compare_button {
 		position: absolute !important;
@@ -997,13 +1034,17 @@ export default {
 		border-radius: 10px;
 		height: 44px;
 		border: 2px solid #CCC;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 0px 10px;
 	}
 	
 	.close_button {
 		position: absolute !important;
 		top: 4px;
-		right: 4px;
-		z-index: 10000;
+		right: 10px;
+		z-index: 9999;
 		background-color: #0082c9 !important;
 		color: white !important;
 		cursor: pointer;
@@ -1011,6 +1052,13 @@ export default {
 		width: 44px;
 		height: 44px;
 		border: 2px solid #CCC;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.close_button span {
+		cursor: pointer !important;
 	}
 
 	.close_button:hover {

@@ -1,22 +1,11 @@
 .icon-visibility-button {
 	background-image: url('../img/cvlogo.png');
 }
-/* #floorPlan input {
-	width: 100px;
-    height: 20px;
-	min-height: 20px;
-    padding: 1px;
-    top: 3px;
-    bottom: 3px;
-    z-index: 1000;
-    margin: 0px;
-    text-indent: 1px;
-    text-align: center;
-    font-family: "Arial-BoldMT", Arial, Helvetica, sans-serif;
-    text-decoration: none;
-    font-weight: none;
-    color: #000000;
-    font-size: 12px;
-    line-height: 1;
-    background: "#D28A8E0";
-} */
+.cadviewer-open main#content {
+    position: absolute !important;
+}
+
+.cadviewer-open aside.app-sidebar {
+    position: fixed !important;
+    z-index: 10000  !important;
+}
