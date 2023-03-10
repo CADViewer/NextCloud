@@ -58,7 +58,7 @@ class SettingsController extends Controller {
             $pos1 = stripos($currentpath, "cadviewer");
             $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
 
-            // include CADViewer config for be able to acces to the location of ax2023 executable file
+            // include CADViewer config for be able to acces to the location of ax2024 executable file
             require($home_dir."/php/CADViewer_config.php");
 
             $axlic_file = $licenseLocation."axlic.key";
@@ -85,7 +85,7 @@ class SettingsController extends Controller {
         $pos1 = stripos($currentpath, "cadviewer");
         $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
 
-        // include CADViewer config for be able to acces to the location of ax2023 executable file
+        // include CADViewer config for be able to acces to the location of ax2024 executable file
         require($home_dir."/php/CADViewer_config.php");
 
         $script = $converterLocation.$ax2023_executable." -verify";
@@ -112,7 +112,7 @@ class SettingsController extends Controller {
 		$pos1 = stripos($currentpath, "cadviewer");
 		$home_dir = substr($currentpath, 0, $pos1+ 10);
 
-        $axFontMapFile = $home_dir."/converter/converters/ax2023/linux/ax_font_map.txt";
+        $axFontMapFile = $home_dir."/converter/converters/ax2024/linux/ax_font_map.txt";
 
         $ax_font_map = "";
         try {
@@ -155,7 +155,7 @@ class SettingsController extends Controller {
 		$pos1 = stripos($currentpath, "cadviewer");
 		$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
 
-		// include CADViewer config for be able to acces to the location of ax2023 executable file
+		// include CADViewer config for be able to acces to the location of ax2024 executable file
 		require($home_dir."/php/CADViewer_config.php");
 
         $url = str_replace("converter/", "ajax/cadviewer/ping", $httpHost);
@@ -176,8 +176,8 @@ class SettingsController extends Controller {
         $exec_command_is_activate = function_exists('exec');
         $can_write_in_files_folder = is_writable($fileLocation) && is_readable($fileLocation);
 
-        $can_write_in_files_folder_linux = is_writable($home_dir."converters/ax2023/linux/") 
-                                    && is_readable($home_dir."converters/ax2023/linux/");
+        $can_write_in_files_folder_linux = is_writable($home_dir."converters/ax2024/linux/") 
+                                    && is_readable($home_dir."converters/ax2024/linux/");
 
         $can_write_in_files_folder_merge = is_writable($home_dir."converters/files/merged/") 
                                     && is_readable($home_dir."converters/files/merged/"); 
@@ -259,7 +259,7 @@ class SettingsController extends Controller {
 		$pos1 = stripos($currentpath, "cadviewer");
 		$home_dir = substr($currentpath, 0, $pos1+ 10);
 
-        $axFontMapFile = $home_dir."/converter/converters/ax2023/linux/ax_font_map.txt";
+        $axFontMapFile = $home_dir."/converter/converters/ax2024/linux/ax_font_map.txt";
 
         file_put_contents($axFontMapFile, $ax_font_map);
         

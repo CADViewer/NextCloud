@@ -102,7 +102,7 @@ class CadviewerController extends Controller {
 		$pos1 = stripos($currentpath, "cadviewer");
 		$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
 
-		// include CADViewer config for be able to acces to the location of ax2023 executable file
+		// include CADViewer config for be able to acces to the location of ax2024 executable file
 		require($home_dir."/php/CADViewer_config.php");
 
 		

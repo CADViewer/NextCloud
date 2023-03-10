@@ -187,7 +187,7 @@
                             "php"
                         ]
                         const otherFoldersPath = {
-                            "linux": "/converter/converters/ax2023/linux/",
+                            "linux": "/converter/converters/ax2024/linux/",
                             "merge": "/converter/converters/files/merged/",
                             "print": "/converter/converters/files/print/",
                             "pdf": "/converter/converters/files/pdf/",

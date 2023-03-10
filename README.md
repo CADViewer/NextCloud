@@ -1,4 +1,4 @@
-# CADViewer Integration for NextCloud
+'# CADViewer Integration for NextCloud
 
 To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows:
 
@@ -83,7 +83,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 
 ### Instructions on Windows
 
-***[Optional]*** If you are on Windows you will have to modify the file ***apps/cadviewer/converter/php/CADViewer_config.php*** to adapt the configuration to Windows (change executeable name and folders). You will also have to install the Windows back-end CAD converters. Pull the /converters/ax2023/windows/ tree from [cadviewer-script-library](https://github.com/CADViewer/cadviewer-script-library) and replace into the /apps/cadviewer/converter/converters/ tree. In ***apps/cadviewer/converter/php/CADViewer_config.php***, update ***$platform*** and ***$ax2023_executable***.
+***[Optional]*** If you are on Windows you will have to modify the file ***apps/cadviewer/converter/php/CADViewer_config.php*** to adapt the configuration to Windows (change executeable name and folders). You will also have to install the Windows back-end CAD converters. Pull the /converters/ax2024/windows/ tree from [cadviewer-script-library](https://github.com/CADViewer/cadviewer-script-library) and replace into the /apps/cadviewer/converter/converters/ tree. In ***apps/cadviewer/converter/php/CADViewer_config.php***, update ***$platform*** and ***$ax2024_executable***.
 
 
 
