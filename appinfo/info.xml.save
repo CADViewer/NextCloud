@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<info xmlns:xsi= "http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
+    <id>cadviewer</id>
+    <name>CADViewer</name>
+    <summary>CAD viewing of AutoCAD, MicroStation and advanced raster graphics files.</summary>
+    <description><![CDATA[
+    # CADViewer
+CADViewer implements CAD viewing, markup and collaboration on the NextCloud platform for AutoCAD, MicroStation, PDF and advanced raster graphics. Following CADViewer features are available:
+- **AutoCAD**: Support for DWG, DXF and DWF files.
+- **MicroStation**: Support for DGN files.
+- **PDF**: Support for Vector Graphics PDF files. (Use **...** menu)
+- **TIFF**: Support for TIFF format. (Use **...** menu)
+- **PNG, JPG, GIF**: Bitmap support. (Use **...** menu)
+- **SVG**: SVG support. (Use **...** menu)
+- **Annotation**: Full redlining interface of drawings where each user has individually associated redlines.
+- **PDF Collaboration**: Redlines/Annotations on drawings are saved as PDF to the user's *CADViewer-Markup* folder, where the user can then share internally/externally.
+- **Download**: Direct download of SVG or PDF image with/without redlines/annotations.
+- **Printing**: Printing of drawings to printer driver or as PDF.
+- **Measurement**: Global scale matrix preserved in drawing for measurement and calibration methods.
+- **Zoom**: Advanced zoom and pan controls.
+- **Layers**: Retained layer structure for layer management.
+- **Search**: Integrated text search method.
+- **Compare**: Advanced compare of drawings.
+
+## 🌐Online Demo
+- To test the look and feel of [CADViewer](https://cadviewer.com), check out our [Online Demos](https://cadviewer.com/cadviewerdemo/).
+
+## 📦Installation
+1. Install the app from the Nextcloud app store or from CADViewer [GitHub repository](https://github.com/CADViewer/NextCloud/).
+2. Perform the [configuration steps](https://github.com/CADViewer/NextCloud/blob/main/README.md).
+3. **NOTE**: The configuration steps (permission settings for executable, log files, and folders) are needed for the back-end CAD conversion to work properly. Without permission settings, no drawings will display!
+4. Simply open your CAD drawings and start collaborate.. 😄 
+]]></description>
+    <version>8.44.5O
+</version>
+    <licence>agpl</licence>
+    <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
+    <author>Kevin WAMBA</author>
+    <namespace>Cadviewer</namespace>
+    <category>files</category>
+    <category>tools</category>
+    <category>office</category>
+    <category>integration</category>
+    <category>multimedia</category>
+    <documentation>
+        <user>https://cadviewer.com/cadviewerusermanual/</user>
+        <admin>https://cadviewer.com/cadviewertechdocs/</admin>
+        <developer>https://cadviewer.com/cadviewertechdocs/</developer>
+    </documentation>    
+    <website>https://www.cadviewer.com</website>
+    <bugs>https://github.com/CADViewer/NextCloud/issues</bugs>
+    <repository>https://github.com/CADViewer/NextCloud/</repository>
+    <screenshot small-thumbnail="https://cadviewer.com/images/cadviewer/nextcloud/nextcloud_small_02.png">https://cadviewer.com/images/cadviewer/nextcloud/nextcloud_small_02.png</screenshot>
+    <screenshot>https://cadviewer.com/images/cadviewer/nextcloud/nextcloud_big_01.png</screenshot>    
+    <dependencies>
+        <nextcloud min-version="22" max-version="25"/>
+    </dependencies>
+    <settings>
+        <admin>OCA\Cadviewer\AdminSettings</admin>
+        <admin-section>OCA\Cadviewer\AdminSection</admin-section>
+    </settings>
+    <repair-steps>
+        <install>
+            <step>OCA\Cadviewer\Migration\RegisterMimeType</step>
+        </install>
+        <post-migrate>
+            <step>OCA\Cadviewer\Migration\RegisterMimeType</step>
+        </post-migrate>
+        <uninstall>
+            <step>OCA\Cadviewer\Migration\UnregisterMimeType</step>
+        </uninstall>
+    </repair-steps>  
+</info>

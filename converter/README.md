@@ -10,18 +10,18 @@ The repository contains a full setup of CADViewer with CAD Converters and script
 
 1: CADViewer script library  - in its preferred folder structure
 
-2: AutoXchange AX2023 Converter , LinkList 2023, and DWGMerge 2022 Converter - in their preferred folder structure
+2: AutoXchange AX2024 Converter , LinkList 2024, and DWGMerge 2024 Converter - in their preferred folder structure
 
 3: All structures for file-conversion, sample drawings, redlines, etc. 
 
 4: A number of HTML files with CADViewer samples.
 
-5: The folder structure for script handlers for communication between CADViewer and the back-end AutoXchange 2023.
+5: The folder structure for script handlers for communication between CADViewer and the back-end AutoXchange 2024.
 
 
 ## This package does not contain
 
-6: The converter folder structure contains a larger set of fonts, installed in /cadviewer/converters/ax2023/linux/fonts/, but a fuller set of fonts can be installed. 
+6: The converter folder structure contains a larger set of fonts, installed in /cadviewer/converters/ax2024/linux/fonts/, but a fuller set of fonts can be installed. 
 
 Read the sections on installing and handling [Fonts](https://tailormade.com/ax2020techdocs/installation/fonts/) in [AutoXchange 2023 TechDocs](https://tailormade.com/ax2020techdocs/) and [TroubleShooting](https://tailormade.com/ax2020techdocs/troubleshooting/).
 

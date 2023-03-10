@@ -207,13 +207,6 @@ html {
   font-size: 10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #333333;
-  background-color: #ffffff;
-}
 input,
 button,
 select,
@@ -226,8 +219,8 @@ a {
   color: #337ab7;
   text-decoration: none;
 }
-a:hover,
-a:focus {
+#floorPlan_svg a:hover,
+#floorPlan_svg a:focus {
   color: #23527c;
   text-decoration: underline;
 }
