@@ -2,6 +2,13 @@
 ### Added
 - Nighly changes here
 
+### 8.45.3 - 2023-03-11
+### Fixed
+- Css encapsulation
+- integrated share and comments on canvas
+
+
+
 ### 8.44.5 - 2023-03-09
 ### Fixed
 - Dynamic Lineweight in step of 0.1

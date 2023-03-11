@@ -1,7 +1,7 @@
 <template>
 	<div id="cadviewer_app_canvas" class="modal__content">
 		<app-nc-modal @close="closeModal" v-if="modal" :title="title" size="full" :canClose="canClose">
-			<div class="cadviewerCanvasTest01">
+			<div class="cadviewerCanvasTest01 cadviewer-bootstrap cadviewer-core-styles">
 				<div id="floorPlan"></div>
 			</div>
 			<div class="loading-bloc" v-if="showLoading">
@@ -710,6 +710,7 @@ export default {
 
 			// we add -strokea for processing
 			cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
+			cadviewer.cvjs_conversion_addAXconversionParameter("lwtext","");
 			cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
 			// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
 
