@@ -35,7 +35,7 @@
 
 /*! For license information please see NcModal.js.LICENSE.txt */
 
-/*! For license information please see cadviewer_8.45.3.min.js.LICENSE.txt */
+/*! For license information please see cadviewer_8.46.8.min.js.LICENSE.txt */
 
 /*! Hammer.JS - v2.0.7 - 2016-04-22
  * http://hammerjs.github.io/

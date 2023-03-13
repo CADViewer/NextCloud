@@ -50,9 +50,9 @@ D: Please note the variable controls in the HTML documents as described below in
 
 This repository should contain the latest converters, but in case you need to update any of the back-end converters please follow: 
 
-* [Download **AutoXchange**](/download/) (and other converters), install (unzip) ax2023 in **cadviewer/converters/ax2023/linux** or in the designated folder structure.
+* [Download **AutoXchange**](/download/) (and other converters), install (unzip) ax2024 in **cadviewer/converters/ax2024/linux** or in the designated folder structure.
 
-* Read the sections on installing and handling [Fonts](https://tailormade.com/ax2020techdocs/installation/fonts/) in [AutoXchange 2023 TechDocs](https://tailormade.com/ax2020techdocs/) and [TroubleShooting](https://tailormade.com/ax2020techdocs/troubleshooting/).
+* Read the sections on installing and handling [Fonts](https://tailormade.com/ax2020techdocs/installation/fonts/) in [AutoXchange 2024 TechDocs](https://tailormade.com/ax2020techdocs/) and [TroubleShooting](https://tailormade.com/ax2020techdocs/troubleshooting/).
 
 * Try out the samples and build your own application!
  
@@ -88,7 +88,7 @@ B: identify the command line string for the conversion, it will be directly afte
 
 <pre style="line-height: 110%">
 
-"/var/www/html/cadviewer/converters/ax2023/linux/ax2023_L64_23_05_88" "-i=/var/www/html/cadviewer/content/drawings/dwg/hq17_.dwg" "-o=/var/www/html/cadviewer/converters/files/f2134145163.svg"  "-f=svg" -last "-rl=RM_" "-tl=RM_TXT" "-lpath=/var/www/html/cadviewer/converters/ax2023/linux/"
+"/var/www/html/cadviewer/converters/ax2024/linux/ax2023_L64_23_12_109b" "-i=/var/www/html/cadviewer/content/drawings/dwg/hq17_.dwg" "-o=/var/www/html/cadviewer/converters/files/f2134145163.svg"  "-f=svg" -last "-rl=RM_" "-tl=RM_TXT" "-lpath=/var/www/html/cadviewer/converters/ax2024/linux/"
 
 </pre>
 
