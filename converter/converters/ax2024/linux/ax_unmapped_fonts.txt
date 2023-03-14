@@ -1,4 +1,1 @@
-arial narrow
-swis721 bt
-@arial unicode ms
-simplex
+No unmapped fonts in CAD file
