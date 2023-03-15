@@ -1,4 +1,5 @@
 (function ($, OC) {
+    var htaccessContent = "";
     function download(filename, text) {
         var element = document.createElement('a');
         element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
@@ -150,6 +151,7 @@
             });
         });
 
+
         $("#cadviewerDoctor").click(function () {
             $(".section-cadviewer").addClass("icon-loading");
 
@@ -165,11 +167,19 @@
                     if (response.error) {
                         OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to debug the application"));
                     } else {
+                        htaccessContent =  response.htaccess_content;
                         let responseContent = "";
                         responseContent += `<div class="access-status"><div class="${response.exec_command_is_activate ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.exec_command_is_activate ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, '"exec" command activated on PHP')}</div>`;
                         responseContent += `<div class="access-status"><div class="${response.can_execute_script_file ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.can_execute_script_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Permission 777 for the "ax2023_L64_xx_yy_zz" executable')}</div>`;
                         responseContent += `<div class="access-status"><div class="${response.can_write_in_log_file ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.can_write_in_log_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Writing to the log file "call-Api_Conversion_log.txt"')}</div>`;
-                        responseContent += `<div class="access-status"><div class="${response.htaccess_is_whell_configured ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.htaccess_is_whell_configured ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, '.htaccess well configured')}</div>`;
+                        responseContent += `<div class="access-status">
+                                <div class="${response.htaccess_is_whell_configured ? "success" : "error"}">
+                                    <img src="/apps/cadviewer/img/${response.htaccess_is_whell_configured ? "check" : "x"}.svg" />
+                                </div> ${t(OCA.Cadviewer.AppName, '.htaccess well configured')} 
+                                <button id="downloadHtaccess" class="button" style="margin-left: 10px">
+                                    ${t(OCA.Cadviewer.AppName, "Download")}
+                                </button>
+                        </div>`;
                         responseContent += `<div class="access-status">
                                 <div class="${response.can_write_in_files_folder ? "success" : "error"}">
                                     <img src="/apps/cadviewer/img/${response.can_write_in_files_folder ? "check" : "x"}.svg" />
@@ -204,6 +214,10 @@
                             </div>`;
                         });
                         $("#cadviewerDoctorResponse").html(responseContent);
+
+                        $("#downloadHtaccess").click(function() {
+                            download(".htaccess", htaccessContent);
+                        });
                     }
                 }
             });
