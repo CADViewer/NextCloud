@@ -28,8 +28,8 @@ $eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function(){
     Util::addScript('cadviewer', 'cadviewer-main' );
     Util::addStyle('cadviewer', 'style' );
 
-    Util::addStyle('cadviewer','cadviewer-bootstrap');
-    Util::addStyle('cadviewer','cadviewer-core-styles');
+//    Util::addStyle('cadviewer','cadviewer-bootstrap');
+//    Util::addStyle('cadviewer','cadviewer-core-styles');
 
 //    Util::addStyle('cadviewer', 'bootstrap-multiselect');
 //    Util::addStyle('cadviewer', 'cvjs_7');

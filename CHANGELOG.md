@@ -2,6 +2,18 @@
 ### Added
 - Nighly changes here
 
+
+### 8.47.4 - 2024-03-14
+### Fixed
+- Navigation between unicode layouts
+
+
+### 8.46.8 - 2023-03-13
+### Fixed
+- Change of navigation modal styling and page change issues
+- AutoXchange ax2023_L64_23_12_109b update
+
+
 ### 8.45.3 - 2023-03-11
 ### Fixed
 - Css encapsulation
