@@ -105,12 +105,41 @@ class SettingsController extends Controller {
         ];
     }
 
+
+	private function getWellConfiguredHtaccess() {
+		$root_nextcloud_installation = getcwd();
+		$htaccess_file = $root_nextcloud_installation . "/.htaccess";
+		$can_write_in_htaccess_file = is_writable($htaccess_file);
+		$htaccess_content = file_get_contents($htaccess_file);
+		
+		// verify if RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.* not present in .htaccess
+		if (strpos($htaccess_content, "RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.*") == false) {
+			// add RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.* in .htaccess
+			$htaccess_content = str_replace("RewriteRule . index.php [PT,E=PATH_INFO:$1]", "RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.*\n  RewriteRule . index.php [PT,E=PATH_INFO:$1]", $htaccess_content);
+
+		}
+
+        return $htaccess_content;
+	}
+
     public function index() {
     
 		// Construct path to converter folder
 		$currentpath = __FILE__;
 		$pos1 = stripos($currentpath, "cadviewer");
 		$home_dir = substr($currentpath, 0, $pos1+ 10);
+        $info_file =  $home_dir."/appinfo/info.xml";
+
+        // Read entire file into string
+        $infoXmlfile = file_get_contents($info_file);
+        
+        // Convert xml string into an object and donvert into json
+        $xmlEncodedData = json_encode(simplexml_load_string($infoXmlfile));
+        
+        // Convert into associative array
+        $infoData = json_decode($xmlEncodedData, true);
+        $name  = $infoData["name"];
+        $version = $infoData["version"];
 
         $axFontMapFile = $home_dir."/converter/converters/ax2024/linux/ax_font_map.txt";
 
@@ -121,6 +150,8 @@ class SettingsController extends Controller {
 		}
 
         $data = [
+            "name" => $name,
+            "version" =>  $version,
             "ax_font_map" => $ax_font_map,
             "licenceKey" => $this->config->GetLicenceKey(),
             "autoexchange" => [
@@ -209,7 +240,8 @@ class SettingsController extends Controller {
             "can_write_in_files_folder_pdf" => $can_write_in_files_folder_pdf,
             "can_write_in_files_folder_redlines" => $can_write_in_files_folder_redlines,
             "can_write_in_files_folder_redlines_v7" => $can_write_in_files_folder_redlines_v7,
-            "can_write_in_files_folder_php" => $can_write_in_files_folder_php
+            "can_write_in_files_folder_php" => $can_write_in_files_folder_php,
+            "htaccess_content" => $this->getWellConfiguredHtaccess(),
         ), Http::STATUS_OK);
 	}
 

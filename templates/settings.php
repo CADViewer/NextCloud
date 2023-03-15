@@ -7,7 +7,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
 ?>
 <div class="section section-cadviewer section-cadviewer-addr">
     <h1>
-        Cadviewer
+        <?= $_["name"] ?> <span style="font-size: 20px; font-weight: 500;"><?= $_["version"] ?></span>
         <a target="_blank" class="icon-info svg" title=""
             href="https://github.com/CADViewer/NextCloud/blob/main/README.md"
             data-original-title="<?php p($l->t("Documentation")) ?>"></a>
