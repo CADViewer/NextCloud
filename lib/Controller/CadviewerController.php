@@ -66,9 +66,31 @@ class CadviewerController extends Controller {
 
 
 	public function getFile($directory, $fileName){
+		// Construct path to converter folder
+        $currentpath = __FILE__;
+        $pos1 = stripos($currentpath, "cadviewer");
+        $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+
+        // include CADViewer config for be able to acces to the location of ax2023 executable file
+        require($home_dir."/php/CADViewer_config.php");
+
+		
 		\OC_Util::tearDownFS();
 		\OC_Util::setupFS($this->userId);
-		return Filesystem::getView()->getLocalFile($directory . '/' . $fileName);
+		
+		$view = Filesystem::getView();
+		$path = $view->getLocalFile($directory . '/' . $fileName);
+		// check if /tmp present in $path to persist it
+		if (strpos($path, '/tmp') !== false) {
+			$newPath = $fileLocation . "" .$fileName;
+			// get the last modification time of the file
+			$mtime = $view->filemtime($directory . '/' . $fileName);
+			rename($path,  $newPath);
+			$path = $newPath;
+			// set the last modification time of the file
+			touch($path, $mtime, $mtime);
+		} 
+		return $path;
 	}
 
 
@@ -169,8 +191,8 @@ class CadviewerController extends Controller {
 			return json_encode($response);
 		}
 		
-		$file = $this->getFile($directory."/".$nameOfFile, "");
-
+		$file = $this->getFile($directory, $nameOfFile);
+		
 		$dir = dirname($file);
 		
 		$userFolder = $this->rootFolder->getUserFolder($this->userId);
