@@ -89,6 +89,8 @@
 	$add_fpath = true;
 	$remainOnServer = 1;  	// general flag to tell pickup stream to to leave on server
 
+
+
 	//  try-catch  1.5.09
 	try {
 
@@ -1226,7 +1228,18 @@ set_time_limit(240);
 					for ($i = 0; $i < $fsize; $i++) {
 		
 						if ($continuecheckfiles){
-		
+
+							fwrite($fd_log, "before file: " . $i . "  " . $jarray['cachedfiles'][$i]['fileName'] . "XXX\n\r" . strpos($jarray['cachedfiles'][$i]['fileName'], 'fphp'));
+
+							$pos_3 = strpos($jarray['cachedfiles'][$i]['fileName'], 'fpdf');									
+							if ($pos_3 !== false) {
+								if ($pos_3 == 0){
+//											$server_load = 1;  // we are on the same server, so we simply swap $httpHost for $home_dir
+									//$compare_location = str_replace($httpHost, $home_dir ."/", $compare_location);	
+									$jarray['cachedfiles'][$i]['fileName'] = substr($jarray['cachedfiles'][$i]['fileName'], 1);
+								}
+							}
+
 							fwrite($fd_log, "file: " . $i . "  " . $jarray['cachedfiles'][$i]['fileName'] . "XXX\n\r" );
 		
 							$max = sizeof($parameters);
@@ -1471,6 +1484,8 @@ set_time_limit(240);
 
 		$embed_cont = "";
 
+
+	if ($return1 == "" ) $return1 = 0;
 
 	$return1 = 'E' . $return1;
 

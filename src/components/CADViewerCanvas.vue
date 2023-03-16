@@ -710,7 +710,7 @@ export default {
 
 			// we add -strokea for processing
 			cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
-			cadviewer.cvjs_conversion_addAXconversionParameter("lwtext","");
+			// from 109c not needed - cadviewer.cvjs_conversion_addAXconversionParameter("lwtext","");
 			cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
 			// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
 

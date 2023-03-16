@@ -2,8 +2,20 @@
 ### Added
 - Nighly changes here
 
+### 8.52.3 - 2023-03-16
+### Changed
+- AutoXchange ax2023_L64_12_12_110 update
+### Fixed
+- Left pane file selection issue in NextCloud due to external package overlap
+- Print issue in 25.0.4
+- cached printing
 
-### 8.47.4 - 2024-03-14
+
+### 8.49.2 - 2023-03-14
+### Fixed
+- resize issue after component is closed
+
+### 8.47.4 - 2023-03-14
 ### Fixed
 - Navigation between unicode layouts
 
