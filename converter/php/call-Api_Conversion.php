@@ -597,6 +597,13 @@
 				}
 			}
 			
+
+			// if german or unicode characters on .dgn files we copy over the file to temp folder
+			// we do a copy for all files!!!
+			$server_load = 0;
+
+
+
 			if ($debug){
 				fwrite($fd_log, "after content location check \$server_load:  $server_load  , content-type: ($contenttype \r\n");
 			}
@@ -1241,7 +1248,7 @@ set_time_limit(240);
 							}
 
 							fwrite($fd_log, "file: " . $i . "  " . $jarray['cachedfiles'][$i]['fileName'] . "XXX\n\r" );
-		
+
 							$max = sizeof($parameters);
 							$paramflags = [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
 							for ($j = 0; $j < $max; $j++) {
