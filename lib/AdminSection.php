@@ -22,7 +22,7 @@ class AdminSection implements IIconSection {
     }
 
     public function getName() {
-        return "Cadviewer";
+        return "CADViewer";
     }
 
     public function getPriority() {
