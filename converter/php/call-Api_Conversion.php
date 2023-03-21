@@ -1,7 +1,7 @@
 <?php
 /*
     TMS RESTful API
-
+ 
     This script provides a RESTful API interface for web application accessing
     Tailor Made Software Conversion and Data Extraction engines
 
@@ -583,8 +583,6 @@
 			$pos_2 = strpos($contentlocation, $httpHost);
 
 
-
-
 			if ($pos !== false) {
 				if ($pos == 0){
 					$server_load = 0;  // we are loading via http, we therefore need to input file to temp folder
@@ -1091,16 +1089,16 @@ set_time_limit(240);
 
 	//$jsontemplate = '{"fullfilepath": "full file path","filename": "filename","filecreatestamp": "date1","filechangestamp": "2023-01-31T08:30:25.597Z","cachedfiles": [{ "fileName": "F1.svgz", "filecreatestamp": "datef1", "parameters": [{"paramName": "f", "paramValue": "svg"}]}]}';
 
-	$jsontemplate = '{\"fullfilepath\": \"full file path\",\"filename\": \"filename\",\"filecreatestamp\": \"date1\",\"filechangestamp\": \"2023-01-31T08:30:25.597Z\",\"cachedfiles\": [{ \"fileName\": \"F1.svgz\", \"filecreatestamp\": \"datef1\", \"parameters\": [{\"paramName\": \"f\", \"paramValue\": \"svg\"}]}]}';
+	$jsontemplate = '{\"filename\": \"filename\",\"filecreatestamp\": \"date1\",\"filechangestamp\": \"2023-01-31T08:30:25.597Z\",\"cachedfiles\": [{ \"fullfilepath\": \"full file path\", \"fileName\": \"F1.svgz\", \"filecreatestamp\": \"datef1\", \"parameters\": [{\"paramName\": \"f\", \"paramValue\": \"svg\"}]}]}';
 
 
 	/*
 						{
-							"fullfilepath": "full file path",
 							"filename": "filename",
 							"filecreatestamp": "date1",
 							"filechangestamp": "2023-01-31T08:30:25.597Z",
 							"cachedfiles": [{
+									"fullfilepath": "full file path",
 									"fileName": "F1- 533271c6c7ec58eda68a0f882.svgz",
 									"filecreatestamp": "datef1",
 									"parameters": [{
@@ -1121,6 +1119,7 @@ set_time_limit(240);
 									}]
 								},
 								{
+									"fullfilepath": "full file path",
 									"fileName": "Fab55b0ffbf5497e533271c6c7ec58eda68a0f882.svgz",
 									"filecreatestamp": "2023-01-31T08:30:25.597Z",
 									"parameters": [{
@@ -1209,12 +1208,12 @@ set_time_limit(240);
 								//if (is_array($jarray))  fwrite($fd_log, "jarray is an array! XXX \n\r" );
 					//fwrite($fd_log, "first attempt: " . $jarray['fullfilepath'] . " XXX \n\r" );
 					//$jarray['fullfilepath']  =  substr($contentlocation, 0, $pos1);
-					$jarray['fullfilepath']	  = $current_fullfilepath;  // 8.53.1
-
+					
 					$jarray['filename']  =  $filenamej;
 					$jarray['filecreatestamp']  = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"2023-01-31T08:30:25.597Z";  // current time stamp
 					$pos2 = strrpos ( $outputFile , "/");
 					$filenameout = substr($contentlocation, $pos1+1);
+					$jarray['cachedfiles'][0]['fullfilepath']	= $current_fullfilepath;  // 8.54.1
 					$jarray['cachedfiles'][0]['fileName'] = "f" . $temp_file_name . "." . $output_file_extension;  // current timestampt
 					$jarray['cachedfiles'][0]['filecreatestamp'] = date_format(date_timestamp_set(new DateTime(), time()), 'c');// "file exists but not correct json";  // current timestampt
 					$max = sizeof($parameters);
@@ -1225,13 +1224,16 @@ set_time_limit(240);
 					}
 
 					fwrite($fd_log, "jarray new file: " . json_encode($jarray) . " XXX \n\r" );
-					fwrite($fd_log, " single entry fullfilepath: " . $jarray['fullfilepath'] . " \n\r ");
+					fwrite($fd_log, " single entry fullfilepath cached 0: " . $jarray['cachedfiles'][0]['fullfilepath'] . " \n\r ");
 
 
 				
 				}
 				else{
-					fwrite($fd_log, "cashedfile likely, array wellformed, current-fullpath: $current_fullfilepath cached fullpath:" . $jarray['fullfilepath'] . "   \n\r" );
+					fwrite($fd_log, "cashedfile likely, array wellformed, current-fullpath: $current_fullfilepath cached fullpath (in each cache):" . "   \n\r" );
+
+
+					/* 8.54.1 - we strip out
 
 					// if  not in same folder
 					if ($current_fullfilepath != $jarray['fullfilepath']){
@@ -1247,20 +1249,32 @@ set_time_limit(240);
 						for ($i = 0; $i < $fsize; $i++) {
 							//$jarray['cachedfiles'][$i] = {};
 						}
-						*/
+						* /
 
 					}
 					else{   // 8.53.1
+
+					*/
+					
 
 						$fsize = sizeof($jarray['cachedfiles']);
 						fwrite($fd_log, "number of conversion: " . $fsize . "XXX\n\r" );
 			
 						$continuecheckfiles = true;
+						$foldercheck = false;
 			
 						for ($i = 0; $i < $fsize; $i++) {
 			
+							fwrite($fd_log, "folder of current file: " . $jarray['cachedfiles'][$i]['fullfilepath'] . "XXX\n\r" );
+							
 							if ($continuecheckfiles){
 	
+								if ($jarray['cachedfiles'][$i]['fullfilepath'] == $current_fullfilepath){
+									$foldercheck = true;
+								}
+								else
+									$foldercheck = false;
+
 								fwrite($fd_log, "before file: " . $i . "  " . $jarray['cachedfiles'][$i]['fileName'] . "XXX\n\r" . strpos($jarray['cachedfiles'][$i]['fileName'], 'fphp'));
 	
 								$pos_3 = strpos($jarray['cachedfiles'][$i]['fileName'], 'fpdf');									
@@ -1325,7 +1339,7 @@ set_time_limit(240);
 									}
 								}
 					
-								if ($paramcheck1 && $paramcheck2 && $paramcheck3){
+								if ($paramcheck1 && $paramcheck2 && $paramcheck3 && $foldercheck){  // 8.54.1
 									$this_conversion_cached = true;
 									// update the temp name
 	
@@ -1349,9 +1363,9 @@ set_time_limit(240);
 			
 						}
 		
-	
-					}   // 8,83.1
-
+	/*  8.54.1
+					}   // 8.53.1
+*/
 				}
 	
 			
@@ -1364,6 +1378,7 @@ set_time_limit(240);
 					$fsize = sizeof($jarray['cachedfiles']);
 	
 					$filenameout = substr($contentlocation, $pos1+1);
+					$jarray['cachedfiles'][$fsize]['fullfilepath'] = $current_fullfilepath;
 					$jarray['cachedfiles'][$fsize]['fileName'] = "f" . $temp_file_name . "." . $output_file_extension ;  
 					$jarray['cachedfiles'][$fsize]['filecreatestamp'] = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"not cached but exists";  // current timestampt
 					$max = sizeof($parameters);
@@ -1388,11 +1403,12 @@ set_time_limit(240);
 			//		$jarray = $jsontemplate;	
 						//if (is_array($jarray))  fwrite($fd_log, "jarray is an array! XXX \n\r" );
 			fwrite($fd_log, "CANNOT OPEN FILE, NEED TO BUILD JSON STRUCTURE  XXX \n\r" );
-			$jarray['fullfilepath']  =  substr($contentlocation, 0, $pos1);
+			//$jarray['fullfilepath']  =  substr($contentlocation, 0, $pos1);
 			$jarray['filename']  =  $filenamej;
 			$jarray['filecreatestamp']  = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"2023-01-31T08:30:25.597Z";  // current time stamp
 			$pos2 = strrpos ( $outputFile , "/");
 			$filenameout = substr($contentlocation, $pos1+1);
+			$jarray['cachedfiles'][0]['fullfilepath'] = $current_fullfilepath; // 8.54.1
 			$jarray['cachedfiles'][0]['fileName'] = "f" . $temp_file_name . "." . $output_file_extension ;  // 
 			$jarray['cachedfiles'][0]['filecreatestamp'] = date_format(date_timestamp_set(new DateTime(), time()), 'c'); //"cannot open file";  // current timestampt
 			$max = sizeof($parameters);
@@ -1403,7 +1419,7 @@ set_time_limit(240);
 			}
 
 			fwrite($fd_log, "jarray new file: " . json_encode($jarray) . " XXX \n\r" );
-			fwrite($fd_log, " single entry fullfilepath: " . $jarray['fullfilepath'] . " \n\r ");
+			fwrite($fd_log, " single entry fullfilepath in cache: " . $jarray['cachedfiles'][0]['fullfilepath'] . " \n\r ");
 
 		}
 		// check against the incoming json
