@@ -3,7 +3,31 @@
 - Nighly changes here
 
 
-### 8.47.4 - 2024-03-14
+### 8.54.1 - 2023-03-21
+-cache issue for same named files in two different folders
+
+
+### 8.53.1 - 2023-03-20
+### Fixed
+- cache issue for same named file in two different folders
+
+
+### 8.52.4 - 2023-03-16
+### Changed
+- AutoXchange ax2023_L64_12_12_110 update
+### Fixed
+- Left pane file selection issue in NextCloud due to external package overlap
+- Print issue in 25.0.4
+- cached printing
+- external drive loading of files
+- MicroStation  .dgn files with EU (non US letter) filenames and Unicode file names
+
+
+### 8.49.2 - 2023-03-14
+### Fixed
+- resize issue after component is closed
+
+### 8.47.4 - 2023-03-14
 ### Fixed
 - Navigation between unicode layouts
 

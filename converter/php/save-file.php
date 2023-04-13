@@ -55,7 +55,7 @@ try {
 }
 
 
-if (str_ends_with($fullPath, ".json") || str_ends_with($fullPath, ".png") || str_ends_with($fullPath, ".xml") || str_ends_with($fullPath, ".rw")){
+if (str_ends_with($fullPath, ".pdf") || str_ends_with($fullPath, ".html") || str_ends_with($fullPath, ".svg") || str_ends_with($fullPath, ".json") || str_ends_with($fullPath, ".png") || str_ends_with($fullPath, ".xml") || str_ends_with($fullPath, ".rw")){
 	// no problem, this is a json redline file or png to pdf convesion
 }
 else{
