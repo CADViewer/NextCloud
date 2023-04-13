@@ -759,15 +759,15 @@ export default {
 								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );   // 8.26.6
 							} else {
 								OC.dialogs.alert(
-									t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
-									t("cadviewer", "Error when trying to connect")
+									t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+									t("cadviewer", "Unable to view this file for the moment"),
 								);
 							}
 						},
-						error: (resultat) => {
+						error: (response) => {
 							OC.dialogs.alert(
-								t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
-								t("cadviewer", "Error when trying to connect")
+								t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+								t("cadviewer", "Unable to view this file for the moment"),
 							);
 						},
 					});
@@ -850,15 +850,15 @@ export default {
 								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 							} else {
 								OC.dialogs.alert(
-									t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
-									t("cadviewer", "Error when trying to connect")
+									t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+									t("cadviewer", "Unable to view this file for the moment"),
 								);
 							}
 						},
-						error: (resultat) => {
+						error: (response) => {
 							OC.dialogs.alert(
-								t("cadviewer", "Unable to view this file for the moment") + nameOfFile,
-								t("cadviewer", "Error when trying to connect")
+								t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+								t("cadviewer", "Unable to view this file for the moment"),
 							);
 						},
 					});
@@ -939,24 +939,18 @@ export default {
 			this.initCadviewer();
           } else {
 	  		this.modal = false;
-            OC.dialogs.alert(
-              t(
-                "cadviewer",
-                "Unable to view this file for the moment"
-              ) + filename,
-              t("cadviewer", "Error when trying to connect")
-            );
+			OC.dialogs.alert(
+				t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+				t("cadviewer", "Unable to view this file for the moment"),
+			);
           }
         },
-        error: (resultat) => {
-          context.fileList.showFileBusyState(tr, false);
-          OC.dialogs.alert(
-            t(
-              "cadviewer",
-              "Unable to view this file for the moment"
-            ) + filename,
-            t("cadviewer", "Error when trying to connect")
-          );
+        error: (response) => {
+          	context.fileList.showFileBusyState(tr, false);
+			OC.dialogs.alert(
+				t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+				t("cadviewer", "Unable to view this file for the moment"),
+			);
         },
       });
     },
