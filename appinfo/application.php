@@ -6,15 +6,11 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
-use OCP\Dashboard\RegisterWidgetEvent;
-use OCP\DirectEditing\RegisterDirectEditorEvent;
-use OCA\Files\Event\LoadAdditionalScriptsEvent;
-
-use OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent;
-use OCA\Viewer\Event\LoadViewer;
+use OCP\Security\CSP\AddContentSecurityPolicyEvent;
 
 
 use OCA\Cadviewer\Controller\SettingsController;
+use OCA\Cadviewer\Listeners\CSPListener;
 use OCA\Cadviewer\AppConfig;
 
 use OC\Files\Filesystem;
@@ -27,21 +23,6 @@ $eventDispatcher = \OC::$server->getEventDispatcher();
 $eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function(){
     Util::addScript('cadviewer', 'cadviewer-main' );
     Util::addStyle('cadviewer', 'style' );
-
-//    Util::addStyle('cadviewer','cadviewer-bootstrap');
-//    Util::addStyle('cadviewer','cadviewer-core-styles');
-
-//    Util::addStyle('cadviewer', 'bootstrap-multiselect');
-//    Util::addStyle('cadviewer', 'cvjs_7');
-    // Util::addStyle('cadviewer', 'cadviewer_bootstrap.min');
-    // Util::addStyle('cadviewer', 'font-awesome.min');
-    // Util::addStyle('cadviewer', 'jquery.qtip.min');
-//     Util::addStyle('cadviewer', 'jquery-ui-1.11.4.min');
-//     Util::addStyle('cadviewer', 'cvjs_jquery.qtip.min');
-
-//    Util::addStyle('cadviewer', 'bootstrap-cadviewer');
-
-
 });
 
 class Application extends App implements IBootstrap {
@@ -100,6 +81,7 @@ class Application extends App implements IBootstrap {
         });
 
     
+		$context->registerEventListener(AddContentSecurityPolicyEvent::class, CSPListener::class);
         // $context->registerEventListener(LoadAdditionalScriptsEvent::class, FilesListener::class);
         // $context->registerEventListener(RegisterDirectEditorEvent::class, DirectEditorListener::class);
         // $context->registerEventListener(LoadViewer::class, ViewerListener::class);

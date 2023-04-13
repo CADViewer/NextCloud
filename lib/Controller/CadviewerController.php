@@ -179,16 +179,65 @@ class CadviewerController extends Controller {
 		return new JSONResponse(array(), Http::STATUS_NO_CONTENT);
 	}
 
+	private function checkIfNumberOfUsersLimitation()  {
+		$cadviewer_group_name = "CADViewer";
+		$maximun_number_of_user = 10;
+
+		$groupManager = \OC::$server->getGroupManager();
+		$found = false;
+
+		foreach ($groupManager->getBackends() as $backend) {
+			$groups =  $backend->getGroups();
+			foreach ($groups as $group) {
+				if ($group == $cadviewer_group_name){
+					$users = $backend->usersInGroup($group);
+					if (count($users) > $maximun_number_of_user) {
+						$response = array();
+						$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("The number of users is limited to ".$maximun_number_of_user)));
+						return $response;
+					}
+					// check if current user is in the group
+					$found_user = false;
+					
+					foreach ($users as $user) {
+						if ($user == $this->userId) {
+							$found = true;
+							$found_user = true;
+							break;
+						}
+					}
+					if (!$found_user) {
+						$response = array();
+						$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Before access to this feature Administrator need to add yourself to the group CADViewer")));
+						return $response;
+					}
+				}
+			}
+		}
+
+		if (!$found) {
+			$response = array();
+			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Before access to this feature you need to create a group called CADViewer and add users to it")));
+			return $response;
+		}
+		return "success";
+	}
+
 	/**
 	 *  @NoAdminRequired
 	 */
 	public function path($nameOfFile, $directory){
 
+		$res = $this->checkIfNumberOfUsersLimitation();
+
+		if ($res != "success") {
+			// return $res; // ! todo uncomment this line
+		}
 
 		if ($this->encryptionManager->isEnabled()) {
 			$response = array();
 			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Encryption is not supported yet")));
-			return json_encode($response);
+			return $response;
 		}
 		
 		$file = $this->getFile($directory, $nameOfFile);

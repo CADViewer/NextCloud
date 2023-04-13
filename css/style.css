@@ -4,6 +4,9 @@
 .cadviewer-open main#content {
     position: absolute !important;
 }
+.cadviewer-open {
+    overflow: hidden !important;
+}
 
 .cadviewer-open aside.app-sidebar {
     position: fixed !important;

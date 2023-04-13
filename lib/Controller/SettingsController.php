@@ -192,7 +192,7 @@ class SettingsController extends Controller {
         $url = str_replace("converter/", "ajax/cadviewer/ping", $httpHost);
         // Check if w're are inside docker container
         if(is_file("/.dockerenv"))
-            $url = str_replace(":8080/", "/", $url);
+            $url = preg_replace("/\:[0-9]{1,}/", "/", $url);
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, true);

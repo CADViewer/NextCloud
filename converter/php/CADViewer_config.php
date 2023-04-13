@@ -1,7 +1,8 @@
 <?php
 
 //  New: Use this code to find $httpHost and $home_dir based on current location, if under /cadviewer/
-	$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	// $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+	$actual_link = $_SERVER["HTTP_X_FORWARDED_PROTO"] . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 	$pos1 = stripos($actual_link, "/cadviewer/");
 	$httpHost = substr($actual_link, 0, $pos1+ 11) . "converter/";
 
