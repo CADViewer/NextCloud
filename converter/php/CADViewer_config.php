@@ -1,8 +1,11 @@
 <?php
 
 //  New: Use this code to find $httpHost and $home_dir based on current location, if under /cadviewer/
-	// $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
-	$actual_link = $_SERVER["HTTP_X_FORWARDED_PROTO"] . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	if (isset($_SERVER["HTTP_X_FORWARDED_PROTO"])){
+		$actual_link = $_SERVER["HTTP_X_FORWARDED_PROTO"] . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	} else {
+		$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+	}
 	$pos1 = stripos($actual_link, "/cadviewer/");
 	$httpHost = substr($actual_link, 0, $pos1+ 11) . "converter/";
 
@@ -40,7 +43,7 @@ $cached_conversion = true;
 	
 //  Conversion engines executables - names stays stable with each upgrade of conversion engines:
 // 	Linux
-	$ax2023_executable = "ax2023_L64_23_12_110";
+	$ax2023_executable = "ax2023_L64_23_12_112";
 // 	Windows
 //	$ax2023_executable = "AX2024_W64_24_01_109b.exe";
 

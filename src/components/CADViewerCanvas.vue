@@ -562,8 +562,8 @@ export default {
 			//	var ServerUrl =    
 			cadviewer.cvjs_CADViewerPro(true);
 			cadviewer.cvjs_setCADViewerInterfaceVersion(8);
-			cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
-
+			//cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
+			cadviewer.cvjs_setCADViewerSkin("lightgray");
 
 
 
@@ -612,15 +612,13 @@ export default {
 			//cvjs_displayTopNavigationBar(false, "floorPlan");  // disable top navigation bar
 
 			// 3: Users can change the number of top menu icon pages and the content of pages, based on a configuration file in folder /cadviewer/app/js/menu_config/    		
-			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
+			// cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "");  
 			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_full_commands_01.xml", "/assets/cadviewer/app/cv/cv-pro/menu_config/");
 			
 
 
-			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_02.xml", "/app/cv/cv-pro/menu_config/");
+		
 			// New NextCloud top bar
-			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_nofileload_nextcloud_03.xml", "/app/cv/cv-pro/menu_config/");
-
 			// 8.26.6
 			cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_04.xml", "/app/cv/cv-pro/menu_config/");
 			

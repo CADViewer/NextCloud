@@ -644,7 +644,15 @@
 								}
 								$newfname = $fullPath;
 
-								$contentlocation = urldecode($contentlocation);
+								// php does an automatic urldecode, so this will remove the +
+								//$contentlocation = urldecode($contentlocation);
+
+								if ($debug){
+									fwrite($fd_log, "urldecode: $contentlocation \r\n ");
+								}
+
+
+
 
 								$file = fopen ($contentlocation, 'rb');
 								if ($file) {
