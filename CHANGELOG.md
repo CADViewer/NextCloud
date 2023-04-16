@@ -3,7 +3,7 @@
 - Nighly changes here
 
 
-### 8.59.17 -  2023-04-16
+### 8.59.18 -  2023-04-16
 - template for multiple icon skins
 - CSP implemented
 - ability to load drawings with + in filename

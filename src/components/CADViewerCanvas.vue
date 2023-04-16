@@ -563,7 +563,7 @@ export default {
 			cadviewer.cvjs_CADViewerPro(true);
 			cadviewer.cvjs_setCADViewerInterfaceVersion(8);
 			cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
-			//cadviewer.cvjs_setCADViewerSkin("lightgray");
+//			cadviewer.cvjs_setCADViewerSkin("lightgray");
 
 
 
