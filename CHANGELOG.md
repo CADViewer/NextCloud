@@ -3,6 +3,13 @@
 - Nighly changes here
 
 
+### 8.59.18 -  2023-04-16
+- template for multiple icon skins
+- CSP implemented
+- ability to load drawings with + in filename
+- AutoXchange ax2023_L64_12_12_112 
+
+
 ### 8.54.1 - 2023-03-21
 -cache issue for same named files in two different folders
 
