@@ -3,6 +3,11 @@
 - Nighly changes here
 
 
+
+### 8.59.19  - 2023-04-19
+- issue with nextcloud 26.0.0 installations fixed
+
+
 ### 8.59.18 -  2023-04-16
 - template for multiple icon skins
 - CSP implemented
