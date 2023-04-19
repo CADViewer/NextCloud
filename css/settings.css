@@ -26,6 +26,11 @@
   width: 100%;
   max-width: 700px;
 }
+.section-cadviewer select {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+}
 .cadviewer-hide {
   display: none;
 }
@@ -69,7 +74,9 @@
 }
 
 .section-cadviewer input:focus,
-.section-cadviewer input:active {
+.section-cadviewer input:active, 
+.section-cadviewer select:focus,
+.section-cadviewer select:active  {
   padding-right: 30px;
 }
 .section-cadviewer .fileupload {

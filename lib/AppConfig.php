@@ -42,6 +42,13 @@ class AppConfig {
      */
     private $_licencekey = "LicenceKey";
 
+    /**
+     * The skin for cadviewer icons
+     * 
+     * @var string
+     */
+    private $_skin = "Skin";
+
     /** 
      * @param string $AppName - application name
      */
@@ -80,5 +87,23 @@ class AppConfig {
         }
         return $licence;
     }
+
+    public function SetSkin($skin) {
+        $skin = trim($skin);
+
+        $this->logger->info("SetSkin: $skin", ["app" => $this->appName]);
+
+        $this->config->setAppValue($this->appName, $this->_skin, $skin);
+    }
+
+    public function GetSkin() {
+    
+        $skin = $this->config->getAppValue($this->appName, $this->_skin, "deepblue");
+        if (empty($skin)) {
+            $skin = $this->GetSystemValue($this->_skin);
+        }
+        return $skin;
+    }
+    
 
 }

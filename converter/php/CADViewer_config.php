@@ -9,9 +9,9 @@
 	$pos1 = stripos($actual_link, "/cadviewer/");
 	$httpHost = substr($actual_link, 0, $pos1+ 11) . "converter/";
 
+	// Construct path to converter folder
 	$currentpath = __FILE__;
-	$pos1 = stripos($currentpath, "cadviewer");
-	$home_dir = substr($currentpath, 0, $pos1+ 10) . "converter/";
+	$home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter/";
 
 //  Http Host   - note use direct setting if path different from /cadviewer/. 
 //  URL to the location of home directory the converter infrastructure

@@ -41,6 +41,34 @@
             };
         }
 
+        $("#cadviewerSkinSave").click(function () {
+            $(".section-cadviewer").addClass("icon-loading");
+
+            var skin = $("#skin").val().trim();
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/skin"),
+                data: {
+                    skin: skin,
+                },
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response && (response.skin != null)) {
+                        $("#skin").val(response.skin);
+
+                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        });
+
         $("#cadviewerSave").click(function () {
             $(".section-cadviewer").addClass("icon-loading");
 
