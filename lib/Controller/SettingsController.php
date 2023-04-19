@@ -55,8 +55,7 @@ class SettingsController extends Controller {
 
             // Construct path to converter folder
             $currentpath = __FILE__;
-            $pos1 = stripos($currentpath, "cadviewer");
-            $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+            $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
             // include CADViewer config for be able to acces to the location of ax2024 executable file
             require($home_dir."/php/CADViewer_config.php");
@@ -82,8 +81,7 @@ class SettingsController extends Controller {
         
         // Construct path to converter folder
         $currentpath = __FILE__;
-        $pos1 = stripos($currentpath, "cadviewer");
-        $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
         // include CADViewer config for be able to acces to the location of ax2024 executable file
         require($home_dir."/php/CADViewer_config.php");
@@ -125,9 +123,8 @@ class SettingsController extends Controller {
     public function index() {
     
 		// Construct path to converter folder
-		$currentpath = __FILE__;
-		$pos1 = stripos($currentpath, "cadviewer");
-		$home_dir = substr($currentpath, 0, $pos1+ 10);
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer";
         $info_file =  $home_dir."/appinfo/info.xml";
 
         // Read entire file into string
@@ -154,6 +151,7 @@ class SettingsController extends Controller {
             "version" =>  $version,
             "ax_font_map" => $ax_font_map,
             "licenceKey" => $this->config->GetLicenceKey(),
+            "skin" => $this->config->GetSkin(),
             "autoexchange" => [
                 "output" => "",
                 "domaine_url" => "",
@@ -179,12 +177,29 @@ class SettingsController extends Controller {
             "licenceKey" => $this->config->GetLicenceKey(),
         ];
     }
+    
+
+    /**
+     * Save common skin
+     *
+     * @param array $skin - cadviewer icon skin
+     *
+     * @return array
+     */
+    public function SaveSkin($skin) {
+
+        $this->config->SetSkin($skin);
+        
+        return [
+            "skin" => $this->config->GetSkin(),
+        ];
+    }
+
 
     public function doctor(){
 		// Construct path to converter folder
-		$currentpath = __FILE__;
-		$pos1 = stripos($currentpath, "cadviewer");
-		$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
 		// include CADViewer config for be able to acces to the location of ax2024 executable file
 		require($home_dir."/php/CADViewer_config.php");
@@ -247,9 +262,8 @@ class SettingsController extends Controller {
 
     public function  displayLog() {
         // Construct path to converter folder
-		$currentpath = __FILE__;
-		$pos1 = stripos($currentpath, "cadviewer");
-		$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
 		// include CADViewer config for be able to acces to the location of ax2023 executable file
 		require($home_dir."/php/CADViewer_config.php");
@@ -287,11 +301,10 @@ class SettingsController extends Controller {
         
         
 		// Construct path to converter folder
-		$currentpath = __FILE__;
-		$pos1 = stripos($currentpath, "cadviewer");
-		$home_dir = substr($currentpath, 0, $pos1+ 10);
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
-        $axFontMapFile = $home_dir."/converter/converters/ax2024/linux/ax_font_map.txt";
+        $axFontMapFile = $home_dir."/converters/ax2024/linux/ax_font_map.txt";
 
         file_put_contents($axFontMapFile, $ax_font_map);
         

@@ -37,6 +37,33 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <br />
     </div>
 
+    <h2>
+        <?php p($l->t("Cadviewer icons Skin")) ?>
+    </h2>
+    <div>
+        <div id="">
+
+            <p>
+                <label for="skin"><?php p($l->t("Cadviewer icons Skin")) ?></label>
+            </p>
+            <p>
+                <select name="skin" id="skin" value="<?php p($_["skin"]) ?>">
+                    <option value="deepblue">Deep Blue</option>
+                    <option value="black">Black</option>
+                    <option value="lightgray">Light Gray</option>
+                    <!-- <option value="nextcloud" disabled>Current nextcloud colors</option> -->
+                </select>
+            </p>
+            <br />
+        </div>
+        <p>
+            <button id="cadviewerSkinSave" class="button">
+                <?php p($l->t("Apply Skin")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
+
     <!-- <h2><?php p($l->t("AutoXchange license key")) ?></h2> -->
 
     <div>

@@ -416,6 +416,8 @@ export default {
 		ServerUrl: "",
 		FileName: "",
 		licenceKey: "",
+		skin: "deepblue",
+		nextcloudColor: "",
 		ISOtimeStamp: "",
 		ContentDir: "",
 		UserName: "",
@@ -562,8 +564,8 @@ export default {
 			//	var ServerUrl =    
 			cadviewer.cvjs_CADViewerPro(true);
 			cadviewer.cvjs_setCADViewerInterfaceVersion(8);
-			cadviewer.cvjs_setCADViewerSkin("deepblue");  // method can be omitted, alternative is "deepblue" , "nextcloud"
-//			cadviewer.cvjs_setCADViewerSkin("lightgray");
+			cadviewer.cvjs_setCADViewerSkin(this.skin);  // method can be omitted, alternative is "deepblue" , "nextcloud"
+
 
 
 
@@ -933,6 +935,8 @@ export default {
             this.FileName = `${content_dir}/${filename}`;
             this.ModalTitle = filename;
             this.LicenceKey = response.licenceKey;
+			this.skin = response.skin;
+			this.nextcloudColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
 			this.UserName  = OC.getCurrentUser().displayName;
 			this.UserId  = OC.getCurrentUser().uid;
 			this.initCadviewer();
@@ -1038,7 +1042,7 @@ export default {
 		top: 4px;
 		right: 10px;
 		z-index: 9999;
-		background-color: #0082c9 !important;
+		background-color: var(--color-primary) !important;
 		color: white !important;
 		cursor: pointer;
 		border-radius: 100%;
@@ -1055,7 +1059,7 @@ export default {
 	}
 
 	.close_button:hover {
-		color: #0082c9 !important;
+		color:  var(--color-primary) !important;
 		background-color: white !important;
 	}
 

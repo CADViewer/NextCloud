@@ -68,8 +68,7 @@ class CadviewerController extends Controller {
 	public function getFile($directory, $fileName){
 		// Construct path to converter folder
         $currentpath = __FILE__;
-        $pos1 = stripos($currentpath, "cadviewer");
-        $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
         // include CADViewer config for be able to acces to the location of ax2023 executable file
         require($home_dir."/php/CADViewer_config.php");
@@ -120,9 +119,8 @@ class CadviewerController extends Controller {
 
 	public function flushCache(){
 		// Construct path to converter folder
-		$currentpath = __FILE__;
-		$pos1 = stripos($currentpath, "cadviewer");
-		$home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
 		// include CADViewer config for be able to acces to the location of ax2024 executable file
 		require($home_dir."/php/CADViewer_config.php");
@@ -147,8 +145,7 @@ class CadviewerController extends Controller {
 
 		// Construct path to converter folder
         $currentpath = __FILE__;
-        $pos1 = stripos($currentpath, "cadviewer");
-        $home_dir = substr($currentpath, 0, $pos1+ 10)."converter";
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
 
         // include CADViewer config for be able to acces to the location of ax2023 executable file
         require($home_dir."/php/CADViewer_config.php");
@@ -248,6 +245,7 @@ class CadviewerController extends Controller {
 		$fileStat = $userFolder->get($directory."/".$nameOfFile)->stat();
 		$response = array();
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
+		$response["skin"] = $this->appConfig->GetSkin();
 		$response["path"] = $dir;
 		$response["size"] = $fileStat["size"];
 		$response["ISOtimeStamp"] = date(DATE_ISO8601, $fileStat["mtime"]);
