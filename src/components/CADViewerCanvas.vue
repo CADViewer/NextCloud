@@ -701,6 +701,18 @@ export default {
 				
 			cadviewer.cvjs_conversion_clearAXconversionParameters();
 
+
+			/* push all conversion parameters as a single json object */
+		        var axparameters = {};
+		        var parameters = []
+		        axparameters.parameters = parameters;
+		        axparameters.parameters.push({"paramName": "strokea", "paramValue": ""});
+		        axparameters.parameters.push({"paramName": "last", "paramValue": ""});
+		        axparameters.parameters.push({"paramName": "extents", "paramValue": ""});
+		        console.log("parameters(JSON):"+JSON.stringify(axparameters));
+		        cadviewer.cvjs_conversion_addAXconversionParameters(axparameters);
+
+
 			// process layers for spaces  RL/TL
 			// cadviewer.cvjs_conversion_addAXconversionParameter("RL", "RM_");		 
 			// cadviewer.cvjs_conversion_addAXconversionParameter("TL", "RM_TXT");		 
@@ -709,10 +721,10 @@ export default {
 			// calculate areas of spaces
 
 			// we add -strokea for processing
-			cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
+			//cadviewer.cvjs_conversion_addAXconversionParameter("strokea", "");		 
 			// from 109c not needed - cadviewer.cvjs_conversion_addAXconversionParameter("lwtext","");
-			cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
-			cadviewer.cvjs_conversion_addAXconversionParameter("extents","");
+			//cadviewer.cvjs_conversion_addAXconversionParameter("last", "");		 							
+			//cadviewer.cvjs_conversion_addAXconversionParameter("extents","");
 			// NOTE ABOVE: THESE SETTINGS ARE FOR SERVER CONTROLS FOR CONVERTING DWG, DXF, DWF files
 
 

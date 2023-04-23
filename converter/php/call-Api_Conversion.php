@@ -480,12 +480,26 @@
 									$compare_location = $parameters[$i]['paramValue'];
 									$pos_2 = strpos($compare_location, $httpHost);
 									
+
+									if ($debug){
+										fwrite($fd_log, " compare_location $compare_location   pos_2 $pos_2  \r\n");
+									}
+							
+
+
 									if ($pos_2 !== false) {
 										if ($pos_2 == 0){
 //											$server_load = 1;  // we are on the same server, so we simply swap $httpHost for $home_dir
 											$compare_location = str_replace($httpHost, $home_dir ."/", $compare_location);	
 										}
 									}
+
+
+									if ($debug){
+										fwrite($fd_log, " compare_location $compare_location   pos_2 $pos_2  \r\n");
+									}
+
+
 
 									if (strpos($op_string, 'win') !== false) { // 2019-06-28  - running as .bat
 										$param_string = $param_string . " \"-" . $parameters[$i]['paramName'] ."=". $compare_location ."\"";
@@ -1483,6 +1497,7 @@ set_time_limit(240);
 
 	//8.19.2
 //	if (!$debug)
+/*
 	if (true){
 
 		$pose = strrpos ( $contentlocation , ".");
@@ -1504,11 +1519,8 @@ set_time_limit(240);
 			}
 		}
 		
-
-
-
 	}
-
+*/
 
 	// 8.37.2  - we have to make the output format the same as the originating file
 	if ($svginputfile == 1){

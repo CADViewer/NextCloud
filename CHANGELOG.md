@@ -2,13 +2,18 @@
 ### Added
 - Nighly changes here
 
+### 8.61.2 - 2023-04-23
+### Added
+- API interface to enable dynamic change of conversion parameters
 
 
 ### 8.59.19  - 2023-04-19
+### Fixed
 - issue with nextcloud 26.0.0 installations fixed
 
 
 ### 8.59.18 -  2023-04-16
+### Fixed
 - template for multiple icon skins
 - CSP implemented
 - ability to load drawings with + in filename
@@ -16,6 +21,7 @@
 
 
 ### 8.54.1 - 2023-03-21
+### Fixed
 -cache issue for same named files in two different folders
 
 
