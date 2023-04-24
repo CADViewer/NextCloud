@@ -2,10 +2,10 @@
 ### Added
 - Nighly changes here
 
-### 8.61.2 - 2023-04-23
+### 8.61.3 - 2023-04-24
 ### Added
 - API interface to enable dynamic change of conversion parameters
-
+-  AutoXchange ax223_L64_23_12_112b
 
 ### 8.59.19  - 2023-04-19
 ### Fixed
@@ -17,7 +17,7 @@
 - template for multiple icon skins
 - CSP implemented
 - ability to load drawings with + in filename
-- AutoXchange ax2023_L64_12_12_112 
+- AutoXchange ax2023_L64_23_12_112 
 
 
 ### 8.54.1 - 2023-03-21
