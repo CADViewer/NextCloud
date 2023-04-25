@@ -12,6 +12,32 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             href="https://github.com/CADViewer/NextCloud/blob/main/README.md"
             data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h1>
+<h2>
+        <?php p($l->t("Cadviewer icons Skin")) ?>
+    </h2>
+    <div>
+        <div id="">
+
+            <p>
+                <label for="skin"><?php p($l->t("Cadviewer icons Skin")) ?></label>
+            </p>
+            <p>
+                <select name="skin" id="skin">
+                    <option value="deepblue" <?php echo $_["skin"] == "deepblue" ? 'selected="selected"' : "" ?>>Deep Blue</option>
+                    <option value="black" <?php echo $_["skin"] == "black" ? 'selected="selected"' : "" ?>>Black</option>
+                    <option value="lightgray" <?php echo $_["skin"] == "lightgray" ? 'selected="selected"' : "" ?>>Light Gray</option>
+                    <!-- <option value="nextcloud" disabled>Current nextcloud colors</option> -->
+                </select>
+            </p>
+            <br />
+        </div>
+        <p>
+            <button id="cadviewerSkinSave" class="button">
+                <?php p($l->t("Apply Skin")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
 
     <h2>
         <?php p($l->t("Licence Keys")) ?>
@@ -34,33 +60,6 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <p><button id="cadviewerSave" class="button">
                 <?php p($l->t("Apply Key")) ?>
             </button></p>
-        <br />
-    </div>
-
-    <h2>
-        <?php p($l->t("Cadviewer icons Skin")) ?>
-    </h2>
-    <div>
-        <div id="">
-
-            <p>
-                <label for="skin"><?php p($l->t("Cadviewer icons Skin")) ?></label>
-            </p>
-            <p>
-                <select name="skin" id="skin" value="<?php p($_["skin"]) ?>">
-                    <option value="deepblue">Deep Blue</option>
-                    <option value="black">Black</option>
-                    <option value="lightgray">Light Gray</option>
-                    <!-- <option value="nextcloud" disabled>Current nextcloud colors</option> -->
-                </select>
-            </p>
-            <br />
-        </div>
-        <p>
-            <button id="cadviewerSkinSave" class="button">
-                <?php p($l->t("Apply Skin")) ?>
-            </button>
-        </p>
         <br />
     </div>
 
@@ -194,6 +193,22 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                 <?php p($l->t("Save")) ?>
             </button>
         </p>
+        <br />
+    </div>
+
+    <h2>
+        <?php p($l->t("Unmapped Fonts")) ?>
+    </h2>
+    <div>
+        <div>
+            <p>
+                <?php p($l->t("Listing of unmapped fonts in last conversion:")) ?>
+            </p>
+        </div>
+        <br />
+        <div>
+            <textarea style="width: 100%" rows="7"><?=p($_["ax_font_unmapped"])?></textarea>
+        </div>
         <br />
     </div>
 </div>

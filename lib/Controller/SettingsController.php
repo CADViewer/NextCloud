@@ -143,13 +143,19 @@ class SettingsController extends Controller {
         $ax_font_map = "";
         try {
             $ax_font_map = file_get_contents($axFontMapFile);
-        } catch (\Exception $e) {
-		}
+        } catch (\Exception $e) {}
+
+        $axFontUnMapFile = $home_dir."/converter/converters/ax2024/linux/ax_unmapped_fonts.txt";
+        $ax_font_unmapped = "";
+        try {
+            $ax_font_unmapped = file_get_contents($axFontUnMapFile);
+        } catch (\Exception $e) {}
 
         $data = [
             "name" => $name,
             "version" =>  $version,
             "ax_font_map" => $ax_font_map,
+            "ax_font_unmapped" => $ax_font_unmapped,
             "licenceKey" => $this->config->GetLicenceKey(),
             "skin" => $this->config->GetSkin(),
             "autoexchange" => [
