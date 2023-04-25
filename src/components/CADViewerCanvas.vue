@@ -436,7 +436,7 @@ export default {
 
   },
   methods: {
-	initCadviewer(){
+	initCadviewer(axparameters){
 		// this.movePdf("f1613016134.svg","/Photos");
 		// Register an event listener when the Vue component is ready
 		window.addEventListener('resize', this.onResize)
@@ -700,17 +700,8 @@ export default {
 
 				
 			cadviewer.cvjs_conversion_clearAXconversionParameters();
-
-
-			/* push all conversion parameters as a single json object */
-		        var axparameters = {};
-		        var parameters = []
-		        axparameters.parameters = parameters;
-		        axparameters.parameters.push({"paramName": "strokea", "paramValue": ""});
-		        axparameters.parameters.push({"paramName": "last", "paramValue": ""});
-		        axparameters.parameters.push({"paramName": "extents", "paramValue": ""});
-		        console.log("parameters(JSON):"+JSON.stringify(axparameters));
-		        cadviewer.cvjs_conversion_addAXconversionParameters(axparameters);
+		
+			cadviewer.cvjs_conversion_addAXconversionParameters(axparameters);
 
 
 			// process layers for spaces  RL/TL
@@ -951,7 +942,22 @@ export default {
 			this.nextcloudColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
 			this.UserName  = OC.getCurrentUser().displayName;
 			this.UserId  = OC.getCurrentUser().uid;
-			this.initCadviewer();
+			let axparameters = {};
+		    let parameters = []
+			axparameters.parameters = parameters;
+			if (response.parameters) {
+				let keys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+				keys.forEach((key) => {
+					if (response.parameters[`parameter_${key}`].trim() &&  response.parameters[`parameter_${key}`].trim().length > 0) {
+						axparameters.parameters.push({
+							"paramName": response.parameters[`parameter_${key}`].trim(), 
+							"paramValue": response.parameters[`value_${key}`].trim()
+						});
+					}
+				});
+			}
+
+			this.initCadviewer(axparameters);
           } else {
 	  		this.modal = false;
 			OC.dialogs.alert(

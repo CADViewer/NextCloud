@@ -245,6 +245,7 @@ class CadviewerController extends Controller {
 		$fileStat = $userFolder->get($directory."/".$nameOfFile)->stat();
 		$response = array();
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
+		$response["parameters"] = json_decode($this->appConfig->GetParameters(), true);
 		$response["skin"] = $this->appConfig->GetSkin();
 		$response["path"] = $dir;
 		$response["size"] = $fileStat["size"];

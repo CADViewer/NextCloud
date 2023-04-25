@@ -91,7 +91,7 @@ class SettingsController extends Controller {
         // run the script and store output content for display it on the frontend 
         $output = shell_exec($script);
 
-        $domaine_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";
+        $domaine_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" :"http") . "://$_SERVER[HTTP_HOST]";
 
         // get nextcloud instance id 
         $instance_id = \OC_Util::getInstanceId();
@@ -143,15 +143,22 @@ class SettingsController extends Controller {
         $ax_font_map = "";
         try {
             $ax_font_map = file_get_contents($axFontMapFile);
-        } catch (\Exception $e) {
-		}
+        } catch (\Exception $e) {}
+
+        $axFontUnMapFile = $home_dir."/converter/converters/ax2024/linux/ax_unmapped_fonts.txt";
+        $ax_font_unmapped = "";
+        try {
+            $ax_font_unmapped = file_get_contents($axFontUnMapFile);
+        } catch (\Exception $e) {}
 
         $data = [
             "name" => $name,
             "version" =>  $version,
             "ax_font_map" => $ax_font_map,
+            "ax_font_unmapped" => $ax_font_unmapped,
             "licenceKey" => $this->config->GetLicenceKey(),
             "skin" => $this->config->GetSkin(),
+            "parameters" => json_decode($this->config->GetParameters(), true),
             "autoexchange" => [
                 "output" => "",
                 "domaine_url" => "",
@@ -178,6 +185,41 @@ class SettingsController extends Controller {
         ];
     }
     
+    /**
+     * Save converters parameters
+     */
+    public function SaveParameters(
+        $parameter_4, $parameter_5, $parameter_6, $parameter_7, $parameter_8, $parameter_9,
+        $value_1, $value_2, $value_3,
+        $value_4, $value_5, $value_6, $value_7, $value_8, $value_9
+    ){
+
+        $parameters = array(
+            "parameter_0"=> "f",
+                "value_0"=> "svg",
+            "parameter_1"=> "strokea",
+                "value_1"=> $value_1,
+            "parameter_2"=> "last",
+                "value_2"=> $value_2,
+            "parameter_3"=> "extents",
+                "value_3"=> $value_3,
+            "parameter_4"=> $parameter_4,
+                "value_4"=> $value_4,
+            "parameter_5"=> $parameter_5,
+                "value_5"=> $value_5,
+            "parameter_6"=> $parameter_6,
+                "value_6"=> $value_6,
+            "parameter_7"=> $parameter_7,
+                "value_7"=> $value_7,
+            "parameter_8"=> $parameter_8,
+                "value_8"=> $value_8,
+            "parameter_9"=> $parameter_9,
+                "value_9"=> $value_9
+        );
+        $this->config->SetParameters(json_encode($parameters));
+
+        return json_decode($this->config->GetParameters(), true);
+    }
 
     /**
      * Save common skin

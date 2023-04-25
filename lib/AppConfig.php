@@ -49,6 +49,13 @@ class AppConfig {
      */
     private $_skin = "Skin";
 
+    /**
+     * The cadviwer converters parameters
+     * 
+     * @var string
+     */
+    private $_parameters = "Parameters";
+
     /** 
      * @param string $AppName - application name
      */
@@ -104,6 +111,45 @@ class AppConfig {
         }
         return $skin;
     }
+
+    public function SetParameters($parameters) {
+        $parameters = trim($parameters);
+
+        $this->logger->info("SetParameters: $parameters", ["app" => $this->appName]);
+
+        $this->config->setAppValue($this->appName, $this->_parameters, $parameters);
+    }
+
+    public function GetParameters() {
+    
+        $parameters = $this->config->getAppValue($this->appName, $this->_parameters, '{
+            "parameter_0": "f",
+                "value_0": "svg",
+            "parameter_1": "strokea",
+                "value_1": "",
+            "parameter_2": "last",
+                "value_2": "",
+            "parameter_3": "extents",
+                "value_3": "",
+            "parameter_4": "",
+                "value_4": "",
+            "parameter_5": "",
+                "value_5": "",
+            "parameter_6": "",
+                "value_6": "",
+            "parameter_7": "",
+                "value_7": "",
+            "parameter_8": "",
+                "value_8": "",
+            "parameter_9": "",
+                "value_9": ""
+        }');
+        if (empty($parameters)) {
+            $parameters = $this->GetSystemValue($this->_parameters);
+        }
+        return $parameters;
+    }
+    
     
 
 }
