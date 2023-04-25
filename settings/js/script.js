@@ -96,7 +96,70 @@
                 }
             });
         });
+        
+        $("#saveParameters").click(function () {
+            
+            var parameter_4 = $("#parameter_4").val().trim();
+            var parameter_5 = $("#parameter_5").val().trim();
+            var parameter_6 = $("#parameter_6").val().trim();
+            var parameter_7 = $("#parameter_7").val().trim();
+            var parameter_8 = $("#parameter_8").val().trim();
+            var parameter_9 = $("#parameter_9").val().trim();
 
+            var value_1 = $("#value_1").val().trim();
+            var value_2 = $("#value_2").val().trim();
+            var value_3 = $("#value_3").val().trim();
+            var value_4 = $("#value_4").val().trim();
+            var value_5 = $("#value_5").val().trim();
+            var value_6 = $("#value_6").val().trim();
+            var value_7 = $("#value_7").val().trim();
+            var value_8 = $("#value_8").val().trim();
+            var value_9 = $("#value_9").val().trim();
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/parameters"),
+                data: {
+                    parameter_4, parameter_5, parameter_6, parameter_7, parameter_8, parameter_9,
+                    value_1, value_2, value_3,
+                    value_4, value_5, value_6, value_7, value_8, value_9
+                },
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response && (response.parameter_0 != null)) {
+                        $("#parameter_0").val(response.parameter_0);
+                        $("#parameter_1").val(response.parameter_1);
+                        $("#parameter_2").val(response.parameter_2);
+                        $("#parameter_3").val(response.parameter_3);
+                        $("#parameter_4").val(response.parameter_4);
+                        $("#parameter_5").val(response.parameter_5);
+                        $("#parameter_6").val(response.parameter_6);
+                        $("#parameter_7").val(response.parameter_7);
+                        $("#parameter_8").val(response.parameter_8);
+                        $("#parameter_9").val(response.parameter_9);
+                        $("#value_0").val(response.value_0);
+                        $("#value_1").val(response.value_1);
+                        $("#value_2").val(response.value_2);
+                        $("#value_3").val(response.value_3);
+                        $("#value_4").val(response.value_4);
+                        $("#value_5").val(response.value_5);
+                        $("#value_6").val(response.value_6);
+                        $("#value_7").val(response.value_7);
+                        $("#value_8").val(response.value_8);
+                        $("#value_9").val(response.value_9);
+
+                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        });
         var axlicFile;
         
         $('#uploadaxlic').change(function() {
