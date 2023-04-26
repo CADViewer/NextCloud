@@ -123,8 +123,6 @@ class AppConfig {
     public function GetParameters() {
     
         $parameters = $this->config->getAppValue($this->appName, $this->_parameters, '{
-            "parameter_0": "f",
-                "value_0": "svg",
             "parameter_1": "strokea",
                 "value_1": "",
             "parameter_2": "last",
