@@ -225,7 +225,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <div class="grid_input">
             <div style="display: flex; align-items: center;">
                 <?php p($l->t("Parameter:")) ?>
-                <input style="margin-left: 5px"  id="parameter_1" disabled value="<?=p($_["parameters"]["parameter_1"])?>" placeholder="" type="text">
+                <input style="margin-left: 5px"  id="parameter_1" value="<?=p($_["parameters"]["parameter_1"])?>" placeholder="" type="text">
             </div>
             <div style="display: flex; align-items: center;">
                 <?php p($l->t("(Value):")) ?>
@@ -236,7 +236,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <div class="grid_input">
             <div style="display: flex; align-items: center;">
                 <?php p($l->t("Parameter:")) ?>
-                <input style="margin-left: 5px"  id="parameter_2" value="<?=p($_["parameters"]["parameter_2"])?>" disabled placeholder="" type="text">
+                <input style="margin-left: 5px"  id="parameter_2" value="<?=p($_["parameters"]["parameter_2"])?>" placeholder="" type="text">
             </div>
             <div style="display: flex; align-items: center;">
                 <?php p($l->t("(Value):")) ?>
@@ -247,7 +247,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <div class="grid_input">
             <div style="display: flex; align-items: center;">
                 <?php p($l->t("Parameter:")) ?>
-                <input style="margin-left: 5px"  id="parameter_3" value="<?=p($_["parameters"]["parameter_3"])?>" disabled placeholder="" type="text">
+                <input style="margin-left: 5px"  id="parameter_3" value="<?=p($_["parameters"]["parameter_3"])?>" placeholder="" type="text">
             </div>
             <div style="display: flex; align-items: center;">
                 <?php p($l->t("(Value):")) ?>
