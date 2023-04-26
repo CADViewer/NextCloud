@@ -33,10 +33,11 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 4. Simply open your CAD drawings and start collaborate.. 😄 
 5. If you have any issues displaying drawings, see [troubleshooting](https://github.com/CADViewer/NextCloud/blob/main/README.md) , file an [issue report](https://github.com/CADViewer/NextCloud/issues) or [contact us](mailto:developer@tailormade.com).
 ]]></description>
-    <version>8.61.3</version>
+    <version>8.61.4</version>
     <licence>agpl</licence>
     <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
-    <author>Kevin WAMBA</author>
+    <author>Kevin Wamba</author>
+    <author>Zoran Miladinovic</author>
     <namespace>Cadviewer</namespace>
     <category>files</category>
     <category>tools</category>
