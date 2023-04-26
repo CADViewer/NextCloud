@@ -946,7 +946,7 @@ export default {
 		    let parameters = []
 			axparameters.parameters = parameters;
 			if (response.parameters) {
-				let keys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+				let keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
 				keys.forEach((key) => {
 					if (response.parameters[`parameter_${key}`].trim() &&  response.parameters[`parameter_${key}`].trim().length > 0) {
 						axparameters.parameters.push({
