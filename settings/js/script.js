@@ -99,6 +99,9 @@
         
         $("#saveParameters").click(function () {
             
+            var parameter_1 = $("#parameter_1").val().trim();
+            var parameter_2 = $("#parameter_2").val().trim();
+            var parameter_3 = $("#parameter_3").val().trim();
             var parameter_4 = $("#parameter_4").val().trim();
             var parameter_5 = $("#parameter_5").val().trim();
             var parameter_6 = $("#parameter_6").val().trim();
@@ -121,14 +124,14 @@
                 method: "PUT",
                 url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/parameters"),
                 data: {
-                    parameter_4, parameter_5, parameter_6, parameter_7, parameter_8, parameter_9,
+                    parameter_1, parameter_2,  parameter_3, parameter_4, 
+                    parameter_5, parameter_6, parameter_7, parameter_8, parameter_9,
                     value_1, value_2, value_3,
                     value_4, value_5, value_6, value_7, value_8, value_9
                 },
                 success: function onSuccess(response) {
                     $(".section-cadviewer").removeClass("icon-loading");
                     if (response && (response.parameter_0 != null)) {
-                        $("#parameter_0").val(response.parameter_0);
                         $("#parameter_1").val(response.parameter_1);
                         $("#parameter_2").val(response.parameter_2);
                         $("#parameter_3").val(response.parameter_3);
@@ -138,7 +141,6 @@
                         $("#parameter_7").val(response.parameter_7);
                         $("#parameter_8").val(response.parameter_8);
                         $("#parameter_9").val(response.parameter_9);
-                        $("#value_0").val(response.value_0);
                         $("#value_1").val(response.value_1);
                         $("#value_2").val(response.value_2);
                         $("#value_3").val(response.value_3);
