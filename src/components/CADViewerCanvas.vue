@@ -473,7 +473,7 @@ export default {
 			// Set all paths, and handlers, changes these depending on back-end server
 			cadviewer.cvjs_debugMode(true);
 
-			console.log("ServerBackEndUrl, ServerLocation, ServerUrl, FileName declared");
+			console.log("ServerBackEndUrl, ServerLocation, ServerUrl, FileName declared:");
 			//console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
 			
 			cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
@@ -583,6 +583,10 @@ export default {
 			cadviewer.cvjs_emailSettings_PDF_publish("From CAD Server", "my_from_address@mydomain.com", "my_cc_address@mydomain.com", "my_reply_to@mydomain.com");
 				
 			// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
+
+			console.log("The language is (imported from NextCloud):"+getLanguage());
+
+
 			const languages = {
 				"fr-CA": "French",
 				"fr-FR": "French",
@@ -603,6 +607,9 @@ export default {
 				"de-CH": "German",
 				"id": "Indonesian"
 			}
+
+			console.log("The language: languages[getLanguage()]:"+languages[getLanguage()]);
+
 
 			cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English
 			// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"

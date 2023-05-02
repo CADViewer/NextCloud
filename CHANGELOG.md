@@ -3,10 +3,15 @@
 - Nighly changes here
 
 
+### 8.63.1 - 2023-05-02
+### Added
+- Localization of CADViewer menu system, support for: English, German, Spanish, French, Spanish, Portuguese, Korean, Chinese Simplified, Chinese Traditional and Indonesian. 
+- AutoXchange ax2023_L64_23_12_113
+
 ### 8.61.4 - 2023-04-26
 ### Added
 - API interface to enable dynamic change of conversion parameters
--  AutoXchange ax223_L64_23_12_112b
+- AutoXchange ax2023_L64_23_12_112b
 
 ### 8.59.19  - 2023-04-19
 ### Fixed
