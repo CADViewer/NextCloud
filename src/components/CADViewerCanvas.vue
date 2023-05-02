@@ -584,8 +584,24 @@ export default {
 				
 			// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
 			const languages = {
+				"fr-CA": "French",
+				"fr-FR": "French",
 				"fr": "French",
-				"en": "English"
+				"en": "English",
+				"en-US": "English",
+				"ko": "Korean", 
+				"es": "Spanish", 
+				"pt": "Portuguese", 
+				"zh": "Chinese-Simplified", 
+				"zh-CN": "Chinese-Simplified", 
+				"zh-SG": "Chinese-Simplified", 
+				"zh-CHT": "Chinese-Traditional",
+				"zh-Hant": "Chinese-Traditional",
+				"zh-HK": "Chinese-Traditional",
+				"de": "German",
+				"de-AT": "German",
+				"de-CH": "German",
+				"id": "Indonesian"
 			}
 
 			cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English

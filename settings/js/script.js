@@ -118,6 +118,7 @@
             var value_7 = $("#value_7").val().trim();
             var value_8 = $("#value_8").val().trim();
             var value_9 = $("#value_9").val().trim();
+
             $(".section-cadviewer").addClass("icon-loading");
 
             $.ajax({
@@ -131,7 +132,7 @@
                 },
                 success: function onSuccess(response) {
                     $(".section-cadviewer").removeClass("icon-loading");
-                    if (response && (response.parameter_0 != null)) {
+                    if (response && (response.parameter_1 != null)) {
                         $("#parameter_1").val(response.parameter_1);
                         $("#parameter_2").val(response.parameter_2);
                         $("#parameter_3").val(response.parameter_3);
