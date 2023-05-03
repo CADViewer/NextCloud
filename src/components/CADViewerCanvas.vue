@@ -584,34 +584,34 @@ export default {
 				
 			// CHANGE LANGUAGE - DEFAULT IS ENGLISH	
 
-			console.log("The language is (imported from NextCloud):"+getLanguage());
+			var thelanguage = getLanguage().toLowerCase();
+			console.log("The language is (imported from NextCloud):"+thelanguage);
 
+			if (thelanguage.indexOf("fr")>-1) thelanguage = "fr";
+			if (thelanguage.indexOf("de")>-1) thelanguage = "de";
+			if (thelanguage.indexOf("en")>-1) thelanguage = "en";
+			if (thelanguage.indexOf("es")>-1) thelanguage = "es";
+			if (thelanguage.indexOf("pt")>-1) thelanguage = "pt";
+			if (thelanguage.indexOf("zh-Hans")>-1 || thelanguage.indexOf("zh-CHS")>-1 || thelanguage.indexOf("zh-CN")>-1 || thelanguage.indexOf("zh-SG")>-1) thelanguage = "zh-CN";
+			if (thelanguage.indexOf("zh-Hant")>-1 || thelanguage.indexOf("zh-MO")>-1 || thelanguage.indexOf("zh-CTH")>-1 || thelanguage.indexOf("zh-HK")>-1 || thelanguage.indexOf("zh-TW")>-1) thelanguage = "zh-HK";
 
 			const languages = {
-				"fr-CA": "French",
-				"fr-FR": "French",
 				"fr": "French",
 				"en": "English",
-				"en-US": "English",
 				"ko": "Korean", 
 				"es": "Spanish", 
 				"pt": "Portuguese", 
 				"zh": "Chinese-Simplified", 
 				"zh-CN": "Chinese-Simplified", 
-				"zh-SG": "Chinese-Simplified", 
-				"zh-CHT": "Chinese-Traditional",
-				"zh-Hant": "Chinese-Traditional",
 				"zh-HK": "Chinese-Traditional",
 				"de": "German",
-				"de-AT": "German",
-				"de-CH": "German",
 				"id": "Indonesian"
 			}
 
-			console.log("The language: languages[getLanguage()]:"+languages[getLanguage()]);
+			console.log("The language: languages[thelanguage]:"+languages[thelanguage]);
 
-
-			cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English
+//			cadviewer.cvjs_loadCADViewerLanguage(languages[getLanguage()] ? languages[getLanguage()] : "English", ""); //English
+			cadviewer.cvjs_loadCADViewerLanguage(languages[thelanguage] ? languages[thelanguage] : "English", ""); //English
 			// Available languages:  "English" ; "French, "Korean", "Spanish", "Portuguese", "Chinese-Simplified", "Chinese-Traditional"
 			//cadviewer.cvjs_loadCADViewerLanguage("English", "/assets/cadviewer/app/cv/cv-pro/custom_language_table/custom_cadviewerProLanguage.xml");
 

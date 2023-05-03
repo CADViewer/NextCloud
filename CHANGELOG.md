@@ -3,7 +3,7 @@
 - Nighly changes here
 
 
-### 8.63.2 - 2023-05-03
+### 8.63.3 - 2023-05-03
 ### Added
 - Localization of CADViewer menu system, support for: English, German, Spanish, French, Spanish, Portuguese, Korean, Chinese Simplified, Chinese Traditional and Indonesian. 
 - compare method updated
