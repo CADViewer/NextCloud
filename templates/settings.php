@@ -23,9 +23,9 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             </p>
             <p>
                 <select name="skin" id="skin">
-                    <option value="deepblue" <?php echo $_["skin"] == "deepblue" ? 'selected="selected"' : "" ?>>Deep Blue</option>
-                    <option value="black" <?php echo $_["skin"] == "black" ? 'selected="selected"' : "" ?>>Black</option>
-                    <option value="lightgray" <?php echo $_["skin"] == "lightgray" ? 'selected="selected"' : "" ?>>Light Gray</option>
+                    <option value="deepblue" <?php echo $_["skin"] == "deepblue" ? 'selected="selected"' : "" ?>><?php p($l->t("Deep Blue")); ?></option>
+                    <option value="black" <?php echo $_["skin"] == "black" ? 'selected="selected"' : "" ?>><?php p($l->t("Black")); ?></option>
+                    <option value="lightgray" <?php echo $_["skin"] == "lightgray" ? 'selected="selected"' : "" ?>><?php p($l->t("Light Gray")); ?></option>
                     <!-- <option value="nextcloud" disabled>Current nextcloud colors</option> -->
                 </select>
             </p>
