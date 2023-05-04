@@ -32,8 +32,9 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 3. **NOTE**: The configuration steps (permission settings for executable, log files, and folders) are needed for the back-end CAD conversion to work properly. Without permission settings, no drawings will display!
 4. Simply open your CAD drawings and start collaborate.. 😄 
 5. If you have any issues displaying drawings, see [troubleshooting](https://github.com/CADViewer/NextCloud/blob/main/README.md) , file an [issue report](https://github.com/CADViewer/NextCloud/issues) or [contact us](mailto:developer@tailormade.com).
+6. Software run with all features enabled, but with small canvas watermarks to discurage redistribution of converted drawings. To remove watermarks, [Contact Us!](https://cadviewer.com/contact/).
 ]]></description>
-    <version>8.61.4</version>
+    <version>8.63.3</version>
     <licence>agpl</licence>
     <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
     <author>Kevin Wamba</author>
