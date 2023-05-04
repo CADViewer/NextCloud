@@ -46,20 +46,24 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     <div>
         <div id="cadviewerAddrSettings">
 
-            <p>
-                <?php p($l->t("Cadviewer licence key")) ?>
-            </p>
-            <p><input id="cadviewerLicenceKey" value="<?php p($_["licenceKey"]) ?>"
-                    placeholder="00110010 00110010 00110000 00110001 00110010 00110000 00110100 00110001" type="text">
-            </p>
+            <div class="uploadButton">
+                <label for="cadviewerLicenceKey"><span>
+                    <?php p($l->t('License key cvlicense.js')) ?>
+                </span></label>
+                <input id="cadviewerLicenceKey" class="fileupload" name="cadviewerLicenceKey" type="file" />
+                <label for="cadviewerLicenceKey" class="button icon-upload svg"
+                    title="<?php p($l->t('Upload new cvlicense.js')) ?>"></label>
+                <div data-toggle="tooltip" data-original-title="<?php p($l->t('Reset to default')); ?>"
+                    class="theme-undo icon icon-history"></div>
+            </div>
+            <div id="uploadCvlicenseName"></div>
             <br />
-            <p class="settings-hint">
-                <?php p($l->t("Pasting in the Licence key input the portion of the cvlicense.js file")) ?>
-            </p>
         </div>
-        <p><button id="cadviewerSave" class="button">
+        <p>
+            <button id="cadviewerSave" class="button">
                 <?php p($l->t("Apply Key")) ?>
-            </button></p>
+            </button>
+        </p>
         <br />
     </div>
 
@@ -68,7 +72,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     <div>
         <div class="uploadButton">
             <label for="uploadaxlic"><span>
-                    <?php p($l->t('AutoXchange license key')) ?>
+                    <?php p($l->t('AutoXchange license axlic.key')) ?>
                 </span></label>
             <input id="uploadaxlic" class="fileupload" name="uploadaxlic" type="file" />
             <label for="uploadaxlic" class="button icon-upload svg" id="uploadaxlic"

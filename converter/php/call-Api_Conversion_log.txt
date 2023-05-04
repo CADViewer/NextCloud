@@ -1,3 +1,69 @@
-This is the CAD conversion log. If you see this, then there is no connection between CADViewer front-end and the CADViewer back end, or you have not done a conversion yet.
 
-Do a Ctrl+Shift+I in your browser and check the Console for the CADViewer trace.
+ NEW-FILE-CONVERSION-BEGIN   8.37.2  
+ 
+Opening call-Api_Conversion_log.txt for new conversion: 
+before _ isset()x2  
+first in file   
+$json_data:    
+$json_request(conv): ,   
+$temp_var is null:, this must be a post call, also:$jsonp_flag=, isset:1 request={"action":"svg_creation","originatinglocation":"http://localhost:8081","converter":"AutoXchange AX2020","version":"V1.00","contentType":"file","customConversionEndpointExtension":false,"fileStamp":"2021-12-12T07:55:31+0000","contentLocation":"%2Fvar%2Fwww%2Fhtml%2Fdata%2Fnextcloud%2Ffiles%2F1st%20floor%20lighting.dwg","contentFormat":"DWG","contentUsername":"","contentPassword":"","userLabel":"fromCADViewerJS","contentResponse":"stream","leaveStreamOnServer":0,"parameters":[{"paramName":"f","paramValue":"svg"},{"paramName":"model","paramValue":""},{"paramName":"extents","paramValue":""},{"paramName":"t","paramValue":"svg"}]}<end request>$json_data isset, requestconverter:AutoXchange AX2020 
+AGENT operating_system_detection():  $agent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36  
+AGENT PHP_OS : Linux
+$contentlocation:  %2Fvar%2Fwww%2Fhtml%2Fdata%2Fnextcloud%2Ffiles%2F1st%20floor%20lighting.dwg  
+$contentlocation:  /var/www/html/data/nextcloud/files/1st%20floor%20lighting.dwg  
+$max: 4  
+param f : svg  
+param t : svg  
+  $output_file_extension:svgz   $param_string:  -f="svgz" -model -extents -t="svg"  
+  $svginputfile: 0  
+We are setting $server_load:  1   /var/www/html/data/nextcloud/files/1st floor lighting.dwg 
+after content location check $server_load:  0  , content-type: (file 
+ location X004  contentlocation:/var/www/html/data/nextcloud/files/1st floor lighting.dwg 
+X005 In action: contentype file: /var/www/html/data/nextcloud/files/1st floor lighting.dwg  
+before download file  
+ HELLO! /var/www/html/apps/cadviewer/converter//converters/files/f412594667.dwg  /var/www/html/data/nextcloud/files/1st floor lighting.dwg 
+urldecode: /var/www/html/data/nextcloud/files/1st floor lighting.dwg 
+ $fullPath: /var/www/html/apps/cadviewer/converter//converters/files/f412594667.dwg  
+$fullPath: /var/www/html/apps/cadviewer/converter//converters/files/f412594667.dwg  
+AA: before setting $fullPath:  $server_load 0   $contenttype file 
+$fullPath: /var/www/html/apps/cadviewer/converter//converters/files/f412594667.dwg  
+$max_conv: 5  
+$engine_path: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_112b  
+new $add_xpath    
+In loop to add xpath  
+after first loop $command_line_parameter_xpath: 0  
+after first loop $command_line_parameter_xpath: 0  converter AutoXchange AX2020   axconv 0 
+adding xpath: $command_line: "/var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_112b" -i="/var/www/html/apps/cadviewer/converter//converters/files/f412594667.dwg" -o="/var/www/html/apps/cadviewer/converter//converters/files/f412594667.svgz"  -f="svgz" -model -extents -t="svg" -fpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/fonts/"  -lpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/"  -xpath="/var/www/html/data/nextcloud/files/"  XXXXXXX  
+library path before new env: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux/  
+this is the value we got setting the environment 1  
+getenv after putenv: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux/   
+before call to exec:  "/var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_112b" -i="/var/www/html/apps/cadviewer/converter//converters/files/f412594667.dwg" -o="/var/www/html/apps/cadviewer/converter//converters/files/f412594667.svgz"  -f="svgz" -model -extents -t="svg" -fpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/fonts/"  -lpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/"  -xpath="/var/www/html/data/nextcloud/files/"     
+before call to exec, engine_path:  /var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_112b    
+current script owner: www-data    
+AGENT operating_system_detection():  $agent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36  
+AGENT PHP_OS : Linux
+operating_system_detection(): Linux    
+BEFORE CACHED CONVERSION t: c: 11  0    
+ CACHED CONVERSION IMPLEMENT  {\"filename\": \"filename\",\"filecreatestamp\": \"date1\",\"filechangestamp\": \"2023-01-31T08:30:25.597Z\",\"cachedfiles\": [{ \"fullfilepath\": \"full file path\", \"fileName\": \"F1.svgz\", \"filecreatestamp\": \"datef1\", \"parameters\": [{\"paramName\": \"f\", \"paramValue\": \"svg\"}]}]} 
+ FILENAME:/var/www/html/apps/cadviewer/converter//converters/files/1st floor lighting.dwg.json 
+file exists: /var/www/html/apps/cadviewer/converter//converters/files/1st floor lighting.dwg.json 1XXX
+cashedfile likely, array wellformed, current-fullpath: /var/www/html/data/nextcloud/files cached fullpath (in each cache):   
+number of conversion: 1XXX
+folder of current file: /var/www/html/data/nextcloud/filesXXX
+before file: 0  f1414166831.svgzXXX
+file: 0  f1414166831.svgzXXX
+param match: 0  f svgz XXX
+param match: 2  extents  XXX
+ timeStamp= 2021-12-12T07:55:31+0000  jarray['filecreatestamp']= 2023-04-13T14:46:43+00:00
+ timeStamp= 1639295731  jarray['filecreatestamp']= 1681397203
+exec return1  0   
+exec return1 check  0   
+Q1 contentresponse  stream   
+Q2:svg_creation   
+Q4: $general_response{"completedAction":"svg_creation","errorCode":"E0","converter":"AutoXchange AX2020","version":"V1.00","userLabel":"fromCADViewerJS","contentLocation":"/var/www/html/data/nextcloud/files/1st floor lighting.dwg","contentResponse":"stream","contentStreamData":"http://localhost:8081/apps/cadviewer/converter//php//getFile_09.php?remainOnServer=1&fileTag=f412594667&Type=svgz"}   
+Q5: 0  1  $json_response"{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/nextcloud\/files\/1st floor lighting.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8081\/apps\/cadviewer\/converter\/\/php\/\/getFile_09.php?remainOnServer=1&fileTag=f412594667&Type=svgz\"}"   
+$json_response = "{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/nextcloud\/files\/1st floor lighting.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8081\/apps\/cadviewer\/converter\/\/php\/\/getFile_09.php?remainOnServer=1&fileTag=f412594667&Type=svgz\"}"  
+$post_request_flag=1 $json_response only  
+LAST BEFORE CALLBACK   
+ 
+ 
