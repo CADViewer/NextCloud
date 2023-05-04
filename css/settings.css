@@ -135,8 +135,8 @@
 }
 .section-cadviewer label span {
   display: inline-block;
-  min-width: 175px;
-  max-width: 175px;
+  min-width: 235px;
+  max-width: 235px;
   white-space: wrap;
   padding: 8px 0px;
   vertical-align: top;

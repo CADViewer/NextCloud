@@ -68,6 +68,7 @@ class SettingsController extends Controller {
             // Saving it to a directory
             move_uploaded_file($tmp_name, $axlic_file);
             
+            $this->flushCache();
             return new JSONResponse(array(), Http::STATUS_CREATED);
         }
     }
@@ -174,15 +175,41 @@ class SettingsController extends Controller {
      *
      * @param array $licenceKey - cadviewer licence key
      *
-     * @return array
      */
-    public function SaveCommon($licenceKey) {
+    public function SaveCommon() {
 
-        $this->config->SetLicenceKey($licenceKey);
-        
-        return [
-            "licenceKey" => $this->config->GetLicenceKey(),
-        ];
+        $file = $_FILES['file'];
+
+        // Check for errors
+        if ($file['error'] > 0) {
+            // Handle the error
+            return new JSONResponse(array(), Http::STATUS_BAD_REQUEST);
+        } else {
+
+            // Construct path to converter folder
+            $currentpath = __FILE__;
+            $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+            // include CADViewer config for be able to acces to the location of ax2024 executable file
+            require($home_dir."/php/CADViewer_config.php");
+
+            $licence_key_file = $licenseLocation."cvlicense.js";
+
+            // Process the file
+            $tmp_name = $file['tmp_name'];
+            
+            // Saving it to a directory
+            $response =  move_uploaded_file($tmp_name, $licence_key_file);
+
+            try {
+                $content = file_get_contents($licence_key_file);
+                if (preg_match('/"([^"]+)"/', $content, $m)) {
+                    $this->config->SetLicenceKey($m[1]);  
+                }
+            } catch (\Exception $e) {}
+            $this->flushCache();
+            return new JSONResponse(array("licenceKey" => $this->config->GetLicenceKey(),), Http::STATUS_CREATED);
+        }
     }
     
     /**
@@ -352,4 +379,22 @@ class SettingsController extends Controller {
         return new JSONResponse(array(), Http::STATUS_OK);
     }
 
+
+	public function flushCache(){
+		// Construct path to converter folder
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+		// include CADViewer config for be able to acces to the location of ax2024 executable file
+		require($home_dir."/php/CADViewer_config.php");
+
+		
+		$files = glob($fileLocation."*"); //get all file names
+		foreach($files as $file){
+			if(is_file($file))
+			unlink($file); //delete file
+		}
+
+		return new JSONResponse(array(), Http::STATUS_NO_CONTENT);
+	}
 }

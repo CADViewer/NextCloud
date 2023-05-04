@@ -190,7 +190,7 @@ class CadviewerController extends Controller {
 					$users = $backend->usersInGroup($group);
 					if (count($users) > $maximun_number_of_user) {
 						$response = array();
-						$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("The number of users is limited to ".$maximun_number_of_user)));
+						$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("The number of users is limited to")." ".$maximun_number_of_user));
 						return $response;
 					}
 					// check if current user is in the group

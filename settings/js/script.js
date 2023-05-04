@@ -70,16 +70,23 @@
         });
 
         $("#cadviewerSave").click(function () {
+
+            if (!licenceKeyFile) return;
             $(".section-cadviewer").addClass("icon-loading");
 
-            var cadviewerLicenceKey = $("#cadviewerLicenceKey").val().trim();
+            // Create a new FormData object
+            let formData = new FormData();
 
+            // Add the file to the FormData object
+            formData.append('file', licenceKeyFile);
+
+            // Send the file data using an AJAX POST request
             $.ajax({
-                method: "PUT",
+                method: "POST",
                 url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/common"),
-                data: {
-                    licenceKey: cadviewerLicenceKey,
-                },
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function onSuccess(response) {
                     $(".section-cadviewer").removeClass("icon-loading");
                     if (response && (response.licenceKey != null)) {
@@ -164,11 +171,27 @@
             });
         });
         var axlicFile;
+        var licenceKeyFile;
         
         $('#uploadaxlic').change(function() {
+            let pattern = /axlic(.*)\.key/gm;
+            if (!pattern.test(this.files[0].name)) {
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid licence key file"));
+                return;
+            }
             axlicFile = this.files[0];
             $("#uploadaxlicName").html(axlicFile.name);
         });
+
+        $('#cadviewerLicenceKey').change(function() {
+            let pattern = /cvlicense(.*)\.js/gm;
+            if (!pattern.test(this.files[0].name)) {
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid licence key file"));
+                return;
+            }
+            licenceKeyFile = this.files[0];
+            $("#uploadCvlicenseName").html(licenceKeyFile.name);
+        });        
 
         // upload the licence key file when click on save button
         $("#cadviewerSaveAxlic").click(function () {
