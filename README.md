@@ -6,17 +6,31 @@ To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https:
 
 Copy the content of this cadviewer install folder and put it in the /apps/ folder of your nextcloud installation under /apps/cadviewer/.
 
-### 2A. Excecute permission script
+### 2. Permissions
 
-Navigate to the ***/apps/cadviewer/scripts/*** */ folder and execute the ***permission.sh*** script. This script will do the permission settings for the CADViewer folders. If preferred, the user can as an alternative set these permissions manually using the instructions below 
+In a typical NextCloud installation, the installation is done with owner www-data:www-data and permissions over the files and folders in the app as chmod 755. 
+In this case you will not need to to do anything change permission of files, the CADViewer back-end will function normally under these settings.
 
-### 2B. Manually set permissions  - alternative to permission script 2A)
+If this is not the case of your installation, please do one of the following:
 
-In the NextCloud ***/apps/*** */ folder-structure, navigate to ***/apps/cadviewer/converter/converters/ax2024/linux/** */. In this folder the executable, ax2023_L64_xx_yy_zz  needs to have chmod 777 permission for read, write and exe rights.
 
-In the NextCloud /apps/ folder-structure, the following folders needs to have full read/write/exe permissions (chmod 777):
+#### 2A. Excecute permission script
 
-**Conversion:**
+Navigate to the ***/apps/cadviewer/scripts/*** */ folder and execute the ***permission.sh*** script. 
+
+This script will do the recommended permission settings (chmod 755) for the relevant CADViewer folders and files. 
+
+If preferred, the user can as an alternative set these permissions manually using the instructions below:
+
+#### 2B. Manually set permissions  - alternative to permission script 2A)
+
+In the NextCloud /apps/ folder-structure, set the recommended permissions (chmod 755) for the following folders and files:
+
+**Execution:**
+```
+/apps/cadviewer/converter/converters/ax2024/linux/ax2023_L64_xx_yy_zz
+```
+**Conversion folders:**
 ```
 /apps/cadviewer/converter/converters/ax2024/linux/
 /apps/cadviewer/converter/converters/files/
@@ -24,18 +38,17 @@ In the NextCloud /apps/ folder-structure, the following folders needs to have fu
 /apps/cadviewer/converter/converters/files/print/
 /apps/cadviewer/converter/converters/files/pdf/
 ```
-**Redlines:**
+**Redlines folders:**
 ```
 /apps/cadviewer/converter/content/redlines/
 /apps/cadviewer/converter/content/redlines/v7/
 ```
 
-Navigate to the PHP scripts folder: ***/apps/cadviewer/converter/php/*** , where the following files needs full read/write/exe permission (chmod 777)
-
+**Scripts folder and files:**
 ```
-call-Api_Conversion_log.txt
-call-Api_Conversion.php
-save-file.php
+/apps/cadviewer/converter/php/call-Api_Conversion_log.txt
+/apps/cadviewer/converter/php/call-Api_Conversion.php
+/apps/cadviewer/converter/php/save-file.php
 ```
 
 ### 3. Activate CADViewer

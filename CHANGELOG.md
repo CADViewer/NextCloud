@@ -3,6 +3,15 @@
 - Nighly changes here
 
 
+### 8.65.1 - 2023-05-07
+### Fixed
+- API call for lineweight modifications
+- Compare method for multiple languages
+### Added
+- AutoXchange ax2023_L64_23_12_113e
+
+
+
 ### 8.63.3 - 2023-05-03
 ### Added
 - Localization of CADViewer menu system, support for: English, German, Spanish, French, Spanish, Portuguese, Korean, Chinese Simplified, Chinese Traditional and Indonesian. 

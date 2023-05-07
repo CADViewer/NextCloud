@@ -61,10 +61,14 @@ var  current_selected_handle = "";
 
 //export function cvjs_OnLoadEnd(){
 
-function cvjs_OnLoadEnd(UserName, UserId){
+function cvjs_OnLoadEnd(UserName, UserId, lineWeightPercent){
 	// generic callback method, called when the drawing is loaded
 	// here you fill in your stuff, call DB, set up arrays, etc..
 	// this method MUST be retained as a dummy method! - if not implemeted -
+
+	// 8.65.1
+	cadviewer.cvjs_adjustMinimumLineThickness(lineWeightPercent);
+
 
 	cadviewer.cvjs_resetZoomPan("floorPlan");
 
@@ -422,6 +426,7 @@ export default {
 		ContentDir: "",
 		UserName: "",
 		UserId: "",
+		lineWeightPercent: 100
 	}
   },
   computed: {
@@ -447,6 +452,12 @@ export default {
 		}, 1000)
 
 		console.log('mounted');
+
+
+			// 8.65.1
+			var lineWeightPercent = this.lineWeightPercent;
+			if (lineWeightPercent<=0 ) lineWeightPercent = 100;
+
 
 			var ServerBackEndUrl = this.ServerBackEndUrl;
 
@@ -515,7 +526,7 @@ export default {
 			cadviewer.cvjs_fileLoadModal_externalModal(true, this.chooseFileToLoad, "NextCloud");
 
 
-			cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId));
+			cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEnd", () => cvjs_OnLoadEnd(UserName, UserId, lineWeightPercent));
 			cadviewer.cvjs_setCallbackMethod("cvjs_graphicalObjectOnChange", cvjs_graphicalObjectOnChange);
 			cadviewer.cvjs_setCallbackMethod("cvjs_OnLoadEndRedlines", cvjs_OnLoadEndRedlines);
 			cadviewer.cvjs_setCallbackMethod("cvjs_ObjectSelected", cvjs_ObjectSelected);
