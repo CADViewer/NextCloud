@@ -3,12 +3,12 @@
 - Nighly changes here
 
 
-### 8.65.1 - 2023-05-07
+### 8.65.2 - 2023-05-08
 ### Fixed
 - API call for lineweight modifications
 - Compare method for multiple languages
 ### Added
-- AutoXchange ax2023_L64_23_12_113e
+- AutoXchange ax2023_L64_23_12_113f
 
 
 
