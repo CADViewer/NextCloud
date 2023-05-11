@@ -3,6 +3,15 @@
 - Nighly changes here
 
 
+### 8.66.1  - 2023-05-11
+### Fixed
+- compare method logics
+- zoom wheel issue
+### Added
+- AutoXchagne ax2023_L64_23_12_114
+
+
+
 ### 8.65.4 - 2023-05-10
 ### Fixed
 - API call for lineweight modifications
