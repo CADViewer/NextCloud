@@ -247,6 +247,7 @@ class CadviewerController extends Controller {
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["parameters"] = json_decode($this->appConfig->GetParameters(), true);
 		$response["skin"] = $this->appConfig->GetSkin();
+		$response["lineWeightFactor"] = $this->appConfig->GetLineWeightFactor();
 		$response["path"] = $dir;
 		$response["size"] = $fileStat["size"];
 		$response["ISOtimeStamp"] = date(DATE_ISO8601, $fileStat["mtime"]);
