@@ -3,12 +3,13 @@
 - Nighly changes here
 
 
-### 8.66.1  - 2023-05-11
+### 8.66.2  - 2023-05-11
 ### Fixed
 - compare method logics
 - zoom wheel issue
+- lineweight controls in admin pane
 ### Added
-- AutoXchagne ax2023_L64_23_12_114
+- AutoXchange ax2023_L64_23_12_114
 
 
 
