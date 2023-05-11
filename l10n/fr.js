@@ -67,6 +67,8 @@ OC.L10N.register(
         "Read and write permission for folder":  "Droits de lecture et d'écriture pour le dossier",
         "Error when trying to update font map": "Erreur lors de la mise à jour de la carte des polices",
         "Font map successfully saved": "Sauvegarde réussie de la carte des polices",
+        "CADViewer Front-End Control Parameters": "Paramètres de commande CADViewer Front-End",
+        "LineWeightFactor must be bigger than 0": "LineWeightFactor doit être supérieur à 0",
     },
     "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 );

@@ -170,6 +170,39 @@
                 }
             });
         });
+
+        $("#saveParametersFrontend").click(function () {
+            
+            var value_frontend_1 = $("#value_frontend_1").val().trim();
+            if (!(parseInt(value_frontend_1) > 0)){
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "LineWeightFactor must be bigger than 0"));
+                return;
+            }
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/frontend_parameters"),
+                data: {
+                    value_frontend_1
+                },
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response && (response.value_frontend_1 != null)) {
+                        $("#value_frontend_1").val(response.value_frontend_1);
+
+                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        });
+
         var axlicFile;
         var licenceKeyFile;
         

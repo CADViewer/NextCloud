@@ -30,6 +30,7 @@ return [
         ["name" => "settings#doctor", "url" => "/ajax/settings/doctor", "verb" => "POST"],
         ["name" => "settings#save_common", "url" => "/ajax/settings/common", "verb" => "POST"],
         ["name" => "settings#save_parameters", "url" => "/ajax/settings/parameters", "verb" => "PUT"],
+        ["name" => "settings#save_frontend_parameters", "url" => "/ajax/settings/frontend_parameters", "verb" => "PUT"],
         ["name" => "settings#save_skin", "url" => "/ajax/settings/skin", "verb" => "PUT"],
         ["name" => "settings#check_auto_exchange_licence_key", "url" => "/ajax/settings/autoexchange-verify", "verb" => "GET"],
         ["name" => "settings#save_axlic_file", "url" => "/ajax/settings/autoexchange-save-axlic", "verb" => "POST"],

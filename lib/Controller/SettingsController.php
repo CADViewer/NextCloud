@@ -160,6 +160,7 @@ class SettingsController extends Controller {
             "licenceKey" => $this->config->GetLicenceKey(),
             "skin" => $this->config->GetSkin(),
             "parameters" => json_decode($this->config->GetParameters(), true),
+            "line_weight_factor" => $this->config->GetLineWeightFactor(),
             "autoexchange" => [
                 "output" => "",
                 "domaine_url" => "",
@@ -246,6 +247,20 @@ class SettingsController extends Controller {
 
         return json_decode($this->config->GetParameters(), true);
     }
+
+    /**
+     * Save converters frontend parameters
+     */
+    public function SaveFrontendParameters(
+        $value_frontend_1
+    ){
+
+        $this->config->SetLineWeightFactor($value_frontend_1);
+
+        return array("value_frontend_1" =>  $this->config->GetLineWeightFactor());
+    }
+
+    
 
     /**
      * Save common skin
