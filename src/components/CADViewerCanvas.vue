@@ -976,6 +976,7 @@ export default {
 			this.nextcloudColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
 			this.UserName  = OC.getCurrentUser().displayName;
 			this.UserId  = OC.getCurrentUser().uid;
+			this.lineWeightPercent = response.lineWeightFactor ?? 100;
 			let axparameters = {};
 		    let parameters = []
 			axparameters.parameters = parameters;
