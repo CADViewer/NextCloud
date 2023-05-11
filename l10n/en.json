@@ -23,7 +23,9 @@
         "Error when trying to flush cache": "Error when trying to flush cache",
         "Cache have been successfully flushed": "Cache have been successfully flushed",
         "Unable to view this file for the moment": "Unable to view this file for the moment",
-        "Open with CADViewer": "Open with CADViewer"
+        "Open with CADViewer": "Open with CADViewer",
+        "CADViewer Front-End Control Parameters": "CADViewer Front-End Control Parameters",
+        "LineWeightFactor must be bigger than 0": "LineWeightFactor must be bigger than 0"
 	},
 	"pluralForm": "nplurals=2; plural=(n != 1);"
 }

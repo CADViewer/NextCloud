@@ -67,6 +67,8 @@ OC.L10N.register(
         'Read and write permission for folder':  "Lese- und Schreibberechtigung für Ordner",
         "Error when trying to update font map": "Fehler beim Versuch, die Schriftartenzuordnung zu aktualisieren",
         "Font map successfully saved": "Font Map erfolgreich gespeichert",
+        "CADViewer Front-End Control Parameters": "CADViewer Front-End Steuerungsparameter",
+        "LineWeightFactor must be bigger than 0": "LineWeightFactor muss größer als 0 sein",
 	},
 	"nplurals=2; plural=(n != 1);"
 );
