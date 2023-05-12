@@ -3,13 +3,14 @@
 - Nighly changes here
 
 
-### 8.66.2  - 2023-05-11
+### 8.66.4  - 2023-05-12
 ### Fixed
 - compare method logics
+- strokea for horizontal text elements
 - zoom wheel issue
 - lineweight controls in admin pane
 ### Added
-- AutoXchange ax2023_L64_23_12_114
+- AutoXchange ax2023_L64_23_12_114a
 
 
 
