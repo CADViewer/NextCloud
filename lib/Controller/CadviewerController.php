@@ -18,6 +18,7 @@ use OCP\AppFramework\Http;
 use OCP\AppFramework\Http\JSONResponse;
 
 use OCA\Cadviewer\AppConfig;
+use OCA\Cadviewer\Controller\SettingsController;
 
 class CadviewerController extends Controller {
 
@@ -38,6 +39,7 @@ class CadviewerController extends Controller {
 	private IShareManager $shareManager;
 	private GroupManager $groupManager;
 	private IRootFolder $rootFolder;
+	private SettingsController $settingsController;
 	private $userId;
 
 	private $markup_folder_name = "CADViewer - Markup";
@@ -51,6 +53,7 @@ class CadviewerController extends Controller {
 		IManager $encryptionManager, 
 		IShareManager $shareManager,
 		IRootFolder $rootFolder,
+		SettingsController $settingsController,
 		$UserId
 	){
 		parent::__construct($AppName, $request);
@@ -62,6 +65,7 @@ class CadviewerController extends Controller {
 		$this->shareManager = $shareManager;
 		$this->rootFolder = $rootFolder;
 		$this->userId = $UserId;
+		$this->settingsController = $settingsController;
 	}
 
 
@@ -226,7 +230,7 @@ class CadviewerController extends Controller {
 	public function path($nameOfFile, $directory){
 
 		$res = $this->checkIfNumberOfUsersLimitation();
-
+		$this->settingsController->checkIfLicenceIsPresent();
 		if ($res != "success") {
 			// return $res; // ! todo uncomment this line
 		}

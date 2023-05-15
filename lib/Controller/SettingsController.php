@@ -41,6 +41,65 @@ class SettingsController extends Controller {
         $this->config = $config;
     }
 
+    /**
+     * Check if licence is present in folder converters elseway get it from appConfig
+     */
+    public function checkIfLicenceIsPresent() {
+
+        // Construct path to converter folder
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+        // include CADViewer config for be able to acces to the location of ax2024 executable file
+        require($home_dir."/php/CADViewer_config.php");
+
+        $axlic_file = $licenseLocation."axlic.key";
+
+        // Check if axlic_file exist
+        if (file_exists($axlic_file)) {
+            return;
+        }
+        
+        
+        $axlic_content = $this->config->GetAxlicLicenceKey();
+        // check if is not empty
+        if (empty($axlic_content)) {
+            return;
+        }
+        // write content in axlic file
+        file_put_contents($axlic_file, $axlic_content);
+    }
+
+    /**
+     * Save shx file in the fonts folder 
+     */
+    public function saveShxFile() {
+        $file = $_FILES['file'];
+
+        // Check for errors
+        if ($file['error'] > 0) {
+            // Handle the error
+            return new JSONResponse(array(), Http::STATUS_BAD_REQUEST);
+        } else {
+
+            // Construct path to converter folder
+            $currentpath = __FILE__;
+            $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+            // include CADViewer config for be able to acces to the location of ax2024 executable file
+            require($home_dir."/php/CADViewer_config.php");
+
+            $shx_file = $converterLocation."converters/ax2024/linux/fonts/".$file['name'];
+
+            // Process the file
+            $tmp_name = $file['tmp_name'];
+
+            // Saving it to a directory
+            move_uploaded_file($tmp_name, $shx_file);
+            return new JSONResponse(array(), Http::STATUS_CREATED);
+        }
+    }
+
     /** 
      * Save axlic file in the converters folder 
     */
@@ -67,7 +126,8 @@ class SettingsController extends Controller {
 
             // Saving it to a directory
             move_uploaded_file($tmp_name, $axlic_file);
-            
+            $axlic_file_content = file_get_contents($axlic_file);
+            $this->config->SetAxlicLicenceKey($axlic_file_content);
             $this->flushCache();
             return new JSONResponse(array(), Http::STATUS_CREATED);
         }
@@ -122,7 +182,8 @@ class SettingsController extends Controller {
 	}
 
     public function index() {
-    
+        
+		$this->checkIfLicenceIsPresent();
 		// Construct path to converter folder
         $currentpath = __FILE__;
         $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer";
