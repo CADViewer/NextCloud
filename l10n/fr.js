@@ -69,6 +69,11 @@ OC.L10N.register(
         "Font map successfully saved": "Sauvegarde réussie de la carte des polices",
         "CADViewer Front-End Control Parameters": "Paramètres de commande CADViewer Front-End",
         "LineWeightFactor must be bigger than 0": "LineWeightFactor doit être supérieur à 0",
+        "Upload SHX font files": "Télécharger des fichiers de polices SHX",
+        "Upload": "Télécharger",
+        "Invalid file": "Fichier invalide",
+        "Error when trying to save file": "Erreur lors de la tentative d'enregistrement du fichier",
+        "File have been successfully saved": "Le fichier a été enregistré avec succès",
     },
     "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 );

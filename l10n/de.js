@@ -68,6 +68,11 @@ OC.L10N.register(
         "Font map successfully saved": "Font Map erfolgreich gespeichert",
         "CADViewer Front-End Control Parameters": "CADViewer Front-End Steuerungsparameter",
         "LineWeightFactor must be bigger than 0": "LineWeightFactor muss größer als 0 sein",
+        "Upload SHX font files": "SHX-Schriftartdateien hochladen",
+        "Upload": "Hochladen",
+        "Invalid file": "Ungültige Datei",
+        "Error when trying to save file": "Fehler beim Speichern der Datei",
+        "File have been successfully saved": "Datei wurde erfolgreich gespeichert",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

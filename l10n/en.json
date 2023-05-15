@@ -25,7 +25,12 @@
         "Unable to view this file for the moment": "Unable to view this file for the moment",
         "Open with CADViewer": "Open with CADViewer",
         "CADViewer Front-End Control Parameters": "CADViewer Front-End Control Parameters",
-        "LineWeightFactor must be bigger than 0": "LineWeightFactor must be bigger than 0"
+        "LineWeightFactor must be bigger than 0": "LineWeightFactor must be bigger than 0",
+        "Upload SHX font files": "Upload SHX font files",
+        "Upload": "Upload",
+        "Invalid file": "Invalid file",
+        "Error when trying to save file": "Error when trying to save file",
+        "File have been successfully saved": "File have been successfully saved"
 	},
 	"pluralForm": "nplurals=2; plural=(n != 1);"
 }

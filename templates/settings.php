@@ -216,6 +216,35 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <br />
     </div>
 
+
+    <h2>
+        <?php p($l->t("Upload SHX font files")) ?>
+    </h2>
+
+    <div>
+        <div id="">
+
+            <div class="uploadButton">
+                <label for="shxFile"><span>
+                    <?php p($l->t('upload *.shx files:')) ?>
+                </span></label>
+                <input id="shxFile" class="fileupload" name="shxFile" type="file" />
+                <label for="shxFile" class="button icon-upload svg"
+                    title="<?php p($l->t('upload *.shx files:')) ?>"></label>
+                <div data-toggle="tooltip" data-original-title="<?php p($l->t('Reset to default')); ?>"
+                    class="theme-undo icon icon-history"></div>
+            </div>
+            <div id="uploadShxFileName"></div>
+            <br />
+        </div>
+        <p>
+            <button id="cadviewerSaveShxFile" class="button">
+                <?php p($l->t("Upload")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
+
     <h2>
         <?php p($l->t("Conversion parameters")) ?>
     </h2>

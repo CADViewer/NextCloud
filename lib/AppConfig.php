@@ -43,6 +43,13 @@ class AppConfig {
     private $_licencekey = "LicenceKey";
 
     /**
+     * The axlic licence key for autoexchange
+     *
+     * @var string
+     */
+    private $_axlic_licencekey = "AxlicLicenceKey";
+
+    /**
      * The skin for cadviewer icons
      * 
      * @var string
@@ -100,6 +107,23 @@ class AppConfig {
             $licence = $this->GetSystemValue($this->_licencekey);
         }
         return $licence;
+    }
+
+    public function SetAxlicLicenceKey($axlicLicenceKey) {
+        $axlicLicenceKey = trim($axlicLicenceKey);
+
+        $this->logger->info("SetAxlicLicenceKey: $axlicLicenceKey", ["app" => $this->appName]);
+
+        $this->config->setAppValue($this->appName, $this->_axlic_licencekey, $axlicLicenceKey);
+    }
+
+    public function GetAxlicLicenceKey() {
+    
+        $axlic_licence = $this->config->getAppValue($this->appName, $this->_axlic_licencekey, "");
+        if (empty($axlic_licence)) {
+            $axlic_licence = "";
+        }
+        return $axlic_licence;
     }
 
     public function SetSkin($skin) {

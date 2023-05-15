@@ -205,7 +205,7 @@
 
         var axlicFile;
         var licenceKeyFile;
-        
+        var shxFile;
         $('#uploadaxlic').change(function() {
             let pattern = /axlic(.*)\.key/gm;
             if (!pattern.test(this.files[0].name)) {
@@ -224,7 +224,18 @@
             }
             licenceKeyFile = this.files[0];
             $("#uploadCvlicenseName").html(licenceKeyFile.name);
-        });        
+        });       
+        
+        $('#shxFile').change(function() {
+            let pattern = /(.*)\.shx/gm;
+            if (!pattern.test(this.files[0].name)) {
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid file"));
+                return;
+            }
+            shxFile = this.files[0];
+            $("#uploadShxFileName").html(shxFile.name);
+        });
+
 
         // upload the licence key file when click on save button
         $("#cadviewerSaveAxlic").click(function () {
@@ -276,6 +287,37 @@
                             response.log_content,
                             t(OCA.Cadviewer.AppName, "Api Conversion log")
                         )
+                    }
+                }
+            });
+        });
+
+        $("#cadviewerSaveShxFile").click(function () {
+            if (!shxFile) return;
+            $(".section-cadviewer").addClass("icon-loading");
+
+            // Create a new FormData object
+            let formData = new FormData();
+
+            // Add the file to the FormData object
+            formData.append('file', shxFile);
+
+            // Send the file data using an AJAX POST request
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/shx-file"),
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+
+                    if (response.error) {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to save file"));
+                    } else {
+                        shxFile = null;
+                        $("#uploadShxFileName").html("");
+                        OCP.Toast.success(t(OCA.Cadviewer.AppName, "File have been successfully saved"));
                     }
                 }
             });

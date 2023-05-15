@@ -68,7 +68,12 @@ OC.L10N.register(
         "Error when trying to update font map": "Error when trying to update font map",
         "Font map successfully saved": "Font map successfully saved",
         "CADViewer Front-End Control Parameters": "CADViewer Front-End Control Parameters",
-        "LineWeightFactor must be bigger than 0": "LineWeightFactor must be bigger than 0"  
+        "LineWeightFactor must be bigger than 0": "LineWeightFactor must be bigger than 0",
+        "Upload SHX font files": "Upload SHX font files",
+        "Upload": "Upload",
+        "Invalid file": "Invalid file",
+        "Error when trying to save file": "Error when trying to save file",
+        "File have been successfully saved": "File have been successfully saved",
 	},
 	"nplurals=2; plural=(n != 1);"
 );
