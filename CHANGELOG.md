@@ -3,6 +3,13 @@
 - Nighly changes here
 
 
+### 8.67.18  - 2023-05-17
+### Fixed
+- compare method improved graphics
+- retaining license keys over upgrades
+
+
+
 ### 8.66.4  - 2023-05-12
 ### Fixed
 - compare method logics

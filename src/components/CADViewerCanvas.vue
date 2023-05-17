@@ -774,7 +774,7 @@ export default {
         //  cadviewer resize event 
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
-	chooseFileToCompareWith() {
+	chooseFileToCompareWith(firstFile) {
 		OC.dialogs.filepicker(
 			t("cadviewer", "Choose file to compare with"),
 			(path) => {
@@ -793,8 +793,9 @@ export default {
 								const content_dir = response.path;
 								const ISOtimeStamp = `${response.ISOtimeStamp}`;
 								const FileName = `${content_dir}/${nameOfFile}`;
-								cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName);
-								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );   // 8.26.6
+								cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName); // 8.67.17
+								cadviewer.cvjs_conversion_addAXconversionParameter("compare", FileName); // 8.67.17
+								cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
 							} else {
 								OC.dialogs.alert(
 									t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
