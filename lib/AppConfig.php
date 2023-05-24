@@ -59,9 +59,9 @@ class AppConfig {
     /**
      * The cadviewer converters frontend parameters
      * 
-     * @var int
+     * @var string
      */
-    private $_line_weight_factor = "LineWeightFactor";
+    private $_line_weight_factors = "LineWeightFactors";
 
     /**
      * The cadviewer converters parameters
@@ -143,20 +143,26 @@ class AppConfig {
         return $skin;
     }
 
-    public function SetLineWeightFactor($lineWeightFactor) {
-        $lineWeightFactor = intval(trim($lineWeightFactor));
+    public function SetLineWeightFactors($lineWeightFactors) {
+        $lineWeightFactors =  trim($lineWeightFactors);
 
-        $this->logger->info("SetLineWeightFactor: $lineWeightFactor", ["app" => $this->appName]);
+        $this->logger->info("SetLineWeightFactors: $lineWeightFactors", ["app" => $this->appName]);
 
-        $this->config->setAppValue($this->appName, $this->_line_weight_factor, $lineWeightFactor);
+        $this->config->setAppValue($this->appName, $this->_line_weight_factors, $lineWeightFactors);
     }
 
-    public function GetLineWeightFactor() {
-        $lineWeightFactor = $this->config->getAppValue($this->appName, $this->_line_weight_factor, "100");
-        if (!$lineWeightFactor) {
-            $lineWeightFactor = "100";
+    public function GetLineWeightFactors() {
+        
+        $lineWeightFactors = $this->config->getAppValue($this->appName, $this->_line_weight_factors, '[
+            {
+                "folder_frontend": "*",
+                "value_frontend": "100"
+            }
+        ]');
+        if (empty($lineWeightFactors)) {
+            $lineWeightFactors = $this->GetSystemValue($this->_line_weight_factors);
         }
-        return intval($lineWeightFactor);
+        return $lineWeightFactors;
     }
 
 
