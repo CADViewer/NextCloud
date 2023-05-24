@@ -251,7 +251,16 @@ class CadviewerController extends Controller {
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["parameters"] = json_decode($this->appConfig->GetParameters(), true);
 		$response["skin"] = $this->appConfig->GetSkin();
-		$response["lineWeightFactor"] = $this->appConfig->GetLineWeightFactor();
+		$lineWeightFactors =  json_decode($this->appConfig->GetLineWeightFactors(), true);
+		$response["lineWeightFactor"] === null;
+		foreach ($lineWeightFactors as $key => $value) {
+			if($value["folder_frontend"] === $directory) {
+				$response["lineWeightFactor"] = intval($value["value_frontend"]);
+			
+			}else if($value["folder_frontend"] === "*" && $response["lineWeightFactor"] === null) {
+				$response["lineWeightFactor"] = intval($value["value_frontend"]);
+			}
+		}
 		$response["path"] = $dir;
 		$response["size"] = $fileStat["size"];
 		$response["ISOtimeStamp"] = date(DATE_ISO8601, $fileStat["mtime"]);

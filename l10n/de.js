@@ -73,6 +73,8 @@ OC.L10N.register(
         "Invalid file": "Ungültige Datei",
         "Error when trying to save file": "Fehler beim Speichern der Datei",
         "File have been successfully saved": "Datei wurde erfolgreich gespeichert",
+        "New line": "Neue Zeile",
+        "Folder:": "Ordner:",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

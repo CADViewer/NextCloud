@@ -171,37 +171,6 @@
             });
         });
 
-        $("#saveParametersFrontend").click(function () {
-            
-            var value_frontend_1 = $("#value_frontend_1").val().trim();
-            if (!(parseInt(value_frontend_1) > 0)){
-                OCP.Toast.error(t(OCA.Cadviewer.AppName, "LineWeightFactor must be bigger than 0"));
-                return;
-            }
-            $(".section-cadviewer").addClass("icon-loading");
-
-            $.ajax({
-                method: "PUT",
-                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/frontend_parameters"),
-                data: {
-                    value_frontend_1
-                },
-                success: function onSuccess(response) {
-                    $(".section-cadviewer").removeClass("icon-loading");
-                    if (response && (response.value_frontend_1 != null)) {
-                        $("#value_frontend_1").val(response.value_frontend_1);
-
-                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
-
-                        if (response.error) {
-                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
-                        } else {
-                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
-                        }
-                    }
-                }
-            });
-        });
 
         var axlicFile;
         var licenceKeyFile;
@@ -463,7 +432,73 @@
             checkAutoExchangeLicenceKey();
         });
 
+        $("#newLineParametersFrontend").click(function () {
+            const current = $(".grid_input_3").length + 1;
+            const new_form = `
+                <div class="grid_input_3">
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Parameter:")}</span>
+                        <input style="margin-left: 0px" id="parameter_frontend_${current}" value="LineWeightFactor" placeholder="" type="text">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 70px">${t(OCA.Cadviewer.AppName, "(Value):")}</span>
+                        <input style="margin-left: 0px"  id="value_frontend_${current}" value="100" placeholder="100" type="number">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Folder:")}</span>
+                        <input style="margin-left: 0px" id="folder_frontend_${current}" value="" placeholder="/ or *" type="text">
+                    </div>
+                </div>
+                <br />
+            `;
 
+            $("#form_frontend_control").append(new_form);
+        });
+
+        $("#saveParametersFrontend").click(function () {
+            const current = $(".grid_input_3").length;
+            let data = {};
+
+            var value_frontend_1 = $("#value_frontend_1").val().trim();
+            var folder_frontend_1 = $("#folder_frontend_1").val().trim();
+            data['value_frontend_1'] = value_frontend_1;
+            data['folder_frontend_1'] = folder_frontend_1 || "*";
+            data['length'] = 1;
+            if (!(parseInt(value_frontend_1) > 0)){
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "LineWeightFactor must be bigger than 0"));
+                return;
+            }
+            for(let i=2; i<current+1; i++){
+                var value_frontend = $("#value_frontend_"+i).val().trim();
+                var folder_frontend = $("#folder_frontend_"+i).val().trim();
+                if (!(parseInt(value_frontend) > 0)){
+                    continue;
+                }
+                data["value_frontend_"+i] = value_frontend;
+                data["folder_frontend_"+i] = folder_frontend;
+                data['length'] += 1;
+            }
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/frontend_parameters"),
+                data: data,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response) {
+
+                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        });
     });
 
 })(jQuery, OC);

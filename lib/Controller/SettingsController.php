@@ -221,7 +221,7 @@ class SettingsController extends Controller {
             "licenceKey" => $this->config->GetLicenceKey(),
             "skin" => $this->config->GetSkin(),
             "parameters" => json_decode($this->config->GetParameters(), true),
-            "line_weight_factor" => $this->config->GetLineWeightFactor(),
+            "line_weight_factors" => json_decode($this->config->GetLineWeightFactors(), true),
             "autoexchange" => [
                 "output" => "",
                 "domaine_url" => "",
@@ -312,13 +312,19 @@ class SettingsController extends Controller {
     /**
      * Save converters frontend parameters
      */
-    public function SaveFrontendParameters(
-        $value_frontend_1
-    ){
+    public function SaveFrontendParameters() {
 
-        $this->config->SetLineWeightFactor($value_frontend_1);
+        $length  = intval($this->request->getParam("length",  "1"));
+        $data = array();
+        for ($i = 1; $i < $length+1; $i++) {
+            $value_frontend = $this->request->getParam("value_frontend_".$i);
+            $folder_frontend = $this->request->getParam("folder_frontend_".$i);
+            $data[] = array("value_frontend" => $value_frontend, "folder_frontend" => $folder_frontend);
+        }
 
-        return array("value_frontend_1" =>  $this->config->GetLineWeightFactor());
+        $this->config->SetLineWeightFactors(json_encode($data));
+
+        return json_decode($this->config->GetLineWeightFactors(), true);
     }
 
     

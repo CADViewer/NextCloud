@@ -361,21 +361,32 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         </p>
         <br />
     </div>
-    <h2>
+    <h2  style="display: flex; justify-content:space-between">
         <?php p($l->t("CADViewer Front-End Control Parameters:")) ?>
+        <button id="newLineParametersFrontend" class="button">
+            <?php p($l->t("New line")) ?>
+        </button>
     </h2>
     <div style="max-width: 700px;">
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px" disabled id="parameter_frontend_1" value="LineWeightFactor" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_frontend_1" value="<?=p($_["line_weight_factor"])?>" placeholder="100" type="number">
-            </div>
+        <div id="form_frontend_control">
+            <?php foreach ($_["line_weight_factors"] as $key => $value) { ?>
+                <div class="grid_input_3">
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
+                        <input style="margin-left: 0px" disabled id="parameter_frontend_<?=$key+1?>" value="LineWeightFactor" placeholder="" type="text">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
+                        <input style="margin-left: 0px"  id="value_frontend_<?=$key+1?>" value="<?=p($value["value_frontend"])?>" placeholder="100" type="number">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("Folder:")) ?></span>
+                        <input style="margin-left: 0px" id="folder_frontend_<?=$key+1?>" value="<?=p($value["folder_frontend"])?>" placeholder="/ or *" type="text">
+                    </div>
+                </div>
+                <br />
+            <?php } ?>
         </div>
-        <br />
         <p>
             <button id="saveParametersFrontend" class="button">
                 <?php p($l->t("Save")) ?>

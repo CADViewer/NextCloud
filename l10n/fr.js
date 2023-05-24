@@ -74,6 +74,8 @@ OC.L10N.register(
         "Invalid file": "Fichier invalide",
         "Error when trying to save file": "Erreur lors de la tentative d'enregistrement du fichier",
         "File have been successfully saved": "Le fichier a été enregistré avec succès",
+        "New line": "Nouvelle ligne",
+        "Folder:": "Dossier:",
     },
     "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 );
