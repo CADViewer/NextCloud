@@ -249,16 +249,29 @@ class CadviewerController extends Controller {
 		$fileStat = $userFolder->get($directory."/".$nameOfFile)->stat();
 		$response = array();
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
-		$response["parameters"] = json_decode($this->appConfig->GetParameters(), true);
 		$response["skin"] = $this->appConfig->GetSkin();
 		$lineWeightFactors =  json_decode($this->appConfig->GetLineWeightFactors(), true);
 		$response["lineWeightFactor"] === null;
 		foreach ($lineWeightFactors as $key => $value) {
-			if($value["folder_frontend"] === $directory) {
+			if(
+				($value["folder_frontend"] === $directory || $value["folder_frontend"] === "*") && 
+				($value["user_frontend"] === "/".$this->userId || $value["user_frontend"] === "*")
+			) {
 				$response["lineWeightFactor"] = intval($value["value_frontend"]);
 			
-			}else if($value["folder_frontend"] === "*" && $response["lineWeightFactor"] === null) {
-				$response["lineWeightFactor"] = intval($value["value_frontend"]);
+			}
+		}
+		$parameters = json_decode($this->appConfig->GetParameters(), true);
+		$response["parameters"] === array();
+		$i = 1;
+		foreach ($parameters as $key => $value) {
+			if(
+				($value["folder_conversion"] === $directory || $value["folder_conversion"] === "*") && 
+				($value["user_conversion"] === "/".$this->userId || $value["user_conversion"] === "*")
+			) {
+				$response["parameters"]["parameter_".$i] = $value["parameter_conversion"];
+				$response["parameters"]["value_".$i] = intval($value["value_conversion"]);
+				$i += 1;
 			}
 		}
 		$response["path"] = $dir;

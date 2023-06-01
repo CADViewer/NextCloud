@@ -277,34 +277,24 @@ class SettingsController extends Controller {
     /**
      * Save converters parameters
      */
-    public function SaveParameters(
-        $parameter_1, $parameter_2, $parameter_3, $parameter_4, $parameter_5, 
-        $parameter_6, $parameter_7, $parameter_8, $parameter_9,
-        $value_1, $value_2, $value_3,
-        $value_4, $value_5, $value_6, $value_7, $value_8, $value_9
-    ){
+    public function SaveParameters(){
 
-        $parameters = array(
-            "parameter_1"=> $parameter_1,
-                "value_1"=> $value_1,
-            "parameter_2"=> $parameter_2,
-                "value_2"=> $value_2,
-            "parameter_3"=> $parameter_3,
-                "value_3"=> $value_3,
-            "parameter_4"=> $parameter_4,
-                "value_4"=> $value_4,
-            "parameter_5"=> $parameter_5,
-                "value_5"=> $value_5,
-            "parameter_6"=> $parameter_6,
-                "value_6"=> $value_6,
-            "parameter_7"=> $parameter_7,
-                "value_7"=> $value_7,
-            "parameter_8"=> $parameter_8,
-                "value_8"=> $value_8,
-            "parameter_9"=> $parameter_9,
-                "value_9"=> $value_9
-        );
-        $this->config->SetParameters(json_encode($parameters));
+        $length  = intval($this->request->getParam("length",  "1"));
+        $data = array();
+        for ($i = 1; $i < $length+1; $i++) {
+            $parameter_conversion = $this->request->getParam("parameter_conversion_".$i);
+            $value_conversion = $this->request->getParam("value_conversion_".$i);
+            $folder_conversion = $this->request->getParam("folder_conversion_".$i);
+            $user_conversion = $this->request->getParam("user_conversion_".$i);
+            $data[] = array(
+                "parameter_conversion"=> $parameter_conversion,
+                "value_conversion" => $value_conversion,
+                "folder_conversion" => $folder_conversion,
+                "user_conversion" => $user_conversion
+            );
+        }
+
+        $this->config->SetParameters(json_encode($data));
 
         return json_decode($this->config->GetParameters(), true);
     }
@@ -318,8 +308,13 @@ class SettingsController extends Controller {
         $data = array();
         for ($i = 1; $i < $length+1; $i++) {
             $value_frontend = $this->request->getParam("value_frontend_".$i);
+            $user_frontend = $this->request->getParam("user_frontend_".$i);
             $folder_frontend = $this->request->getParam("folder_frontend_".$i);
-            $data[] = array("value_frontend" => $value_frontend, "folder_frontend" => $folder_frontend);
+            $data[] = array(
+                "value_frontend" => $value_frontend,
+                "folder_frontend" => $folder_frontend,
+                "user_frontend" => $user_frontend,
+            );
         }
 
         $this->config->SetLineWeightFactors(json_encode($data));

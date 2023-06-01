@@ -104,72 +104,6 @@
             });
         });
         
-        $("#saveParameters").click(function () {
-            
-            var parameter_1 = $("#parameter_1").val().trim();
-            var parameter_2 = $("#parameter_2").val().trim();
-            var parameter_3 = $("#parameter_3").val().trim();
-            var parameter_4 = $("#parameter_4").val().trim();
-            var parameter_5 = $("#parameter_5").val().trim();
-            var parameter_6 = $("#parameter_6").val().trim();
-            var parameter_7 = $("#parameter_7").val().trim();
-            var parameter_8 = $("#parameter_8").val().trim();
-            var parameter_9 = $("#parameter_9").val().trim();
-
-            var value_1 = $("#value_1").val().trim();
-            var value_2 = $("#value_2").val().trim();
-            var value_3 = $("#value_3").val().trim();
-            var value_4 = $("#value_4").val().trim();
-            var value_5 = $("#value_5").val().trim();
-            var value_6 = $("#value_6").val().trim();
-            var value_7 = $("#value_7").val().trim();
-            var value_8 = $("#value_8").val().trim();
-            var value_9 = $("#value_9").val().trim();
-
-            $(".section-cadviewer").addClass("icon-loading");
-
-            $.ajax({
-                method: "PUT",
-                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/parameters"),
-                data: {
-                    parameter_1, parameter_2,  parameter_3, parameter_4, 
-                    parameter_5, parameter_6, parameter_7, parameter_8, parameter_9,
-                    value_1, value_2, value_3,
-                    value_4, value_5, value_6, value_7, value_8, value_9
-                },
-                success: function onSuccess(response) {
-                    $(".section-cadviewer").removeClass("icon-loading");
-                    if (response && (response.parameter_1 != null)) {
-                        $("#parameter_1").val(response.parameter_1);
-                        $("#parameter_2").val(response.parameter_2);
-                        $("#parameter_3").val(response.parameter_3);
-                        $("#parameter_4").val(response.parameter_4);
-                        $("#parameter_5").val(response.parameter_5);
-                        $("#parameter_6").val(response.parameter_6);
-                        $("#parameter_7").val(response.parameter_7);
-                        $("#parameter_8").val(response.parameter_8);
-                        $("#parameter_9").val(response.parameter_9);
-                        $("#value_1").val(response.value_1);
-                        $("#value_2").val(response.value_2);
-                        $("#value_3").val(response.value_3);
-                        $("#value_4").val(response.value_4);
-                        $("#value_5").val(response.value_5);
-                        $("#value_6").val(response.value_6);
-                        $("#value_7").val(response.value_7);
-                        $("#value_8").val(response.value_8);
-                        $("#value_9").val(response.value_9);
-
-                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
-
-                        if (response.error) {
-                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
-                        } else {
-                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
-                        }
-                    }
-                }
-            });
-        });
 
 
         var axlicFile;
@@ -432,10 +366,12 @@
             checkAutoExchangeLicenceKey();
         });
 
+        
+
         $("#newLineParametersFrontend").click(function () {
-            const current = $(".grid_input_3").length + 1;
+            const current = $("#form_frontend_control .grid_input_4").length + 1;
             const new_form = `
-                <div class="grid_input_3">
+                <div class="grid_input_4">
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Parameter:")}</span>
                         <input style="margin-left: 0px" id="parameter_frontend_${current}" value="LineWeightFactor" placeholder="" type="text">
@@ -448,6 +384,10 @@
                         <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Folder:")}</span>
                         <input style="margin-left: 0px" id="folder_frontend_${current}" value="" placeholder="/ or *" type="text">
                     </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "User:")}</span>
+                        <input style="margin-left: 0px" id="user_frontend_${current}" value="" placeholder="/user_001 or *" type="text">
+                    </div>
                 </div>
                 <br />
             `;
@@ -455,14 +395,103 @@
             $("#form_frontend_control").append(new_form);
         });
 
+        $("#newLineParametersConversion").click(function () {
+
+            const current = $("#conversion_control .grid_input_4").length + 1;
+            const new_form = `
+                <div class="grid_input_4">
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Parameter:")}</span>
+                        <input style="margin-left: 0px" id="parameter_conversion_${current}" value="" placeholder="" type="text">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 70px">${t(OCA.Cadviewer.AppName, "(Value):")}</span>
+                        <input style="margin-left: 0px"  id="value_conversion_${current}" value="" placeholder="100" type="number">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Folder:")}</span>
+                        <input style="margin-left: 0px" id="folder_conversion_${current}" value="" placeholder="/ or *" type="text">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "User:")}</span>
+                        <input style="margin-left: 0px" id="user_conversion_${current}" value="" placeholder="/user_001 or *" type="text">
+                    </div>
+                </div>
+                <br />
+            `;
+
+            $("#conversion_control").append(new_form);
+
+        });
+
+
+        $("#saveParameters").click(function () {
+            const current = $("#conversion_control .grid_input_4").length;
+            let data = {};
+            console.log(current)
+
+            var parameter_conversion_1 = $("#parameter_conversion_1").val().trim();
+            var value_conversion_1 = $("#value_conversion_1").val().trim();
+            var folder_conversion_1 = $("#folder_conversion_1").val().trim();
+            var user_conversion_1 = $("#user_conversion_1").val().trim();
+            
+            data['parameter_conversion_1'] = parameter_conversion_1;
+            data['value_conversion_1'] = value_conversion_1;
+            data['folder_conversion_1'] = folder_conversion_1 || "*";
+            data['user_conversion_1'] = user_conversion_1 || "*";
+            data['length'] = 1;
+            if (!(parseInt(value_conversion_1) > 0)){
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "value must be bigger than 0"));
+                return;
+            }
+            for(let i=2; i<current+1; i++){
+                var parameter_conversion = $("#parameter_conversion_"+i).val().trim();
+                var value_conversion = $("#value_conversion_"+i).val().trim();
+                var folder_conversion = $("#folder_conversion_"+i).val().trim()  || "*";
+                var user_conversion = $("#user_conversion_"+i).val().trim()  || "*";
+                if (!(parseInt(value_conversion) > 0)){
+                    continue;
+                }
+                if (parameter_conversion){
+                    data['parameter_conversion_'+i] = parameter_conversion;
+                    data["value_conversion_"+i] = value_conversion;
+                    data["folder_conversion_"+i] = folder_conversion;
+                    data["user_conversion_"+i] = user_conversion;
+                    data['length'] += 1;
+                }
+            }
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/parameters"),
+                data: data,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response) {
+                        
+                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        });
+
         $("#saveParametersFrontend").click(function () {
-            const current = $(".grid_input_3").length;
+            const current = $("#form_frontend_control .grid_input_4").length;
             let data = {};
 
             var value_frontend_1 = $("#value_frontend_1").val().trim();
             var folder_frontend_1 = $("#folder_frontend_1").val().trim();
+            var user_frontend_1 = $("#user_frontend_1").val().trim();
             data['value_frontend_1'] = value_frontend_1;
             data['folder_frontend_1'] = folder_frontend_1 || "*";
+            data['user_frontend_1'] = user_frontend_1 || "*";
             data['length'] = 1;
             if (!(parseInt(value_frontend_1) > 0)){
                 OCP.Toast.error(t(OCA.Cadviewer.AppName, "LineWeightFactor must be bigger than 0"));
@@ -470,12 +499,14 @@
             }
             for(let i=2; i<current+1; i++){
                 var value_frontend = $("#value_frontend_"+i).val().trim();
-                var folder_frontend = $("#folder_frontend_"+i).val().trim();
+                var folder_frontend = $("#folder_frontend_"+i).val().trim() || "*";
+                var user_frontend = $("#user_frontend_"+i).val().trim()  || "*";
                 if (!(parseInt(value_frontend) > 0)){
                     continue;
                 }
                 data["value_frontend_"+i] = value_frontend;
                 data["folder_frontend_"+i] = folder_frontend;
+                data["user_frontend_"+i] = user_frontend;
                 data['length'] += 1;
             }
             $(".section-cadviewer").addClass("icon-loading");

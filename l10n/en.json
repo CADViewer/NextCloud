@@ -74,7 +74,8 @@
         "Error when trying to save file": "Error when trying to save file",
         "File have been successfully saved": "File have been successfully saved",
         "New line": "New line",
-        "Folder:": "Folder:"
+        "Folder:": "Folder:",
+        "User:": "User:"
 	},
 	"pluralForm": "nplurals=2; plural=(n != 1);"
 }

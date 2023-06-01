@@ -155,6 +155,7 @@ class AppConfig {
         
         $lineWeightFactors = $this->config->getAppValue($this->appName, $this->_line_weight_factors, '[
             {
+                "user_frontend": "*",
                 "folder_frontend": "*",
                 "value_frontend": "100"
             }
@@ -176,29 +177,87 @@ class AppConfig {
 
     public function GetParameters() {
     
-        $parameters = $this->config->getAppValue($this->appName, $this->_parameters, '{
-            "parameter_1": "strokea",
-                "value_1": "",
-            "parameter_2": "last",
-                "value_2": "",
-            "parameter_3": "extents",
-                "value_3": "",
-            "parameter_4": "",
-                "value_4": "",
-            "parameter_5": "",
-                "value_5": "",
-            "parameter_6": "",
-                "value_6": "",
-            "parameter_7": "",
-                "value_7": "",
-            "parameter_8": "",
-                "value_8": "",
-            "parameter_9": "",
-                "value_9": ""
-        }');
+        $parameters = $this->config->getAppValue($this->appName, $this->_parameters, '[
+            {
+                "parameter_conversion": "strokea",
+                "folder_conversion": "*",
+                "user_conversion": "*",
+                "value_conversion": ""
+            },
+            {
+                "parameter_conversion": "last",
+                "folder_conversion": "*",
+                "user_conversion": "*",
+                "value_conversion": ""
+            },
+            {
+                "parameter_conversion": "extents",
+                "folder_conversion": "*",
+                "user_conversion": "*",
+                "value_conversion": ""
+            },
+        ]');
         if (empty($parameters)) {
-            $parameters = $this->GetSystemValue($this->_parameters);
-        }
+            $parameters = '[
+                {
+                    "parameter_conversion": "strokea",
+                    "folder_conversion": "*",
+                    "user_conversion": "*",
+                    "value_conversion": ""
+                },
+                {
+                    "parameter_conversion": "last",
+                    "folder_conversion": "*",
+                    "user_conversion": "*",
+                    "value_conversion": ""
+                },
+                {
+                    "parameter_conversion": "extents",
+                    "folder_conversion": "*",
+                    "user_conversion": "*",
+                    "value_conversion": ""
+                },
+            ]';
+            $this->SetParameters($parameters);
+        } else {
+            if (isset($parameters["parameter_1"])){ 
+                $parameters_tmp = array();
+
+                for ($i = 1; $i < 10; $i++) {
+                    if (isset($parameters["parameter_".$i]) && !empty($parameters["parameter_".$i])) {
+                        $parameters_tmp[] = array("parameter_conversion"=> $parameters["parameter_".$i], "value_conversion" => $parameters["value_".$i], "folder_conversion" => "*");
+                    }
+                }
+                if (count($parameters_tmp) > 0){
+                    $parameters  = json_encode($parameters_tmp);
+                }else  {
+                    $parameters = '[
+                        {
+                            "parameter_conversion": "strokea",
+                            "folder_conversion": "*",
+                            "user_conversion": "*",
+                            "value_conversion": ""
+                        },
+                        {
+                            "parameter_conversion": "last",
+                            "folder_conversion": "*",
+                            "user_conversion": "*",
+                            "value_conversion": ""
+                        },
+                        {
+                            "parameter_conversion": "extents",
+                            "folder_conversion": "*",
+                            "user_conversion": "*",
+                            "value_conversion": ""
+                        },
+                    ]';
+                }
+                $this->SetParameters($parameters);
+            }
+        }     
+        // var_dump(json_decode(stripslashes($parameters), true));
+        // var_dump(json_last_error());
+        // die();    
         return $parameters;
     }
     

@@ -981,17 +981,14 @@ export default {
 		    let parameters = []
 			axparameters.parameters = parameters;
 			if (response.parameters) {
-				let keys = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
-				keys.forEach((key) => {
-					if (response.parameters[`parameter_${key}`].trim() &&  response.parameters[`parameter_${key}`].trim().length > 0) {
-						axparameters.parameters.push({
-							"paramName": response.parameters[`parameter_${key}`].trim(), 
-							"paramValue": response.parameters[`value_${key}`].trim()
-						});
-					}
-				});
+				for(let i = 1; i <= Object.keys(response.parameters).length/2; i++){
+					axparameters.parameters.push({
+						"paramName": response.parameters[`parameter_${i}`], 
+						"paramValue": response.parameters[`value_${i}`]
+					});
+				}
 			}
-
+			console.log({axparameters})
 			this.initCadviewer(axparameters);
           } else {
 	  		this.modal = false;
