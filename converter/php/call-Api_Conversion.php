@@ -15,7 +15,14 @@
 	
 */
 
-	$scriptversion = "8.37.2";
+	$scriptversion = "8.71.2";
+
+	// 8.71.1  - we make flag for nextcloud
+	$nextcloud = true;
+	$nextcloud_xpath_flag = false;
+	$nextcloud_xpath = "";
+
+
 
 	// Configuration file for CADViewer Community and CADViewer Enterprise version and standard settings
 	require 'CADViewer_config.php';
@@ -487,6 +494,7 @@
 							
 
 
+									// we do not need to download external http for now
 									if ($pos_2 !== false) {
 										if ($pos_2 == 0){
 //											$server_load = 1;  // we are on the same server, so we simply swap $httpHost for $home_dir
@@ -596,7 +604,6 @@
 			$pos = strpos($contentlocation, 'http');
 			$pos_2 = strpos($contentlocation, $httpHost);
 
-
 			if ($pos !== false) {
 				if ($pos == 0){
 					$server_load = 0;  // we are loading via http, we therefore need to input file to temp folder
@@ -609,10 +616,156 @@
 				}
 			}
 			
+			// nextcloud  8.71.0
 			// if german or unicode characters on .dgn files we copy over the file to temp folder
 			// we do a copy for all files!!!
-			$server_load = 0;
+			if ($nextcloud == true){
+				$server_load = 0;
 
+				// if DGN only!!!
+				$lowercontentlocation = strtolower($contentlocation);
+				$nextcloud_xpath_flag = false;
+
+
+				if (strpos($lowercontentlocation,".dgn") == false) {
+					$nextcloud_xpath_flag = false;	
+				}else{
+					// german characters in foldername, then do this!!!!
+					if (strpos($lowercontentlocation,"ä") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ö") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ü") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ẞ") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+
+
+
+					if (strpos($lowercontentlocation,"æ") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ø") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+
+					if (strpos($lowercontentlocation,"å") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+
+
+					///
+					if (strpos($lowercontentlocation,"é") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"à") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"è") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ì") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ò") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ù") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"â") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ê") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"î") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ô") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"û") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ç") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ë") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ï") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+					if (strpos($lowercontentlocation,"ü") != false) {
+						$nextcloud_xpath_flag = true;	
+					}
+
+				}
+
+				// this is for testing only!
+				//$nextcloud_xpath_flag = true;
+
+				if ($nextcloud_xpath_flag){
+
+					$findex = strrpos($contentlocation, "/");
+					$folderpath = substr($contentlocation, 0, $findex);
+	
+					// Open the folder			   
+					$dir_handle = @opendir($folderpath);  // or die("Unable to open $path");
+
+					
+					if ($debug) {
+						fwrite($fd_log, "NEXTCLOUD LOOP: folder handle  $dir_handle  \r\n");
+					}		
+
+					if ($dir_handle!=false){
+
+						$subfolder = rand();
+						$nextcloud_xpath = $fileLocation . '/xrefs/'. $subfolder . "/";
+						mkdir($nextcloud_xpath, 0777, true);
+	
+						
+						if ($debug) {
+							fwrite($fd_log, "NEXTCLOUD LOOP: folder  $nextcloud_xpath  \r\n");
+						}		
+	
+	
+						// Loop through the files
+						while ($file = readdir($dir_handle)) {
+		
+							if($file == "." || $file == "..")
+								continue;
+
+							// it must contain a . for a dgn file	
+							if(strpos($file,".") == false) continue;
+
+							$pathfile = $folderpath . '/' . $file;	
+							if (file_exists($pathfile)){
+								$cflag = copy($pathfile , $nextcloud_xpath . $file);
+
+								if ($debug) {
+									fwrite($fd_log, "FILE=$pathfile exists OK=$cflag \r\n");
+								}		
+							}
+							else{
+	
+								if ($debug) {
+									fwrite($fd_log, "FILE $pathfile DOES NOT EXIST \r\n");
+								}		
+							}
+						}
+	
+					}
+
+
+				}
+			}
+			// 8.71.1
 
 			if ($debug){
 				fwrite($fd_log, "after content location check \$server_load:  $server_load  , content-type: ($contenttype \r\n");
@@ -962,10 +1115,24 @@
 				}
 				if ($add_xpath){ // 2019-06-28  - running as .bat
 					if (strpos($op_string, 'win') !== false) {
-						$command_line = $command_line  . " \"-xpath=" . $xpathLocation . "\" " ;
+
+						if ($nextcloud_xpath_flag == 1){
+							$command_line = $command_line  . " \"-xpath=" . $nextcloud_xpath . "\" " ;
+						}
+						else{
+							$command_line = $command_line  . " \"-xpath=" . $xpathLocation . "\" " ;
+						}
+
 					}
-					else		
-						$command_line = $command_line  . " -xpath=\"" . $xpathLocation . "\" " ;
+					else{
+
+						if ($nextcloud_xpath_flag == 1){
+							$command_line = $command_line  . " -xpath=\"" . $nextcloud_xpath . "\" " ;
+						}
+						else
+							$command_line = $command_line  . " -xpath=\"" . $xpathLocation . "\" " ;
+
+					}	
 					//$command_line = $command_line  . " -xpath=\"" . $xpathLocation . "\" " ;    // we use the config xpath if no xpath is added through parameters
 				}
 			}
@@ -1012,14 +1179,26 @@
 				// use contentlocation as xpath
 				//	$command_line = $command_line  . " -xpath=\"" . $xloc . "\" " ;    // content location is used as xpath
 
-				fwrite($fd_log, "adding xpath: ");
+				fwrite($fd_log, "adding xpath: nc-flag:" . $nextcloud_xpath_flag . "  op_string:  " . $op_string . " nc_path: " .$nextcloud_xpath . "\n\r");
 
 // 2019-06-28  - running as .bat
 					if (strpos($op_string, 'win') !== false) {
-						$command_line = $command_line  . " \"-xpath=" . $xloc . "\" " ;
+						if ($nextcloud_xpath_flag == 1){
+							$command_line = $command_line  . " \"-xpath=" . $nextcloud_xpath . "\" " ;
+						}
+						else{
+							$command_line = $command_line  . " \"-xpath=" . $xloc . "\" " ;
+						}
 					}
-					else		
-						$command_line = $command_line  . " -xpath=\"" . $xloc . "\" " ;
+					else{
+
+						if ($nextcloud_xpath_flag == 1){
+							$command_line = $command_line  . " -xpath=\"" . $nextcloud_xpath . "\" " ;
+						}
+						else
+							$command_line = $command_line  . " -xpath=\"" . $xloc . "\" " ;
+
+					}		
 			}
 		}
 			
@@ -1165,7 +1344,7 @@ set_time_limit(240);
 						}
 
 	*/
-
+ 
 
 
 	$temp_file_name_org ="";
@@ -1477,10 +1656,18 @@ set_time_limit(240);
 			// this is an svg we do not convert!!!!
 		} 
 		else{
-
+    
 			exec( $command_line, $out, $return1);
 			if ($debug){
 				fwrite($fd_log, "exec return1  $return1   \r\n");
+
+				fwrite($fd_log, "output log:  \r\n");
+
+				// 8.70.5  out is an array
+				foreach ($out as $value) {
+					fwrite($fd_log, "$value  \r\n");
+				}
+
 			}
 
 		}
@@ -1497,7 +1684,6 @@ set_time_limit(240);
 
 	//8.19.2
 //	if (!$debug)
-/*
 	if (true){
 
 		$pose = strrpos ( $contentlocation , ".");
@@ -1518,9 +1704,28 @@ set_time_limit(240);
 				fwrite($fd_log, "unlink2  $file_1   \r\n");
 			}
 		}
+
+
+		$file_1 = $fileLocation  . 'f' . $temp_file_name . '.csv';
+		if (file_exists($file_1) && $svginputfile == 0){   // 8.70.2
+			unlink($file_1);
+			if ($debug){
+				fwrite($fd_log, "unlink2  $file_1   \r\n");
+			}
+		}
+
+
+
+
+		// nextcloud   8.70.2
+		if ($nextcloud_xpath_flag == 1){
+
+			deleteDir($nextcloud_xpath);			
+		}
+
 		
 	}
-*/
+
 
 	// 8.37.2  - we have to make the output format the same as the originating file
 	if ($svginputfile == 1){
@@ -2020,6 +2225,30 @@ function _downloadFile($url, $path, $fd_log)
 }
 
 
+function deleteDir($dirPath)
+{
+    if (!is_dir($dirPath)) {
+        if (file_exists($dirPath) !== false) {
+            unlink($dirPath);
+        }
+        return;
+    }
+
+    if ($dirPath[strlen($dirPath) - 1] != '/') {
+        $dirPath .= '/';
+    }
+
+    $files = glob($dirPath . '*', GLOB_MARK);
+    foreach ($files as $file) {
+        if (is_dir($file)) {
+            deleteDir($file);
+        } else {
+            unlink($file);
+        }
+    }
+
+    rmdir($dirPath);
+}
 
 
 

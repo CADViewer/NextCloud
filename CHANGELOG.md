@@ -3,8 +3,14 @@
 - Nighly changes here
 
 
+### 8.71.1 - 2023-06-01
+### Added
+- ability to control user folders for parameter settings
+- AutoXchange v23.12.114e added
+
+
 ### 8.70.4 - 2023-05-25
-###
+### Added
 - ability to set conversion back-end and front-end parameters on a Folder basis
 
 
