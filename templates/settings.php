@@ -262,7 +262,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                 <div class="grid_input_4">
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                        <input style="margin-left: 0px" disabled id="parameter_conversion_<?=$key+1?>" value="<?=p($value["parameter_conversion"])?>" placeholder="" type="text">
+                        <input style="margin-left: 0px" id="parameter_conversion_<?=$key+1?>" value="<?=p($value["parameter_conversion"])?>" placeholder="" type="text">
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>

@@ -423,8 +423,6 @@
             $("#conversion_control").append(new_form);
 
         });
-
-
         $("#saveParameters").click(function () {
             const current = $("#conversion_control .grid_input_4").length;
             let data = {};
@@ -440,7 +438,7 @@
             data['folder_conversion_1'] = folder_conversion_1 || "*";
             data['user_conversion_1'] = user_conversion_1 || "*";
             data['length'] = 1;
-            if (!(parseInt(value_conversion_1) > 0)){
+            if (value_conversion_1 !== "" && !(parseInt(value_conversion_1) > 0)){
                 OCP.Toast.error(t(OCA.Cadviewer.AppName, "value must be bigger than 0"));
                 return;
             }
@@ -449,7 +447,7 @@
                 var value_conversion = $("#value_conversion_"+i).val().trim();
                 var folder_conversion = $("#folder_conversion_"+i).val().trim()  || "*";
                 var user_conversion = $("#user_conversion_"+i).val().trim()  || "*";
-                if (!(parseInt(value_conversion) > 0)){
+                if (value_conversion !== "" && !(parseInt(value_conversion) > 0)){
                     continue;
                 }
                 if (parameter_conversion){

@@ -68,7 +68,7 @@ class AppConfig {
      * 
      * @var string
      */
-    private $_parameters = "Parameters";
+    private $_parameters = "ConvertionsParameters";
 
     /** 
      * @param string $AppName - application name
@@ -179,13 +179,7 @@ class AppConfig {
     
         $parameters = $this->config->getAppValue($this->appName, $this->_parameters, '[
             {
-                "parameter_conversion": "strokea",
-                "folder_conversion": "*",
-                "user_conversion": "*",
-                "value_conversion": ""
-            },
-            {
-                "parameter_conversion": "last",
+                "parameter_conversion": "model",
                 "folder_conversion": "*",
                 "user_conversion": "*",
                 "value_conversion": ""
@@ -196,17 +190,17 @@ class AppConfig {
                 "user_conversion": "*",
                 "value_conversion": ""
             },
+            {
+                "parameter_conversion": "",
+                "folder_conversion": "*",
+                "user_conversion": "*",
+                "value_conversion": ""
+            }
         ]');
         if (empty($parameters)) {
             $parameters = '[
                 {
-                    "parameter_conversion": "strokea",
-                    "folder_conversion": "*",
-                    "user_conversion": "*",
-                    "value_conversion": ""
-                },
-                {
-                    "parameter_conversion": "last",
+                    "parameter_conversion": "model",
                     "folder_conversion": "*",
                     "user_conversion": "*",
                     "value_conversion": ""
@@ -217,6 +211,12 @@ class AppConfig {
                     "user_conversion": "*",
                     "value_conversion": ""
                 },
+                {
+                    "parameter_conversion": "",
+                    "folder_conversion": "*",
+                    "user_conversion": "*",
+                    "value_conversion": ""
+                }
             ]';
             $this->SetParameters($parameters);
         } else {
@@ -233,13 +233,7 @@ class AppConfig {
                 }else  {
                     $parameters = '[
                         {
-                            "parameter_conversion": "strokea",
-                            "folder_conversion": "*",
-                            "user_conversion": "*",
-                            "value_conversion": ""
-                        },
-                        {
-                            "parameter_conversion": "last",
+                            "parameter_conversion": "model",
                             "folder_conversion": "*",
                             "user_conversion": "*",
                             "value_conversion": ""
@@ -250,6 +244,12 @@ class AppConfig {
                             "user_conversion": "*",
                             "value_conversion": ""
                         },
+                        {
+                            "parameter_conversion": "",
+                            "folder_conversion": "*",
+                            "user_conversion": "*",
+                            "value_conversion": ""
+                        }
                     ]';
                 }
                 $this->SetParameters($parameters);
