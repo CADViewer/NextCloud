@@ -3,6 +3,19 @@
 - Nighly changes here
 
 
+### 8.70.4 - 2023-05-25
+###
+- ability to set conversion back-end and front-end parameters on a Folder basis
+
+
+
+### 8.67.18  - 2023-05-17
+### Fixed
+- compare method improved graphics
+- retaining license keys over upgrades
+
+
+
 ### 8.66.4  - 2023-05-12
 ### Fixed
 - compare method logics
