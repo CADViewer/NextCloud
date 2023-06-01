@@ -76,6 +76,7 @@ OC.L10N.register(
         "File have been successfully saved": "Le fichier a été enregistré avec succès",
         "New line": "Nouvelle ligne",
         "Folder:": "Dossier:",
+        "User:": "Utilisateur:",
     },
     "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 );

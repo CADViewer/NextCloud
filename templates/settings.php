@@ -244,116 +244,42 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         </p>
         <br />
     </div>
-
-    <h2>
+    <h2  style="display: flex; justify-content:space-between">
         <?php p($l->t("Conversion parameters")) ?>
+        <button id="newLineParametersConversion" class="button">
+            <?php p($l->t("New line")) ?>
+        </button>
     </h2>
-    <div style="max-width: 700px;">
+    <div style="max-width: 900px;">
         <div>
             <p>
                 <?php p($l->t("Conversion parameters (User Controlled):")) ?>
             </p>
             <br />
         </div>
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_1" value="<?=p($_["parameters"]["parameter_1"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_1" value="<?=p($_["parameters"]["value_1"])?>" placeholder="" type="text">
-            </div>
+        <div id="conversion_control">
+            <?php foreach ($_["parameters"] as $key => $value) { ?>
+                <div class="grid_input_4">
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
+                        <input style="margin-left: 0px" disabled id="parameter_conversion_<?=$key+1?>" value="<?=p($value["parameter_conversion"])?>" placeholder="" type="text">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
+                        <input style="margin-left: 0px"  id="value_conversion_<?=$key+1?>" value="<?=p($value["value_conversion"])?>" placeholder="100" type="number">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("Folder:")) ?></span>
+                        <input style="margin-left: 0px" id="folder_conversion_<?=$key+1?>" value="<?=p($value["folder_conversion"])?>" placeholder="/ or *" type="text">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("User:")) ?></span>
+                        <input style="margin-left: 0px" id="user_conversion_<?=$key+1?>" value="<?=p($value["user_conversion"])?>" placeholder="/user_001 or *" type="text">
+                    </div>
+                </div>
+                <br />
+            <?php } ?>
         </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_2" value="<?=p($_["parameters"]["parameter_2"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_2" value="<?=p($_["parameters"]["value_2"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_3" value="<?=p($_["parameters"]["parameter_3"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_3" value="<?=p($_["parameters"]["value_3"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_4" value="<?=p($_["parameters"]["parameter_4"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_4" value="<?=p($_["parameters"]["value_4"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_5" value="<?=p($_["parameters"]["parameter_5"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_5" value="<?=p($_["parameters"]["value_5"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_6" value="<?=p($_["parameters"]["parameter_6"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_6" value="<?=p($_["parameters"]["value_6"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_7" value="<?=p($_["parameters"]["parameter_7"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_7" value="<?=p($_["parameters"]["value_7"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_8" value="<?=p($_["parameters"]["parameter_8"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px"  id="value_8" value="<?=p($_["parameters"]["value_8"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
-        <div class="grid_input">
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
-                <input style="margin-left: 5px"  id="parameter_9" value="<?=p($_["parameters"]["parameter_9"])?>" placeholder="" type="text">
-            </div>
-            <div style="display: flex; align-items: center;">
-                <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                <input style="margin-left: 5px" id="value_9" value="<?=p($_["parameters"]["value_9"])?>" placeholder="" type="text">
-            </div>
-        </div>
-        <br />
         <p>
             <button id="saveParameters" class="button">
                 <?php p($l->t("Save")) ?>
@@ -367,10 +293,10 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             <?php p($l->t("New line")) ?>
         </button>
     </h2>
-    <div style="max-width: 700px;">
+    <div style="max-width: 900px;">
         <div id="form_frontend_control">
             <?php foreach ($_["line_weight_factors"] as $key => $value) { ?>
-                <div class="grid_input_3">
+                <div class="grid_input_4">
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
                         <input style="margin-left: 0px" disabled id="parameter_frontend_<?=$key+1?>" value="LineWeightFactor" placeholder="" type="text">
@@ -382,6 +308,10 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("Folder:")) ?></span>
                         <input style="margin-left: 0px" id="folder_frontend_<?=$key+1?>" value="<?=p($value["folder_frontend"])?>" placeholder="/ or *" type="text">
+                    </div>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("User:")) ?></span>
+                        <input style="margin-left: 0px" id="user_frontend_<?=$key+1?>" value="<?=p($value["user_frontend"])?>" placeholder="/user_001 or *" type="text">
                     </div>
                 </div>
                 <br />
