@@ -270,7 +270,7 @@ class CadviewerController extends Controller {
 				($value["user_conversion"] === "/".$this->userId || $value["user_conversion"] === "*")
 			) {
 				$response["parameters"]["parameter_".$i] = $value["parameter_conversion"];
-				$response["parameters"]["value_".$i] = intval($value["value_conversion"]);
+				$response["parameters"]["value_".$i] = $value["value_conversion"];
 				$i += 1;
 			}
 		}

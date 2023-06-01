@@ -406,7 +406,7 @@
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 70px">${t(OCA.Cadviewer.AppName, "(Value):")}</span>
-                        <input style="margin-left: 0px"  id="value_conversion_${current}" value="" placeholder="100" type="number">
+                        <input style="margin-left: 0px"  id="value_conversion_${current}" value="" placeholder="" type="text">
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Folder:")}</span>
@@ -438,18 +438,13 @@
             data['folder_conversion_1'] = folder_conversion_1 || "*";
             data['user_conversion_1'] = user_conversion_1 || "*";
             data['length'] = 1;
-            if (value_conversion_1 !== "" && !(parseInt(value_conversion_1) > 0)){
-                OCP.Toast.error(t(OCA.Cadviewer.AppName, "value must be bigger than 0"));
-                return;
-            }
+            
             for(let i=2; i<current+1; i++){
                 var parameter_conversion = $("#parameter_conversion_"+i).val().trim();
                 var value_conversion = $("#value_conversion_"+i).val().trim();
                 var folder_conversion = $("#folder_conversion_"+i).val().trim()  || "*";
                 var user_conversion = $("#user_conversion_"+i).val().trim()  || "*";
-                if (value_conversion !== "" && !(parseInt(value_conversion) > 0)){
-                    continue;
-                }
+                
                 if (parameter_conversion){
                     data['parameter_conversion_'+i] = parameter_conversion;
                     data["value_conversion_"+i] = value_conversion;
