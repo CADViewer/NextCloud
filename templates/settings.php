@@ -266,7 +266,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
-                        <input style="margin-left: 0px"  id="value_conversion_<?=$key+1?>" value="<?=p($value["value_conversion"])?>" placeholder="100" type="number">
+                        <input style="margin-left: 0px"  id="value_conversion_<?=$key+1?>" value="<?=p($value["value_conversion"])?>" placeholder="" type="text">
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("Folder:")) ?></span>

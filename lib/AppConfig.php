@@ -189,12 +189,6 @@ class AppConfig {
                 "folder_conversion": "*",
                 "user_conversion": "*",
                 "value_conversion": ""
-            },
-            {
-                "parameter_conversion": "",
-                "folder_conversion": "*",
-                "user_conversion": "*",
-                "value_conversion": ""
             }
         ]');
         if (empty($parameters)) {
@@ -207,12 +201,6 @@ class AppConfig {
                 },
                 {
                     "parameter_conversion": "extents",
-                    "folder_conversion": "*",
-                    "user_conversion": "*",
-                    "value_conversion": ""
-                },
-                {
-                    "parameter_conversion": "",
                     "folder_conversion": "*",
                     "user_conversion": "*",
                     "value_conversion": ""
@@ -240,12 +228,6 @@ class AppConfig {
                         },
                         {
                             "parameter_conversion": "extents",
-                            "folder_conversion": "*",
-                            "user_conversion": "*",
-                            "value_conversion": ""
-                        },
-                        {
-                            "parameter_conversion": "",
                             "folder_conversion": "*",
                             "user_conversion": "*",
                             "value_conversion": ""

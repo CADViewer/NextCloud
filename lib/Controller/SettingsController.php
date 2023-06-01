@@ -212,7 +212,19 @@ class SettingsController extends Controller {
         try {
             $ax_font_unmapped = file_get_contents($axFontUnMapFile);
         } catch (\Exception $e) {}
-
+        $parameters = json_decode($this->config->GetParameters(), true);
+        $parameters[] = array(
+            "parameter_conversion" => "",
+            "folder_conversion"  => "*",
+            "user_conversion" => "",
+            "value_conversion" => ""
+        );
+        $parameters[] = array(
+            "parameter_conversion" => "",
+            "folder_conversion"  => "*",
+            "user_conversion" => "",
+            "value_conversion" => ""
+        );
         $data = [
             "name" => $name,
             "version" =>  $version,
@@ -220,7 +232,7 @@ class SettingsController extends Controller {
             "ax_font_unmapped" => $ax_font_unmapped,
             "licenceKey" => $this->config->GetLicenceKey(),
             "skin" => $this->config->GetSkin(),
-            "parameters" => json_decode($this->config->GetParameters(), true),
+            "parameters" => $parameters,
             "line_weight_factors" => json_decode($this->config->GetLineWeightFactors(), true),
             "autoexchange" => [
                 "output" => "",
