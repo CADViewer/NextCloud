@@ -3,7 +3,7 @@
 - Nighly changes here
 
 
-### 8.71.1 - 2023-06-01
+### 8.72.2 - 2023-06-05
 ### Added
 - ability to control user folders for parameter settings
 - AutoXchange v23.12.114e added
