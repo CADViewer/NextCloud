@@ -77,6 +77,11 @@ OC.L10N.register(
         "New line": "New line",
         "Folder:": "Folder:",
         "User:": "User:",
+        "Folder(s):": "Folder(s):",
+        "User(s):": "User(s):",
+        "CADViewer Front-End Control Parameters:": "CADViewer Front-End Control Parameters:",
+        "Exclude folder ?": "Exclude folder ?",
+        "Exclude user ?": "Exclude user ?",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

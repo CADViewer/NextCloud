@@ -273,3 +273,23 @@
   grid-column-gap: 20px;
   grid-row-gap: 0px;
 }
+
+.exclude-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.exclude-block-checkbox {
+  display: flex;
+}
+
+.exclude-block-input {
+  overflow: hidden;
+  height: 0px;
+  transition: height 0.5s;
+}
+.exclude-block.checked .exclude-block-input {
+  height: 72px;
+}
+

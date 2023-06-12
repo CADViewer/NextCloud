@@ -152,12 +152,13 @@ class AppConfig {
     }
 
     public function GetLineWeightFactors() {
-        
         $lineWeightFactors = $this->config->getAppValue($this->appName, $this->_line_weight_factors, '[
             {
                 "user_frontend": "*",
                 "folder_frontend": "*",
-                "value_frontend": "100"
+                "value_frontend": "100",
+                "excluded_folder_frontend": "",
+                "excluded_user_frontend": ""
             }
         ]');
         if (empty($lineWeightFactors)) {
@@ -182,13 +183,17 @@ class AppConfig {
                 "parameter_conversion": "model",
                 "folder_conversion": "*",
                 "user_conversion": "*",
-                "value_conversion": ""
+                "value_conversion": "",
+                "excluded_user_conversion": "",
+                "excluded_folder_conversion": ""
             },
             {
                 "parameter_conversion": "extents",
                 "folder_conversion": "*",
                 "user_conversion": "*",
-                "value_conversion": ""
+                "value_conversion": "",
+                "excluded_user_conversion": "",
+                "excluded_folder_conversion": ""
             }
         ]');
         if (empty($parameters)) {
@@ -197,13 +202,17 @@ class AppConfig {
                     "parameter_conversion": "model",
                     "folder_conversion": "*",
                     "user_conversion": "*",
-                    "value_conversion": ""
+                    "value_conversion": "",
+                    "excluded_user_conversion": "",
+                    "excluded_folder_conversion": ""
                 },
                 {
                     "parameter_conversion": "extents",
                     "folder_conversion": "*",
                     "user_conversion": "*",
-                    "value_conversion": ""
+                    "value_conversion": "",
+                    "excluded_user_conversion": "",
+                    "excluded_folder_conversion": ""
                 }
             ]';
             $this->SetParameters($parameters);
@@ -224,13 +233,17 @@ class AppConfig {
                             "parameter_conversion": "model",
                             "folder_conversion": "*",
                             "user_conversion": "*",
-                            "value_conversion": ""
+                            "value_conversion": "",
+                            "excluded_user_conversion": "",
+                            "excluded_folder_conversion": ""
                         },
                         {
                             "parameter_conversion": "extents",
                             "folder_conversion": "*",
                             "user_conversion": "*",
-                            "value_conversion": ""
+                            "value_conversion": "",
+                            "excluded_user_conversion": "",
+                            "excluded_folder_conversion": ""
                         }
                     ]';
                 }

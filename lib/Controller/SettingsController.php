@@ -217,13 +217,17 @@ class SettingsController extends Controller {
             "parameter_conversion" => "",
             "folder_conversion"  => "*",
             "user_conversion" => "",
-            "value_conversion" => ""
+            "value_conversion" => "",
+            "excluded_user_conversion" => "",
+            "excluded_folder_conversion" => ""
         );
         $parameters[] = array(
             "parameter_conversion" => "",
             "folder_conversion"  => "*",
             "user_conversion" => "",
-            "value_conversion" => ""
+            "value_conversion" => "",
+            "excluded_user_conversion" => "",
+            "excluded_folder_conversion" => ""
         );
         $data = [
             "name" => $name,
@@ -298,11 +302,16 @@ class SettingsController extends Controller {
             $value_conversion = $this->request->getParam("value_conversion_".$i);
             $folder_conversion = $this->request->getParam("folder_conversion_".$i);
             $user_conversion = $this->request->getParam("user_conversion_".$i);
+            $excluded_user_conversion = $this->request->getParam("excluded_user_conversion_".$i);
+            $excluded_folder_conversion =  $this->request->getParam("excluded_folder_conversion_".$i);
+
             $data[] = array(
                 "parameter_conversion"=> $parameter_conversion,
                 "value_conversion" => $value_conversion,
                 "folder_conversion" => $folder_conversion,
-                "user_conversion" => $user_conversion
+                "user_conversion" => $user_conversion,
+                "excluded_user_conversion" => $excluded_user_conversion,
+                "excluded_folder_conversion" => $excluded_folder_conversion
             );
         }
 
@@ -322,10 +331,15 @@ class SettingsController extends Controller {
             $value_frontend = $this->request->getParam("value_frontend_".$i);
             $user_frontend = $this->request->getParam("user_frontend_".$i);
             $folder_frontend = $this->request->getParam("folder_frontend_".$i);
+            $excluded_folder_frontend = $this->request->getParam("excluded_folder_frontend_".$i);
+            $excluded_user_frontend = $this->request->getParam("excluded_user_frontend_".$i);
+
             $data[] = array(
                 "value_frontend" => $value_frontend,
                 "folder_frontend" => $folder_frontend,
                 "user_frontend" => $user_frontend,
+                "excluded_folder_frontend" => $excluded_folder_frontend,
+                "excluded_user_frontend" => $excluded_user_frontend
             );
         }
 
