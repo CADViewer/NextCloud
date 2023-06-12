@@ -383,16 +383,37 @@
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Folder:")}</span>
                         <input style="margin-left: 0px" id="folder_frontend_${current}" value="" placeholder="/ or *" type="text">
+                        <div class="exclude-block">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox" id="checkbox_folder_frontend_${current}" class="checkbox" />
+                                <label for="checkbox_folder_frontend_${current}">${t(OCA.Cadviewer.AppName, 'Exclude folder ?')}</label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_folder_frontend_${current}">${t(OCA.Cadviewer.AppName, "Folder(s):")}</label>
+                                <input style="margin-left: 0px" id="excluded_folder_frontend_${current}" value="" placeholder="/folder_1,/folder_2" type="text">
+                            </div>
+                        </div>
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "User:")}</span>
                         <input style="margin-left: 0px" id="user_frontend_${current}" value="" placeholder="/user_001 or *" type="text">
+                        <div class="exclude-block">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox" id="checkbox_user_frontend_${current}" class="checkbox" />
+                                <label for="checkbox_user_frontend_${current}">${t(OCA.Cadviewer.AppName, 'Exclude user ?')}</label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_user_frontend_${current}">${t(OCA.Cadviewer.AppName, "User(s):")}</label>
+                                <input style="margin-left: 0px" id="excluded_user_frontend_${current}" value="" placeholder="/user_001,/user_002" type="text">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br />
             `;
 
             $("#form_frontend_control").append(new_form);
+            watchCheckboxChange();
         });
 
         $("#newLineParametersConversion").click(function () {
@@ -411,17 +432,37 @@
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "Folder:")}</span>
                         <input style="margin-left: 0px" id="folder_conversion_${current}" value="" placeholder="/ or *" type="text">
+                        <div class="exclude-block ">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox" id="checkbox_conversion_${current}" class="checkbox" />
+                                <label for="checkbox_conversion_${current}">${t(OCA.Cadviewer.AppName, 'Exclude folder ?')}</label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_folder_conversion_${current}">${t(OCA.Cadviewer.AppName, "Folder(s):")}</label>
+                                <input style="margin-left: 0px" id="excluded_folder_conversion_${current}" value="" placeholder="/folder_1,/folder_2" type="text">
+                            </div>
+                        </div>
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px">${t(OCA.Cadviewer.AppName, "User:")}</span>
                         <input style="margin-left: 0px" id="user_conversion_${current}" value="" placeholder="/user_001 or *" type="text">
+                        <div class="exclude-block">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox" id="checkbox_conversion_user_${current}" class="checkbox" />
+                                <label for="checkbox_conversion_user_${current}">${t(OCA.Cadviewer.AppName, 'Exclude user ?')}</label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_user_conversion_${current}">${t(OCA.Cadviewer.AppName, "User(s):")}</label>
+                                <input style="margin-left: 0px" id="excluded_user_conversion_${current}" value="" placeholder="/user_001,/user_002" type="text">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br />
             `;
 
             $("#conversion_control").append(new_form);
-
+            watchCheckboxChange();
         });
         $("#saveParameters").click(function () {
             const current = $("#conversion_control .grid_input_4").length;
@@ -432,11 +473,15 @@
             var value_conversion_1 = $("#value_conversion_1").val().trim();
             var folder_conversion_1 = $("#folder_conversion_1").val().trim();
             var user_conversion_1 = $("#user_conversion_1").val().trim();
+            var excluded_user_conversion_1 = $("#excluded_user_conversion_1").val().trim();
+            var excluded_folder_conversion_1 = $("#excluded_folder_conversion_1").val().trim();
             
             data['parameter_conversion_1'] = parameter_conversion_1;
             data['value_conversion_1'] = value_conversion_1;
             data['folder_conversion_1'] = folder_conversion_1 || "*";
             data['user_conversion_1'] = user_conversion_1 || "*";
+            data['excluded_user_conversion_1'] = excluded_user_conversion_1 || "";
+            data['excluded_folder_conversion_1'] = excluded_folder_conversion_1 || "";
             data['length'] = 1;
             
             for(let i=2; i<current+1; i++){
@@ -444,12 +489,16 @@
                 var value_conversion = $("#value_conversion_"+i).val().trim();
                 var folder_conversion = $("#folder_conversion_"+i).val().trim()  || "*";
                 var user_conversion = $("#user_conversion_"+i).val().trim()  || "*";
+                var excluded_user_conversion = $("#excluded_user_conversion_"+i).val().trim() || "";
+                var excluded_folder_conversion = $("#excluded_folder_conversion_"+i).val().trim() || "";
                 
                 if (parameter_conversion){
                     data['parameter_conversion_'+i] = parameter_conversion;
                     data["value_conversion_"+i] = value_conversion;
                     data["folder_conversion_"+i] = folder_conversion;
                     data["user_conversion_"+i] = user_conversion;
+                    data["excluded_user_conversion_"+i] = excluded_user_conversion;
+                    data["excluded_folder_conversion_"+i] = excluded_folder_conversion;
                     data['length'] += 1;
                 }
             }
@@ -482,9 +531,14 @@
             var value_frontend_1 = $("#value_frontend_1").val().trim();
             var folder_frontend_1 = $("#folder_frontend_1").val().trim();
             var user_frontend_1 = $("#user_frontend_1").val().trim();
+            var excluded_folder_frontend_1 = $("#excluded_folder_frontend_1").val().trim();
+            var excluded_user_frontend_1 = $("#excluded_user_frontend_1").val().trim();
+
             data['value_frontend_1'] = value_frontend_1;
             data['folder_frontend_1'] = folder_frontend_1 || "*";
             data['user_frontend_1'] = user_frontend_1 || "*";
+            data['excluded_folder_frontend_1'] = excluded_folder_frontend_1 || "";
+            data['excluded_user_frontend_1'] = excluded_user_frontend_1 || "";
             data['length'] = 1;
             if (!(parseInt(value_frontend_1) > 0)){
                 OCP.Toast.error(t(OCA.Cadviewer.AppName, "LineWeightFactor must be bigger than 0"));
@@ -494,12 +548,16 @@
                 var value_frontend = $("#value_frontend_"+i).val().trim();
                 var folder_frontend = $("#folder_frontend_"+i).val().trim() || "*";
                 var user_frontend = $("#user_frontend_"+i).val().trim()  || "*";
+                var excluded_folder_frontend = $("#excluded_folder_frontend_"+i).val().trim() || "";
+                var excluded_user_frontend = $("#excluded_user_frontend_"+i).val().trim()  || "";
                 if (!(parseInt(value_frontend) > 0)){
                     continue;
                 }
                 data["value_frontend_"+i] = value_frontend;
                 data["folder_frontend_"+i] = folder_frontend;
                 data["user_frontend_"+i] = user_frontend;
+                data["excluded_user_frontend_"+i] = excluded_user_frontend;
+                data["excluded_folder_frontend_"+i] = excluded_folder_frontend;
                 data['length'] += 1;
             }
             $(".section-cadviewer").addClass("icon-loading");
@@ -523,6 +581,21 @@
                 }
             });
         });
+
+        function watchCheckboxChange () {
+            $(".exclude-block-checkbox input").change(function() {
+                if(this.checked) {
+                    $(this).parent().parent().addClass("checked");
+                }else {
+                    $(this).parent().parent().removeClass("checked");
+                    $(this).parent().parent().find(".exclude-block-input input").val("");
+                }        
+            });
+        }
+
+        watchCheckboxChange();
+        
     });
+
 
 })(jQuery, OC);

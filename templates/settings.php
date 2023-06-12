@@ -263,6 +263,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("Parameter:")) ?></span>
                         <input style="margin-left: 0px" id="parameter_conversion_<?=$key+1?>" value="<?=p($value["parameter_conversion"])?>" placeholder="" type="text">
+                        
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 70px"><?php p($l->t("(Value):")) ?></span>
@@ -271,10 +272,30 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("Folder:")) ?></span>
                         <input style="margin-left: 0px" id="folder_conversion_<?=$key+1?>" value="<?=p($value["folder_conversion"])?>" placeholder="/ or *" type="text">
+                        <div class="exclude-block <?php if ($value["excluded_folder_conversion"]): ?> checked <?php endif; ?>">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox"<?php if ($value["excluded_folder_conversion"]): ?> checked="checked"<?php endif; ?> id="checkbox_conversion_<?=$key+1?>" class="checkbox" />
+                                <label for="checkbox_conversion_<?=$key+1?>"><?php p($l->t('Exclude folder ?'));?></label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_folder_conversion_<?=$key+1?>"><?php p($l->t("Folder(s):")) ?></label>
+                                <input style="margin-left: 0px" id="excluded_folder_conversion_<?=$key+1?>" value="<?= p($value["excluded_folder_conversion"]) ?>" placeholder="/folder_1,/folder_2" type="text">
+                            </div>
+                        </div>
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("User:")) ?></span>
                         <input style="margin-left: 0px" id="user_conversion_<?=$key+1?>" value="<?=p($value["user_conversion"])?>" placeholder="/user_001 or *" type="text">
+                        <div class="exclude-block <?php if ($value["excluded_user_conversion"]): ?> checked <?php endif; ?>">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox"<?php if ($value["excluded_user_conversion"]): ?> checked="checked"<?php endif; ?> id="checkbox_conversion_user_<?=$key+1?>" class="checkbox" />
+                                <label for="checkbox_conversion_user_<?=$key+1?>"><?php p($l->t('Exclude user ?'));?></label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_user_conversion_<?=$key+1?>"><?php p($l->t("User(s):")) ?></label>
+                                <input style="margin-left: 0px" id="excluded_user_conversion_<?=$key+1?>" value="<?= p(($value["excluded_user_conversion"])) ?>" placeholder="/user_001,/user_002" type="text">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br />
@@ -308,10 +329,30 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("Folder:")) ?></span>
                         <input style="margin-left: 0px" id="folder_frontend_<?=$key+1?>" value="<?=p($value["folder_frontend"])?>" placeholder="/ or *" type="text">
+                        <div class="exclude-block <?php if ($value["excluded_folder_frontend"]): ?> checked <?php endif; ?>">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox"<?php if ($value["excluded_folder_frontend"]): ?> checked="checked"<?php endif; ?> id="checkbox_folder_frontend_<?=$key+1?>" class="checkbox" />
+                                <label for="checkbox_folder_frontend_<?=$key+1?>"><?php p($l->t('Exclude folder ?'));?></label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_folder_frontend_<?=$key+1?>"><?php p($l->t("Folder(s):")) ?></label>
+                                <input style="margin-left: 0px" id="excluded_folder_frontend_<?=$key+1?>" value="<?= p($value["excluded_folder_frontend"]) ?>" placeholder="/folder_1,/folder_2" type="text">
+                            </div>
+                        </div>
                     </div>
                     <div style="display: flex; align-items: flex-start; flex-direction: column;">
                         <span style="min-width: 80px"><?php p($l->t("User:")) ?></span>
                         <input style="margin-left: 0px" id="user_frontend_<?=$key+1?>" value="<?=p($value["user_frontend"])?>" placeholder="/user_001 or *" type="text">
+                        <div class="exclude-block <?php if ($value["excluded_user_frontend"]): ?> checked <?php endif; ?>">
+                            <div class="exclude-block-checkbox">
+                                <input type="checkbox"<?php if ($value["excluded_user_frontend"]): ?> checked="checked"<?php endif; ?> id="checkbox_user_frontend_<?=$key+1?>" class="checkbox" />
+                                <label for="checkbox_user_frontend_<?=$key+1?>"><?php p($l->t('Exclude user ?'));?></label>
+                            </div>
+                            <div class="exclude-block-input">
+                                <label style="min-width: 80px" for="excluded_user_frontend_<?=$key+1?>"><?php p($l->t("User(s):")) ?></label>
+                                <input style="margin-left: 0px" id="excluded_user_frontend_<?=$key+1?>" value="<?= p($value["excluded_user_frontend"]) ?>" placeholder="/user_001,/user_002" type="text">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br />

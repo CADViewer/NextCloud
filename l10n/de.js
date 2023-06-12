@@ -76,6 +76,11 @@ OC.L10N.register(
         "New line": "Neue Zeile",
         "Folder:": "Ordner:",
         "User:": "Benutzer:",
+        "Folder(s):": "Ordner(s):",
+        "User(s):": "Benutzer(s):",
+        "CADViewer Front-End Control Parameters:": "CADViewer Front-End Control Parameters:",
+        "Exclude folder?" : "Einen Ordner ausschließen?",
+        "Exclude user?": "Einen Benutzer ausschließen?",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

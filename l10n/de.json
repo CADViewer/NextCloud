@@ -74,7 +74,12 @@
         "File have been successfully saved": "Datei wurde erfolgreich gespeichert",
         "New line": "Neue Zeile",
         "Folder:": "Ordner:",
-        "User:": "Benutzer:"
+        "User:": "Benutzer:",
+        "Folder(s):": "Ordner(s):",
+        "User(s):": "Benutzer(s):",
+        "CADViewer Front-End Control Parameters:": "CADViewer Front-End Control Parameters:",
+        "Exclude folder?" : "Einen Ordner ausschließen?",
+        "Exclude user?": "Einen Benutzer ausschließen?"
     },
     "pluralForm": "nplurals=2; plural=(n != 1);"
 }
