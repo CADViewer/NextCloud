@@ -258,21 +258,20 @@ class CadviewerController extends Controller {
 				($value["user_frontend"] === "/".$this->userId || $value["user_frontend"] === "*")
 			) {
 				$found =  false;
-				foreach(explode(",", $value["excluded_user_frontend"] ||  "") as $value_user) {
+				foreach(explode(",", $value["excluded_user_frontend"] ?:  "") as $value_user) {
 					if ($value_user === "/".$this->userId) {
 						$found = true;
 						break;
 					}
 				}
-				foreach(explode(",", $value["excluded_folder_frontend"] ||  "") as $value_folder) {
+				foreach(explode(",", $value["excluded_folder_frontend"] ?:  "") as $value_folder) {
 					if ($value_folder === $directory) {
 						$found = true;
 						break;
 					}
 				}
-				if ($found) {
+				if ($found)
 					continue;
-				}
 				$response["lineWeightFactor"] = intval($value["value_frontend"]);			
 			}
 		}
@@ -285,13 +284,13 @@ class CadviewerController extends Controller {
 				($value["user_conversion"] === "/".$this->userId || $value["user_conversion"] === "*")
 			) {
 				$found =  false;
-				foreach(explode(",", $value["excluded_user_conversion"] ||  "") as $value_user) {
+				foreach(explode(",", $value["excluded_user_conversion"] ?:  "") as $value_user) {
 					if ($value_user === "/".$this->userId) {
 						$found = true;
 						break;
 					}
 				}
-				foreach(explode(",", $value["excluded_folder_conversion"] ||  "") as $value_folder) {
+				foreach(explode(",", $value["excluded_folder_conversion"] ?:  "") as $value_folder) {
 					if ($value_folder === $directory) {
 						$found = true;
 						break;
