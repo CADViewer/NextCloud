@@ -184,6 +184,33 @@ class CadviewerController extends Controller {
 		$cadviewer_group_name = "CADViewer"; // put this in the settings part
 		$maximun_number_of_user = 10;
 
+		// Construct path to converter folder
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+        // include CADViewer config for be able to acces to the location of ax2024 executable file
+        require($home_dir."/php/CADViewer_config.php");
+
+        $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
+        
+		// if expired, return success for display demo mode
+		if (strpos($output_detail, 'Expired') !== false){
+			return "success";
+		}
+		// if there is no licence file, return success for display demo mode
+		if (strpos($output_detail, 'Unable to Read/Open License') !== false){
+			return "success";
+		}
+
+		// extract information from key verification detail
+		$lines = explode("\n", $output_detail);
+		// results invalid
+		if (count($lines) != 8 and count($lines) != 9) {
+			return "success";
+		}
+		
+		$maximun_number_of_user = intval($lines[3]);
+
 		$groupManager = \OC::$server->getGroupManager();
 		$found = false;
 
@@ -232,7 +259,7 @@ class CadviewerController extends Controller {
 		$res = $this->checkIfNumberOfUsersLimitation();
 		$this->settingsController->checkIfLicenceIsPresent();
 		if ($res != "success") {
-			// return $res; // ! todo uncomment this line
+			return $res; // ! todo uncomment this line
 		}
 
 		if ($this->encryptionManager->isEnabled()) {

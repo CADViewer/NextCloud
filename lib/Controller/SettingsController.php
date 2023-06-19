@@ -89,13 +89,16 @@ class SettingsController extends Controller {
             // include CADViewer config for be able to acces to the location of ax2024 executable file
             require($home_dir."/php/CADViewer_config.php");
 
-            $shx_file = $converterLocation."converters/ax2024/linux/fonts/".$file['name'];
+            $file_name = $file['name'];
+
+            $shx_file = $converterLocation."fonts/".$file_name;
 
             // Process the file
             $tmp_name = $file['tmp_name'];
 
             // Saving it to a directory
-            move_uploaded_file($tmp_name, $shx_file);
+            $res = move_uploaded_file($tmp_name, $shx_file);
+
             return new JSONResponse(array(), Http::STATUS_CREATED);
         }
     }
