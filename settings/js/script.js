@@ -110,7 +110,7 @@
         var licenceKeyFile;
         var shxFile;
         $('#uploadaxlic').change(function() {
-            let pattern = /axlic(.*)\.key/gm;
+            let pattern = /axlic(.*)\.key/igm;
             if (!pattern.test(this.files[0].name)) {
                 OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid licence key file"));
                 return;
@@ -120,7 +120,7 @@
         });
 
         $('#cadviewerLicenceKey').change(function() {
-            let pattern = /cvlicense(.*)\.js/gm;
+            let pattern = /cvlicense(.*)\.js/igm;
             if (!pattern.test(this.files[0].name)) {
                 OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid licence key file"));
                 return;
@@ -130,7 +130,7 @@
         });       
         
         $('#shxFile').change(function() {
-            let pattern = /(.*)\.shx/gm;
+            let pattern = /(.*)\.shx/igm;
             if (!pattern.test(this.files[0].name)) {
                 OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid file"));
                 return;
@@ -144,7 +144,7 @@
         $("#cadviewerSaveAxlic").click(function () {
             if (!axlicFile) return;
             $(".section-cadviewer").addClass("icon-loading");
-
+            
             // Create a new FormData object
             let formData = new FormData();
 
