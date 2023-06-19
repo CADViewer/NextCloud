@@ -2,6 +2,9 @@
   box-sizing: content-box;
   padding-top: 6px;
 }
+.section h2 .icon-info {
+  padding: 5px !important;
+}
 .section-cadviewer h1 {
     font-weight: bold;
     font-size: 26px;
