@@ -9,11 +9,14 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     <h1>
         <?= $_["name"] ?> <span style="font-size: 20px; font-weight: 500;"><?= $_["version"] ?></span>
         <a target="_blank" class="icon-info svg" title=""
-            href="https://github.com/CADViewer/NextCloud/blob/main/README.md"
+            href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin"
             data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h1>
-<h2>
+    <h2>
         <?php p($l->t("Cadviewer icons Skin")) ?>
+        <a target="_blank" class="icon-info svg" title=""
+            href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#cadviewer-icons-skin"
+            data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h2>
     <div>
         <div id="">
@@ -41,6 +44,9 @@ OCP\Util::addScript('cadviewer/settings', 'script');
 
     <h2>
         <?php p($l->t("Licence Keys")) ?>
+        <a target="_blank" class="icon-info svg" title=""
+            href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#apply-license-keys"
+            data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h2>
 
     <div>
@@ -122,6 +128,9 @@ OCP\Util::addScript('cadviewer/settings', 'script');
 
     <h2>
         <?php p($l->t("Flush Cache")) ?>
+        <a target="_blank" class="icon-info svg" title=""
+            href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#flush-cache"
+            data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h2>
 
     <div>
@@ -140,6 +149,9 @@ OCP\Util::addScript('cadviewer/settings', 'script');
 
     <h2>
         <?php p($l->t("Debug")) ?>
+        <a target="_blank" class="icon-info svg" title=""
+            href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#debug-installation-setup"
+            data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h2>
 
     <div>
@@ -159,6 +171,9 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     </div>
     <h2>
         <?php p($l->t("Api Conversion log")) ?>
+        <a target="_blank" class="icon-info svg" title=""
+            href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#api-conversion-log"
+            data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h2>
 
     <div>
@@ -180,6 +195,9 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     </div>
     <h2>
         <?php p($l->t("Font Mapping Controls")) ?>
+        <a target="_blank" class="icon-info svg" title=""
+            href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#font-mapping-controls"
+            data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h2>
     <div>
         <div>
@@ -245,7 +263,12 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <br />
     </div>
     <h2  style="display: flex; justify-content:space-between">
-        <?php p($l->t("Conversion parameters")) ?>
+        <div>
+            <?php p($l->t("Conversion parameters")) ?>
+            <a target="_blank" class="icon-info svg" title=""
+                href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#conversion-parameter-controls"
+                data-original-title="<?php p($l->t("Documentation")) ?>"></a>
+        </div>
         <button id="newLineParametersConversion" class="button">
             <?php p($l->t("New line")) ?>
         </button>
@@ -309,7 +332,12 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <br />
     </div>
     <h2  style="display: flex; justify-content:space-between">
-        <?php p($l->t("CADViewer Front-End Control Parameters:")) ?>
+        <div>
+            <?php p($l->t("CADViewer Front-End Control Parameters:")) ?>
+            <a target="_blank" class="icon-info svg" title=""
+                    href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/#cadviewer-front-end-control-parameters"
+                    data-original-title="<?php p($l->t("Documentation")) ?>"></a>
+        </div>
         <button id="newLineParametersFrontend" class="button">
             <?php p($l->t("New line")) ?>
         </button>
