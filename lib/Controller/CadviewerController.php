@@ -181,7 +181,7 @@ class CadviewerController extends Controller {
 	}
 
 	private function checkIfNumberOfUsersLimitation()  {
-		$cadviewer_group_name = "CADViewer";
+		$cadviewer_group_name = "CADViewer"; // put this in the settings part
 		$maximun_number_of_user = 10;
 
 		$groupManager = \OC::$server->getGroupManager();
@@ -257,20 +257,21 @@ class CadviewerController extends Controller {
 				($value["folder_frontend"] === $directory || $value["folder_frontend"] === "*") && 
 				($value["user_frontend"] === "/".$this->userId || $value["user_frontend"] === "*")
 			) {
-				$found =  false;
+				$found_user =  false;
+				$found_folder =  false;
 				foreach(explode(",", $value["excluded_user_frontend"] ?:  "") as $value_user) {
 					if ($value_user === "/".$this->userId) {
-						$found = true;
+						$found_user = true;
 						break;
 					}
 				}
 				foreach(explode(",", $value["excluded_folder_frontend"] ?:  "") as $value_folder) {
 					if ($value_folder === $directory) {
-						$found = true;
+						$found_folder = true;
 						break;
 					}
 				}
-				if ($found)
+				if ($found_user and $found_folder)
 					continue;
 				$response["lineWeightFactor"] = intval($value["value_frontend"]);			
 			}
@@ -283,20 +284,21 @@ class CadviewerController extends Controller {
 				($value["folder_conversion"] === $directory || $value["folder_conversion"] === "*") && 
 				($value["user_conversion"] === "/".$this->userId || $value["user_conversion"] === "*")
 			) {
-				$found =  false;
+				$found_user =  false;
+				$found_folder =  false;
 				foreach(explode(",", $value["excluded_user_conversion"] ?:  "") as $value_user) {
 					if ($value_user === "/".$this->userId) {
-						$found = true;
+						$found_user = true;
 						break;
 					}
 				}
 				foreach(explode(",", $value["excluded_folder_conversion"] ?:  "") as $value_folder) {
 					if ($value_folder === $directory) {
-						$found = true;
+						$found_folder = true;
 						break;
 					}
 				}
-				if ($found)
+				if ($found_user and $found_folder)
 					continue;
 				$response["parameters"]["parameter_".$i] = $value["parameter_conversion"];
 				$response["parameters"]["value_".$i] = $value["value_conversion"];
