@@ -117,6 +117,13 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                 <?php p($_["autoexchange"]["instance_id"]) ?>
             </span>
         </div>
+        <div class="content-url">
+            <b><?php p($l->t("Licensed to")) ?></b>: <span id="licensedTo"></span>
+        </div>
+        <div class="content-url" style="display: none;" id="expirationTime">
+            <b><span><?php p($l->t("License key expires in xx Days, ")) ?></span> <a href="https://cadviewer.com/contact/" target="_blank" style="text-decoration: underline;"><?php p($l->t("Please renew")) ?></a></b>
+        </div>
+        
         <br />
     </div>
     <p>
