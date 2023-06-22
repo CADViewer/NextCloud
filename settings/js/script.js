@@ -23,10 +23,16 @@
                     let installationUrl = response.domaine_url;
                     let verifyOutput = response.output;
                     let instanceID = response.instance_id;
-                    
+                    let licensedTo = response.licensee;
+                    let expirationTime = response.expiration_time;
                     $("#installationUrl").html(installationUrl);
                     $("#verifyOutput").html(verifyOutput);
                     $("#instanceID").html(instanceID);
+                    $("#licensedTo").html(licensedTo);
+                    if(expirationTime !== null  && expirationTime > 0) {
+                        document.getElementById("expirationTime").style.display = "block"
+                        $("#expirationTime span").html($("#expirationTime span").html().replace("xx", expirationTime));
+                    }
                 }
             }
         });

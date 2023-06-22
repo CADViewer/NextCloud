@@ -81,7 +81,10 @@ OC.L10N.register(
         "User(s):": "Utilisateur(s):",
         "CADViewer Front-End Control Parameters:": "Paramètres de contrôle frontal de CADViewer :",
         "Exclude folder ?" : "Exclure un dossier ?",
-        "Exclude user ?": "Exclure un utilisateur ?"
+        "Exclude user ?": "Exclure un utilisateur ?",
+        "Licensed to": "Licencié à",
+        "License key expires in xx Days, " : "La clé de licence expire dans xx jours, ",
+        "Please renew" : "Veuillez renouveler",
     },
     "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 );

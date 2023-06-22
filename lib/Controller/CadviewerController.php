@@ -137,6 +137,7 @@ class CadviewerController extends Controller {
 		}
 
 		return new JSONResponse(array(), Http::STATUS_NO_CONTENT);
+		
 	}
 
 	
@@ -195,6 +196,7 @@ class CadviewerController extends Controller {
         
 		// if expired, return success for display demo mode
 		if (strpos($output_detail, 'Expired') !== false){
+			$this->flushCache();
 			return "success";
 		}
 		// if there is no licence file, return success for display demo mode
@@ -204,13 +206,26 @@ class CadviewerController extends Controller {
 
 		// extract information from key verification detail
 		$lines = explode("\n", $output_detail);
-		// results invalid
-		if (count($lines) != 8 and count($lines) != 9) {
+        $expiration_time = "";
+        $version_number = "";
+        $number_of_users = -1;
+        $licensee = "";
+        if (strpos($output_detail, "License Validated") !== false) {
+            if (isset($lines[0]) && strpos($lines[0], "days until your") !== false) {
+                $expiration_time = $lines[0];
+                $version_number = $lines[1];
+                $number_of_users = intval($lines[3]);
+                $licensee = trim($lines[4]);
+            } else {
+                $version_number = $lines[0];
+                $number_of_users = intval($lines[2]);
+                $licensee = trim($lines[3]);
+            }
+        } else {
 			return "success";
 		}
+		$maximun_number_of_user = $number_of_users;
 		
-		$maximun_number_of_user = intval($lines[3]);
-
 		$groupManager = \OC::$server->getGroupManager();
 		$found = false;
 
@@ -219,7 +234,7 @@ class CadviewerController extends Controller {
 			foreach ($groups as $group) {
 				if ($group == $cadviewer_group_name){
 					$users = $backend->usersInGroup($group);
-					if (count($users) > $maximun_number_of_user) {
+					if (count($users) > $maximun_number_of_user && $maximun_number_of_user != 0) {
 						$response = array();
 						$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("The number of users is limited to")." ".$maximun_number_of_user));
 						return $response;
@@ -243,6 +258,7 @@ class CadviewerController extends Controller {
 			}
 		}
 
+		
 		if (!$found) {
 			$response = array();
 			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Before access to this feature you need to create a group called CADViewer and add users to it")));
@@ -256,8 +272,8 @@ class CadviewerController extends Controller {
 	 */
 	public function path($nameOfFile, $directory){
 
-		$res = $this->checkIfNumberOfUsersLimitation();
 		$this->settingsController->checkIfLicenceIsPresent();
+		$res = $this->checkIfNumberOfUsersLimitation();
 		if ($res != "success") {
 			return $res; // ! todo uncomment this line
 		}

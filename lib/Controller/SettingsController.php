@@ -143,6 +143,7 @@ class SettingsController extends Controller {
      */
     public function checkAutoExchangeLicenceKey() {
         
+		$this->checkIfLicenceIsPresent();
         // Construct path to converter folder
         $currentpath = __FILE__;
         $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
@@ -154,6 +155,29 @@ class SettingsController extends Controller {
         
         // run the script and store output content for display it on the frontend 
         $output = shell_exec($script);
+        $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
+        
+        $lines = explode("\n", $output_detail);
+        $expiration_time = null;
+        $version_number = "";
+        $number_of_users = 0;
+        $licensee = "";
+        if (strpos($output, "License Validated") !== false) {
+            if (isset($lines[0]) && strpos($lines[0], "days until your") !== false) {
+                $pattern = "/\d+/";
+                $matches = preg_match($pattern, $lines[0], $matchesArray);
+                $expiration_time = intval($matchesArray[0]);
+
+                $version_number = $lines[1];
+                $number_of_users = intval($lines[3]);
+                $licensee = trim($lines[4]);
+            } else {
+                $version_number = $lines[0];
+                $number_of_users = intval($lines[2]);
+                $licensee = trim($lines[3]);
+            }
+        } else {}
+
 
         $domaine_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" :"http") . "://$_SERVER[HTTP_HOST]";
 
@@ -162,8 +186,13 @@ class SettingsController extends Controller {
 
         return [
             "output" => $output,
+            "output_detail" => $output_detail,
             "domaine_url" => $domaine_url,
-            "instance_id" => $instance_id
+            "instance_id" => $instance_id,
+            "expiration_time" => $expiration_time,
+            "version_number" => $version_number,
+            "number_of_users" => $number_of_users,
+            "licensee" => $licensee
         ];
     }
 

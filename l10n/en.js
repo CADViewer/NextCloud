@@ -82,6 +82,9 @@ OC.L10N.register(
         "CADViewer Front-End Control Parameters:": "CADViewer Front-End Control Parameters:",
         "Exclude folder ?": "Exclude folder ?",
         "Exclude user ?": "Exclude user ?",
+        "Licensed to": "Licensed to",
+        "License key expires in xx Days, ": "License key expires in xx Days, ",
+        "Please renew": "Please renew",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

@@ -80,7 +80,10 @@
         "User(s):": "User(s):",
         "CADViewer Front-End Control Parameters:": "CADViewer Front-End Control Parameters:",
         "Exclude folder ?": "Exclude folder ?",
-        "Exclude user ?": "Exclude user ?"
+        "Exclude user ?": "Exclude user ?",
+        "Licensed to": "Licensed to",
+        "License key expires in xx Days, ": "License key expires in xx Days, ",
+        "Please renew": "Please renew"
 	},
 	"pluralForm": "nplurals=2; plural=(n != 1);"
 }
