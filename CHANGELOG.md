@@ -3,7 +3,11 @@
 - Nighly changes here
 
 
-### 8.75.4 - 2023-06-16
+### 8.76.1 - 2023-06-27
+- definition of CADViewer group for small batches of licensee
+
+
+### 8.75.5 - 2023-06-20
 - granular ability to control folders for parameter settings
 - AutoXchange v23.12.115 added
 
