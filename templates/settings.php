@@ -123,6 +123,12 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <div class="content-url" style="display: none;" id="expirationTime">
             <b><span><?php p($l->t("License key expires in xx Days, ")) ?></span> <a href="https://cadviewer.com/contact/" target="_blank" style="text-decoration: underline;"><?php p($l->t("Please renew")) ?></a></b>
         </div>
+        <div class="content-url" style="display: none;" id="licenceUsersNumber">
+            <b><?php p($l->t("Users")) ?></b>: <span><?php p($l->t("XX user license in group CADViewer")) ?></span>
+        </div>
+        <div class="content-url" style="display: none;" id="licenceFullServer">
+            <b><?php p($l->t("Users")) ?></b>: <span><?php p($l->t("CADViewer Full-Server license, no user count")) ?>.</span>
+        </div>
         
         <br />
     </div>
