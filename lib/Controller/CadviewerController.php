@@ -225,6 +225,10 @@ class CadviewerController extends Controller {
 			return "success";
 		}
 		$maximun_number_of_user = $number_of_users;
+
+		if ($maximun_number_of_user == 0) {
+			return "success";
+		}
 		
 		$groupManager = \OC::$server->getGroupManager();
 		$found = false;
@@ -275,7 +279,7 @@ class CadviewerController extends Controller {
 		$this->settingsController->checkIfLicenceIsPresent();
 		$res = $this->checkIfNumberOfUsersLimitation();
 		if ($res != "success") {
-			return $res; // ! todo uncomment this line
+			return $res;
 		}
 
 		if ($this->encryptionManager->isEnabled()) {

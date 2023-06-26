@@ -25,6 +25,8 @@
                     let instanceID = response.instance_id;
                     let licensedTo = response.licensee;
                     let expirationTime = response.expiration_time;
+                    let numberOfUsers = response.number_of_users;
+
                     $("#installationUrl").html(installationUrl);
                     $("#verifyOutput").html(verifyOutput);
                     $("#instanceID").html(instanceID);
@@ -32,6 +34,13 @@
                     if(expirationTime !== null  && expirationTime > 0) {
                         document.getElementById("expirationTime").style.display = "block"
                         $("#expirationTime span").html($("#expirationTime span").html().replace("xx", expirationTime));
+                    }
+                    if (numberOfUsers > 0) {
+                        document.getElementById("licenceUsersNumber").style.display = "block";
+                        $("#licenceUsersNumber span").html($("#licenceUsersNumber span").html().replace("xx", numberOfUsers));
+                    }
+                    if (numberOfUsers === 0) {
+                        document.getElementById("licenceFullServer").style.display = "block";
                     }
                 }
             }

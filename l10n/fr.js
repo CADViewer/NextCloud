@@ -85,6 +85,9 @@ OC.L10N.register(
         "Licensed to": "Licencié à",
         "License key expires in xx Days, " : "La clé de licence expire dans xx jours, ",
         "Please renew" : "Veuillez renouveler",
+        "XX user license in group CADViewer": "Licence utilisateur XX dans le groupe CADViewer",
+        "CADViewer Full-Server license, no user count": "Licence Full-Server CADViewer, pas de comptage d'utilisateurs",
+        "Users": "Utilisateurs",
     },
     "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 );
