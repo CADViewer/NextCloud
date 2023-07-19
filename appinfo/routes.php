@@ -37,5 +37,6 @@ return [
         ["name" => "settings#save_shx_file", "url" => "/ajax/settings/shx-file", "verb" => "POST"],
         ["name" => "settings#display_log", "url" => "/ajax/settings/log", "verb" => "POST"],
         ["name" => "settings#save_ax_font_map", "url" => "/ajax/settings/save-font-map", "verb" => "POST"],
+        ["name" => "settings#save_users", "url" => "/ajax/settings/users", "verb" => "PUT"],
 	]
 ];

@@ -182,8 +182,6 @@ class CadviewerController extends Controller {
 	}
 
 	private function checkIfNumberOfUsersLimitation()  {
-		$cadviewer_group_name = "CADViewer"; // put this in the settings part
-		$maximun_number_of_user = 10;
 
 		// Construct path to converter folder
         $currentpath = __FILE__;
@@ -230,42 +228,19 @@ class CadviewerController extends Controller {
 			return "success";
 		}
 		
+		$users = $this->appConfig->GetUsers($maximun_number_of_user);
+
 		$groupManager = \OC::$server->getGroupManager();
 		$found = false;
 
-		foreach ($groupManager->getBackends() as $backend) {
-			$groups =  $backend->getGroups();
-			foreach ($groups as $group) {
-				if ($group == $cadviewer_group_name){
-					$users = $backend->usersInGroup($group);
-					if (count($users) > $maximun_number_of_user && $maximun_number_of_user != 0) {
-						$response = array();
-						$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("The number of users is limited to")." ".$maximun_number_of_user));
-						return $response;
-					}
-					// check if current user is in the group
-					$found_user = false;
-					
-					foreach ($users as $user) {
-						if ($user == $this->userId) {
-							$found = true;
-							$found_user = true;
-							break;
-						}
-					}
-					if (!$found_user) {
-						$response = array();
-						$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Before access to this feature Administrator need to add yourself to the group CADViewer")));
-						return $response;
-					}
-				}
-			}
+		// check if $this->userId in $users
+		if (in_array($this->userId, $users)) {
+			$found = true;
 		}
 
-		
 		if (!$found) {
 			$response = array();
-			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Before access to this feature you need to create a group called CADViewer and add users to it")));
+			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Before access to this feature administrator need to grant you access")));
 			return $response;
 		}
 		return "success";

@@ -86,7 +86,11 @@
         "Please renew": "Please renew",
         "XX user license in group CADViewer": "XX user license in group CADViewer",
         "CADViewer Full-Server license, no user count": "CADViewer Full-Server license, no user count",
-        "Users": "Users"
+        "Users": "Users",
+        "Users have been successfully updated": "Users have been successfully updated",
+        "Before access to this feature administrator need to grant you access": "Before access to this feature administrator need to grant you access",
+        "Users with access to Cadviewer": "Users with access to Cadviewer",
+        "User": "User"
 	},
 	"pluralForm": "nplurals=2; plural=(n != 1);"
 }
