@@ -85,7 +85,11 @@
         "Please renew" : "Veuillez renouveler",
         "XX user license in group CADViewer": "Licence utilisateur XX dans le groupe CADViewer",
         "CADViewer Full-Server license, no user count": "Licence Full-Server CADViewer, pas de comptage d'utilisateurs",
-        "Users": "Utilisateurs"
+        "Users": "Utilisateurs",
+        "Users have been successfully updated": "Utilisateurs mis à jour avec succès",
+        "Before access to this feature administrator need to grant you access": "Avant d'accéder à cette fonctionnalité, l'administrateur doit vous accorder l'accès",
+        "Users with access to Cadviewer": "Utilisateurs avec accès à Cadviewer",
+        "User": "Utilisateur"
     },
     "pluralForm": "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

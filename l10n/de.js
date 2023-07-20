@@ -87,6 +87,10 @@ OC.L10N.register(
         "XX user license in group CADViewer": "XX Benutzerlizenz in der Gruppe CADViewer",
         "CADViewer Full-Server license, no user count": "CADViewer Full-Server-Lizenz, keine Benutzeranzahl",
         "Users": "Benutzer",
+        "Users have been successfully updated": "Benutzer wurden erfolgreich aktualisiert",
+        "Before access to this feature administrator need to grant you access": "Bevor Sie auf diese Funktion zugreifen können, muss der Administrator Ihnen Zugriff gewähren",
+        "Users with access to Cadviewer": "Benutzer mit Zugriff auf Cadviewer",
+        "User": "Benutzer",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

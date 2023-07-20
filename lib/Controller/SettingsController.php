@@ -221,6 +221,22 @@ class SettingsController extends Controller {
         $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer";
         $info_file =  $home_dir."/appinfo/info.xml";
 
+        // include CADViewer config for be able to acces to the location of ax2024 executable file
+        require(explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter"."/php/CADViewer_config.php");
+
+        $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
+        
+		// extract information from key verification detail
+		$lines = explode("\n", $output_detail);
+        $number_of_users = -1;
+        if (strpos($output_detail, "License Validated") !== false) {
+            if (isset($lines[0]) && strpos($lines[0], "days until your") !== false) {
+                $number_of_users = intval($lines[3]);
+            } else {
+                $number_of_users = intval($lines[2]);
+            }
+        }
+
         // Read entire file into string
         $infoXmlfile = file_get_contents($info_file);
         
@@ -274,7 +290,10 @@ class SettingsController extends Controller {
                 "output" => "",
                 "domaine_url" => "",
                 "instance_id" => ""
-            ]
+            ],
+            "show_users_list" => $number_of_users > 0,
+            "number_of_users" => $number_of_users,
+            "users" => $this->config->GetUsers($number_of_users),
         ];
         return new TemplateResponse($this->appName, "settings", $data, "blank");
     }
@@ -322,6 +341,15 @@ class SettingsController extends Controller {
         }
     }
     
+    /**
+     * Save users list that have access to CADViewer
+     */
+
+    public function SaveUsers($users) {
+        $this->config->SetUsers(json_encode($users));
+        return array("users" => $users);
+    }
+
     /**
      * Save converters parameters
      */

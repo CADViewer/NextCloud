@@ -88,6 +88,10 @@ OC.L10N.register(
         "XX user license in group CADViewer": "XX user license in group CADViewer",
         "CADViewer Full-Server license, no user count": "CADViewer Full-Server license, no user count",
         "Users": "Users",
+        "Users have been successfully updated": "Users have been successfully updated",
+        "Before access to this feature administrator need to grant you access": "Before access to this feature administrator need to grant you access",
+        "Users with access to Cadviewer": "Users with access to Cadviewer",
+        "User": "User",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

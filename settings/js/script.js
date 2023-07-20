@@ -596,6 +596,37 @@
                 }
             });
         });
+        
+        $("#saveUsers").click(function () {
+            const current = $("#users_licence_list .grid_input_3").length;
+            let data = [];
+            
+            for(let i=1; i<current+1; i++){
+                var user = $("#user_licence_"+i).val().trim()  || "*";
+                data.push(user);
+            }
+
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/users"),
+                data: {"users": data},
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response) {
+                        
+                        var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Users have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        })
 
         function watchCheckboxChange () {
             $(".exclude-block-checkbox input").change(function() {

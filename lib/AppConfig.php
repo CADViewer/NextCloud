@@ -70,6 +70,13 @@ class AppConfig {
      */
     private $_parameters = "ConvertionsParameters";
 
+    /**
+     * The cadviewer users with access to features
+     * 
+     * @var string
+     */
+    private $_users = "Users";
+
     /** 
      * @param string $AppName - application name
      */
@@ -249,13 +256,39 @@ class AppConfig {
                 }
                 $this->SetParameters($parameters);
             }
-        }     
-        // var_dump(json_decode(stripslashes($parameters), true));
-        // var_dump(json_last_error());
-        // die();    
+        }
         return $parameters;
     }
     
-    
+    public function SetUsers($users) {
+        $users = trim($users);
+
+        $this->logger->info("SetUsers: $users", ["app" => $this->appName]);
+
+        $this->config->setAppValue($this->appName, $this->_users, $users);
+    }
+
+    public function GetUsers($number_of_users) {
+        $default = [];
+        for ($i = 0; $i < $number_of_users; $i++) {
+            $default[] = "";
+        }
+        $users = $this->config->getAppValue($this->appName, $this->_users, json_encode($default));
+        if (!empty($users)) {
+            $users = json_decode($users);
+            // get subarray of length $number_of_users
+            $users = array_slice($users, 0, $number_of_users);
+            
+            for ($i = 0; $i < $number_of_users; $i++) {
+                if (isset($users[$i])) {
+                    $default[$i] = $users[$i];
+                } else {
+                    $default[$i] = "";
+                }
+            }
+        }
+
+        return $default;
+    }
 
 }

@@ -139,6 +139,29 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     </p>
     <br />
 
+    <?php if ($_["show_users_list"]): ?>
+        <h2>
+            <?php p($l->t("Users with access to Cadviewer")) ?>
+        </h2>
+        <div id="users_licence_list">
+            <?php foreach ($_["users"] as $key => $value) { ?>
+                <div class="grid_input_3">
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?= p($l->t("User"))." ".$key+1 ?>:</span>
+                        <input style="margin-left: 0px" id="user_licence_<?=$key+1?>" value="<?=$value?>" placeholder="username_001" type="text">
+                    </div>
+                </div>
+                <br />
+            <?php } ?>
+        </div>
+        <p>
+            <button id="saveUsers" class="button">
+                <?php p($l->t("Save")) ?>
+            </button>
+        </p>
+        <br />
+    <?php endif; ?>
+
     <h2>
         <?php p($l->t("Flush Cache")) ?>
         <a target="_blank" class="icon-info svg" title=""
