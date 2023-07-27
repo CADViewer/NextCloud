@@ -122,6 +122,19 @@ class SettingsController extends Controller {
             // include CADViewer config for be able to acces to the location of ax2024 executable file
             require($home_dir."/php/CADViewer_config.php");
 
+            $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
+            
+            // extract information from key verification detail
+            $lines = explode("\n", $output_detail);
+            $number_of_users = -1;
+            if (strpos($output_detail, "License Validated") !== false) {
+                if (isset($lines[0]) && strpos($lines[0], "days until your") !== false) {
+                    $number_of_users = intval($lines[3]);
+                } else {
+                    $number_of_users = intval($lines[2]);
+                }
+            }
+
             $axlic_file = $licenseLocation."axlic.key";
 
             // Process the file
@@ -132,7 +145,7 @@ class SettingsController extends Controller {
             $axlic_file_content = file_get_contents($axlic_file);
             $this->config->SetAxlicLicenceKey($axlic_file_content);
             $this->flushCache();
-            return new JSONResponse(array(), Http::STATUS_CREATED);
+            return new JSONResponse(array("users" => $this->config->GetUsers($number_of_users)), Http::STATUS_CREATED);
         }
     }
 
@@ -192,6 +205,7 @@ class SettingsController extends Controller {
             "expiration_time" => $expiration_time,
             "version_number" => $version_number,
             "number_of_users" => $number_of_users,
+            "users" => $this->config->GetUsers($number_of_users),
             "licensee" => $licensee
         ];
     }
@@ -322,6 +336,20 @@ class SettingsController extends Controller {
             // include CADViewer config for be able to acces to the location of ax2024 executable file
             require($home_dir."/php/CADViewer_config.php");
 
+
+            $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
+            
+            // extract information from key verification detail
+            $lines = explode("\n", $output_detail);
+            $number_of_users = -1;
+            if (strpos($output_detail, "License Validated") !== false) {
+                if (isset($lines[0]) && strpos($lines[0], "days until your") !== false) {
+                    $number_of_users = intval($lines[3]);
+                } else {
+                    $number_of_users = intval($lines[2]);
+                }
+            }
+
             $licence_key_file = $licenseLocation."cvlicense.js";
 
             // Process the file
@@ -337,7 +365,8 @@ class SettingsController extends Controller {
                 }
             } catch (\Exception $e) {}
             $this->flushCache();
-            return new JSONResponse(array("licenceKey" => $this->config->GetLicenceKey(),), Http::STATUS_CREATED);
+            
+            return new JSONResponse(array("users" => $this->config->GetUsers($number_of_users), "licenceKey" => $this->config->GetLicenceKey(),), Http::STATUS_CREATED);
         }
     }
     

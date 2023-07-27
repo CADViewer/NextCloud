@@ -26,6 +26,7 @@
                     let licensedTo = response.licensee;
                     let expirationTime = response.expiration_time;
                     let numberOfUsers = response.number_of_users;
+                    let users = response.users;
 
                     $("#installationUrl").html(installationUrl);
                     $("#verifyOutput").html(verifyOutput);
@@ -42,6 +43,23 @@
                     if (numberOfUsers === 0) {
                         document.getElementById("licenceFullServer").style.display = "block";
                     }
+                    let html = "";
+                    let index = 1;
+                    users.forEach(user => {
+                        html += `
+                            <div class="grid_input_3">
+                                <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                                    <span style="min-width: 80px">${t(OCA.Cadviewer.AppName,"User")} ${index}:</span>
+                                    <input style="margin-left: 0px" id="user_licence_${index}" value="${user}" placeholder="username_001" type="text">
+                                </div>
+                            </div>
+                            <br />
+                        `;
+                        index += 1;
+                    });
+                    $("#users_licence_list").html(html);
+                    document.getElementById("users_licence_list_container").style.display = numberOfUsers > 0 ? "block" : "none";
+                    
                 }
             }
         });
