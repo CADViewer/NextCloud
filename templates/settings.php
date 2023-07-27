@@ -139,7 +139,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
     </p>
     <br />
 
-    <?php if ($_["show_users_list"]): ?>
+    <div id="users_licence_list_container" style="display: <?= ($_["show_users_list"]) ? "block" : "none" ?>">
         <h2>
             <?php p($l->t("Users with access to Cadviewer")) ?>
         </h2>
@@ -160,7 +160,7 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             </button>
         </p>
         <br />
-    <?php endif; ?>
+    </div>
 
     <h2>
         <?php p($l->t("Flush Cache")) ?>
