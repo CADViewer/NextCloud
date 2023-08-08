@@ -2,12 +2,26 @@
 ### Added
 - Nighly changes here
 
+### 8.80.3 2023-08-09
+### Fixed
+- StickyNotes insert issues after deletion, save and load. 
+
+### 8.78.2 2023-07-23
+### Added
+- License controls of small number of users 
+
+
+### 8.77.1 - 2023-07-04
+### Added
+- Support for NextCloud version 27
 
 ### 8.76.1 - 2023-06-27
+### Added
 - definition of CADViewer group for small batches of licensee
 
 
 ### 8.75.5 - 2023-06-20
+### Added
 - granular ability to control folders for parameter settings
 - AutoXchange v23.12.115 added
 
