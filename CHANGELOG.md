@@ -2,7 +2,7 @@
 ### Added
 - Nighly changes here
 
-### 8.80.3 2023-08-09
+### 8.80.5 2023-08-09
 ### Fixed
 - StickyNotes insert issues after deletion, save and load. 
 
