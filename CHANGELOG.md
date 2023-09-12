@@ -2,7 +2,15 @@
 ### Added
 - Nighly changes here
 
-### 8.80.5 2023-08-09
+### 8.88.5  2023-09-12
+
+- Update how url for assets is genearated to support installation in extra_apps folder
+- Added AX version v23.12.120
+- Updated Space Object processing
+- Updated Sticky Notes editing interface
+
+
+### 8.80.6 2023-08-09
 ### Fixed
 - StickyNotes insert issues after deletion, save and load. 
 
