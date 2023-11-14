@@ -11,7 +11,7 @@ Copy the content of this cadviewer install folder and put it in the /apps/ folde
 In a typical NextCloud installation, the installation is done with owner www-data:www-data and permissions over the files and folders in the app as chmod 755. 
 In this case you will not need to to do anything change permission of files, the CADViewer back-end will function normally under these settings.
 
-The standard manual configuration steps from Nextcloud upgrades, can be replicated for the /apps/cadviewer folder, so from the /apps/ folder run:
+The standard manual configuration steps from Nextcloud docs to adjust file ownership and permission, can be replicated for the /apps/cadviewer folder, so from the /apps/ folder run:
 
 ```
 chown -R www-data:www-data cadviewer
@@ -21,8 +21,6 @@ find cadviewer/ -type f -exec chmod 640 {} \;
 
 
 If this does not get CADViewer working in your installation, please do one of the following 2A.) or 2B.) below.  Also refer to 4. troubleshooting, section 5.) below.  
-
-Ensure the owner is correctly set for the cadviewer app folder. From the /apps/ folder execute:
 
 
 #### 2A. Excecute permission script
