@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+
+### 9.17.2 2023-11-15
+- Fixed PDF creation bug
+
+
 ### 8.88.5  2023-09-12
 
 - Update how url for assets is genearated to support installation in extra_apps folder
