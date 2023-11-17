@@ -2,9 +2,32 @@
 
 To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows:
 
-### 1. Copy CADViewer to /apps/cadviewer
+There are various ways CADViewer can be installed with NextCloud.
+#### A: Directly copy this application tree to the NextCloud installation
+Follow instructions in ***1.*** and then ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
 
-Copy the content of this cadviewer install folder and put it in the /apps/ folder of your nextcloud installation under /apps/cadviewer/.
+#### B: Install CADViewer via the NextCloud Store
+Ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
+
+#### C: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
+
+Modify the .htaccess file, which is in: /var/snap/nextcloud/38457/nextcloud/config   (38457/nnnnn can vary depending on linux build and nextcloud version, below is Ubuntu 22.04 LTS / Nextcloud 27.1.3. Add the following rewrite rule:
+```
+<IfModule mod_rewrite_c>
+	RewriteRule . index.php [PT,E=PATH_INFO:$1]
+	RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.*
+<IfModule>
+```
+Follow the permission instructions in ***2.***. 
+
+
+
+
+
+
+### 1. Copy CADViewer to /apps/cadviewer or /extra-apps/cadviewer
+
+Copy the content of this cadviewer install folder and put it in the /apps/ or /extra-apps/ folder of your nextcloud installation under /apps/cadviewer/.
 
 ### 2. Permissions
 
@@ -18,7 +41,6 @@ chown -R www-data:www-data cadviewer
 find cadviewer/ -type d -exec chmod 750 {} \;
 find cadviewer/ -type f -exec chmod 640 {} \;
 ```
-
 
 If this does not get CADViewer working in your installation, please do one of the following 2A.) or 2B.) below.  Also refer to 4. troubleshooting, section 5.) below.  
 
@@ -60,6 +82,11 @@ In the NextCloud /apps/ folder-structure, set the recommended permissions (chmod
 /apps/cadviewer/converter/php/call-Api_Conversion.php
 /apps/cadviewer/converter/php/save-file.php
 ```
+
+
+
+
+
 
 ### 3. Activate CADViewer
 
