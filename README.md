@@ -18,7 +18,7 @@ Modify the .htaccess file, which typically is in a structure like: /var/snap/nex
 	RewriteRule . index.php [PT,E=PATH_INFO:$1]
 <IfModule>
 ```
-Follow the permission instructions in ***2.***. 
+Follow the permission instructions in ***2.*** 
 
 
 
