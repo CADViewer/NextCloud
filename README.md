@@ -14,8 +14,8 @@ Ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** .
 Modify the .htaccess file, which typically is in a structure like: /var/snap/nextcloud/38457/nextcloud/config   (38457/nnnnn can vary depending on linux build and nextcloud version, below is Ubuntu 22.04 LTS / Nextcloud 27.1.3. Add the following rewrite rule:
 ```
 <IfModule mod_rewrite_c>
-	RewriteRule . index.php [PT,E=PATH_INFO:$1]
 	RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.*
+	RewriteRule . index.php [PT,E=PATH_INFO:$1]
 <IfModule>
 ```
 Follow the permission instructions in ***2.***. 
