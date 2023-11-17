@@ -3,6 +3,11 @@
 - Nighly changes here
 
 
+### 9.18.2 2023-11-17
+- Fixed redline text bug
+- Fixed issue when installing via Snap on Ubuntu, nextcloud now uses extra-apps folder for external applications
+
+
 ### 9.17.2 2023-11-15
 - Fixed PDF creation bug
 
