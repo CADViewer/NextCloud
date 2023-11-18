@@ -19,11 +19,13 @@ Modify the .htaccess file, which typically is in a structure like: /var/snap/nex
 <IfModule>
 ```
 Navigate to the location of the CADViewer CAD Converter AutoXchange, and provide it with chmod 750 permissions (paths below as for Ubuntu 22.04 LTS / Nextcloud 27.1.3) :
+
 ```
 sudo su
 cd /var/snap/nextcloud/38457/nextcloud/extra-apps/cadviewer/converver/converters/ax2024/linux
 chmod 750 ax2023_L64_xx_yy_zz
 ```
+
 Alternatively, follow the permission instructions in ***2.*** 
 
 
