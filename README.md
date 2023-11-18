@@ -3,13 +3,13 @@
 To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows:
 
 There are various ways CADViewer can be installed with NextCloud.
-#### A: Directly copy this application tree to the NextCloud installation
+### A: Directly copy this application tree to the NextCloud installation
 Follow instructions in ***1.*** and then ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
 
-#### B: Install CADViewer via the NextCloud Store on standalone server installation of NextCloud.
+### B: Install CADViewer via the NextCloud Store on standalone server installation of NextCloud.
 Ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
 
-#### C: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
+### C: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
 
 Modify the .htaccess file, which typically is in a structure like: /var/snap/nextcloud/38457/nextcloud/config , likely 38457/nnnnn can vary depending on linux build and nextcloud version, below is Ubuntu 22.04 LTS / Nextcloud 27.1.3. Add the following rewrite rule (replicate of :
 ```
@@ -30,7 +30,7 @@ Alternatively, follow the permission instructions in ***2.***
 
 
 
-#### General to-do list items:
+## General to-do list items:
 
 
 ### 1. Copy CADViewer to /apps/cadviewer or /extra-apps/cadviewer
@@ -92,9 +92,6 @@ In the NextCloud /apps/ folder-structure, set the recommended permissions (chmod
 ```
 
 
-
-
-
 ### 3. Activate CADViewer
 
 1.  Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
@@ -102,6 +99,7 @@ In the NextCloud /apps/ folder-structure, set the recommended permissions (chmod
 2.  Activate the NextCloud application.
 
 3.  ***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
+
 
 
 ### 4. Troubleshooting
