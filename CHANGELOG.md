@@ -2,6 +2,10 @@
 ### Added
 - Nighly changes here
 
+### 9.18.42023-11-20
+- Changes to php controlling script for Snap
+- AutoXchange v23.12.124c added
+
 
 ### 9.18.2 2023-11-17
 - Fixed redline text bug

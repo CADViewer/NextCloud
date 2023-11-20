@@ -15,7 +15,7 @@
 	
 */
 
-	$scriptversion = "8.71.2";
+	$scriptversion = "8.18.2";
 
 	// 8.71.1  - we make flag for nextcloud
 	$nextcloud = true;
@@ -460,10 +460,10 @@
 							// here we check if for all other parameters in case of svg_js_creation_cvheadless
 							if ($converter == 'AutoXchange AX2011' && $parameters[$i]['paramName']!= 'f' && $json_request['action'] == 'svg_js_creation_cvheadless'){
 								if ($parameters[$i]['paramName']== 's' || $parameters[$i]['paramName']== 'lw'){
-									$param_string_painter = $param_string_painter . " -" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'];            ;
+									$param_string_painter = $param_string_painter . " -" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'];           
 								}
 								else{
-									$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'];            ;
+									$param_string = $param_string . " -" . $parameters[$i]['paramName'] ."=". $parameters[$i]['paramValue'];           
 								}
 							}
 							else{  // general case for creating the parameter string!!
@@ -805,9 +805,10 @@
 
 
 
-							try{   // 6.5.20
+							try{   // 9.18.2
 								if ($debug){
-									fwrite($fd_log, " HELLO! $fullPath  $contentlocation \r\n");
+									fwrite($fd_log, " fullpath: $fullPath  \r\n");
+									fwrite($fd_log, " contentlocation: $contentlocation \r\n");
 								}
 								$newfname = $fullPath;
 
@@ -815,11 +816,19 @@
 								//$contentlocation = urldecode($contentlocation);
 
 								if ($debug){
-									fwrite($fd_log, "urldecode: $contentlocation \r\n ");
+									fwrite($fd_log, "urldecode contentlocation: $contentlocation \r\n ");
+									fwrite($fd_log, "newfname: $newfname \r\n ");
+								
 								}
 
 
+								// 9.18.2
+								
+								copy($contentlocation, $newfname);
 
+
+
+								/*
 
 								$file = fopen ($contentlocation, 'rb');
 								if ($file) {
@@ -830,12 +839,31 @@
 										}
 									}
 								}
+								
+								
 								if ($file) {
+									if ($debug) 
+										fwrite($fd_log, "closing contenlocation after fopen and read \r\n ");
 									fclose($file);
 								}
+								else{
+									if ($debug) 
+										fwrite($fd_log, "we could not close contenlocation after fopen and read \r\n ");						
+								}
+								
+								
+								
 								if ($newf) {
+									if ($debug) 
+										fwrite($fd_log, "closing newfname after fopen and write \r\n");
 									fclose($newf);
 								}
+								else{
+									if ($debug) 
+										fwrite($fd_log, "we could not close newfname after fopen and write \r\n ");								
+								}
+						
+								*/
 						
 								// we use download function above
 								$newload = true;
@@ -1245,10 +1273,10 @@
 
 //			if ($debug)	echo "no change of environment, we therefore use apache parameter \n";
 		if ($debug){
-			fwrite($fd_log, "no change of environment, we therefore use apache parameter    \r\n");
+			fwrite($fd_log, "9.18.2 remove this check - no change of environment, we therefore use apache parameter    \r\n");
 		}
 
-			apache_setenv('LD_LIBRARY_PATH', $ld_lib_path);
+//			apache_setenv('LD_LIBRARY_PATH', $ld_lib_path);
 
 		    // there has been no change of environment, we therefore use
 		}
@@ -1682,8 +1710,8 @@ set_time_limit(240);
 	}
 
 
-	//8.19.2
-//	if (!$debug)
+	//9.18.2
+   if (!$debug)
 	if (true){
 
 		$pose = strrpos ( $contentlocation , ".");
