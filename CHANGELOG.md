@@ -2,7 +2,12 @@
 ### Added
 - Nighly changes here
 
-### 9.18.42023-11-20
+
+### 9.18.8 2023-11-20
+- Removed excessive /fonts collections
+- AutoXchange v23.12.124d added
+
+### 9.18.4 2023-11-20
 - Changes to php controlling script for Snap
 - AutoXchange v23.12.124c added
 
