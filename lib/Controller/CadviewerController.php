@@ -273,7 +273,7 @@ class CadviewerController extends Controller {
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["skin"] = $this->appConfig->GetSkin();
 		$lineWeightFactors =  json_decode($this->appConfig->GetLineWeightFactors(), true);
-		$response["lineWeightFactor"] === null;
+		$response["lineWeightFactor"] = null;
 		foreach ($lineWeightFactors as $key => $value) {
 			if(
 				($value["folder_frontend"] === $directory || $value["folder_frontend"] === "*") && 
@@ -299,7 +299,7 @@ class CadviewerController extends Controller {
 			}
 		}
 		$parameters = json_decode($this->appConfig->GetParameters(), true);
-		$response["parameters"] === array();
+		$response["parameters"] = array();
 		$i = 1;
 		foreach ($parameters as $key => $value) {
 			if(
