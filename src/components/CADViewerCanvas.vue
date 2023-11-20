@@ -46,6 +46,7 @@ import NcLoadingIcon from "@nextcloud/vue/dist/Components/NcLoadingIcon.js"
 import Close from 'vue-material-design-icons/Close.vue'
 
 import {eventBus} from "../main.js";
+import { Server } from 'http';
 
 var textLayer1; 
 
@@ -476,6 +477,34 @@ export default {
 			if (ServerUrl.indexOf("/converter") == -1){
 				ServerUrl += "converter/";
 			}
+
+
+			// 9.18.3
+			// we have to check for extra-apps folder 
+			if (ServerLocation.indexOf("-apps")>-1 && ServerUrl.indexOf("/apps/")>-1){
+				var prefix = ServerLocation.substring(0, ServerLocation.indexOf("-apps"));
+				prefix = prefix.substring(prefix.lastIndexOf("/")+1);
+//				console.log("custom:extra:"+prefix);
+				var part1 = ServerUrl.substring(0, ServerUrl.indexOf("/apps/")); 
+				var part2 = ServerUrl.substring(ServerUrl.indexOf("/apps/")+6);
+				ServerUrl = part1+"/"+prefix+"-apps/"+part2;
+//				console.log("new serverurl="+ServerUrl);
+
+			}
+
+			// 9.18.3
+			if (ServerLocation.indexOf("-apps")>-1 && ServerBackEndUrl.indexOf("/apps/")>-1){
+				var prefix = ServerLocation.substring(0, ServerLocation.indexOf("-apps"));
+				prefix = prefix.substring(prefix.lastIndexOf("/")+1);
+//				console.log("custom:extra:"+prefix);
+				var part1 = ServerBackEndUrl.substring(0, ServerBackEndUrl.indexOf("/apps/")); 
+				var part2 = ServerBackEndUrl.substring(ServerBackEndUrl.indexOf("/apps/")+6);
+				ServerBackEndUrl = part1+"/"+prefix+"-apps/"+part2;
+//				console.log("new ServerBackEndUrl="+ServerBackEndUrl);
+
+			}
+
+
 
 			var FileName = this.FileName;
 			var UserName = this.UserName;

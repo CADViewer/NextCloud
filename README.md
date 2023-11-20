@@ -2,16 +2,55 @@
 
 To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows:
 
-### 1. Copy CADViewer to /apps/cadviewer
+There are various ways CADViewer can be installed with NextCloud.
+### A: Directly copy this application tree to the NextCloud installation
+Follow instructions in ***1.*** and then ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
 
-Copy the content of this cadviewer install folder and put it in the /apps/ folder of your nextcloud installation under /apps/cadviewer/.
+### B: Install CADViewer via the NextCloud Store on standalone server installation of NextCloud.
+Ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
+
+### C: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
+
+Modify the .htaccess file, which typically is in a structure like: /var/snap/nextcloud/38457/nextcloud/config , likely 38457/nnnnn can vary depending on linux build and nextcloud version, below is Ubuntu 22.04 LTS / Nextcloud 27.1.3. Add the following rewrite rule (also see Troubleshooting ***4.***): 
+```
+<IfModule mod_rewrite_c>
+	RewriteCond %{REQUEST_FILENAME} !/extra-apps/cadviewer/converter/php/*\.*
+	RewriteRule . index.php [PT,E=PATH_INFO:$1]
+<IfModule>
+```
+Navigate to the location of the CADViewer CAD Converter AutoXchange, and provide it with chmod 750 permissions (paths below as for Ubuntu 22.04 LTS / Nextcloud 27.1.3) :
+
+```
+sudo su
+cd /var/snap/nextcloud/38457/nextcloud/extra-apps/cadviewer/converver/converters/ax2024/linux
+chmod 750 ax2023_L64_xx_yy_zz
+```
+
+Alternatively, follow the permission instructions in ***2.*** 
+
+
+
+## General to-do list items:
+
+
+### 1. Copy CADViewer to /apps/cadviewer (or /extra-apps/cadviewer)
+
+Copy the content of this cadviewer install folder and put it in the /apps/ or /extra-apps/ folder of your nextcloud installation under /apps/cadviewer/.
 
 ### 2. Permissions
 
 In a typical NextCloud installation, the installation is done with owner www-data:www-data and permissions over the files and folders in the app as chmod 755. 
 In this case you will not need to to do anything change permission of files, the CADViewer back-end will function normally under these settings.
 
-If this is not the case of your installation, please do one of the following 2A.) or 2B.) below.  Also refer to 4. troubleshooting, section 5.) below.  
+The standard manual configuration steps from Nextcloud docs to adjust file ownership and permission, can be replicated for the /apps/cadviewer folder, so from the /apps/ folder run:
+
+```
+chown -R www-data:www-data cadviewer
+find cadviewer/ -type d -exec chmod 750 {} \;
+find cadviewer/ -type f -exec chmod 640 {} \;
+```
+
+If this does not get CADViewer working in your installation, please do one of the following 2A.) or 2B.) below.  Also refer to 4. troubleshooting, section 5.) below.  
 
 
 #### 2A. Excecute permission script
@@ -23,6 +62,7 @@ This script will do the recommended permission settings (chmod 755) for the rele
 If preferred, the user can as an alternative set these permissions manually using the instructions below:
 
 #### 2B. Manually set permissions  - alternative to permission script 2A)
+
 
 In the NextCloud /apps/ folder-structure, set the recommended permissions (chmod 755) for the following folders and files:
 
@@ -51,6 +91,7 @@ In the NextCloud /apps/ folder-structure, set the recommended permissions (chmod
 /apps/cadviewer/converter/php/save-file.php
 ```
 
+
 ### 3. Activate CADViewer
 
 1.  Go to the applications menu of NextCloud and accept to use CADViewer as an untested application. 
@@ -60,19 +101,22 @@ In the NextCloud /apps/ folder-structure, set the recommended permissions (chmod
 3.  ***Success!*** You can now visualize your AutoCAD DWG/DXF/DWF and MicroStation DGN files with a simple click in NextCloud!
 
 
+
 ### 4. Troubleshooting
 
 In some cases the automated update of the ***.htaccess*** file is not done. This means that the CADViewer does not connect to the back-end scripts for CAD file conversion. The user experience is that the canvas is white and the "loading.." modal will keep appearing on the screen when attempting to load a file.
 
-1. Go to the install folder of **NextCloud**, this is typically ***/var/www/nextcloud/*** (or where your installation is done), open **.htaccess** in a text editor.
+1. Go to the install folder of **NextCloud**, this is typically ***/var/www/nextcloud/*** (or where your installation is done), open **.htaccess** in a text editor. See ***C:*** above for installation using Snap.
 
 2. Locate the rewrite rule in place:  ***RewriteRule . index.php [PT,E=PATH_INFO:$1]***
 
 3. Add the rewrite condition ***before*** the rewrite rule: ***RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/\*\\.\****
 
-4. If needed, add both the RewriteRule and RewriteCond. 
+4. ***NOTE:***  On some installations the Nextcloud ***apps*** installation folder name can change, they can be ***extra-apps** or ***custom-apps***. In that case change the rewrite condition accordingly, for example ***RewriteCond %{REQUEST_FILENAME} !/extra-apps/cadviewer/converter/php/\*\\.\**** .
 
-5. If the server trace gives a Warning: fopen(call-Api_Conversion_log.txt): Failed to open stream: Permission denied , then likely the current permission settings are insufficient. This case can be seen when added nginx as reverse proxy and SSL certificates on a docker container. In that case the owner may have changed, therefore try inside /cadviewer/converter/php/ to give call-Api_Conversion.php full chmod 777 permission and check if call-Api_Conversion.txt has write permissions for the owner (if you are comfortable, you can give chmod 777 on that also.). If this moves further in the process, you must also then give /converter/converters/files folder, full write permission for all owners, and also give /converter/converters/ax2024/linux/ax2023_L64_xx_yy_zz full chmod 777 permissions to perform the CAD conversions for all owners.  
+5. If needed, add both the RewriteRule and RewriteCond. 
+
+6. If the server trace gives a Warning: fopen(call-Api_Conversion_log.txt): Failed to open stream: Permission denied , then likely the current permission settings are insufficient. This case can be seen when added nginx as reverse proxy and SSL certificates on a docker container. In that case the owner may have changed, therefore try inside /cadviewer/converter/php/ to give call-Api_Conversion.php full chmod 777 permission and check if call-Api_Conversion.txt has write permissions for the owner (if you are comfortable, you can give chmod 777 on that also.). If this moves further in the process, you must also then give /converter/converters/files folder, full write permission for all owners, and also give /converter/converters/ax2024/linux/ax2023_L64_xx_yy_zz full chmod 777 permissions to perform the CAD conversions for all owners.  
 
 
 ### 5. Integration in NextCloud AIO Docker Setup
