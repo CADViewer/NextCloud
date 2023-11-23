@@ -4,10 +4,10 @@ To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https:
 
 There are various ways CADViewer can be installed with NextCloud.
 ### A: Directly copy this application tree to the NextCloud installation
-Follow instructions in ***1.*** and then ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
+Follow instructions in ***1.*** and then ensure permission and ownership ***2.*** (see below) as well any rewrite rules in ***4.*** (see below) . 
 
 ### B: Install CADViewer via the NextCloud Store on standalone server installation of NextCloud.
-Ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** . 
+Ensure permission and ownership ***2.*** (see below) as well any rewrite rules in ***4.*** (see below). 
 
 ### C: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
 
