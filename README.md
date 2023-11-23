@@ -1,8 +1,11 @@
 # CADViewer Integration for NextCloud
 
-To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows:
+To enable viewing of DWG, DXF, DWF and DGN CAD files using ***[CADViewer](https://www.cadviewer.com)***, please proceed as follows: 
+
+The CADViewer integration with NextCloud consists of the CADViewer front-end integrated with the Nextcloud front-end inteface using VueJS with some back-end components. CADViewer internally use php scripts to control the CADViewer CAD Converter back-end AutoXchange (ax2023_L64_xx_yy_zz), which is located in the /nextcloud/apps/cadviewer/ tree. The display process will fetch drawings from the Nextcloud file repository, use AutoXchange to convert them to SVG with CADViewer specific SVG extensions in a temp folder, and then load them into the CADViewer front-end for display and manipulation. Note that AutoXchange (for now) is an x86 architecture and thus will not run on ARM architecture. 
 
 There are various ways CADViewer can be installed with NextCloud.
+
 ### A: Directly copy this application tree to the NextCloud installation
 Follow instructions in ***1.*** and then ensure permission and ownership ***2.*** (see below) as well any rewrite rules in ***4.*** (see below) . 
 
