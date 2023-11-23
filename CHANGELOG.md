@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+### 9.19.4 2023-11-23
+- Optimized CADViewer for vulnerabilities
+- Implemented TTF handling in AutoXchange when running under Snap
+- AutoXchange v23.12.124m added
+
 
 ### 9.18.8 2023-11-20
 - Removed excessive /fonts collections
