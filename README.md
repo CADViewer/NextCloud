@@ -11,7 +11,7 @@ Ensure permission and ownership ***2.*** as well any rewrite rules in ***4.*** .
 
 ### C: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
 
-Modify the .htaccess file, which typically is in a structure like: /var/snap/nextcloud/38457/nextcloud/config , likely 38457/nnnnn can vary depending on linux build and nextcloud version, below is Ubuntu 22.04 LTS / Nextcloud 27.1.3. Add the following rewrite rule (also see Troubleshooting ***4.***): 
+Modify the .htaccess file, which typically is in a structure like: /var/snap/nextcloud/38457/nextcloud/config , likely 38457/nnnnn can vary depending on linux build and Nextcloud version, below is Ubuntu 22.04 LTS / Nextcloud 27.1.3. Add the following rewrite rule (also see Troubleshooting ***4.***): 
 ```
 <IfModule mod_rewrite_c>
 	RewriteCond %{REQUEST_FILENAME} !/extra-apps/cadviewer/converter/php/*\.*
@@ -22,10 +22,11 @@ Navigate to the location of the CADViewer CAD Converter AutoXchange, and provide
 
 ```
 sudo su
-cd /var/snap/nextcloud/38457/nextcloud/extra-apps/cadviewer/converver/converters/ax2024/linux
+cd /var/snap/nextcloud/***38457***/nextcloud/extra-apps/cadviewer/converver/converters/ax2024/linux
 chmod 750 ax2023_L64_xx_yy_zz
 ```
-
+***Note 1:*** Likely, 8457/nnnnn can vary depending on linux build and Nextcloud version.
+***Note 2:*** Each time an auto-update of CADViewer is done, the permissions must be reset as per above.
 Alternatively, follow the permission instructions in ***2.*** 
 
 
