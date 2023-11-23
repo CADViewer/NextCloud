@@ -22,10 +22,10 @@ Navigate to the location of the CADViewer CAD Converter AutoXchange, and provide
 
 ```
 sudo su
-cd /var/snap/nextcloud/***38457***/nextcloud/extra-apps/cadviewer/converver/converters/ax2024/linux
+cd /var/snap/nextcloud/38457/nextcloud/extra-apps/cadviewer/converver/converters/ax2024/linux
 chmod 750 ax2023_L64_xx_yy_zz
 ```
-***Note 1:*** Likely, 8457/nnnnn can vary depending on linux build and Nextcloud version.
+***Note 1:*** Likely, 38457/nnnnn can vary depending on linux build and Nextcloud version.
 ***Note 2:*** Each time an auto-update of CADViewer is done, the permissions must be reset as per above.
 Alternatively, follow the permission instructions in ***2.*** 
 
