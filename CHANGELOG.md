@@ -2,6 +2,12 @@
 ### Added
 - Nighly changes here
 
+### 9.19.6 2023-11-24
+- Documentation update
+- Scripts update
+- Default message at conversion log, for user verification
+
+
 ### 9.19.4 2023-11-23
 - Optimized CADViewer for vulnerabilities
 - Implemented TTF handling in AutoXchange when running under Snap

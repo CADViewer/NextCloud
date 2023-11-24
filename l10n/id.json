@@ -58,7 +58,7 @@
         "Error when trying to downloadf.htaccess well configured Api conversion log": "Kesalahan saat mencoba mengunduh log konversi Api",
         "Error when trying to debug the application": "Kesalahan saat mencoba men-debug aplikasi",
         "'exec' command activated on PHP": "Perintah 'exec' diaktifkan pada PHP",
-        "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable": "Izin 777 untuk eksekusi 'ax2023_L64_xx_yy_zz'",
+        "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable": "Izin 750 untuk eksekusi 'ax2023_L64_xx_yy_zz'",
         "Writing to the log file 'call-Api_Conversion_log.txt'": "Menulis ke file log 'call-Api_Conversion_log.txt'",
         ".htaccess well configured": ".htaccess dikonfigurasi dengan baik",
         "Download": "Unduh",

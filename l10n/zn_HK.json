@@ -58,7 +58,7 @@
         "Error when trying to downloadf.htaccess well configured Api conversion log": "嘗試下載 Api 轉換日誌時出錯",
         "Error when trying to debug the application": "嘗試調試應用程序時出錯",
         "'exec' command activated on PHP": "在 PHP 上激活“exec”命令",
-        "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable": "“ax2023_L64_xx_yy_zz”可執行文件的權限 777",
+        "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable": "“ax2023_L64_xx_yy_zz”可執行文件的權限 750",
         "Writing to the log file 'call-Api_Conversion_log.txt'": "寫入日誌文件“call-Api_Conversion_log.txt”",
         ".htaccess well configured": ".htaccess 配置良好",
         "Download": "下載",

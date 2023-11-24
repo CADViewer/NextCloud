@@ -61,7 +61,7 @@ OC.L10N.register(
         "Error when trying to downloadf.htaccess well configured Api conversion log": "试图下载Api转换日志时出错",
         "Error when trying to debug the application": "试图调试应用程序时出错",
         "'exec' command activated on PHP":  "在PHP上激活'exec'命令",
-        "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable": "'ax2023_L64_xx_yy_zz'可执行文件的权限为777。",
+        "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable": "'ax2023_L64_xx_yy_zz'可执行文件的权限为750。",
         "Writing to the log file 'call-Api_Conversion_log.txt'": "写入日志文件'call-Api_Conversion_log.txt'。",
         ".htaccess well configured": ".htaccess配置良好",
         "Download": "下载",

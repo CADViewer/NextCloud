@@ -60,7 +60,7 @@ OC.L10N.register(
         "Error when trying to downloadf.htaccess well configured Api conversion log": "Erro ao tentar descarregar o registo de conversão da Api",
         "Error when trying to debug the application": "Erro ao tentar depurar a aplicação",
         "'exec' command activated on PHP":  "Comando 'exec' activado no PHP",
-        "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable": "Permissão 777 para o executável 'ax2023_L64_xx_yy_zz'",
+        "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable": "Permissão 750 para o executável 'ax2023_L64_xx_yy_zz'",
         "Writing to the log file 'call-Api_Conversion_log.txt'": "Escrever no ficheiro de registo 'call-Api_Conversion_log.txt'",
         ".htaccess well configured": ".htaccess bem configurado",
         "Download": "Descarregar",
