@@ -88,7 +88,7 @@ In the NextCloud /apps/cadviewer/ folder-structure, set the recommended permissi
 /apps/cadviewer/converter/php/save-file.php
 ```
 
-In the NextCloud /apps/cadviewer folder-structure, set the recommended permissions (chmod 640) for the following f:
+In the NextCloud /apps/cadviewer folder-structure, set the recommended permissions (chmod 640) for the following folders:
 
 **Conversion folders:**
 ```
