@@ -58,7 +58,7 @@
         "Error when trying to downloadf.htaccess well configured Api conversion log": "Error al intentar descargar el registro de conversión Api",
         "Error when trying to debug the application": "Error al intentar depurar la aplicación",
         "'exec' command activated on PHP": "Comando 'exec' activado en PHP",
-        "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable": "Permiso 777 para el ejecutable 'ax2023_L64_xx_yy_zz'",
+        "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable": "Permiso 750 para el ejecutable 'ax2023_L64_xx_yy_zz'",
         "Writing to the log file 'call-Api_Conversion_log.txt'": "Escribir en el archivo de registro 'call-Api_Conversion_log.txt'",
         ".htaccess well configured": "htaccess bien configurado",
         "Download": "Descargar",

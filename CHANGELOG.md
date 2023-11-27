@@ -2,7 +2,23 @@
 ### Added
 - Nighly changes here
 
-### 9.18.42023-11-20
+### 9.19.6 2023-11-24
+- Documentation update
+- Scripts update
+- Default message at conversion log, for user verification
+
+
+### 9.19.4 2023-11-23
+- Optimized CADViewer for vulnerabilities
+- Implemented TTF handling in AutoXchange when running under Snap
+- AutoXchange v23.12.124m added
+
+
+### 9.18.8 2023-11-20
+- Removed excessive /fonts collections
+- AutoXchange v23.12.124d added
+
+### 9.18.4 2023-11-20
 - Changes to php controlling script for Snap
 - AutoXchange v23.12.124c added
 

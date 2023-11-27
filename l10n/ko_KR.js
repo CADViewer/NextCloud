@@ -60,7 +60,7 @@ OC.L10N.register(
         "Error when trying to downloadf.htaccess well configured Api conversion log": "API 변환 로그 다운로드 시도 시 오류 발생",
         "Error when trying to debug the application": "애플리케이션 디버깅 시도 시 오류 발생",
         "'exec' command activated on PHP":  "PHP에서 활성화된 'exec' 명령",
-        "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable": "'ax2023_L64_xx_yy_zz' 실행 파일에 대한 권한 777",
+        "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable": "'ax2023_L64_xx_yy_zz' 실행 파일에 대한 권한 750",
         "Writing to the log file 'call-Api_Conversion_log.txt'": "로그 파일 'call-Api_Conversion_log.txt'에 쓰기",
         ".htaccess well configured": ".htaccess가 잘 구성된 경우",
         "Download": "다운로드",

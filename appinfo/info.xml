@@ -29,7 +29,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 ## 📦Installation
 1. Install the app from the Nextcloud app store or from CADViewer [GitHub repository](https://github.com/CADViewer/NextCloud/).
 2. Perform the [configuration steps](https://github.com/CADViewer/NextCloud/blob/main/README.md).
-3. **NOTE**: The configuration steps (possible permission settings for executable, log files, and folders, and .htaccess file modification) are needed for the back-end CAD conversion to work properly. Without check of settings, no drawings will display!
+3. **NOTE**: The configuration steps (possible permission settings and ownership for executable, log files, and folders, and .htaccess file modification for rewrite rule) are needed for the back-end CAD conversion to work properly. Without check of settings, no drawings will display!
 4. Simply open your CAD drawings and start collaborate.. 😄 
 5. If you have any issues displaying drawings, see [troubleshooting](https://github.com/CADViewer/NextCloud/blob/main/README.md) , file an [issue report](https://github.com/CADViewer/NextCloud/issues) or [contact us](mailto:developer@tailormade.com).
 6. Software run with all features enabled, but with small canvas watermarks to discurage redistribution of converted drawings. To remove watermarks through a license key, corp or single user(s), [Contact Us!](https://cadviewer.com/contact/).
@@ -38,7 +38,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 1. [Administrator Interface Guide](https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/).
 2. [User Interface Guide](https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/userinterface/).          
 ]]></description>
-    <version>9.18.4</version>
+    <version>9.19.6</version>
     <licence>agpl</licence>
     <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
     <author>Kevin Wamba</author>

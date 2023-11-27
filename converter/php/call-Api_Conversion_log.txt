@@ -35,7 +35,8 @@ In loop to add xpath
 after first loop $command_line_parameter_xpath: 0  
 after first loop $command_line_parameter_xpath: 0  converter AutoXchange AX2020   axconv 0 
 adding xpath: nc-flag:  op_string:  linux nc_path: 
-$command_line: "/var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_124c" -i="/var/www/html/apps/cadviewer/converter//converters/files/f1634212143.dwg" -o="/var/www/html/apps/cadviewer/converter//converters/files/f1634212143.svgz"  -f="svgz" -model -extents -fpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/fonts/"  -lpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/"  -xpath="/var/www/html/data/admin/files/"  XXXXXXX  
+
+$command_line: "/var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_124c" -i="/var/www/html/apps/cadviewer/converter//converters/files/f1634212143.dwg" -o="/var/www/html/apps/cadviewer/converter//converters/files/f1634212143.svgz"  -f="svgz" -model -extents -fpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/fonts/"  -lpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/"  -xpath="/var/www/html/data/admin/files/"  XXXXXXX  
 library path before new env: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux/  
 this is the value we got setting the environment 1  
 getenv after putenv: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux/   
@@ -46,356 +47,706 @@ AGENT operating_system_detection():  $agent = Mozilla/5.0 (Macintosh; Intel Mac 
 AGENT PHP_OS : Linux
 operating_system_detection(): Linux    
 BEFORE CACHED CONVERSION t: c: 11  0    
- CACHED CONVERSION IMPLEMENT  {\"filename\": \"filename\",\"filecreatestamp\": \"date1\",\"filechangestamp\": \"2023-01-31T08:30:25.597Z\",\"cachedfiles\": [{ \"fullfilepath\": \"full file path\", \"fileName\": \"F1.svgz\", \"filecreatestamp\": \"datef1\", \"parameters\": [{\"paramName\": \"f\", \"paramValue\": \"svg\"}]}]} 
- FILENAME:/var/www/html/apps/cadviewer/converter//converters/files/1st floor plan.dwg.json 
-file exists: /var/www/html/apps/cadviewer/converter//converters/files/1st floor plan.dwg.json 1XXX
-cashedfile likely, array wellformed, current-fullpath: /var/www/html/data/admin/files cached fullpath (in each cache):   
-number of conversion: 43XXX
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 0  f521269812.svgzXXX
-file: 0  f521269812.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 1  f1270412266.svgzXXX
-file: 1  f1270412266.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 2  f470346298.svgzXXX
-file: 2  f470346298.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 3  f1481668245.svgzXXX
-file: 3  f1481668245.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 4  f2145130145.svgzXXX
-file: 4  f2145130145.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 5  f2045007785.svgzXXX
-file: 5  f2045007785.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 6  f221900217.svgzXXX
-file: 6  f221900217.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 7  f868620016.svgzXXX
-file: 7  f868620016.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 8  f27054945.svgzXXX
-file: 8  f27054945.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 9  f2027146207.svgzXXX
-file: 9  f2027146207.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 10  f1726703888.svgzXXX
-file: 10  f1726703888.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 11  f890591538.svgzXXX
-file: 11  f890591538.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 12  f1037042765.svgzXXX
-file: 12  f1037042765.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 13  f1552371633.svgzXXX
-file: 13  f1552371633.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 14  f1091546329.svgzXXX
-file: 14  f1091546329.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 15  f583714142.svgzXXX
-file: 15  f583714142.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 16  f1902059107.svgzXXX
-file: 16  f1902059107.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 17  f1980295168.svgzXXX
-file: 17  f1980295168.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 18  f1774555271.svgzXXX
-file: 18  f1774555271.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 19  f664230070.svgzXXX
-file: 19  f664230070.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 20  f1043731688.svgzXXX
-file: 20  f1043731688.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 21  f1364099757.svgzXXX
-file: 21  f1364099757.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 22  f1214628684.svgzXXX
-file: 22  f1214628684.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 23  f1949772146.svgzXXX
-file: 23  f1949772146.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 24  f2110193638.svgzXXX
-file: 24  f2110193638.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 25  f1329584540.svgzXXX
-file: 25  f1329584540.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 26  f843674667.svgzXXX
-file: 26  f843674667.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 27  f532344920.svgzXXX
-file: 27  f532344920.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 28  f1795451311.svgzXXX
-file: 28  f1795451311.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 29  f230800367.svgzXXX
-file: 29  f230800367.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 30  f1509185935.svgzXXX
-file: 30  f1509185935.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 31  f824722134.svgzXXX
-file: 31  f824722134.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 32  f1041991704.svgzXXX
-file: 32  f1041991704.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 33  f95177687.svgzXXX
-file: 33  f95177687.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 34  f766665106.svgzXXX
-file: 34  f766665106.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 35  f681296907.svgzXXX
-file: 35  f681296907.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 36  f1276723960.svgzXXX
-file: 36  f1276723960.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 37  f494581177.svgzXXX
-file: 37  f494581177.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 38  f886765279.svgzXXX
-file: 38  f886765279.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 39  f561776622.svgzXXX
-file: 39  f561776622.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 40  f1052658919.svgzXXX
-file: 40  f1052658919.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 41  f227972495.svgzXXX
-file: 41  f227972495.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-folder of current file: /var/www/html/data/admin/filesXXX
-before file: 42  f166807363.svgzXXX
-file: 42  f166807363.svgzXXX
-param match: 0  f svgz XXX
-param match: 1  model  XXX
-param match: 2  extents  XXX
- timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
- timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
-exec return1  0   
+
+ CACHED CONVERSION IMPLEMENT  {\"filename\": \"filename\",\"filecreatestamp\": \"date1\",\"filechangestamp\": \"2023-01-31T08:30:25.597Z\",\"cachedfiles\": [{ \"fullfilepath\": \"full file path\", \"fileName\": \"F1.svgz\", \"filecreatestamp\": \"datef1\", \"parameters\": [{\"paramName\": \"f\", \"paramValue\": \"svg\"}]}]} 
+
+ FILENAME:/var/www/html/apps/cadviewer/converter//converters/files/1st floor plan.dwg.json 
+
+file exists: /var/www/html/apps/cadviewer/converter//converters/files/1st floor plan.dwg.json 1XXX
+
+cashedfile likely, array wellformed, current-fullpath: /var/www/html/data/admin/files cached fullpath (in each cache):   
+
+number of conversion: 43XXX
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 0  f521269812.svgzXXX
+
+file: 0  f521269812.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 1  f1270412266.svgzXXX
+
+file: 1  f1270412266.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 2  f470346298.svgzXXX
+
+file: 2  f470346298.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 3  f1481668245.svgzXXX
+
+file: 3  f1481668245.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 4  f2145130145.svgzXXX
+
+file: 4  f2145130145.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 5  f2045007785.svgzXXX
+
+file: 5  f2045007785.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 6  f221900217.svgzXXX
+
+file: 6  f221900217.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 7  f868620016.svgzXXX
+
+file: 7  f868620016.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 8  f27054945.svgzXXX
+
+file: 8  f27054945.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 9  f2027146207.svgzXXX
+
+file: 9  f2027146207.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 10  f1726703888.svgzXXX
+
+file: 10  f1726703888.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 11  f890591538.svgzXXX
+
+file: 11  f890591538.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 12  f1037042765.svgzXXX
+
+file: 12  f1037042765.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 13  f1552371633.svgzXXX
+
+file: 13  f1552371633.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 14  f1091546329.svgzXXX
+
+file: 14  f1091546329.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 15  f583714142.svgzXXX
+
+file: 15  f583714142.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 16  f1902059107.svgzXXX
+
+file: 16  f1902059107.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 17  f1980295168.svgzXXX
+
+file: 17  f1980295168.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 18  f1774555271.svgzXXX
+
+file: 18  f1774555271.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 19  f664230070.svgzXXX
+
+file: 19  f664230070.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 20  f1043731688.svgzXXX
+
+file: 20  f1043731688.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 21  f1364099757.svgzXXX
+
+file: 21  f1364099757.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 22  f1214628684.svgzXXX
+
+file: 22  f1214628684.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 23  f1949772146.svgzXXX
+
+file: 23  f1949772146.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 24  f2110193638.svgzXXX
+
+file: 24  f2110193638.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 25  f1329584540.svgzXXX
+
+file: 25  f1329584540.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 26  f843674667.svgzXXX
+
+file: 26  f843674667.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 27  f532344920.svgzXXX
+
+file: 27  f532344920.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 28  f1795451311.svgzXXX
+
+file: 28  f1795451311.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 29  f230800367.svgzXXX
+
+file: 29  f230800367.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 30  f1509185935.svgzXXX
+
+file: 30  f1509185935.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 31  f824722134.svgzXXX
+
+file: 31  f824722134.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 32  f1041991704.svgzXXX
+
+file: 32  f1041991704.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 33  f95177687.svgzXXX
+
+file: 33  f95177687.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 34  f766665106.svgzXXX
+
+file: 34  f766665106.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 35  f681296907.svgzXXX
+
+file: 35  f681296907.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 36  f1276723960.svgzXXX
+
+file: 36  f1276723960.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 37  f494581177.svgzXXX
+
+file: 37  f494581177.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 38  f886765279.svgzXXX
+
+file: 38  f886765279.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 39  f561776622.svgzXXX
+
+file: 39  f561776622.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 40  f1052658919.svgzXXX
+
+file: 40  f1052658919.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 41  f227972495.svgzXXX
+
+file: 41  f227972495.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+folder of current file: /var/www/html/data/admin/filesXXX
+
+before file: 42  f166807363.svgzXXX
+
+file: 42  f166807363.svgzXXX
+
+param match: 0  f svgz XXX
+
+param match: 1  model  XXX
+
+param match: 2  extents  XXX
+
+ timeStamp= 2023-11-23T09:31:52+0000  jarray['filecreatestamp']= 2023-11-20T09:10:41+00:00
+
+ timeStamp= 1700731912  jarray['filecreatestamp']= 1700471441
+
+exec return1  0   
 output log:  
 Directory Permissions: rwxr-xr-x  
 Current User: www-data  

@@ -60,7 +60,7 @@ OC.L10N.register(
         "Error when trying to downloadf.htaccess well configured Api conversion log": "Error when trying to download Api conversion log",
         "Error when trying to debug the application": "Error when trying to debug the application",
         "'exec' command activated on PHP":  "'exec' command activated on PHP",
-        "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable": "Permission 777 for the 'ax2023_L64_xx_yy_zz' executable",
+        "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable": "Permission 750 for the 'ax2023_L64_xx_yy_zz' executable",
         "Writing to the log file 'call-Api_Conversion_log.txt'": "Writing to the log file 'call-Api_Conversion_log.txt'",
         ".htaccess well configured": ".htaccess well configured",
         "Download": "Download",
