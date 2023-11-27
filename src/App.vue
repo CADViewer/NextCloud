@@ -34,7 +34,9 @@ export default {
 };
 </script>
 <style>
-.modal-container,
+.modal-container {
+
+}
 .cadviewerCanvasTest01 {
   height: calc(100vh - var(--header-height)) !important;
   width: 100vw !important;
@@ -43,5 +45,11 @@ export default {
 .modal-wrapper {
   width: 100vw !important;
   height: 100vh !important;
+}
+.modal-wrapper--small .modal-container {
+  min-height: 400px;
+}
+.list-item {
+  box-sizing: border-box;
 }
 </style>

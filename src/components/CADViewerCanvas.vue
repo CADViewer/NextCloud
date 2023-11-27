@@ -12,12 +12,15 @@
 				@click="closeModal">
 					<app-close :size="iconSize" />
 			</div>
-			<div id="cvjs_controls_min_right" class="cvjs_controls_min" style="height: 60px; width: 29px; position: absolute; right: 10px; top: 100px; left: auto; z-index: 100000;">
+			<div id="cvjs_controls_min_right" class="cvjs_controls_min" style="height: 90px; width: 29px; position: absolute; right: 10px; top: 100px; left: auto; z-index: 100000;">
 				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" id="zoom-extents_floorPlan_svg" @click="shareThisFile">
 					<i class="fa fa-share" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
 				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" @click="commentThisFile">
 					<i class="fa fa-comment" style="height: 20px; width: 27px; font-size: 14px;"></i>
+				</li>
+				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" @click="compareWithOwnVersion">
+					co
 				</li>
 			</div>
 <!-- 
@@ -44,10 +47,9 @@ import { getLanguage } from '@nextcloud/l10n'
 import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
 import NcLoadingIcon from "@nextcloud/vue/dist/Components/NcLoadingIcon.js"
 import Close from 'vue-material-design-icons/Close.vue'
+import { getFilePickerBuilder } from '@nextcloud/dialogs'
 
 import {eventBus} from "../main.js";
-import { Server } from 'http';
-
 var textLayer1; 
 
 var  selected_handles = [];
@@ -427,7 +429,8 @@ export default {
 		ContentDir: "",
 		UserName: "",
 		UserId: "",
-		lineWeightPercent: 100
+		lineWeightPercent: 100,
+		file: {}
 	}
   },
   computed: {
@@ -803,43 +806,52 @@ export default {
         //  cadviewer resize event 
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
+	execComparaison(FileName, firstFile){
+		cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName); // 8.67.17
+		cadviewer.cvjs_conversion_addAXconversionParameter("compare", FileName); // 8.67.17
+		cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
+	},
+	compare(path, firstFile, sameFile) {
+		let nameOfFile = path.split("/").reverse()[0]
+		let directory = path.replace(nameOfFile, "")
+		var data = { nameOfFile, directory};
+		if (sameFile) {
+			console.log({path, firstFile})
+			this.execComparaison(path, firstFile)
+			return;
+		}
+		$.ajax({
+			type: "POST",
+			async: "false",
+			url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
+			data: data,
+			success: async (response) => {
+				console.log(response);
+				if (response.path) {
+					const content_dir = response.path;
+					const FileName = `${content_dir}/${nameOfFile}`;
+					this.execComparaison(FileName, firstFile)
+				} else {
+					OC.dialogs.alert(
+						t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+						t("cadviewer", "Unable to view this file for the moment"),
+					);
+				}
+			},
+			error: (response) => {
+				OC.dialogs.alert(
+					t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+					t("cadviewer", "Unable to view this file for the moment"),
+				);
+			},
+		});
+	},
 	chooseFileToCompareWith(firstFile) {
 		OC.dialogs.filepicker(
 			t("cadviewer", "Choose file to compare with"),
 			(path) => {
 				if(path){
-					let nameOfFile = path.split("/").reverse()[0]
-					let directory = path.replace(nameOfFile, "")
-					var data = { nameOfFile, directory };
-					$.ajax({
-						type: "POST",
-						async: "false",
-						url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
-						data: data,
-						success: async (response) => {
-							console.log(response);
-							if (response.path) {
-								const content_dir = response.path;
-								const ISOtimeStamp = `${response.ISOtimeStamp}`;
-								const FileName = `${content_dir}/${nameOfFile}`;
-								cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName); // 8.67.17
-								cadviewer.cvjs_conversion_addAXconversionParameter("compare", FileName); // 8.67.17
-								cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
-							} else {
-								OC.dialogs.alert(
-									t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
-									t("cadviewer", "Unable to view this file for the moment"),
-								);
-							}
-						},
-						error: (response) => {
-							OC.dialogs.alert(
-								t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
-								t("cadviewer", "Unable to view this file for the moment"),
-							);
-						},
-					});
-					
+					this.compare(path, firstFile, false)
 				}
 			},
 			false,
@@ -872,6 +884,48 @@ export default {
 			this.closeCommentScreen();
 		}
 	},
+	async compareWithOwnVersion() {
+		const { default: SelectVersionModal } = await import('./SelectVersionModal.vue')
+		const picker = new SelectVersionModal({
+			propsData: {
+				file: this.file,
+			},
+		})
+
+		// Add listeners
+		picker.$on('select', (selectedVersion) => {
+			console.log({selectedVersion, file:  this.file})			
+			// make ajax call to download and store the selected version
+			$.ajax({
+				method: "POST",
+				url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer/compare-with-own-version"),
+				data: {
+					url: selectedVersion.version.source,
+					filename: selectedVersion.version.etag+"-"+this.file.file,
+				},
+				success: (response) => {
+					console.log({response})
+					if(response.path){
+						// load the file
+						this.compare(response.path, this.file, true)
+					}
+				}
+			});
+			
+			// Destroy the component
+			picker.$destroy()
+			picker.$el?.parentNode?.removeChild(picker.$el)
+		})
+		picker.$on('cancel', () => {
+			// Destroy the component
+			picker.$destroy()
+			picker.$el?.parentNode?.removeChild(picker.$el)
+		})
+
+		// Mount the component
+		picker.$mount()
+		document.body.appendChild(picker.$el)
+	},
 	closeCommentScreen() {
 		// remove class cadviewer-open to body
 		$("body").removeClass("cadviewer-open");
@@ -892,7 +946,18 @@ export default {
 		$("body").removeClass("cadviewer-open");
 		OCA.Files.Sidebar.close();
 	},
-	chooseFileToLoad() {
+	async chooseFileToLoad() {
+		const filepicker = getFilePickerBuilder(t("cadviewer", "Choose file to load"),)
+			.addMimeTypeFilter('text/plain')
+			.addButton({
+				label: 'Choose',
+				callback: (nodes) => console.log('Picked', nodes),
+			})
+			.build()
+
+		// You get the file nodes by the button callback, but also the pick yields the paths of the picked files
+		const paths = await filepicker.pick()
+		return;
 		console.log(this.parentDir)
 		OC.dialogs.filepicker(
 			t("cadviewer", "Choose file to load"),
@@ -983,6 +1048,7 @@ export default {
       };
 	  this.modal = true;
 	  this.title = filename;
+	  this.file = tr[0].dataset
       $.ajax({
         type: "POST",
         async: "false",

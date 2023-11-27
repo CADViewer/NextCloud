@@ -27,6 +27,7 @@ return [
         ["name" => "cadviewer#move_pdf", "url" => "/ajax/cadviewer/move-pdf", "verb" => "POST"],
         ["name" => "cadviewer#flush_cache", "url" => "/ajax/cadviewer/flush-cache", "verb" => "POST"],
 		['name' => 'cadviewer#ping', 'url' => '/ajax/cadviewer/ping','verb' => 'GET'],
+        ["name" => "cadviewer#compare_with_own_version", "url" => "/ajax/cadviewer/compare-with-own-version", 'verb' => "POST"],
         ["name" => "settings#doctor", "url" => "/ajax/settings/doctor", "verb" => "POST"],
         ["name" => "settings#save_common", "url" => "/ajax/settings/common", "verb" => "POST"],
         ["name" => "settings#save_parameters", "url" => "/ajax/settings/parameters", "verb" => "PUT"],

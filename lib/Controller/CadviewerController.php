@@ -120,7 +120,6 @@ class CadviewerController extends Controller {
 
 	}
 
-
 	public function flushCache(){
 		// Construct path to converter folder
         $currentpath = __FILE__;
@@ -140,6 +139,22 @@ class CadviewerController extends Controller {
 		
 	}
 
+	/**
+	 *  @NoAdminRequired
+	 */
+
+	public function compareWithOwnVersion($url, $filename){
+		// download file with curl and store in /tmp folder with th
+		$ch = curl_init($url);
+		$fp = fopen("/tmp/".$filename, "w");
+		curl_setopt($ch, CURLOPT_FILE, $fp);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		$res = curl_exec($ch);
+		curl_close($ch);
+		fclose($fp);
+		// return object  with path to file
+		return new JSONResponse(array("path" => "/tmp/".$filename), Http::STATUS_OK);
+	}
 	
 	/**
 	 *  @NoAdminRequired
@@ -250,7 +265,6 @@ class CadviewerController extends Controller {
 	 *  @NoAdminRequired
 	 */
 	public function path($nameOfFile, $directory){
-
 		$this->settingsController->checkIfLicenceIsPresent();
 		$res = $this->checkIfNumberOfUsersLimitation();
 		if ($res != "success") {
