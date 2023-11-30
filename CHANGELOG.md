@@ -2,6 +2,9 @@
 ### Added
 - Nighly changes here
 
+### 9.20.5 2023-12-01
+- Functional update for compare versions (not released)
+
 ### 9.19.6 2023-11-24
 - Documentation update
 - Scripts update
