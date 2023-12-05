@@ -143,17 +143,27 @@ class CadviewerController extends Controller {
 	 *  @NoAdminRequired
 	 */
 
-	public function compareWithOwnVersion($url, $filename){
-		// download file with curl and store in /tmp folder with th
-		$ch = curl_init($url);
-		$fp = fopen("/tmp/".$filename, "w");
-		curl_setopt($ch, CURLOPT_FILE, $fp);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		$res = curl_exec($ch);
-		curl_close($ch);
-		fclose($fp);
+	public function compareWithOwnVersion(){
+
+		// Construct path to converter folder
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+		// include CADViewer config for be able to acces to the location of ax2024 executable file
+		require($home_dir."/php/CADViewer_config.php");
+		// create compare folder if not exists
+		if (!file_exists($fileLocation."compare")) {
+			mkdir($fileLocation."compare", 0777, true);
+		}
+		$file_path = $fileLocation."compare/".$_POST['filename'];
+		$base64_string = $_POST['file'];
+		$data = explode( ',', $base64_string );
+		$ifp = fopen( $file_path, 'wb' ); 
+		fwrite( $ifp, base64_decode( $data[ 1 ] ) );
+		// clean up the file resource
+		fclose( $ifp ); 
+
 		// return object  with path to file
-		return new JSONResponse(array("path" => "/tmp/".$filename), Http::STATUS_OK);
+		return new JSONResponse(array("path" => $file_path), Http::STATUS_OK);
 	}
 	
 	/**

@@ -20,7 +20,7 @@
 					<i class="fa fa-comment" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
 				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" @click="compareWithOwnVersion">
-					co
+					<i class="fa fa-window-restore" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
 			</div>
 <!-- 
@@ -807,6 +807,7 @@ export default {
         cadviewer.cvjs_resizeWindow_position("floorPlan" );
     },
 	execComparaison(FileName, firstFile){
+		console.log({FileName, firstFile})
 		cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName); // 8.67.17
 		cadviewer.cvjs_conversion_addAXconversionParameter("compare", FileName); // 8.67.17
 		cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
@@ -817,7 +818,7 @@ export default {
 		var data = { nameOfFile, directory};
 		if (sameFile) {
 			console.log({path, firstFile})
-			this.execComparaison(path, firstFile)
+			this.execComparaison(path, this.FileName)
 			return;
 		}
 		$.ajax({
@@ -847,6 +848,7 @@ export default {
 		});
 	},
 	chooseFileToCompareWith(firstFile) {
+		console.log({firstFile})
 		OC.dialogs.filepicker(
 			t("cadviewer", "Choose file to compare with"),
 			(path) => {
@@ -894,23 +896,30 @@ export default {
 
 		// Add listeners
 		picker.$on('select', (selectedVersion) => {
-			console.log({selectedVersion, file:  this.file})			
-			// make ajax call to download and store the selected version
-			$.ajax({
-				method: "POST",
-				url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer/compare-with-own-version"),
-				data: {
-					url: selectedVersion.version.source,
-					filename: selectedVersion.version.etag+"-"+this.file.file,
-				},
-				success: (response) => {
-					console.log({response})
-					if(response.path){
-						// load the file
-						this.compare(response.path, this.file, true)
+			console.log({selectedVersion, file:  this.file})
+			const fileUrl = selectedVersion.version.source;
+			const filename = selectedVersion.version.etag+"-"+this.file.file;
+			// download the file and store it in base64
+			this.toDataUrl(fileUrl, (base64String) => {
+				const formData = new FormData();
+				formData.append('file', base64String);
+				formData.append('filename', filename);
+				$.ajax({
+					method: "POST",
+					url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer/compare-with-own-version"),
+					data: formData,
+					contentType: false,
+					processData: false,
+					success: (response) => {
+						console.log({response})
+						if(response.path){
+							// load the file
+							cadviewer.cvjs_CompareDrawings("floorPlan", this.FileName, response.path);
+							this.compare(response.path, this.FileName, true)
+						}
 					}
-				}
-			});
+				});
+			})
 			
 			// Destroy the component
 			picker.$destroy()
@@ -925,6 +934,19 @@ export default {
 		// Mount the component
 		picker.$mount()
 		document.body.appendChild(picker.$el)
+	},
+	toDataUrl (url, callback) {
+		const xhr = new XMLHttpRequest();
+		xhr.onload = function() {
+			const reader = new FileReader();
+			reader.onloadend = function() {
+				callback(reader.result);
+			}
+			reader.readAsDataURL(xhr.response);
+		};
+		xhr.open('GET', url);
+		xhr.responseType = 'blob';
+		xhr.send();
 	},
 	closeCommentScreen() {
 		// remove class cadviewer-open to body
@@ -947,17 +969,6 @@ export default {
 		OCA.Files.Sidebar.close();
 	},
 	async chooseFileToLoad() {
-		const filepicker = getFilePickerBuilder(t("cadviewer", "Choose file to load"),)
-			.addMimeTypeFilter('text/plain')
-			.addButton({
-				label: 'Choose',
-				callback: (nodes) => console.log('Picked', nodes),
-			})
-			.build()
-
-		// You get the file nodes by the button callback, but also the pick yields the paths of the picked files
-		const paths = await filepicker.pick()
-		return;
 		console.log(this.parentDir)
 		OC.dialogs.filepicker(
 			t("cadviewer", "Choose file to load"),
@@ -979,6 +990,7 @@ export default {
 								const ISOtimeStamp = `${response.ISOtimeStamp}`;
 								const FileName = `${content_dir}/${nameOfFile}`;
 								this.parentDir = directory;
+								this.FileName = FileName;
 								cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
 								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 							} else {
