@@ -67,6 +67,11 @@ OC.L10N.register(
         "Read and write permission for folder":  "폴더에 대한 읽기 및 쓰기 권한",
         "Error when trying to update font map": "글꼴 맵 업데이트 시도 시 오류 발생",
         "Font map successfully saved": "글꼴 맵이 성공적으로 저장되었습니다.",
+        "The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.": "CAD 변환기 ax2023_L64_xx_yy_zz가 실행되지 않습니다. 아래의 \"디버그\"를 참조하십시오.",
+        "Dynamic Cache": "동적 캐시",
+        "Enable cached conversions, to speed up execution. Updated files are always converted.": "캐시된 변환을 활성화하여 실행 속도를 높입니다. 업데이트된 파일은 항상 변환됩니다.",
+        "Cache conversion successfully updated": "캐시 변환이 성공적으로 업데이트되었습니다.",
+        "Error when trying to update cache conversion": "캐시 변환 업데이트 시도 시 오류 발생",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

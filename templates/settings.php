@@ -105,6 +105,9 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             <pre id="verifyOutput">
                 <?php p($_["autoexchange"]["output"]) ?>
             </pre>
+            <p id="verifyOutputError" style="display: none; font-size: 16px; color: red; font-weight: 500; padding-top: 10px;">
+                <?php p($l->t("The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.")) ?>
+            </p>
         </div>
         <br />
         <div class="content-url">
@@ -160,6 +163,28 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             </button>
         </p>
         <br />
+    </div>
+
+
+    <h2 style="display: flex; align-items: center;">
+        <span style="margin-right: 40px">
+            <?php p($l->t("Dynamic Cache")) ?>
+        </span>
+        <div style="display: none;">
+            <?php echo $_["hash"]?>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="dynamicCacheSwitch" <?=$_["cached_conversion"] ? "checked" : "" ?>>
+            <span class="slider round"></span>
+        </label>
+    </h2>
+
+    <div>
+        <div>
+            <p class="settings-hint">
+                <?php p($l->t("Enable cached conversions, to speed up execution. Updated files are always converted.")) ?>
+            </p>
+        </div>
     </div>
 
     <h2>

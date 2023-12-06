@@ -67,6 +67,11 @@ OC.L10N.register(
         "Read and write permission for folder":  "Permissão de leitura e escrita para a pasta",
         "Error when trying to update font map": "Erro ao tentar actualizar o mapa de tipos de letra",
         "Font map successfully saved": "Mapa de fontes guardado com sucesso",
+        "The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.": "O conversor CAD ax2023_L64_xx_yy_zz não está a ser executado, por favor veja \"Depurar\" abaixo.",
+        "Dynamic Cache": "Cache dinâmica",
+        "Enable cached conversions, to speed up execution. Updated files are always converted.": "Activar conversões em cache, para acelerar a execução. Os ficheiros actualizados são sempre convertidos.",
+        "Cache conversion successfully updated": "A conversão de cache foi actualizada com sucesso",
+        "Error when trying to update cache conversion": "Erro ao tentar actualizar a conversão de cache",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

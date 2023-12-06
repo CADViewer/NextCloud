@@ -64,7 +64,12 @@
         "Download": "Unduh",
         "Read and write permission for folder": "Izin baca dan tulis untuk folder",
         "Error when trying to update font map": "Kesalahan saat mencoba memperbarui peta font",
-        "Font map successfully saved": "Peta font berhasil disimpan"
+        "Font map successfully saved": "Peta font berhasil disimpan",
+        "The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.": "Konverter CAD ax2023_L64_xx_yy_zz tidak berjalan, silakan lihat \"Debug\" di bawah.",
+        "Dynamic Cache": "Cache Dinamis",
+        "Enable cached conversions, to speed up execution. Updated files are always converted.": "Aktifkan konversi yang di-cache, untuk mempercepat eksekusi. File yang diperbarui selalu dikonversi.",
+        "Cache conversion successfully updated": "Konversi cache berhasil diperbarui",
+        "Error when trying to update cache conversion": "Kesalahan saat mencoba memperbarui konversi cache"
     },
     "pluralForm": "nplurals=2; plural=(n != 1);"
 }

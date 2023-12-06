@@ -92,6 +92,11 @@ OC.L10N.register(
         "Before access to this feature administrator need to grant you access": "Avant d'accéder à cette fonctionnalité, l'administrateur doit vous accorder l'accès",
         "Users with access to Cadviewer": "Utilisateurs avec accès à Cadviewer",
         "User": "Utilisateur",
+        "The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.": "Le convertisseur CAD ax2023_L64_xx_yy_zz ne fonctionne pas, veuillez consulter \"Débogage\" ci-dessous.",
+        "Dynamic Cache": "Cache dynamique",
+        "Enable cached conversions, to speed up execution. Updated files are always converted.": "Activer les conversions mises en cache, pour accélérer l'exécution. Les fichiers mis à jour sont toujours convertis.",
+        "Cache conversion successfully updated": "Mise à jour réussie de la conversion du cache",
+        "Error when trying to update cache conversion": "Erreur lors de la mise à jour de la conversion du cache",
     },
     "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 );

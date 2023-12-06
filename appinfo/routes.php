@@ -39,5 +39,6 @@ return [
         ["name" => "settings#display_log", "url" => "/ajax/settings/log", "verb" => "POST"],
         ["name" => "settings#save_ax_font_map", "url" => "/ajax/settings/save-font-map", "verb" => "POST"],
         ["name" => "settings#save_users", "url" => "/ajax/settings/users", "verb" => "PUT"],
+		["name" => "settings#toggle_cache_conversion", "url" => "/ajax/settings/toggle-cache-conversion", "verb" => "POST"],
 	]
 ];

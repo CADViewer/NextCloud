@@ -173,6 +173,7 @@ cadviewer-vue/dist
 # Recommended template: Node.gitignore
 
 appinfo/init.txt
+appinfo/version.txt
 
 # TODO: where does this rule come from?
 docs/_book
