@@ -198,6 +198,7 @@ class SettingsController extends Controller {
         $instance_id = \OC_Util::getInstanceId();
 
         return [
+            "exectuable" => $ax2023_executable,
             "output" => $output,
             "output_detail" => $output_detail,
             "domaine_url" => $domaine_url,
@@ -236,7 +237,8 @@ class SettingsController extends Controller {
         $info_file =  $home_dir."/appinfo/info.xml";
 
         // include CADViewer config for be able to acces to the location of ax2024 executable file
-        require(explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter"."/php/CADViewer_config.php");
+        $config_file = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter"."/php/CADViewer_config.php";
+        require($config_file);
 
         $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
         
@@ -292,6 +294,8 @@ class SettingsController extends Controller {
             "excluded_folder_conversion" => ""
         );
         $data = [
+            "hash" => hash('sha256', file_get_contents($config_file)),
+            "cached_conversion" => $cached_conversion,
             "name" => $name,
             "version" =>  $version,
             "ax_font_map" => $ax_font_map,
@@ -310,6 +314,20 @@ class SettingsController extends Controller {
             "users" => $this->config->GetUsers($number_of_users),
         ];
         return new TemplateResponse($this->appName, "settings", $data, "blank");
+    }
+
+    /**
+     * Toggle cache conversion 
+     * @param boolean $cached_conversion - true if cache conversion is activated elseway false
+     */
+    public function toggleCacheConversion($cached_conversion) {
+        $config_file = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter/php/CADViewer_config.php";
+
+        // replace $cached_conversion = true or $cached_conversion = false by $cached_conversion = $cached_conversion in config file
+        $config_content = file_get_contents($config_file);
+        $config_content = preg_replace("/cached_conversion = (true|false);/", "cached_conversion = ".var_export($cached_conversion, true).";", $config_content);
+        file_put_contents($config_file, $config_content);
+        return $cached_conversion;
     }
 
 

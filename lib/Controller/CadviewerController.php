@@ -120,7 +120,6 @@ class CadviewerController extends Controller {
 
 	}
 
-
 	public function flushCache(){
 		// Construct path to converter folder
         $currentpath = __FILE__;
@@ -140,6 +139,32 @@ class CadviewerController extends Controller {
 		
 	}
 
+	/**
+	 *  @NoAdminRequired
+	 */
+
+	public function compareWithOwnVersion(){
+
+		// Construct path to converter folder
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+		// include CADViewer config for be able to acces to the location of ax2024 executable file
+		require($home_dir."/php/CADViewer_config.php");
+		// create compare folder if not exists
+		if (!file_exists($fileLocation."compare")) {
+			mkdir($fileLocation."compare", 0777, true);
+		}
+		$file_path = $fileLocation."compare/".$_POST['filename'];
+		$base64_string = $_POST['file'];
+		$data = explode( ',', $base64_string );
+		$ifp = fopen( $file_path, 'wb' ); 
+		fwrite( $ifp, base64_decode( $data[ 1 ] ) );
+		// clean up the file resource
+		fclose( $ifp ); 
+
+		// return object  with path to file
+		return new JSONResponse(array("path" => $file_path), Http::STATUS_OK);
+	}
 	
 	/**
 	 *  @NoAdminRequired
@@ -250,7 +275,35 @@ class CadviewerController extends Controller {
 	 *  @NoAdminRequired
 	 */
 	public function path($nameOfFile, $directory){
+		
+		// check if call-Api_Conversion_log.txt not exec return1  0  then flush cache
+		
+		$home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter/php";
 
+		$log_file = $home_dir."/call-Api_Conversion_log.txt";
+		$contents = file_get_contents($log_file);
+		if (str_contains($contents, 'exec return1  0') == false && str_contains($contents, 'exec return1 0')  == false) {
+			$this->flushCache();
+		}
+
+		// check if there new version installed and if yes flush cache
+		$appinfo_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/appinfo";
+		$version_file = $appinfo_dir."/version.txt";
+		$last_installed_version = file_get_contents($version_file);
+
+		/// read version in info.xml
+		$version_info_xml = $appinfo_dir."/info.xml";
+		// Regular expression pattern to extract version number
+		$pattern = '/<version>(.*?)<\/version>/s'; // The 's' modifier allows dot '.' to match newline characters
+
+		// Perform the regular expression match
+		preg_match($pattern, file_get_contents($version_info_xml), $matches);
+		$version = $matches[1];
+		if ($version != $last_installed_version) {
+			$this->flushCache();
+			file_put_contents($version_file, $version);
+		}
+		
 		$this->settingsController->checkIfLicenceIsPresent();
 		$res = $this->checkIfNumberOfUsersLimitation();
 		if ($res != "success") {
@@ -273,7 +326,7 @@ class CadviewerController extends Controller {
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["skin"] = $this->appConfig->GetSkin();
 		$lineWeightFactors =  json_decode($this->appConfig->GetLineWeightFactors(), true);
-		$response["lineWeightFactor"] === null;
+		$response["lineWeightFactor"] = null;
 		foreach ($lineWeightFactors as $key => $value) {
 			if(
 				($value["folder_frontend"] === $directory || $value["folder_frontend"] === "*") && 
@@ -299,7 +352,7 @@ class CadviewerController extends Controller {
 			}
 		}
 		$parameters = json_decode($this->appConfig->GetParameters(), true);
-		$response["parameters"] === array();
+		$response["parameters"] = array();
 		$i = 1;
 		foreach ($parameters as $key => $value) {
 			if(

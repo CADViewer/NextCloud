@@ -64,7 +64,12 @@
         "Download": "Descargar",
         "Read and write permission for folder": "Permiso de lectura y escritura para la carpeta",
         "Error when trying to update font map": "Error al intentar actualizar el mapa de fuentes",
-        "Font map successfully saved": "Mapa de fuentes guardado correctamente"
+        "Font map successfully saved": "Mapa de fuentes guardado correctamente",
+        "The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.": "El convertidor CAD ax2023_L64_xx_yy_zz no se está ejecutando, consulte \"Depurar\" a continuación.",
+        "Dynamic Cache": "Caché dinámico",
+        "Enable cached conversions, to speed up execution. Updated files are always converted.": "Habilitar las conversiones en caché para acelerar la ejecución. Los archivos actualizados siempre se convierten.",
+        "Cache conversion successfully updated": "La conversión de caché se ha actualizado correctamente",
+        "Error when trying to update cache conversion": "Error al intentar actualizar la conversión de caché"
     },
     "pluralForm": "nplurals=2; plural=(n != 1);"
 }

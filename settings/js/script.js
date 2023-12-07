@@ -30,6 +30,11 @@
 
                     $("#installationUrl").html(installationUrl);
                     $("#verifyOutput").html(verifyOutput);
+                    if (!verifyOutput){
+                        $("#verifyOutputError").css("display", "block");
+                    } else {
+                        $("#verifyOutputError").css("display", "none");
+                    }
                     $("#instanceID").html(instanceID);
                     $("#licensedTo").html(licensedTo);
                     if(expirationTime !== null  && expirationTime > 0) {
@@ -393,6 +398,26 @@
             });
         });
 
+        // add on checkbox change event to input dynamicCacheSwitch
+        $("#dynamicCacheSwitch").change(function() {
+            // call endpoint /toggle-cache-conversion for save new value
+            $(".section-cadviewer").addClass("icon-loading");
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/toggle-cache-conversion"),
+                data: {
+                   "cached_conversion": this.checked
+                },
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response.error) {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to update cache conversion"));
+                    } else {
+                        OCP.Toast.success(t(OCA.Cadviewer.AppName, "Cache conversion successfully updated"));
+                    }
+                }
+            });
+        });
         // get the status of AutoExchange licence
 
         $("#getLicenseKeyInfo").click(function () {

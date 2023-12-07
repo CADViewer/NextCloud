@@ -64,7 +64,12 @@
         "Download": "下载",
         "Read and write permission for folder": "文件夹的读和写权限",
         "Error when trying to update font map": "尝试更新字体地图时出错",
-        "Font map successfully saved": "字体地图成功保存"
+        "Font map successfully saved": "字体地图成功保存",
+        "The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.": "CAD转换器ax2023_L64_xx_yy_zz没有运行，请参见下面的“调试”。",
+        "Dynamic Cache": "动态缓存",
+        "Enable cached conversions, to speed up execution. Updated files are always converted.": "启用缓存转换，以加快执行速度。更新的文件总是会被转换。",
+        "Cache conversion successfully updated": "缓存转换成功更新",
+        "Error when trying to update cache conversion": "尝试更新缓存转换时出错"
     },
     "pluralForm": "nplurals=2; plural=(n != 1);"
 }

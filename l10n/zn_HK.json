@@ -64,7 +64,12 @@
         "Download": "下載",
         "Read and write permission for folder": "文件夾讀寫權限",
         "Error when trying to update font map": "嘗試更新字體映射時出錯",
-        "Font map successfully saved": "字體映射成功保存"
+        "Font map successfully saved": "字體映射成功保存",
+        "The CAD converter ax2023_L64_xx_yy_zz is not running, please see \"Debug\" below.": "CAD 轉換器 ax2023_L64_xx_yy_zz 未運行，請參閱下面的“調試”。",
+        "Dynamic Cache": "動態緩存",
+        "Enable cached conversions, to speed up execution. Updated files are always converted.": "啟用緩存轉換，以加快執行速度。 更新的文件總是會被轉換。",
+        "Cache conversion successfully updated": "緩存轉換已成功更新",
+        "Error when trying to update cache conversion": "嘗試更新緩存轉換時出錯"
     },
     "pluralForm": "nplurals=2; plural=(n != 1);"
 }
