@@ -12,15 +12,16 @@
 				@click="closeModal">
 					<app-close :size="iconSize" />
 			</div>
+<!--  change placholder width to 29-->
 			<div id="cvjs_controls_min_right" class="cvjs_controls_min" style="height: 90px; width: 29px; position: absolute; right: 10px; top: 100px; left: auto; z-index: 100000;">
-				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" id="zoom-extents_floorPlan_svg" @click="shareThisFile">
+				<li style="list-style-type: none; width: 29px; height: 30px; display: flex; cursor: pointer;" id="zoom-extents_floorPlan_svg" @click="shareThisFile">
 					<i class="fa fa-share" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
-				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" @click="commentThisFile">
+				<li style="list-style-type: none; width: 29px; height: 30px; display: flex; cursor: pointer;" @click="commentThisFile">
 					<i class="fa fa-comment" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
-				<li style="list-style-type: none; width: 27px; height: 30px; display: flex; cursor: pointer;" @click="compareWithOwnVersion">
-					<i class="fa fa-window-restore" style="height: 20px; width: 27px; font-size: 14px;"></i>
+				<li style="list-style-type: none; width: 29px; height: 28px; display: flex; cursor: pointer;" @click="compareWithOwnVersion">
+					<i class="fa fa-square" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
 			</div>
 <!-- 
@@ -911,11 +912,29 @@ export default {
 					contentType: false,
 					processData: false,
 					success: (response) => {
-						console.log({response})
+						console.log({response});
+
+						console.log("compareWithOwnVersion....after response");
+
+
 						if(response.path){
 							// load the file
-							cadviewer.cvjs_CompareDrawings("floorPlan", this.FileName, response.path);
-							this.compare(response.path, this.FileName, true)
+							// cadviewer.cvjs_CompareDrawings("floorPlan", this.FileName, response.path);
+
+							// NEED TO PASS OVER THE correct ones
+// KEVIN ->  find the labels for the version of the same file?
+
+							var firstfilelabel = "Version 1";  // replace with real label
+							var secondfilelabel = "Version 2"; // replace with real label
+							var filename = this.FileName.toString().substring(this.FileName.toString().lastIndexOf("/")+1);
+
+
+							cadviewer.cvjs_CompareDrawings_DisplayNameAlias("floorPlan", this.FileName, response.path, filename+" ("+firstfilelabel+")", filename+" ("+secondfilelabel+")");
+
+
+							// do not do this branch
+							// do not do 
+							//this.compare(response.path, this.FileName, true)
 						}
 					}
 				});
