@@ -5,8 +5,12 @@
 	<pages>
 		<page>
                         <command>cvjs_openFileLoadToServer</command>
-			<command>cvjs_LayerList</command>
+			<command>cvjs_loadStickyNotesRedlinesUser</command>
+			<command>cvjs_saveStickyNotesRedlinesUser</command>
 			<command>cvjs_Print</command>
+			<command>cvjs_publishPDF</command>
+			<command>cvjs_saveAsSVGOnServer</command>
+			<command>cvjs_LayerList</command>
 			<command>cvjs_toggleBlackWhite</command>
 			<command>cvjs_setBackgroundColor</command>
 			<command>cvjs_interactiveSearchText</command>
@@ -15,10 +19,6 @@
 			<command>cvjs_displayMagnifyingGlass</command>
 			<command>cvjs_activateLineThicknessModal</command>
                         <command>cvjs_compareDrawings_LoadSecondDrawing</command>
-			<command>cvjs_publishPDF</command>
-			<command>cvjs_saveAsSVGOnServer</command>
-			<command>cvjs_loadStickyNotesRedlinesUser</command>
-			<command>cvjs_saveStickyNotesRedlinesUser</command>
 			<command>cvjs_setRedlineColor</command>
 			<command>cvjs_setRedlineThickness</command>
 			<command>cvjs_drawStickyNote</command>
