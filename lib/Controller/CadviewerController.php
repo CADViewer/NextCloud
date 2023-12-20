@@ -275,7 +275,10 @@ class CadviewerController extends Controller {
 	 *  @NoAdminRequired
 	 */
 	public function path($nameOfFile, $directory){
-		
+
+        $this->settingsController->checkIfLicenceIsPresent();
+        $this->settingsController->checkIfLicenceJsIsPresent();
+
 		// check if call-Api_Conversion_log.txt not exec return1  0  then flush cache
 		
 		$home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter/php";
@@ -303,8 +306,7 @@ class CadviewerController extends Controller {
 			$this->flushCache();
 			file_put_contents($version_file, $version);
 		}
-		
-		$this->settingsController->checkIfLicenceIsPresent();
+
 		$res = $this->checkIfNumberOfUsersLimitation();
 		if ($res != "success") {
 			return $res;

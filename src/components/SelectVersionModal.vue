@@ -80,8 +80,27 @@ export default Vue.extend({
 			this.$emit('cancel')
 		},
 
+		versionLabel(version) {
+			const label = version.label ?? ''
+
+			if (version.mtime == this.file.mtime) {
+				if (label === '') {
+					return 'Current version'
+				} else {
+					return `${label} (Current version)`
+				}
+			}
+
+			if (version.mtime == this.initialVersionMtime && label === '') {
+				return 'Initial version'
+			}
+
+			return label
+		},
+
         compareVersion({ version }) {
-            this.$emit('select', { version })
+			const lastVersion = this.versions.findLast((v) => v.mtime == this.file.mtime)
+			this.$emit('select', { version, firstLabel: this.versionLabel(version), currentVersion: this.versionLabel(lastVersion) })
         },
 
 		async fetchVersions() {

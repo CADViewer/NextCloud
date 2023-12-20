@@ -896,10 +896,10 @@ export default {
 		})
 
 		// Add listeners
-		picker.$on('select', (selectedVersion) => {
-			console.log({selectedVersion, file:  this.file})
-			const fileUrl = selectedVersion.version.source;
-			const filename = selectedVersion.version.etag+"-"+this.file.file;
+		picker.$on('select', (props) => {
+			const {version, firstLabel, currentVersion} = props
+			const fileUrl = version.source;
+			const filename = version.etag+"-"+this.file.file;
 			// download the file and store it in base64
 			this.toDataUrl(fileUrl, (base64String) => {
 				const formData = new FormData();
@@ -918,23 +918,14 @@ export default {
 
 
 						if(response.path){
-							// load the file
-							// cadviewer.cvjs_CompareDrawings("floorPlan", this.FileName, response.path);
 
-							// NEED TO PASS OVER THE correct ones
-// KEVIN ->  find the labels for the version of the same file?
-
-							var firstfilelabel = "Version 1";  // replace with real label
-							var secondfilelabel = "Version 2"; // replace with real label
+							var firstfilelabel = currentVersion;
+							var secondfilelabel = firstLabel;
 							var filename = this.FileName.toString().substring(this.FileName.toString().lastIndexOf("/")+1);
 
 
 							cadviewer.cvjs_CompareDrawings_DisplayNameAlias("floorPlan", this.FileName, response.path, filename+" ("+firstfilelabel+")", filename+" ("+secondfilelabel+")");
 
-
-							// do not do this branch
-							// do not do 
-							//this.compare(response.path, this.FileName, true)
 						}
 					}
 				});
