@@ -2,9 +2,13 @@
 ### Added
 - Nighly changes here
 
+### 9.25.9 2023-12-27
+- Functional update for compare file versions
+- Update of CADViewer bug fixes
+
 
 ### 9.23.2 2023-12-07
-- Funcional update for compare versions
+- Functional update for compare versions
 - Admin interface changes to control cached conversions
 - Admin interface changes to provide licensing information if converter not running
 - CADViewer bug fixes
