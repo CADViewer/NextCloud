@@ -98,7 +98,6 @@ export default Vue.extend({
 		},
 
         compareVersion({ version }) {
-			console.log({ version, mtime: this.file.mtime.getTime(), versions: this.versions })
 			const lastVersion = this.versions.findLast((v) => v.mtime == this.file.mtime.getTime())
 			this.$emit('select', { version, firstLabel: this.versionLabel(version), currentVersion: this.versionLabel(lastVersion) })
         },
