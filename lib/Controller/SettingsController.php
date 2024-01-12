@@ -70,6 +70,35 @@ class SettingsController extends Controller {
         file_put_contents($axlic_file, $axlic_content);
     }
 
+
+    /**
+     * Check if licence js is present in folder converters elseway get it from appConfig
+     */
+    public function checkIfLicenceJsIsPresent() {
+
+        // Construct path to converter folder
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+        // include CADViewer config for be able to acces to the location of ax2024 executable file
+        require($home_dir."/php/CADViewer_config.php");
+
+        $licence_key_file = $licenseLocation."cvlicense.js";
+
+        if (file_exists($licence_key_file)) {
+            return;
+        }
+
+
+        $licence_key_content = $this->config->GetLicenceKey();
+        // check if is not empty
+        if (empty($licence_key_content)) {
+            return;
+        }
+        // write content in axlic file
+        file_put_contents($licence_key_file, $licence_key_content);
+    }
+
     /**
      * Save shx file in the fonts folder 
      */
@@ -146,6 +175,64 @@ class SettingsController extends Controller {
             $this->config->SetAxlicLicenceKey($axlic_file_content);
             $this->flushCache();
             return new JSONResponse(array("users" => $this->config->GetUsers($number_of_users)), Http::STATUS_CREATED);
+        }
+    }
+
+
+    /**
+     * Save common settings
+     *
+     * @param array $licenceKey - cadviewer licence key
+     *
+     */
+    public function SaveCommon() {
+
+        $file = $_FILES['file'];
+
+        // Check for errors
+        if ($file['error'] > 0) {
+            // Handle the error
+            return new JSONResponse(array(), Http::STATUS_BAD_REQUEST);
+        } else {
+
+            // Construct path to converter folder
+            $currentpath = __FILE__;
+            $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+            // include CADViewer config for be able to acces to the location of ax2024 executable file
+            require($home_dir."/php/CADViewer_config.php");
+
+
+            $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
+
+            // extract information from key verification detail
+            $lines = explode("\n", $output_detail);
+            $number_of_users = -1;
+            if (strpos($output_detail, "License Validated") !== false) {
+                if (isset($lines[0]) && strpos($lines[0], "days until your") !== false) {
+                    $number_of_users = intval($lines[3]);
+                } else {
+                    $number_of_users = intval($lines[2]);
+                }
+            }
+
+            $licence_key_file = $licenseLocation."cvlicense.js";
+
+            // Process the file
+            $tmp_name = $file['tmp_name'];
+
+            // Saving it to a directory
+            $response =  move_uploaded_file($tmp_name, $licence_key_file);
+
+            try {
+                $content = file_get_contents($licence_key_file);
+                if (preg_match('/"([^"]+)"/', $content, $m)) {
+                    $this->config->SetLicenceKey($m[1]);
+                }
+            } catch (\Exception $e) {}
+            $this->flushCache();
+
+            return new JSONResponse(array("users" => $this->config->GetUsers($number_of_users), "licenceKey" => $this->config->GetLicenceKey(),), Http::STATUS_CREATED);
         }
     }
 
@@ -231,6 +318,7 @@ class SettingsController extends Controller {
     public function index() {
         
 		$this->checkIfLicenceIsPresent();
+        $this->checkIfLicenceJsIsPresent();
 		// Construct path to converter folder
         $currentpath = __FILE__;
         $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer";
@@ -241,8 +329,11 @@ class SettingsController extends Controller {
         require($config_file);
 
         $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
-        
-		// extract information from key verification detail
+
+        $licence_key_file = $licenseLocation."cvlicense.js";
+        $licence_axlic_file = $licenseLocation."axlic.key";
+
+        // extract information from key verification detail
 		$lines = explode("\n", $output_detail);
         $number_of_users = -1;
         if (strpos($output_detail, "License Validated") !== false) {
@@ -331,62 +422,6 @@ class SettingsController extends Controller {
     }
 
 
-    /**
-     * Save common settings
-     *
-     * @param array $licenceKey - cadviewer licence key
-     *
-     */
-    public function SaveCommon() {
-
-        $file = $_FILES['file'];
-
-        // Check for errors
-        if ($file['error'] > 0) {
-            // Handle the error
-            return new JSONResponse(array(), Http::STATUS_BAD_REQUEST);
-        } else {
-
-            // Construct path to converter folder
-            $currentpath = __FILE__;
-            $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
-
-            // include CADViewer config for be able to acces to the location of ax2024 executable file
-            require($home_dir."/php/CADViewer_config.php");
-
-
-            $output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
-            
-            // extract information from key verification detail
-            $lines = explode("\n", $output_detail);
-            $number_of_users = -1;
-            if (strpos($output_detail, "License Validated") !== false) {
-                if (isset($lines[0]) && strpos($lines[0], "days until your") !== false) {
-                    $number_of_users = intval($lines[3]);
-                } else {
-                    $number_of_users = intval($lines[2]);
-                }
-            }
-
-            $licence_key_file = $licenseLocation."cvlicense.js";
-
-            // Process the file
-            $tmp_name = $file['tmp_name'];
-            
-            // Saving it to a directory
-            $response =  move_uploaded_file($tmp_name, $licence_key_file);
-
-            try {
-                $content = file_get_contents($licence_key_file);
-                if (preg_match('/"([^"]+)"/', $content, $m)) {
-                    $this->config->SetLicenceKey($m[1]);  
-                }
-            } catch (\Exception $e) {}
-            $this->flushCache();
-            
-            return new JSONResponse(array("users" => $this->config->GetUsers($number_of_users), "licenceKey" => $this->config->GetLicenceKey(),), Http::STATUS_CREATED);
-        }
-    }
     
     /**
      * Save users list that have access to CADViewer

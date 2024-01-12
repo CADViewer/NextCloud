@@ -48,9 +48,12 @@ import { getLanguage } from '@nextcloud/l10n'
 import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
 import NcLoadingIcon from "@nextcloud/vue/dist/Components/NcLoadingIcon.js"
 import Close from 'vue-material-design-icons/Close.vue'
-import { getFilePickerBuilder } from '@nextcloud/dialogs'
+import {
+	registerFileAction, Permission, FileAction, FileType, DefaultType 
+} from '@nextcloud/files'
 
 import {eventBus} from "../main.js";
+import logo from '../assets/logo.svg'
 var textLayer1; 
 
 var  selected_handles = [];
@@ -394,20 +397,13 @@ export default {
 
 	// Add context menu and default file open handler for autocad file
     // this.initViewCadFile("application/octet-stream", true);
-    this.initViewCadFile("application/acad", true);
-    this.initViewCadFile("application/dxf", true);
-    this.initViewCadFile("application/x-dwf", true);
-    this.initViewCadFile("application/dgn", true);
+    this.initViewCadFile(["application/acad", "application/dxf", "application/x-dwf", "application/dgn"], true);
     // Add context menu for others documents
-    this.initViewCadFile("application/pdf", false);
-    this.initViewCadFile("image/tiff", false);
-    this.initViewCadFile("image/tif", false);
-    // Add context menu for images
-    this.initViewCadFile("image/png", false);
-    this.initViewCadFile("image/jpeg", false);
-    this.initViewCadFile("image/gif", false);
-	this.initViewCadFile("image/svg+xml", false);
-	this.initViewCadFile("application/octet-stream", false);
+    this.initViewCadFile([
+		"application/pdf", "image/tiff", "image/tif", 
+		"image/png", "image/jpeg", "image/gif", "image/svg+xml", 
+		"application/octet-stream"
+	], false);
 
   },
   data() {
@@ -896,10 +892,10 @@ export default {
 		})
 
 		// Add listeners
-		picker.$on('select', (selectedVersion) => {
-			console.log({selectedVersion, file:  this.file})
-			const fileUrl = selectedVersion.version.source;
-			const filename = selectedVersion.version.etag+"-"+this.file.file;
+		picker.$on('select', (props) => {
+			const {version, firstLabel, currentVersion} = props
+			const fileUrl = version.source;
+			const filename = version.etag+"-"+this.file.basename;
 			// download the file and store it in base64
 			this.toDataUrl(fileUrl, (base64String) => {
 				const formData = new FormData();
@@ -918,23 +914,14 @@ export default {
 
 
 						if(response.path){
-							// load the file
-							// cadviewer.cvjs_CompareDrawings("floorPlan", this.FileName, response.path);
 
-							// NEED TO PASS OVER THE correct ones
-// KEVIN ->  find the labels for the version of the same file?
-
-							var firstfilelabel = "Version 1";  // replace with real label
-							var secondfilelabel = "Version 2"; // replace with real label
+							var firstfilelabel = currentVersion;
+							var secondfilelabel = firstLabel;
 							var filename = this.FileName.toString().substring(this.FileName.toString().lastIndexOf("/")+1);
 
 
 							cadviewer.cvjs_CompareDrawings_DisplayNameAlias("floorPlan", this.FileName, response.path, filename+" ("+firstfilelabel+")", filename+" ("+secondfilelabel+")");
 
-
-							// do not do this branch
-							// do not do 
-							//this.compare(response.path, this.FileName, true)
 						}
 					}
 				});
@@ -1068,18 +1055,19 @@ export default {
 	clearTextLayer(){
 		textLayer1 = cadviewer.cvjs_clearLayer(textLayer1);
 	},
-	viewCadFileActionHandler(filename, context) {
+	viewCadFileActionHandler(node) {
+	  const filename = node.basename;
+	  const directory = node.dirname;
 	  this.showLoading = true;
-      var tr = context.fileList.findFileEl(filename);
-	  console.log({context, tr, filename})
-      context.fileList.showFileBusyState(tr, true);
-      var data = {
+	  console.log({directory, filename})
+	  node.status = "loading";
+      const data = {
         nameOfFile: filename,
-        directory: context.dir,
+        directory: directory,
       };
 	  this.modal = true;
 	  this.title = filename;
-	  this.file = tr[0].dataset
+	  this.file = node
       $.ajax({
         type: "POST",
         async: "false",
@@ -1087,14 +1075,14 @@ export default {
         data: data,
         success: async (response) => {
 	  	  this.showLoading = false;
-          context.fileList.showFileBusyState(tr, false);
+	  	  node.status = undefined;
           if (response.path) {
             const content_dir = response.path;
             console.log({ content_dir });
             this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
             this.ServerLocation = `${response.serverLocation}`;
             this.ISOtimeStamp = `${response.ISOtimeStamp}`;
-            this.parentDir = context.dir;
+            this.parentDir = directory;
             this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
             this.FileName = `${content_dir}/${filename}`;
             this.ModalTitle = filename;
@@ -1126,7 +1114,7 @@ export default {
           }
         },
         error: (response) => {
-          	context.fileList.showFileBusyState(tr, false);
+	  	  	node.status = undefined;
 			OC.dialogs.alert(
 				t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
 				t("cadviewer", "Unable to view this file for the moment"),
@@ -1134,20 +1122,50 @@ export default {
         },
       });
     },
-    initViewCadFile(mine_type, is_default) {
-      OCA.Files.fileActions.registerAction({
-        name: "open_cadviewer_modal",
-        displayName: t("cadviewer","Open with CADViewer"),
-        mime: mine_type,
-        permissions: OC.PERMISSION_NONE,
-        type: OCA.Files.FileActions.TYPE_DROPDOWN,
-        icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=kevmax`,
-        iconClass: "icon-visibility-button",
-        order: 1001,
-        actionHandler: this.viewCadFileActionHandler,
-      });
-      if(is_default)
-        OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal");
+    initViewCadFile(mine_types, is_default) {
+		const displayCadviewerAction = new FileAction({
+			id: is_default ? 'open_cadviewer_modal' : 'open_cadviewer_modal_' + mine_types[0],
+			displayName: (nodes) => t("cadviewer","Open with CADViewer"),
+			enabled(nodes, view) {
+				return !(OCA.Mattermost && (OCA.Mattermost.actionIgnoreLists ?? []).includes(view.id))
+					&& nodes.length > 0
+					// && !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
+					&& nodes.every(({ type }) => type === FileType.File)
+					&& nodes.every(({ mime }) => mine_types.includes(mime))
+			},
+			iconSvgInline: () => logo,
+        	order: 1001,
+			exec: async (node) => {
+				this.viewCadFileActionHandler(node);
+				return null
+			},
+			// async execBatch(nodes) {
+			// 	this.viewCadFileActionHandler(nodes[0]);
+			// 	return nodes.map(_ => null);
+			// },
+			default: is_default ? DefaultType.DEFAULT : undefined,
+
+		});
+		registerFileAction(displayCadviewerAction);
+		/*
+			OCA.Files.fileActions.registerAction({
+				name: "open_cadviewer_modal",
+				displayName: t("cadviewer","Open with CADViewer"),
+				
+				
+				mime: mine_type,
+				permissions: OC.PERMISSION_NONE,
+				type: OCA.Files.FileActions.TYPE_DROPDOWN,
+				
+				
+				icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=kevmax`,
+				iconClass: "icon-visibility-button",
+				order: 1001,
+				actionHandler: this.viewCadFileActionHandler,
+			});
+			if(is_default)
+				OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal");
+		*/
     },
     closeModal() {
 	  this.closeShareScreen();
