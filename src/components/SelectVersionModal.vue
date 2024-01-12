@@ -52,9 +52,9 @@ export default Vue.extend({
 	computed: {
          orderedVersions() {
 			return [...this.versions].sort((a, b) => {
-				if (a.mtime === this.file.mtime) {
+				if (a.mtime === this.file.mtime.getTime()) {
 					return -1
-				} else if (b.mtime === this.file.mtime) {
+				} else if (b.mtime === this.file.mtime.getTime()) {
 					return 1
 				} else {
 					return b.mtime - a.mtime
@@ -71,7 +71,6 @@ export default Vue.extend({
 
 	async beforeMount() {
 		this.versions = await fetchVersions(this.file)
-        console.log({versions: this.versions, file: this.file})
 	},
 
 	methods: {
@@ -83,7 +82,7 @@ export default Vue.extend({
 		versionLabel(version) {
 			const label = version.label ?? ''
 
-			if (version.mtime == this.file.mtime) {
+			if (version.mtime == this.file.mtime.getTime()) {
 				if (label === '') {
 					return 'Current version'
 				} else {
@@ -99,7 +98,7 @@ export default Vue.extend({
 		},
 
         compareVersion({ version }) {
-			const lastVersion = this.versions.findLast((v) => v.mtime == this.file.mtime)
+			const lastVersion = this.versions.findLast((v) => v.mtime == this.file.mtime.getTime())
 			this.$emit('select', { version, firstLabel: this.versionLabel(version), currentVersion: this.versionLabel(lastVersion) })
         },
 

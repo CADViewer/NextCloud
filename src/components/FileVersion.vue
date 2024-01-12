@@ -82,7 +82,7 @@ export default {
     },
 	computed: {
         isCurrent() {
-            return this.version.mtime == this.fileInfo.mtime
+            return this.version.mtime == this.fileInfo.mtime.getTime()
         },
 		versionLabel() {
 			const label = this.version.label ?? ''
