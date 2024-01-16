@@ -895,7 +895,7 @@ export default {
 		picker.$on('select', (props) => {
 			const {version, firstLabel, currentVersion} = props
 			const fileUrl = version.source;
-			const filename = version.etag+"-"+this.file.basename;
+			const filename = version.etag+"-"+(this.file.basename || this.file.file);
 			// download the file and store it in base64
 			this.toDataUrl(fileUrl, (base64String) => {
 				const formData = new FormData();
@@ -1055,6 +1055,73 @@ export default {
 	clearTextLayer(){
 		textLayer1 = cadviewer.cvjs_clearLayer(textLayer1);
 	},
+	viewCadFileActionHandler27(filename, context){
+		this.showLoading = true;
+		var tr = context.fileList.findFileEl(filename);
+		console.log({context, tr, filename})
+		context.fileList.showFileBusyState(tr, true);
+		var data = {
+			nameOfFile: filename,
+			directory: context.dir,
+		};
+		this.modal = true;
+		this.title = filename;
+		this.file = tr[0].dataset
+		console.log({file: this.file})
+		$.ajax({
+			type: "POST",
+			async: "false",
+			url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/cadviewer.php"),
+			data: data,
+			success: async (response) => {
+			this.showLoading = false;
+			context.fileList.showFileBusyState(tr, false);
+			if (response.path) {
+				const content_dir = response.path;
+				console.log({ content_dir });
+				this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
+				this.ServerLocation = `${response.serverLocation}`;
+				this.ISOtimeStamp = `${response.ISOtimeStamp}`;
+				this.parentDir = context.dir;
+				this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
+				this.FileName = `${content_dir}/${filename}`;
+				this.ModalTitle = filename;
+				this.LicenceKey = response.licenceKey;
+				this.skin = response.skin;
+				this.nextcloudColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
+				this.UserName  = OC.getCurrentUser().displayName;
+				this.UserId  = OC.getCurrentUser().uid;
+				this.lineWeightPercent = response.lineWeightFactor ?? 100;
+				let axparameters = {};
+				let parameters = []
+				axparameters.parameters = parameters;
+				if (response.parameters) {
+					for(let i = 1; i <= Object.keys(response.parameters).length/2; i++){
+						axparameters.parameters.push({
+							"paramName": response.parameters[`parameter_${i}`], 
+							"paramValue": response.parameters[`value_${i}`]
+						});
+					}
+				}
+				console.log({axparameters})
+				this.initCadviewer(axparameters);
+			} else {
+				this.modal = false;
+				OC.dialogs.alert(
+					t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+					t("cadviewer", "Unable to view this file for the moment"),
+				);
+			}
+			},
+			error: (response) => {
+				context.fileList.showFileBusyState(tr, false);
+				OC.dialogs.alert(
+					t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
+					t("cadviewer", "Unable to view this file for the moment"),
+				);
+			},
+		});
+	},
 	viewCadFileActionHandler(node) {
 	  const filename = node.basename;
 	  const directory = node.dirname;
@@ -1123,32 +1190,35 @@ export default {
       });
     },
     initViewCadFile(mine_types, is_default) {
-		const displayCadviewerAction = new FileAction({
-			id: is_default ? 'open_cadviewer_modal' : 'open_cadviewer_modal_' + mine_types[0],
-			displayName: (nodes) => t("cadviewer","Open with CADViewer"),
-			enabled(nodes, view) {
-				return !(OCA.Mattermost && (OCA.Mattermost.actionIgnoreLists ?? []).includes(view.id))
-					&& nodes.length > 0
-					// && !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
-					&& nodes.every(({ type }) => type === FileType.File)
-					&& nodes.every(({ mime }) => mine_types.includes(mime))
-			},
-			iconSvgInline: () => logo,
-        	order: 1001,
-			exec: async (node) => {
-				this.viewCadFileActionHandler(node);
-				return null
-			},
-			// async execBatch(nodes) {
-			// 	this.viewCadFileActionHandler(nodes[0]);
-			// 	return nodes.map(_ => null);
-			// },
-			default: is_default ? DefaultType.DEFAULT : undefined,
+		if (!OCA.Files.fileActions){
+			const displayCadviewerAction = new FileAction({
+				id: is_default ? 'open_cadviewer_modal' : 'open_cadviewer_modal_' + mine_types[0],
+				displayName: (nodes) => t("cadviewer","Open with CADViewer"),
+				enabled(nodes, view) {
+					return !(OCA.Mattermost && (OCA.Mattermost.actionIgnoreLists ?? []).includes(view.id))
+						&& nodes.length > 0
+						// && !nodes.some(({ permissions }) => (permissions & Permission.READ) === 0)
+						&& nodes.every(({ type }) => type === FileType.File)
+						&& nodes.every(({ mime }) => mine_types.includes(mime))
+				},
+				iconSvgInline: () => logo,
+				order: 1001,
+				exec: async (node) => {
+					this.viewCadFileActionHandler(node);
+					return null
+				},
+				// async execBatch(nodes) {
+				// 	this.viewCadFileActionHandler(nodes[0]);
+				// 	return nodes.map(_ => null);
+				// },
+				default: is_default ? DefaultType.DEFAULT : undefined,
 
-		});
-		registerFileAction(displayCadviewerAction);
-		/*
-			OCA.Files.fileActions.registerAction({
+			});
+			registerFileAction(displayCadviewerAction);
+		} else {
+			for (let index = 0; index < mine_types.length; index++) {
+				const mine_type = mine_types[index];
+				OCA.Files.fileActions.registerAction({
 				name: "open_cadviewer_modal",
 				displayName: t("cadviewer","Open with CADViewer"),
 				
@@ -1161,10 +1231,14 @@ export default {
 				icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=kevmax`,
 				iconClass: "icon-visibility-button",
 				order: 1001,
-				actionHandler: this.viewCadFileActionHandler,
+				actionHandler: this.viewCadFileActionHandler27,
 			});
 			if(is_default)
 				OCA.Files.fileActions.setDefault(mine_type, "open_cadviewer_modal");
+			}
+		}
+		/*
+			
 		*/
     },
     closeModal() {
