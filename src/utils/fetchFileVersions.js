@@ -45,7 +45,7 @@ function formatVersion(version, fileInfo) {
 		filename = path.join('files', getCurrentUser()?.uid ?? '', fileInfo.path)
 		previewUrl = generateUrl('/core/preview?fileId={fileId}&c={fileEtag}&x=250&y=250&forceIcon=0&a=0', {
 			fileId: fileInfo.fileid,
-			fileEtag: fileInfo.attributes.etag,
+			fileEtag: (fileInfo.attributes || fileInfo._attributes).etag,
 		})
 	} else {
 		filename = version.filename
@@ -56,7 +56,7 @@ function formatVersion(version, fileInfo) {
 	}
 
 	return {
-		fileId: fileInfo.fileid,
+		fileId: fileInfo.fileid || fileInfo.id,
 		label: version.props['version-label'],
 		filename,
 		basename: moment(mtime).format('LLL'),
@@ -75,7 +75,7 @@ function formatVersion(version, fileInfo) {
 }
 
 export async function fetchVersions(fileInfo) {
-	const path = `/versions/${getCurrentUser()?.uid}/versions/${fileInfo.fileid}`
+	const path = `/versions/${getCurrentUser()?.uid}/versions/${fileInfo.fileid || fileInfo.id}`
 
 	try {
 		/** @type {import('webdav').ResponseDataDetailed<import('webdav').FileStat[]>} */
