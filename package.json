@@ -1,7 +1,7 @@
 {
 	"name": "cadviewer",
 	"description": "CAD viewing, markup and collaboration on NextCloud for AutoCAD, MicroStation and advanced raster graphics.",
-	"version": "9.25.9",
+	"version": "9.36.4",
 	"contributors": [
 		"Kevin WAMBA <kevin.wamba@kevmax.com>",
 		"CADViewer <casper.harnung@tailormade.com>"

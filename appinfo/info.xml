@@ -21,7 +21,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 - **Zoom**: Advanced zoom and pan controls.
 - **Layers**: Retained layer structure for layer management.
 - **Search**: Integrated text search method.
-- **Compare**: Advanced compare of drawings.
+- **Compare**: Advanced compare of drawings. Compare of different versions of same files in Nextcloud 27+.
 
 ## 🌐Online Demo
 - To test the look and feel of [CADViewer](https://cadviewer.com), check out our [Online Demos](https://cadviewer.com/cadviewerdemo/).
@@ -38,7 +38,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 1. [Administrator Interface Guide](https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/).
 2. [User Interface Guide](https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/userinterface/).          
 ]]></description>
-    <version>9.25.9</version>
+    <version>9.36.4</version>
     <licence>agpl</licence>
     <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
     <author>Kevin Wamba</author>

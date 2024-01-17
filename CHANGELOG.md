@@ -2,6 +2,10 @@
 ### Added
 - Nighly changes here
 
+### 9.36.4 2024-01-17
+- Update for Nextcloud 28 support
+- New redline move, rotate, scale commands
+
 ### 9.25.9 2023-12-27
 - Functional update for compare file versions
 - Update of CADViewer bug fixes

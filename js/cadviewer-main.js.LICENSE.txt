@@ -6,7 +6,7 @@
  */
 
 /*!
- * Vue.js v2.7.15
+ * Vue.js v2.7.16
  * (c) 2014-2023 Evan You
  * Released under the MIT License.
  */
@@ -29,13 +29,11 @@
 * @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
 */
 
-/*! @license DOMPurify 3.0.6 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.0.6/LICENSE */
+/*! @license DOMPurify 3.0.8 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.0.8/LICENSE */
 
 /*! For license information please see NcLoadingIcon.js.LICENSE.txt */
 
 /*! For license information please see NcModal.js.LICENSE.txt */
-
-/*! For license information please see cadviewer_9.23.2.min.js.LICENSE.txt */
 
 /*! Hammer.JS - v2.0.7 - 2016-04-22
  * http://hammerjs.github.io/

@@ -519,7 +519,7 @@ export default {
 			cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
 			// 
 			// Set all paths, and handlers, changes these depending on back-end server
-			cadviewer.cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "VueJS", "floorPlan");
+			cadviewer.cvjs_setAllServerPaths_and_Handlers(ServerBackEndUrl, ServerUrl, ServerLocation, "PHP", "NodeJS", "floorPlan");
 			
 			//      Setting all callback methods  - they have to be injected into the CADViewer class componnet
 			/*
@@ -685,7 +685,7 @@ export default {
 		
 			// New NextCloud top bar
 			// 8.26.6
-			cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_04.xml", "/app/cv/cv-pro/menu_config/");
+			cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_05.xml", "/app/cv/cv-pro/menu_config/");
 			
 
 
