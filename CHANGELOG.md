@@ -2,6 +2,14 @@
 ### Added
 - Nighly changes here
 
+### 9.38.6 2024-01-22
+- Updates of Redline text insertion for birdseye and pdf print controls
+- AutoXchange v23.12.128 updated
+
+### 9.37.4 2024-01-18
+- css styling updates
+- Redline text insertion update
+
 ### 9.36.4 2024-01-17
 - Update for Nextcloud 28 support
 - New redline move, rotate, scale commands
