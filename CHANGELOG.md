@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+### 9.40.6 2024-01-29
+- Birdseye update
+- gitkeep added to conversion/files/ folder and sub-folders
+
+
 ### 9.38.6 2024-01-22
 - Updates of Redline text insertion for birdseye and pdf print controls
 - AutoXchange v23.12.128 updated

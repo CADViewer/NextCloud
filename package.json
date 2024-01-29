@@ -1,7 +1,7 @@
 {
 	"name": "cadviewer",
 	"description": "CAD viewing, markup and collaboration on NextCloud for AutoCAD, MicroStation and advanced raster graphics.",
-	"version": "9.38.6",
+	"version": "9.40.6",
 	"contributors": [
 		"Kevin WAMBA <kevin.wamba@kevmax.com>",
 		"CADViewer <casper.harnung@tailormade.com>"
@@ -23,7 +23,7 @@
 		"@nextcloud/paths": "^2.1.0",
 		"@nextcloud/router": "^2.0.1",
 		"@nextcloud/vue": "^7.12.7",
-		"cadviewer": "^9.38.6",
+		"cadviewer": "^9.40.6",
 		"core-js": "^3.27.1",
 		"node": "^21.2.0",
 		"vue": "^2.7.14",
