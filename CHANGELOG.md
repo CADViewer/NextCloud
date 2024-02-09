@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+### 9.44.2 2024-02-11
+- bug fix, breaking change in NextCloud 28 for fileloads, scope issue of replaceAll()
+- right side icon highlights
+
+
 ### 9.40.6 2024-01-29
 - Birdseye update
 - gitkeep added to conversion/files/ folder and sub-folders
