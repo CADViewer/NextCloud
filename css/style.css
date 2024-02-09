@@ -12,3 +12,7 @@
     position: fixed !important;
     z-index: 10000  !important;
 }
+
+.cvjs_controls_min li:hover i {
+    color: var(--color-primary) !important;
+}
