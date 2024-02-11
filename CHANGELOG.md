@@ -5,6 +5,7 @@
 ### 9.44.2 2024-02-11
 - bug fix, breaking change in NextCloud 28 for fileloads, scope issue of replaceAll()
 - right side icon highlights
+- redline update
 
 
 ### 9.40.6 2024-01-29
