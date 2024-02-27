@@ -311,6 +311,10 @@ class CadviewerController extends Controller {
 		if ($res != "success") {
 			return $res;
 		}
+		$res = $this->checkIfHtaccessIsWellConfigured();
+		if ($res != "success") {
+			return $res;
+		}
 
 		if ($this->encryptionManager->isEnabled()) {
 			$response = array();
@@ -389,6 +393,58 @@ class CadviewerController extends Controller {
 		
 		return $response;
 	}
+
+	
+	private function checkIfHtaccessIsWellConfigured()  {
+		
+		
+		$root_path_server = $_SERVER['DOCUMENT_ROOT'];
+		$htaccess_path = $root_path_server . "/.htaccess";
+		$htaccess_content = file_get_contents($htaccess_path);
+
+		// identify if cadviewer is install inside apps or extra-apps folder 
+
+		$folder = "apps";
+
+		// check extra-apps in $_SERVER['REQUEST_URI']
+		if (strpos($_SERVER['REQUEST_URI'], "extra-apps") !== false) {
+			$folder = "extra-apps";
+		}
+
+		// try to add the htaccess_code in .htaccess if is not possible then returne error message with instruction to user
+		$htaccess_code = "  RewriteCond %{REQUEST_FILENAME} !/".$folder."/cadviewer/converter/php/*\.* \n";
+		
+		// check if the htaccess_code is already present in .htaccess
+		if (strpos($htaccess_content, $htaccess_code) !== false) {
+			return "success";
+		}
+
+		$searchLine = "  RewriteRule . index.php [PT,E=PATH_INFO:$1]";
+
+		$htaccess_content = str_replace($searchLine, $htaccess_code."".$searchLine, $htaccess_content);
+		
+		// save the new content of .htaccess
+		$res = file_put_contents($htaccess_path, $htaccess_content);
+		$msg = "
+			You need to configure your .htaccess file to add \n
+			\"".$htaccess_code."\"
+			before the line 
+			\"".$searchLine."\"
+		";
+
+		
+		if ($res === false) {
+			$response = array();
+			$response = array_merge($response, array(
+				"code" => 0, 
+				"desc" => $msg
+			));
+			return $response;
+		}
+
+		return "success";
+	}
+
 
 	/**
 	 * @NoAdminRequired
