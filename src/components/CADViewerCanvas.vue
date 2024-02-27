@@ -14,13 +14,13 @@
 			</div>
 <!--  change placholder width to 29-->
 			<div id="cvjs_controls_min_right" class="cvjs_controls_min" style="height: 90px; width: 29px; position: absolute; right: 10px; top: 100px; left: auto; z-index: 100000;">
-				<li style="list-style-type: none; width: 29px; height: 30px; display: flex; cursor: pointer;" id="zoom-extents_floorPlan_svg" @click="shareThisFile">
+				<li v-tooltip="sharingText" style="list-style-type: none; width: 29px; height: 30px; display: flex; cursor: pointer;" id="zoom-extents_floorPlan_svg" @click="shareThisFile">
 					<i class="fa fa-share" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
-				<li style="list-style-type: none; width: 29px; height: 30px; display: flex; cursor: pointer;" @click="commentThisFile">
+				<li v-tooltip="commentText" style="list-style-type: none; width: 29px; height: 30px; display: flex; cursor: pointer;" @click="commentThisFile">
 					<i class="fa fa-comment" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
-				<li style="list-style-type: none; width: 29px; height: 28px; display: flex; cursor: pointer;" @click="compareWithOwnVersion">
+				<li v-tooltip="compareText" style="list-style-type: none; width: 29px; height: 28px; display: flex; cursor: pointer;" @click="compareWithOwnVersion">
 					<i class="fa fa-square" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
 			</div>
@@ -43,10 +43,12 @@
 
 
 <script>
+import Vue from 'vue'
 import cadviewer from 'cadviewer';
 import { getLanguage } from '@nextcloud/l10n'
 import NcModalVue from "@nextcloud/vue/dist/Components/NcModal.js";
 import NcLoadingIcon from "@nextcloud/vue/dist/Components/NcLoadingIcon.js"
+import VTooltip from 'v-tooltip'
 import Close from 'vue-material-design-icons/Close.vue'
 import {
 	registerFileAction, Permission, FileAction, FileType, DefaultType 
@@ -54,6 +56,9 @@ import {
 
 import {eventBus} from "../main.js";
 import logo from '../assets/logo.svg'
+
+Vue.use(VTooltip)
+
 var textLayer1; 
 
 var  selected_handles = [];
@@ -408,6 +413,9 @@ export default {
   },
   data() {
 	return {
+		sharingText: t("cadviewer", "Sharing"),
+		commentText: t("cadviewer", "Comments"),
+		compareText: t("cadviewer", "Compare"),
 		showLoading: true,
 		title: "",
 		parentDir: "",
@@ -1259,7 +1267,7 @@ export default {
   components: {
     'app-nc-modal': NcModalVue,
 	'app-close': Close,
-	'app-nc-loading-icon': NcLoadingIcon
+	'app-nc-loading-icon': NcLoadingIcon,
   }
 }
 </script>

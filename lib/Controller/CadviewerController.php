@@ -315,6 +315,10 @@ class CadviewerController extends Controller {
 		if ($res != "success") {
 			return $res;
 		}
+		$res = $this->checkIfWereAreOnARMArchitecture();
+		if ($res != "success") {
+			return $res;
+		}
 
 		if ($this->encryptionManager->isEnabled()) {
 			$response = array();
@@ -394,6 +398,15 @@ class CadviewerController extends Controller {
 		return $response;
 	}
 
+	private function checkIfWereAreOnARMArchitecture() {
+		$architecture = php_uname('m');
+		if ($architecture == "armv7l" || $architecture === 'arm64' || $architecture === 'aarch64') {
+			$response = array();
+			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("ARM architecture is not supported yet")));
+			return $response;
+		}
+		return "success";
+	}
 	
 	private function checkIfHtaccessIsWellConfigured()  {
 		
@@ -432,7 +445,7 @@ class CadviewerController extends Controller {
 			\"".$searchLine."\"
 		";
 
-		
+
 		if ($res === false) {
 			$response = array();
 			$response = array_merge($response, array(
