@@ -66,6 +66,78 @@ var  handle_selector = false;
 var  current_selected_handle = "";
 
 
+var  topMenuXML_config_file  =  `
+<cvjs>
+<iconmenu>
+	<totalpages>1</totalpages>
+	<startpage>1</startpage>
+	<pages>
+		<page>
+                        <command>cvjs_openFileLoadToServer</command>
+			<command>cvjs_loadStickyNotesRedlinesUser</command>
+			<command>cvjs_saveStickyNotesRedlinesUser</command>
+			<command>cvjs_Print</command>
+			<command>cvjs_publishPDF</command>
+			<command>cvjs_saveAsSVGOnServer</command>
+			<command>cvjs_LayerList</command>
+			<command>cvjs_toggleBlackWhite</command>
+			<command>cvjs_setBackgroundColor</command>
+			<command>cvjs_interactiveSearchText</command>
+			<command>cvjs_Measurement</command>
+			<command>cvjs_calibrateMeasurement</command>
+			<command>cvjs_displayMagnifyingGlass</command>
+			<command>cvjs_activateLineThicknessModal</command>
+                        <command>cvjs_compareDrawings_LoadSecondDrawing</command>
+			<command>cvjs_setRedlineColor</command>
+			<command>cvjs_setRedlineThickness</command>
+			<command>cvjs_drawStickyNote</command>
+			<command>cvjs_drawRedlineText</command>
+			<command>cvjs_drawRedline_Freehand</command>
+			<command>cvjs_drawRedlineSingleLine</command>
+			<command>cvjs_drawRedlineEllipseCloud</command>
+			<command>cvjs_drawRedlineFilledPolygon</command>
+			<command>cvjs_drawRedlinePolyline</command>
+			<command>cvjs_drawRedlineFilledRectangle</command>
+			<command>cvjs_drawRedlineRectangle</command>
+			<command>cvjs_drawRedlineTriangle</command>
+			<command>cvjs_drawRedlineArrow</command>
+			<command>cvjs_moveRedline</command>
+			<command>cvjs_resizeRedline</command>
+			<command>cvjs_rotateRedline</command>
+			<command>cvjs_deleteSingleRedline</command>
+			<command>cvjs_deleteLastRedline</command>
+			<command>cvjs_undoDeleteLastRedline</command>
+			<command>cvjs_clearCurrentRedline</command>
+			<command>cvjs_About</command>
+			<command>cvjs_Settings</command>
+			<command>cvjs_Help</command>
+		</page>
+	</pages>
+	<icons_per_row>0</icons_per_row>
+	<icon_page_left_x>0</icon_page_left_x>
+	<icon_page_left_y>0</icon_page_left_y>
+	<customcommand>
+		<tooltip>Commmand tooltip 1</tooltip>
+		<tooltip>Commmand tooltip 2</tooltip>
+		<tooltip>Commmand tooltip 3</tooltip>
+		<tooltip>Commmand tooltip 4</tooltip>
+		<tooltip>Commmand tooltip 5</tooltip>
+		<tooltip>Commmand tooltip 6</tooltip>
+		<tooltip>Commmand tooltip 7</tooltip>
+		<tooltip>Commmand tooltip 8</tooltip>
+		<tooltip>Commmand tooltip 9</tooltip>
+		<tooltip>Commmand tooltip 10</tooltip>
+	</customcommand>	
+</iconmenu>
+<zoommenu>
+	<location_left_x>0</location_left_x>
+	<location_left_y>30</location_left_y>
+</zoommenu>
+</cvjs>
+ `;
+    
+
+
 // We should to define all the CADViewer methods in which we are getting information return from CADViewer 
 // THEY CAN BE PLACEHOLDERS ONLY     
 // // //  // // // //
@@ -690,11 +762,22 @@ export default {
 			
 
 
-		
+			// 9.47.1
+
+			// xml menu file as string in config
+			cadviewer.cvjs_setTopMenuXMLDirect(
+				"floorPlan",
+				topMenuXML_config_file
+			);
+
+			// WE ARE SETTING THE XML MENU BAR DIRECTLY IN CODE
 			// New NextCloud top bar
 			// 8.26.6
-			cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_05.xml", "/app/cv/cv-pro/menu_config/");
+			//cadviewer.cvjs_setTopMenuXML("floorPlan", "cadviewer_redlines_fileload_nextcloud_05.xml", "/app/cv/cv-pro/menu_config/");
 			
+
+
+
 
 
 			// Initialize CADViewer  - needs the div name on the svg element on page that contains CADViewerJS and the location of the

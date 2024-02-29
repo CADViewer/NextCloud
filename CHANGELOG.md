@@ -2,6 +2,13 @@
 ### Added
 - Nighly changes here
 
+### 9.47.1 2024-02-19
+- update to automatically set the rewrite condition in .htaccess file
+- information message id .htaccess is not properly formatted
+- update for menu file setting
+- top menu loading coded independent on server side connectivity (.htaccess php settings)
+
+
 ### 9.44.2 2024-02-11
 - bug fix, breaking change in NextCloud 28 for fileloads, scope issue of replaceAll()
 - right side icon highlights
