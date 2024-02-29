@@ -413,6 +413,10 @@ class CadviewerController extends Controller {
 		
 		$root_path_server = $_SERVER['DOCUMENT_ROOT'];
 		$htaccess_path = $root_path_server . "/.htaccess";
+		// check if file not exist return "success"
+		if (!file_exists($htaccess_path)) {
+			return "success";
+		}
 		$htaccess_content = file_get_contents($htaccess_path);
 
 		// identify if cadviewer is install inside apps or extra-apps folder 
