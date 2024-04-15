@@ -24,6 +24,11 @@
 					<i class="fa fa-square" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
 			</div>
+      <div style="position: absolute; z-index: 40; display: flex; justify-content: flex-end; align-items: center; bottom: 3px; right: 10px; top: 0px;">
+          <a v-tooltip="cadviewerTextDomain" href="https://cadviewer.com" target="_blank" rel="noreferrer">
+            <img :src="logoSvg" alt="CADViewer Logo" style="height: 2.25rem; opacity: 0.7; background: white"/>
+          </a>
+      </div>
 <!-- 
 			<div
 				class="header-close compare_button"
@@ -416,6 +421,8 @@ export default {
 		sharingText: t("cadviewer", "Sharing"),
 		commentText: t("cadviewer", "Comments"),
 		compareText: t("cadviewer", "Compare"),
+    cadviewerTextDomain: "CADViewer.com",
+    logoSvg: logo,
 		showLoading: true,
 		title: "",
 		parentDir: "",
@@ -1131,6 +1138,7 @@ export default {
 		});
 	},
 	viewCadFileActionHandler(node) {
+    console.log({node})
 	  const filename = node.basename;
 	  const directory = node.dirname;
 	  this.showLoading = true;
