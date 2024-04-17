@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+# 9.50.1 2024-04-17
+- update to automatically set the rewrite condition in .htaccess file, if installed under ubuntu/snap
+
+
+
 ### 9.47.1 2024-02-19
 - update to automatically set the rewrite condition in .htaccess file
 - information message id .htaccess is not properly formatted
