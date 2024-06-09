@@ -39,7 +39,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
 1. [Administrator Interface Guide](https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin/).
 2. [User Interface Guide](https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/userinterface/).          
 ]]></description>
-    <version>9.50.1</version>
+    <version>9.71.1</version>
     <licence>agpl</licence>
     <author mail="casper.harnung@tailormade.com" homepage="https://cadviewer.com/">Casper Harnung</author>
     <author>Kevin Wamba</author>
@@ -61,7 +61,7 @@ CADViewer implements CAD viewing, markup and collaboration on the NextCloud plat
     <screenshot small-thumbnail="https://cadviewer.com/images/cadviewer/nextcloud/nextcloud_small_02.png">https://cadviewer.com/images/cadviewer/nextcloud/nextcloud_small_02.png</screenshot>
     <screenshot>https://cadviewer.com/images/cadviewer/nextcloud/nextcloud_big_01.png</screenshot>    
     <dependencies>
-        <nextcloud min-version="25" max-version="28"/>
+        <nextcloud min-version="25" max-version="29"/>
     </dependencies>
     <settings>
         <admin>OCA\Cadviewer\AdminSettings</admin>

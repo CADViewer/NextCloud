@@ -2,6 +2,11 @@
 ### Added
 - Nighly changes here
 
+
+# 9.71.1 2024-06-09
+- fixes for zoom, redline internal handling, multicanvas, not carried into nextcloud instance yet. 
+
+
 # 9.50.1 2024-04-17
 - update to automatically set the rewrite condition in .htaccess file, if installed under ubuntu/snap
 
