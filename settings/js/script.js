@@ -669,7 +669,38 @@
                     }
                 }
             });
-        })
+        });
+
+        $("#getDemoLicence").click(function () {
+            const email = $("#demo_email").val();
+            const company_name = $("#demo_company").val();
+            if (!email || !company_name) {
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "Please fill email and company name"));
+                return;
+            }
+            // validate email
+            if (!/^\S+@\S+\.\S+$/.test(email)) {
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid email"));
+                return;
+            }
+            $(".section-cadviewer").addClass("icon-loading");
+
+            // Request demo licence
+            $.ajax({
+                method: "POST",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/demo-licence"),
+                data: { email, company_name, url: window.location.host },
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response.status == "failed") {
+                        OCP.Toast.error(t(OCA.Cadviewer.AppName, "Demo licence already exists!"));
+                    } else {
+                        OCP.Toast.success(t(OCA.Cadviewer.AppName, "Demo licence keys generated successfully"));
+                        checkAutoExchangeLicenceKey();
+                    }
+                }
+            });
+        });
 
         function watchCheckboxChange () {
             $(".exclude-block-checkbox input").change(function() {

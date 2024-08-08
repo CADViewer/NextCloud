@@ -12,6 +12,15 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             href="https://cadviewer.com/cadviewerusermanual/referenceapplications/nextcloud/admin"
             data-original-title="<?php p($l->t("Documentation")) ?>"></a>
     </h1>
+
+    <?php if ($_["haveLicence"] == "trial_version" ){ ?>
+    <div class="alert-container" id="trialAlert">
+        <div class="alert-content">
+            <p>You are currently using a 10-day trial version of CADViewer.</p>
+            <p>Please consider upgrading for full access.</p>
+        </div>
+    </div>
+    <?php } ?>
     <h2>
         <?php p($l->t("Cadviewer icons Skin")) ?>
         <a target="_blank" class="icon-info svg" title=""
@@ -165,6 +174,41 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         <br />
     </div>
 
+    <!-- Demo licences start with input email and company name  -->
+    <?php if ($_["haveLicence"] == "demo" ){ ?>
+        <h2 id="demo-licence">
+            <?php p($l->t("Demo Licences")) ?>
+        </h2>
+        <div>
+            <div>
+                <p>
+                    <?php p($l->t("To get a 10 days demo license, please enter your email and company name.")) ?>
+                </p>
+                        <br/>
+            </div>
+            <div>
+                <div style="max-width: 300px">
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("Email:")) ?></span>
+                        <input style="margin-left: 0px; margin-top: 10px;" id="demo_email" value="<?=p($_["demo_email"])?>" type="text">
+                    </div>
+                    <br/>
+                    <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                        <span style="min-width: 80px"><?php p($l->t("Company Name:")) ?></span>
+                        <input style="margin-left: 0px; margin-top: 10px;" id="demo_company" value="<?=p($_["demo_company"])?>" type="text">
+                    </div>
+                </div>
+                <br />
+            </div>
+            <p>
+                <button id="getDemoLicence" class="button">
+                    <?php p($l->t("Get Demo License")) ?>
+                </button>
+            </p>
+            <br />
+        </div>
+    <?php } ?>
+    <!-- Demo licences end -->
 
     <h2 style="display: flex; align-items: center;">
         <span style="margin-right: 40px">

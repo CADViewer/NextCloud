@@ -403,6 +403,7 @@ class SettingsController extends Controller {
             "show_users_list" => $number_of_users > 0,
             "number_of_users" => $number_of_users,
             "users" => $this->config->GetUsers($number_of_users),
+            "haveLicence" => $this->checkIfUserDoesntHaveValidLicence(),
         ];
         return new TemplateResponse($this->appName, "settings", $data, "blank");
     }
@@ -641,5 +642,118 @@ class SettingsController extends Controller {
 		}
 
 		return new JSONResponse(array(), Http::STATUS_NO_CONTENT);
+	}
+
+	public function demoLicence($email, $company_name, $url) {
+
+        // Construct path to converter folder
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+		// include CADViewer config for be able to acces to the location of ax2024 executable file
+		require($home_dir."/php/CADViewer_config.php");
+
+	   /*
+	    Get Mac address with command:
+	    */
+
+	   $mac_ip = shell_exec("cat /sys/class/net/eth0/address");
+	   // remove \n
+	   $mac_ip = str_replace("\n", "", $mac_ip);
+
+        $body = array(
+            "mac_ip" => $mac_ip,
+            "url" => $url,
+            "email" => $email,
+            "company_name" => $company_name
+        );
+
+        $url = "https://store.cadviewer.com/wp-json/custom/v2/cadviewers/demo";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => $url,
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => 'POST',
+          CURLOPT_POSTFIELDS => json_encode($body),
+          CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/json'
+          ),
+        ));
+
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $output = curl_exec($curl);
+
+        curl_close($curl);
+        $response = json_decode($output, true);
+
+        if (!isset($response["cvlicense"]) || !isset($response["axlic"])){
+            return new JSONResponse(
+                array("message" => $response["message"], "status" => "failed", "httpcode" => $httpcode),
+                Http::STATUS_OK
+            );
+        }
+
+        // save cvlicense
+        $cvlicense_file = $licenseLocation."cvlicense.js";
+        $cvlicense_content = $response["cvlicense"];
+        file_put_contents($cvlicense_file, $cvlicense_content);
+        $this->config->SetLicenceKey($cvlicense_content);
+
+        $axlic_file = $licenseLocation."axlic.key";
+        $axlic_content = $response["axlic"];
+        file_put_contents($axlic_file, $axlic_content);
+        $this->config->SetAxlicLicenceKey($axlic_content);
+        $this->flushCache();
+
+        // save axlic licence
+        return new JSONResponse(
+            array("message" => $response["message"], "status" => "success", "httpcode" => $httpcode),
+            Http::STATUS_OK
+        );
+	}
+
+	public function checkIfUserDoesntHaveValidLicence() {
+
+        // Construct path to converter folder
+        $currentpath = __FILE__;
+        $home_dir = explode("/cadviewer/", __FILE__)[0]."/cadviewer/converter";
+
+		// include CADViewer config for be able to acces to the location of ax2024 executable file
+		require($home_dir."/php/CADViewer_config.php");
+
+		$output_detail = shell_exec($converterLocation.$ax2023_executable." -verify_detail");
+
+		// if expired, return success for display demo mode
+        if (strpos($output_detail, 'Expired') !== false){
+            $this->flushCache();
+            return "demo";
+        }
+
+        // check if is trial version
+        if (strpos($output_detail, 'TRIAL') !== false){
+            return "trial_version";
+        }
+
+        // check if is trial version
+        if (strpos($output_detail, 'DEMO') !== false){
+            return "trial_version";
+        }
+
+        // if there is no licence file, return success for display demo mode
+        if (strpos($output_detail, 'Unable to Read/Open License') !== false){
+            return "demo";
+        }
+
+        if (strpos($output_detail, "License Validated") !== false) {
+            return "validated";
+        }
+        return "demo";
 	}
 }

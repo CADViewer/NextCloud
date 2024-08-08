@@ -7,6 +7,9 @@
 			<div class="loading-bloc" v-if="showLoading">
 				<app-nc-loading-icon :size="40"/>
 			</div>
+      <div class="demo_button" v-if="haveLicence==='demo'"  @click="getTrialLicence">
+        Get 10 days trial licence
+      </div>
 			<div
 				class="header-close close_button"
 				@click="closeModal">
@@ -500,6 +503,7 @@ export default {
 		parentDir: "",
 		canClose: false,
 		modal: false,
+    haveLicence: "",
 		iconSize: 24,
 		ModalTitle: "",
 		ServerBackEndUrl: "",
@@ -925,6 +929,7 @@ export default {
 				console.log(response);
 				if (response.path) {
 					const content_dir = response.path;
+          this.haveLicence = response.haveLicence;
 					const FileName = `${content_dir}/${nameOfFile}`;
 					this.execComparaison(FileName, firstFile)
 				} else {
@@ -1091,6 +1096,7 @@ export default {
 							console.log(response);
 							if (response.path) {
 								const content_dir = response.path;
+                this.haveLicence = response.haveLicence;
 								const ISOtimeStamp = `${response.ISOtimeStamp}`;
 								const FileName = `${content_dir}/${nameOfFile}`;
 								this.parentDir = directory;
@@ -1185,6 +1191,7 @@ export default {
 				this.FileName = `${content_dir}/${filename}`;
 				this.ModalTitle = filename;
 				this.LicenceKey = response.licenceKey;
+        this.haveLicence = response.haveLicence;
 				this.skin = response.skin;
 				this.nextcloudColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
 				this.UserName  = OC.getCurrentUser().displayName;
@@ -1252,6 +1259,7 @@ export default {
             this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
             this.FileName = `${content_dir}/${filename}`;
             this.ModalTitle = filename;
+            this.haveLicence = response.haveLicence;
             this.LicenceKey = response.licenceKey;
 			this.skin = response.skin;
 			this.nextcloudColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary');
@@ -1340,6 +1348,10 @@ export default {
 			
 		*/
     },
+    getTrialLicence() {
+      // redirect to settings page of nextcloud
+      window.location.href = OC.generateUrl('/settings/admin/cadviewer')+"#demo-licence";
+    },
     closeModal() {
 	  this.closeShareScreen();
       this.modal = false;
@@ -1404,7 +1416,34 @@ export default {
 		align-items: center;
 		padding: 0px 10px;
 	}
-	
+
+  .demo_button {
+    position: absolute !important;
+    right: 70px;
+    width: auto;
+    border-radius: 10px;
+    padding: 0 10px;
+    top: 4px;
+    z-index: 9999;
+    background-color: var(--color-primary) !important;
+    color: white !important;
+    cursor: pointer;
+    height: 44px;
+    border: 2px solid #CCC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .demo_button span {
+    cursor: pointer !important;
+  }
+
+  .demo_button:hover {
+    color:  var(--color-primary) !important;
+    background-color: white !important;
+  }
+
 	.close_button {
 		position: absolute !important;
 		top: 4px;

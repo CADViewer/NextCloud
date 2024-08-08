@@ -320,6 +320,8 @@ class CadviewerController extends Controller {
 			return $res;
 		}
 
+
+
 		if ($this->encryptionManager->isEnabled()) {
 			$response = array();
 			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("Encryption is not supported yet")));
@@ -394,6 +396,7 @@ class CadviewerController extends Controller {
 		$response["size"] = $fileStat["size"];
 		$response["ISOtimeStamp"] = date(DATE_ISO8601, $fileStat["mtime"]);
 		$response["serverLocation"] = str_replace("lib/Controller", "converter", dirname(__FILE__));
+		$response["haveLicence"] = $this->settingsController->checkIfUserDoesntHaveValidLicence();
 		
 		return $response;
 	}
