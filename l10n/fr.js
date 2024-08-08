@@ -36,7 +36,7 @@ OC.L10N.register(
         "Deep Blue": "Bleu foncé",
         "Black": "Noir",
         "Light Gray": "Gris clair",
-        "Apply Skin": "Appliquer la peau",
+        "Apply Skin": "Appliquer le thème",
         "License key cvlicense.js": "Clé de licence cvlicense.js",
         "AutoXchange license axlic.key": "Licence AutoXchange axlic.key",
         "Debug": "Débogage",

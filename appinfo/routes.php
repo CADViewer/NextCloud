@@ -40,5 +40,6 @@ return [
         ["name" => "settings#save_ax_font_map", "url" => "/ajax/settings/save-font-map", "verb" => "POST"],
         ["name" => "settings#save_users", "url" => "/ajax/settings/users", "verb" => "PUT"],
 		["name" => "settings#toggle_cache_conversion", "url" => "/ajax/settings/toggle-cache-conversion", "verb" => "POST"],
+		["name" => "settings#demo_licence", "url" => "/ajax/settings/demo-licence", "verb" => "POST"]
 	]
 ];
