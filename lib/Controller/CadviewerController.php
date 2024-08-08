@@ -400,9 +400,13 @@ class CadviewerController extends Controller {
 
 	private function checkIfWereAreOnARMArchitecture() {
 		$architecture = php_uname('m');
-		if ($architecture == "armv7l" || $architecture === 'arm64' || $architecture === 'aarch64') {
+		if ($architecture == "armv7l" || $architecture === 'arm64' || $architecture === 'aarch64' ) {
 			$response = array();
-			$response = array_merge($response, array("code" => 0, "desc" => $this->l->t("ARM architecture is not supported yet")));
+			$response = array_merge($response, array(
+			    "architecture" => $architecture,
+			    "code" => 0,
+			    "desc" => $this->l->t("ARM architecture is not supported yet"),
+			));
 			return $response;
 		}
 		return "success";
