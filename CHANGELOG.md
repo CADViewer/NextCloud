@@ -2,6 +2,23 @@
 ### Added
 - Nighly changes here
 
+
+# 9.71.1 2024-06-09
+- fixes for zoom, redline internal handling, multicanvas, not carried into nextcloud instance yet. 
+
+
+# 9.50.1 2024-04-17
+- update to automatically set the rewrite condition in .htaccess file, if installed under ubuntu/snap
+
+
+
+### 9.47.1 2024-02-19
+- update to automatically set the rewrite condition in .htaccess file
+- information message id .htaccess is not properly formatted
+- update for menu file setting
+- top menu loading coded independent on server side connectivity (.htaccess php settings)
+
+
 ### 9.44.2 2024-02-11
 - bug fix, breaking change in NextCloud 28 for fileloads, scope issue of replaceAll()
 - right side icon highlights

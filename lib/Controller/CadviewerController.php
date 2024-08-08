@@ -423,6 +423,11 @@ class CadviewerController extends Controller {
 		}
 		$htaccess_content = file_get_contents($htaccess_path);
 
+        // if htaccess not content #### DO NOT CHANGE ANYTHING ABOVE THIS LINE #### then skip
+        if (strpos($htaccess_content, "#### DO NOT CHANGE ANYTHING ABOVE THIS LINE ####") === false) {
+            return "success";
+        }
+
 		// identify if cadviewer is install inside apps or extra-apps folder 
 
 		$folder = "apps";
