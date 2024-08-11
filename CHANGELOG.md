@@ -3,6 +3,13 @@
 - Nighly changes here
 
 
+# 9.90.10 2024-08-10
+- update to include easy access to full 10 days license keys
+- updates to redlines interactivy
+- back-end converter updated to v23.12.134
+
+
+
 # 9.71.1 2024-06-09
 - fixes for zoom, redline internal handling, multicanvas, not carried into nextcloud instance yet. 
 

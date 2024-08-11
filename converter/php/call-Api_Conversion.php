@@ -15,7 +15,7 @@
 	
 */
 
-	$scriptversion = "8.18.2";
+	$scriptversion = "9.18.3";
 
 	// 8.71.1  - we make flag for nextcloud
 	$nextcloud = true;
@@ -432,7 +432,14 @@
 		$param_string_painter = "";
 
 		$max = sizeof($parameters);
-		$output_file_extension = "txt";
+		$output_file_extension = "svg";
+
+
+		if ($debug){
+			fwrite($fd_log, "output_file_extension -init: $output_file_extension  \r\n");
+		}
+
+
 
 //if ($debug) echo "\$max: $max \n";
 
@@ -545,6 +552,12 @@
 					// there is only a param
 					$param_string = $param_string . " -" . $parameters[$i]['paramName'] ;    
 					
+
+					if ($debug){
+						fwrite($fd_log, "single param case: -init: $param_string  \r\n");
+					}
+			
+
 					// if LinkLIst and -json, we change format to json, txt is default
 					if ($parameters[$i]['paramName'] =='json' && strrpos($converter , "LinkList")==0){  // 6.5.20
 						$output_file_extension = "json";
@@ -555,6 +568,13 @@
 			else {
 			// the parameter is empty, do nothing
 			}
+
+
+			if ($debug){
+				fwrite($fd_log, "check the param name for file exentsion: -init:" . $parameters[$i]['paramName'] . "  \r\n");
+			}
+
+
 			// find the extension of the output file
 			if ($parameters[$i]['paramName'] == 'f'){
 				if ($converter == 'AutoXchange AX2011' && $parameters[$i]['paramName']== 'f' && $json_request['action'] == 'svg_js_creation_cvheadless'){
@@ -563,12 +583,19 @@
 				else{
 					$output_file_extension = $parameters[$i]['paramValue'];
 				}
+
+
+				if ($debug){
+					fwrite($fd_log, "output_file_extension: $output_file_extension  \r\n");
+				}
+	
 			}
 		}
 
 		if ($debug){
-			fwrite($fd_log, "  \$output_file_extension:$output_file_extension   \$param_string: $param_string  \r\n");
+			fwrite($fd_log, "  \$output_file_extension: $output_file_extension   \$param_string: $param_string  \r\n");
 		}
+
  		$file_content = '';
 		
 		$temp_file_name = rand();

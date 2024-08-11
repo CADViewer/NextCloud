@@ -1,83 +1,1 @@
-
- NEW-FILE-CONVERSION-BEGIN   8.18.2  
- 
-Opening call-Api_Conversion_log.txt for new conversion: 
-before _ isset()x2  
-first in file   
-$json_data:    
-$json_request(conv): ,   
-$temp_var is null:, this must be a post call, also:$jsonp_flag=, isset:1 request={"action":"svg_creation","originatinglocation":"http://localhost:8081/apps/files/files","converter":"AutoXchange AX2020","version":"V1.00","contentType":"file","customConversionEndpointExtension":false,"fileStamp":"2023-12-14T07:07:18+0000","contentLocation":"%2Fvar%2Fwww%2Fhtml%2Fdata%2Fadmin%2Ffiles%2F1st%20floor%20lighting.dwg","contentFormat":"DWG","contentUsername":"","contentPassword":"","userLabel":"fromCADViewerJS","contentResponse":"stream","leaveStreamOnServer":0,"parameters":[{"paramName":"f","paramValue":"svg"},{"paramName":"model","paramValue":""},{"paramName":"extents","paramValue":""}]}<end request>$json_data isset, requestconverter:AutoXchange AX2020 
-AGENT operating_system_detection():  $agent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36  
-AGENT PHP_OS : Linux
-$contentlocation:  %2Fvar%2Fwww%2Fhtml%2Fdata%2Fadmin%2Ffiles%2F1st%20floor%20lighting.dwg  
-$contentlocation:  /var/www/html/data/admin/files/1st%20floor%20lighting.dwg  
-$max: 3  
-param f : svg  
-  $output_file_extension:svgz   $param_string:  -f="svgz" -model -extents  
-  $svginputfile: 0  
-We are setting $server_load:  1   /var/www/html/data/admin/files/1st floor lighting.dwg 
-after content location check $server_load:  0  , content-type: (file 
- location X004  contentlocation:/var/www/html/data/admin/files/1st floor lighting.dwg 
-X005 In action: contentype file: /var/www/html/data/admin/files/1st floor lighting.dwg  
-before download file  
- fullpath: /var/www/html/apps/cadviewer/converter//converters/files/f2126451943.dwg  
- contentlocation: /var/www/html/data/admin/files/1st floor lighting.dwg 
-urldecode contentlocation: /var/www/html/data/admin/files/1st floor lighting.dwg 
- newfname: /var/www/html/apps/cadviewer/converter//converters/files/f2126451943.dwg 
- $fullPath: /var/www/html/apps/cadviewer/converter//converters/files/f2126451943.dwg  
-$fullPath: /var/www/html/apps/cadviewer/converter//converters/files/f2126451943.dwg  
-AA: before setting $fullPath:  $server_load 0   $contenttype file 
-$fullPath: /var/www/html/apps/cadviewer/converter//converters/files/f2126451943.dwg  
-$max_conv: 5  
-$engine_path: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_128  
-new $add_xpath    
-In loop to add xpath  
-after first loop $command_line_parameter_xpath: 0  
-after first loop $command_line_parameter_xpath: 0  converter AutoXchange AX2020   axconv 0 
-adding xpath: nc-flag:  op_string:  linux nc_path: 
-$command_line: "/var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_128" -i="/var/www/html/apps/cadviewer/converter//converters/files/f2126451943.dwg" -o="/var/www/html/apps/cadviewer/converter//converters/files/f2126451943.svgz"  -f="svgz" -model -extents -fpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/fonts/"  -lpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/"  -xpath="/var/www/html/data/admin/files/"  XXXXXXX  
-library path before new env: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux/  
-this is the value we got setting the environment 1  
-getenv after putenv: /var/www/html/apps/cadviewer/converter//converters/ax2024/linux/   
-before call to exec:  "/var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_128" -i="/var/www/html/apps/cadviewer/converter//converters/files/f2126451943.dwg" -o="/var/www/html/apps/cadviewer/converter//converters/files/f2126451943.svgz"  -f="svgz" -model -extents -fpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/fonts/"  -lpath="/var/www/html/apps/cadviewer/converter//converters/ax2024/linux/"  -xpath="/var/www/html/data/admin/files/"     
-before call to exec, engine_path:  /var/www/html/apps/cadviewer/converter//converters/ax2024/linux//ax2023_L64_23_12_128    
-current script owner: www-data    
-AGENT operating_system_detection():  $agent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36  
-AGENT PHP_OS : Linux
-operating_system_detection(): Linux    
-BEFORE CACHED CONVERSION t: c: 11  0    
- CACHED CONVERSION IMPLEMENT  {\"filename\": \"filename\",\"filecreatestamp\": \"date1\",\"filechangestamp\": \"2023-01-31T08:30:25.597Z\",\"cachedfiles\": [{ \"fullfilepath\": \"full file path\", \"fileName\": \"F1.svgz\", \"filecreatestamp\": \"datef1\", \"parameters\": [{\"paramName\": \"f\", \"paramValue\": \"svg\"}]}]} 
- FILENAME:/var/www/html/apps/cadviewer/converter//converters/files/1st floor lighting.dwg.json 
-file exists: /var/www/html/apps/cadviewer/converter//converters/files/1st floor lighting.dwg.json XXX
-CANNOT OPEN FILE, NEED TO BUILD JSON STRUCTURE  XXX 
-parameters size: 3  XXX jarray new file: {"filename":"1st floor lighting.dwg","filecreatestamp":"2024-03-07T17:41:59+00:00","cachedfiles":[{"fullfilepath":"\/var\/www\/html\/data\/admin\/files","fileName":"f2126451943.svgz","filecreatestamp":"2024-03-07T17:41:59+00:00","parameters":[{"paramName":"f","paramValue":"svgz"},{"paramName":"model","paramValue":""},{"paramName":"extents","paramValue":""}]}]} XXX 
- single entry fullfilepath in cache: /var/www/html/data/admin/files 
- exec return1  0   
-output log:  
-Directory Permissions: rwxr-xr-x  
-Current User: www-data  
-===========================================================================  
-                  AutoXchange 2023 V23.12.128  
-           Copyright (c) 2017-2023 Tailor Made Software, Ltd.  
-                          All Rights Reserved  
-  
-       Portions Copyright (c) 1997-2016, Tailor Made Software, Ltd.  
-===========================================================================  
-Unsupported license version. Please contact sales@tailormade.com for an upgrade.  
-Unable to Read/Open License  
-Input file: /var/www/html/apps/cadviewer/converter/converters/files/f2126451943.dwg  
-Resolved XRef Name: /var/www/html/data/admin/files/1st floor plan.dwg  
-Output File Name: /var/www/html/apps/cadviewer/converter/converters/files/f2126451943.svg  
-Read 398813 bytes, Wrote 81120 bytes, Compression factor 79.66%  
-  
-Elapsed Time: 0.720104 seconds  
-exec return1 check  0   
-Q1 contentresponse  stream   
-Q2:svg_creation   
-Q4: $general_response{"completedAction":"svg_creation","errorCode":"E0","converter":"AutoXchange AX2020","version":"V1.00","userLabel":"fromCADViewerJS","contentLocation":"/var/www/html/data/admin/files/1st floor lighting.dwg","contentResponse":"stream","contentStreamData":"http://localhost:8081/apps/cadviewer/converter//php//getFile_09.php?remainOnServer=1&fileTag=f2126451943&Type=svgz"}   
-Q5: 0  1  $json_response"{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/admin\/files\/1st floor lighting.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8081\/apps\/cadviewer\/converter\/\/php\/\/getFile_09.php?remainOnServer=1&fileTag=f2126451943&Type=svgz\"}"   
-$json_response = "{\"completedAction\":\"svg_creation\",\"errorCode\":\"E0\",\"converter\":\"AutoXchange AX2020\",\"version\":\"V1.00\",\"userLabel\":\"fromCADViewerJS\",\"contentLocation\":\"\/var\/www\/html\/data\/admin\/files\/1st floor lighting.dwg\",\"contentResponse\":\"stream\",\"contentStreamData\":\"http:\/\/localhost:8081\/apps\/cadviewer\/converter\/\/php\/\/getFile_09.php?remainOnServer=1&fileTag=f2126451943&Type=svgz\"}"  
-$post_request_flag=1 $json_response only  
-LAST BEFORE CALLBACK   
- 
- 
+NEW CONVERSION LOG  - no conversion is done at this point
