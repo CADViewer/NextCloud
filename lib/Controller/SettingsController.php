@@ -703,6 +703,9 @@ class SettingsController extends Controller {
         // save cvlicense
         $cvlicense_file = $licenseLocation."cvlicense.js";
         $cvlicense_content = $response["cvlicense"];
+        if (preg_match('/"([^"]+)"/', $cvlicense_content, $m)) {
+                $cvlicense_content = $m[1];
+        }
         file_put_contents($cvlicense_file, $cvlicense_content);
         $this->config->SetLicenceKey($cvlicense_content);
 
