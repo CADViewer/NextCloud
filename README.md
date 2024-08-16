@@ -43,9 +43,9 @@ Alternatively, follow the permission instructions in ***2.***
 ## General to-do list items:
 
 
-### 1. Copy CADViewer to /apps/cadviewer (or /extra-apps/cadviewer)
+### 1. Copy CADViewer to /apps/cadviewer (or /extra-apps/cadviewer or /custom_apps/cadviewer)
 
-Copy the content of this cadviewer install folder and put it in the /apps/ or /extra-apps/ folder of your nextcloud installation under /apps/cadviewer/.
+Copy the content of this cadviewer install folder and put it in the /apps/ or /extra-apps/ or /custom_apps/ folder of your nextcloud installation under (/apps)/cadviewer/.
 
 ### 2. Permissions
 
