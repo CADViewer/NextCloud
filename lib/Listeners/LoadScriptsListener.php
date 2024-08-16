@@ -38,13 +38,11 @@ class LoadScriptsListener implements IEventListener  {
 
             $folder = "apps";
 
-            // check extra-apps in $_SERVER['REQUEST_URI']
-            if (strpos($_SERVER['REQUEST_URI'], "extra-apps") !== false) {
+            if (strpos($path_to_script, "extra-apps/") !== false) {
                 $folder = "extra-apps";
             }
 
-            // check custom_apps in $_SERVER['REQUEST_URI']
-            if (strpos($_SERVER['REQUEST_URI'], "custom_apps") !== false) {
+            if (strpos($path_to_script, "custom_apps/") !== false) {
                 $folder = "custom_apps";
             }
 
@@ -52,12 +50,13 @@ class LoadScriptsListener implements IEventListener  {
             $files = array_merge($files, glob($plugin_base_path.'js/*.js'));
             foreach($files as $file) {
                 $content = file_get_contents($file);
-                $content = str_replace('OC.generateUrl("apps/"', 'OC.generateUrl("'.$folder.'/"', $content);
+                $content = str_replace('/apps/cadviewer/', '/'.$folder.'/cadviewer/', $content);
                 file_put_contents($file, $content);
             }
 
             file_put_contents($init_file, 'initialized');
         }
+
 
         Util::addScript('cadviewer', 'cadviewer-main' );
         Util::addStyle('cadviewer', 'style' );
