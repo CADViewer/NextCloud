@@ -570,33 +570,6 @@ export default {
 			}
 
 
-			// 9.18.3
-			// we have to check for extra-apps folder 
-			if (ServerLocation.indexOf("-apps")>-1 && ServerUrl.indexOf("/apps/")>-1){
-				var prefix = ServerLocation.substring(0, ServerLocation.indexOf("-apps"));
-				prefix = prefix.substring(prefix.lastIndexOf("/")+1);
-//				console.log("custom:extra:"+prefix);
-				var part1 = ServerUrl.substring(0, ServerUrl.indexOf("/apps/")); 
-				var part2 = ServerUrl.substring(ServerUrl.indexOf("/apps/")+6);
-				ServerUrl = part1+"/"+prefix+"-apps/"+part2;
-//				console.log("new serverurl="+ServerUrl);
-
-			}
-
-			// 9.18.3
-			if (ServerLocation.indexOf("-apps")>-1 && ServerBackEndUrl.indexOf("/apps/")>-1){
-				var prefix = ServerLocation.substring(0, ServerLocation.indexOf("-apps"));
-				prefix = prefix.substring(prefix.lastIndexOf("/")+1);
-//				console.log("custom:extra:"+prefix);
-				var part1 = ServerBackEndUrl.substring(0, ServerBackEndUrl.indexOf("/apps/")); 
-				var part2 = ServerBackEndUrl.substring(ServerBackEndUrl.indexOf("/apps/")+6);
-				ServerBackEndUrl = part1+"/"+prefix+"-apps/"+part2;
-//				console.log("new ServerBackEndUrl="+ServerBackEndUrl);
-
-			}
-
-
-
 			var FileName = this.FileName;
 			var UserName = this.UserName;
 			var UserId = this.UserId;
@@ -1183,11 +1156,11 @@ export default {
 			if (response.path) {
 				const content_dir = response.path;
 				console.log({ content_dir });
-				this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
+				this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}converter/`;
 				this.ServerLocation = `${response.serverLocation}`;
 				this.ISOtimeStamp = `${response.ISOtimeStamp}`;
 				this.parentDir = context.dir;
-				this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
+				this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}`;
 				this.FileName = `${content_dir}/${filename}`;
 				this.ModalTitle = filename;
 				this.LicenceKey = response.licenceKey;
@@ -1252,11 +1225,11 @@ export default {
           if (response.path) {
             const content_dir = response.path;
             console.log({ content_dir });
-            this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/converter/`;
+            this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}converter/`;
             this.ServerLocation = `${response.serverLocation}`;
             this.ISOtimeStamp = `${response.ISOtimeStamp}`;
             this.parentDir = directory;
-            this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/`;
+            this.ServerUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}`;
             this.FileName = `${content_dir}/${filename}`;
             this.ModalTitle = filename;
             this.haveLicence = response.haveLicence;
@@ -1335,7 +1308,7 @@ export default {
 				type: OCA.Files.FileActions.TYPE_DROPDOWN,
 				
 				
-				icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=kevmax`,
+				icon: `${window.location.href.split("/apps/")[0].replace("/index.php", "")}/apps/cadviewer/img/cvlogo.png?v=`,
 				iconClass: "icon-visibility-button",
 				order: 1001,
 				actionHandler: this.viewCadFileActionHandler27,

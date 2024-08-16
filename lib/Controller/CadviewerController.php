@@ -392,10 +392,26 @@ class CadviewerController extends Controller {
 				$i += 1;
 			}
 		}
+
+
+
+		$folder = "apps";
+
+		// check extra-apps in $_SERVER['REQUEST_URI']
+		if (strpos($_SERVER['REQUEST_URI'], "extra-apps") !== false) {
+			$folder = "extra-apps";
+		}
+
+		// check custom_apps in $_SERVER['REQUEST_URI']
+		if (strpos($_SERVER['REQUEST_URI'], "custom_apps") !== false) {
+			$folder = "custom_apps";
+		}
+
 		$response["path"] = $dir;
 		$response["size"] = $fileStat["size"];
 		$response["ISOtimeStamp"] = date(DATE_ISO8601, $fileStat["mtime"]);
 		$response["serverLocation"] = str_replace("lib/Controller", "converter", dirname(__FILE__));
+		$response["serverUrl"] = "/".$folder."/cadviewer/";
 		$response["haveLicence"] = $this->settingsController->checkIfUserDoesntHaveValidLicence();
 		
 		return $response;
@@ -438,6 +454,11 @@ class CadviewerController extends Controller {
 		// check extra-apps in $_SERVER['REQUEST_URI']
 		if (strpos($_SERVER['REQUEST_URI'], "extra-apps") !== false) {
 			$folder = "extra-apps";
+		}
+
+		// check custom_apps in $_SERVER['REQUEST_URI']
+		if (strpos($_SERVER['REQUEST_URI'], "custom_apps") !== false) {
+			$folder = "custom_apps";
 		}
 
 		// try to add the htaccess_code in .htaccess if is not possible then returne error message with instruction to user

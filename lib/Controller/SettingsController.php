@@ -304,12 +304,24 @@ class SettingsController extends Controller {
 		$htaccess_file = $root_nextcloud_installation . "/.htaccess";
 		$can_write_in_htaccess_file = is_writable($htaccess_file);
 		$htaccess_content = file_get_contents($htaccess_file);
-		
-		// verify if RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.* not present in .htaccess
-		if (strpos($htaccess_content, "RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.*") == false) {
-			// add RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.* in .htaccess
-			$htaccess_content = str_replace("RewriteRule . index.php [PT,E=PATH_INFO:$1]", "RewriteCond %{REQUEST_FILENAME} !/apps/cadviewer/converter/php/*\.*\n  RewriteRule . index.php [PT,E=PATH_INFO:$1]", $htaccess_content);
 
+
+		$folder = "apps";
+
+		// check extra-apps in $_SERVER['REQUEST_URI']
+		if (strpos($_SERVER['REQUEST_URI'], "extra-apps") !== false) {
+			$folder = "extra-apps";
+		}
+
+		// check custom_apps in $_SERVER['REQUEST_URI']
+		if (strpos($_SERVER['REQUEST_URI'], "custom_apps") !== false) {
+			$folder = "custom_apps";
+		}
+
+		// verify if RewriteCond %{REQUEST_FILENAME} !/".$folder."/cadviewer/converter/php/*\.* not present in .htaccess
+		if (strpos($htaccess_content, "RewriteCond %{REQUEST_FILENAME} !/".$folder."/cadviewer/converter/php/*\.*") == false) {
+			// add RewriteCond %{REQUEST_FILENAME} !/".$folder."/cadviewer/converter/php/*\.* in .htaccess
+			$htaccess_content = str_replace("RewriteRule . index.php [PT,E=PATH_INFO:$1]", "RewriteCond %{REQUEST_FILENAME} !/".$folder."/cadviewer/converter/php/*\.*\n  RewriteRule . index.php [PT,E=PATH_INFO:$1]", $htaccess_content);
 		}
 
         return $htaccess_content;
