@@ -40,6 +40,15 @@ return [
         ["name" => "settings#save_ax_font_map", "url" => "/ajax/settings/save-font-map", "verb" => "POST"],
         ["name" => "settings#save_users", "url" => "/ajax/settings/users", "verb" => "PUT"],
 		["name" => "settings#toggle_cache_conversion", "url" => "/ajax/settings/toggle-cache-conversion", "verb" => "POST"],
-		["name" => "settings#demo_licence", "url" => "/ajax/settings/demo-licence", "verb" => "POST"]
+		["name" => "settings#demo_licence", "url" => "/ajax/settings/demo-licence", "verb" => "POST"],
+        // Proxy endpoint to cadviewer converter php folder
+        ["name" => "proxy#api_conversion", "url" => "/php/call-Api_Conversion.php", "verb" => "POST"],
+        ["name" => "proxy#info", "url" => "/php/info.php", "verb" => "GET"],
+        ["name" => "proxy#load_file", "url" => "/php/load-file.php", "verb" => "POST"],
+        ["name" => "proxy#make_singlepage_pdf", "url" => "/php/make_singlepage_pdf.php", "verb" => "POST"],
+        ["name" => "proxy#save_file", "url" => "/php/save-file.php", "verb" => "POST"],
+        ["name" => "proxy#test_run", "url" => "/php/testrun.php", "verb" => "GET"],
+        ["name" => "proxy#get_file", "url" => "/converter/{path}", "verb" => "GET", "requirements" => array("path" => ".+")],
+        ["name" => "proxy#assets", "url" => "//assets/{path}", "verb" => "GET", "requirements" => array("path" => ".+")],
 	]
 ];
