@@ -2,9 +2,12 @@
 ### Added
 - Nighly changes here
 
+#10.3.3   2023-08-22
+- issue with reverse proxy setting, with /apps/ folder installation.
 
-#10.3.1
+#10.3.1   2024-08-21
 - reverse proxy for /apps/ custom_apps/ extra_apps folder
+
 
 
 #10.1.11  2024-08 16
