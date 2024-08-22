@@ -27,7 +27,7 @@
 					<i class="fa fa-square" style="height: 20px; width: 27px; font-size: 14px;"></i>
 				</li>
 			</div>
-      <div style="position: absolute; z-index: 40; display: flex; justify-content: flex-end; align-items: center; bottom: 3px; right: 10px; top: 0px;">
+      <div style="position: absolute; z-index: 40; display: flex; justify-content: flex-end; align-items: center; bottom: 0; right: 10px; top: 0; height: 40px; margin-top: auto; margin-bottom: auto">
           <a v-tooltip="cadviewerTextDomain" href="https://cadviewer.com" target="_blank" rel="noreferrer">
             <img :src="logoSvg" alt="CADViewer Logo" style="height: 2.25rem; opacity: 0.7; background: white"/>
           </a>

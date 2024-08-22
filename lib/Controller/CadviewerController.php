@@ -412,6 +412,11 @@ class CadviewerController extends Controller {
 		$response["ISOtimeStamp"] = date(DATE_ISO8601, $fileStat["mtime"]);
 		$response["serverLocation"] = str_replace("lib/Controller", "converter", dirname(__FILE__));
 		$response["serverUrl"] = "/".$folder."/cadviewer/";
+// 		check if request url have /index.php/apps/ inside it, if is the case then add it on serverUrl
+        if (strpos($_SERVER['REQUEST_URI'], "/index.php/apps/") !== false) {
+            $response["serverUrl"] = "/index.php".$response["serverUrl"];
+        }
+        $response["test"] = $_SERVER['REQUEST_URI'];
 		$response["haveLicence"] = $this->settingsController->checkIfUserDoesntHaveValidLicence();
 		
 		return $response;
