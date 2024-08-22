@@ -3,6 +3,14 @@
 - Nighly changes here
 
 
+#10.3.1
+- reverse proxy for /apps/ custom_apps/ extra_apps folder
+
+
+#10.1.11  2024-08 16
+- update for custom_apps folder
+
+
 # 9.90.10 2024-08-10
 - update to include easy access to full 10 days license keys
 - updates to redlines interactivy
