@@ -565,10 +565,6 @@ export default {
 				ServerLocation += "/";
 			}
 
-			if (ServerUrl.indexOf("/converter") == -1){
-				ServerUrl += "converter/";
-			}
-
 
 			var FileName = this.FileName;
 			var UserName = this.UserName;
@@ -1156,7 +1152,7 @@ export default {
 			if (response.path) {
 				const content_dir = response.path;
 				console.log({ content_dir });
-				this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}converter/`;
+				this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}`;
 				this.ServerLocation = `${response.serverLocation}`;
 				this.ISOtimeStamp = `${response.ISOtimeStamp}`;
 				this.parentDir = context.dir;
@@ -1225,7 +1221,7 @@ export default {
           if (response.path) {
             const content_dir = response.path;
             console.log({ content_dir });
-            this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}converter/`;
+            this.ServerBackEndUrl = `${window.location.href.split("/apps/")[0].replace("/index.php", "")}${response.serverUrl}`;
             this.ServerLocation = `${response.serverLocation}`;
             this.ISOtimeStamp = `${response.ISOtimeStamp}`;
             this.parentDir = directory;

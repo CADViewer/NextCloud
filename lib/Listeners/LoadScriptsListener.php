@@ -23,7 +23,7 @@ class LoadScriptsListener implements IEventListener  {
         $path_to_script = str_replace(getcwd(), '', $plugin_base_path);
         
         $current_dir = $plugin_base_path."appinfo";
-        $init_file = $current_dir.'/cadviewer_init.txt';
+        $init_file = $current_dir.'/init.txt';
         $init_file_content = file_get_contents($init_file);
         if ($init_file_content != 'initialized') {
             
@@ -33,6 +33,8 @@ class LoadScriptsListener implements IEventListener  {
             foreach($files as $file) {
                 $content = file_get_contents($file);
                 $content = str_replace('/assets/cadviewer/', $path_to_script.'assets/', $content);
+                // replace /apps/cadviewer//assets/app// with /apps/cadviewer/assets/app/
+                $content = str_replace('/apps/cadviewer//assets/app//', '/apps/cadviewer/assets/app/', $content);
                 file_put_contents($file, $content);
             }
 
@@ -47,7 +49,6 @@ class LoadScriptsListener implements IEventListener  {
             }
 
             $files = glob($plugin_base_path.'settings/js/*.js');
-            $files = array_merge($files, glob($plugin_base_path.'js/*.js'));
             foreach($files as $file) {
                 $content = file_get_contents($file);
                 $content = str_replace('/apps/cadviewer/', '/'.$folder.'/cadviewer/', $content);
