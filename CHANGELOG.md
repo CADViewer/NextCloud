@@ -2,7 +2,12 @@
 ### Added
 - Nighly changes here
 
-#10.3.3   2023-08-22
+#10.4.1  2024-08-28
+- updated executable for AIO Alpine support
+- ax2025_L64_25_07_140e added, see: https://github.com/CADViewer/NextCloud/blob/main/README.md#5-integration-in-nextcloud-aio-docker-setup , with glib installed executable runs on Alpine
+
+
+#10.3.3   2024-08-22
 - issue with reverse proxy setting, with /apps/ folder installation.
 
 #10.3.1   2024-08-21
