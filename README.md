@@ -162,9 +162,10 @@ This will provide the libraries needed to make CADViewer run. After this step pe
 To check that the converter is operational, run: 
 
 ```
-cd /apps/cadviewer/converter/converters/ax2024/linux/     - (alternative /custom_apps/ , /extra_apps/)
+cd (location/of/nextcloud)/apps/cadviewer/converter/converters/ax2024/linux/     - (alternative /custom_apps/ , /extra_apps/)
 ./ax2025_L64_xx_yy_zz -?
 ```
+This will provide a listing that the utility is alive and ready to connect with the front-end.-  
 
 
 
