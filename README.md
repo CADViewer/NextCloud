@@ -165,7 +165,7 @@ To check that the converter is operational, run:
 cd (location/of/nextcloud)/apps/cadviewer/converter/converters/ax2024/linux/     - (alternative /custom_apps/ , /extra_apps/)
 ./ax2025_L64_xx_yy_zz -?
 ```
-This will provide a listing that the utility is alive and ready to connect with the front-end.-  
+This will provide a listing that the utility is alive and ready to connect with the front-end. ***Note:*** If glib is not installed properly, there will be a number of linking errors and/or failed execution.
 
 
 
