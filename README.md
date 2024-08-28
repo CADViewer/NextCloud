@@ -147,7 +147,7 @@ In some cases the automated update of the ***.htaccess*** file is not done. This
 
 #### Current versions - version 10.4.1 onwards
 
-The Nextcloud docker AIO is based on an Alpine Linux installation.  This barebone Linus is unable to run c++ applications, therfore in order to run the AutoXchange CAD converter, navigate into the Alpine docker container and execute the following: 
+The Nextcloud docker AIO is based on an Alpine Linux installation.  This barebone Linus is unable to run c++ applications, therfore in order to run the CADViewer AutoXchange CAD converter, navigate into the Alpine docker container and execute the following: 
 
 ```
 apk add gcompat
