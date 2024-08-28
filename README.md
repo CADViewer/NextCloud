@@ -157,7 +157,7 @@ apk add --update binutils
 apk add gdb
 ```
 
-This will provide the libraries needed to make CADViewer run. After this step perform the instructions under ***2. Permissions*** above. 
+This will provide the libraries needed to make CADViewer run. ***IMPORTANT:*** After this step perform the instructions under ***2. Permissions*** above. 
 
 To check that the converter is operational, run: 
 
