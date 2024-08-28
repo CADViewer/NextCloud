@@ -66,7 +66,7 @@ If this does not get CADViewer working in your installation, please do one of th
 
 #### 2A. Excecute permission script
 
-Navigate to the ***/apps/cadviewer/scripts/*** */ folder and execute the ***permission.sh*** script. 
+Navigate to the ***/apps/cadviewer/scripts/*** */ folder and execute the ***permission.sh*** script.     - (alternative /custom_apps/ , /extra_apps/)
 
 This script will do the recommended permission settings (chmod 750) for the relevant CADViewer folders and files. 
 
@@ -79,11 +79,11 @@ In the NextCloud /apps/cadviewer/ folder-structure, set the recommended permissi
 
 **Execution:**
 ```
-/apps/cadviewer/converter/converters/ax2024/linux/ax2023_L64_xx_yy_zz
+/apps/cadviewer/converter/converters/ax2024/linux/ax2025_L64_xx_yy_zz   - (alternative /custom_apps/ , /extra_apps/)
 ```
 **Scripts folder and files:**
 ```
-/apps/cadviewer/converter/php/call-Api_Conversion_log.txt
+/apps/cadviewer/converter/php/call-Api_Conversion_log.txt  - (alternative /custom_apps/ , /extra_apps/)
 /apps/cadviewer/converter/php/call-Api_Conversion.php
 /apps/cadviewer/converter/php/save-file.php
 ```
@@ -92,7 +92,7 @@ In the NextCloud /apps/cadviewer folder-structure, set the recommended permissio
 
 **Conversion folders:**
 ```
-/apps/cadviewer/converter/converters/ax2024/linux/
+/apps/cadviewer/converter/converters/ax2024/linux/     - (alternative /custom_apps/ , /extra_apps/)
 /apps/cadviewer/converter/converters/files/
 /apps/cadviewer/converter/converters/files/merged/
 /apps/cadviewer/converter/converters/files/print/
@@ -100,7 +100,7 @@ In the NextCloud /apps/cadviewer folder-structure, set the recommended permissio
 ```
 **Redlines folders:**
 ```
-/apps/cadviewer/converter/content/redlines/
+/apps/cadviewer/converter/content/redlines/    - (alternative /custom_apps/ , /extra_apps/)
 /apps/cadviewer/converter/content/redlines/v7/
 ```
 
@@ -118,6 +118,16 @@ In the NextCloud /apps/cadviewer folder-structure, set the recommended permissio
 
 ### 4. Troubleshooting
 
+#### Current versions - version 10.4.1 onwards
+
+CADviewer has implement a reverse proxy why there is no need to change the .htaccess.
+
+1. If the server trace gives a Warning: fopen(call-Api_Conversion_log.txt): Failed to open stream: Permission denied , then likely the current permission settings are insufficient. This case can be seen when added nginx as reverse proxy and SSL certificates on a docker container. In that case the owner or permissions may have changed, repeat the instructions under ***2. Permissions*** above.
+
+
+#### Legacy versions  - below version 10.3.3
+
+
 In some cases the automated update of the ***.htaccess*** file is not done. This means that the CADViewer does not connect to the back-end scripts for CAD file conversion. The user experience is that the canvas is white and the "loading.." modal will keep appearing on the screen when attempting to load a file.
 
 1. Go to the install folder of **NextCloud**, this is typically ***/var/www/nextcloud/*** (or where your installation is done), open **.htaccess** in a text editor. See ***C:*** above for installation using Snap.
@@ -130,11 +140,35 @@ In some cases the automated update of the ***.htaccess*** file is not done. This
 
 5. If needed, add both the RewriteRule and RewriteCond. 
 
-6. If the server trace gives a Warning: fopen(call-Api_Conversion_log.txt): Failed to open stream: Permission denied , then likely the current permission settings are insufficient. This case can be seen when added nginx as reverse proxy and SSL certificates on a docker container. In that case the owner may have changed, therefore try inside /cadviewer/converter/php/ to give call-Api_Conversion.php full chmod 777 permission and check if call-Api_Conversion.txt has write permissions for the owner (if you are comfortable, you can give chmod 777 on that also.). If this moves further in the process, you must also then give /converter/converters/files folder, full write permission for all owners, and also give /converter/converters/ax2024/linux/ax2023_L64_xx_yy_zz full chmod 777 permissions to perform the CAD conversions for all owners. You can also gradually change the permission process, 750, 755, 775, 777 to keep control. Always check files against other apps to see if the ownership is correct, otherwise do a chown to change ownership correspondingly for cadviewer.   
+6. If the server trace gives a Warning: fopen(call-Api_Conversion_log.txt): Failed to open stream: Permission denied , then likely the current permission settings are insufficient. This case can be seen when added nginx as reverse proxy and SSL certificates on a docker container. In that case the owner may have changed, therefore try inside /cadviewer/converter/php/ to give call-Api_Conversion.php full chmod 750 permission and check if call-Api_Conversion.txt has write permissions for the owner (if you are comfortable, you can give chmod 777 on that also.). If this moves further in the process, you must also then give /converter/converters/files folder, full write permission for all owners, and also give /converter/converters/ax2024/linux/ax2023_L64_xx_yy_zz full chmod 777 permissions to perform the CAD conversions for all owners. You can also gradually change the permission process, 750, 755, 775, 777 to keep control. Always check files against other apps to see if the ownership is correct, otherwise do a chown to change ownership correspondingly for cadviewer.   
 
 
 ### 5. Integration in NextCloud AIO Docker Setup
 
+#### Current versions - version 10.4.1 onwards
+
+The Nextcloud docker AIO is based on an Alpine Linux installation.  This barebone Linus is unable to run c++ applications, therfore in order to run the AutoXchange CAD converter, navigate into the Alpine docker container and execute the following: 
+
+```
+apk add gcompat
+apk add build-base
+apk add --no-cache fontconfig
+apk add --update binutils
+apk add gdb
+```
+
+This will provide the libraries needed to make CADViewer run. After this step perform the instructions under ***2. Permissions*** above. 
+
+To check that the converter is operational, run: 
+
+```
+cd /apps/cadviewer/converter/converters/ax2024/linux/     - (alternative /custom_apps/ , /extra_apps/)
+./ax2025_L64_xx_yy_zz -?
+```
+
+
+
+#### Legacy versions  - below version 10.3.3
 
 You need to connect interactively to the nextcloud docker container with the command docker exec -it id_of_container (you get the id with docker ps) and once inside you need to modify the .htaccess file with vim (you install it with these 2 commands: apt-get update, apt-get install vim) and the content to put in your .htaccess is as follows:
 
