@@ -16,7 +16,11 @@ Follow instructions in ***1.*** and then ensure permission and ownership ***2.**
 ### B: Install CADViewer via the NextCloud Store on standalone server installation of NextCloud.
 Ensure permission and ownership ***2.*** (see below) as well any rewrite rules in ***4.*** (see below). 
 
-### C: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
+### C: Nextclud AIO installation
+Follow the instructions in ***5. Integration in NextCloud AIO Docker Setup*** below. 
+
+
+### D: Install CADViewer via the NextCloud Store, where NextCloud is installed using Snap.
 
 Modify the .htaccess file, which typically is in a structure like: /var/snap/nextcloud/38457/nextcloud/config , likely 38457/nnnnn can vary depending on linux build and Nextcloud version, below is Ubuntu 22.04 LTS / Nextcloud 27.1.3. Add the following rewrite rule (also see Troubleshooting ***4.***): 
 ```
