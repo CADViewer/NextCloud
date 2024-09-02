@@ -951,6 +951,9 @@ export default {
 			$("body").addClass("cadviewer-open");
 			OCA.Files.Sidebar.open(this.parentDir + "/" + this.title);
 			OCA.Files.Sidebar.setActiveTab("comments");
+      $(".app-sidebar .app-sidebar-header").click(function() {
+        this.closeShareScreen();
+      });
 		} else {
 			this.closeCommentScreen();
 		}
@@ -1035,6 +1038,9 @@ export default {
 		if (!$("#app-sidebar-vue").is(":visible")) {
 			// add class cadviewer-open to body
 			$("body").addClass("cadviewer-open");
+      $(".app-sidebar .app-sidebar-header").click(function() {
+        this.closeShareScreen();
+      });
 			OCA.Files.Sidebar.open(this.parentDir + "/" + this.title);
 			OCA.Files.Sidebar.setActiveTab("sharing");
 		} else {
