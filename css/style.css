@@ -16,3 +16,14 @@
 .cvjs_controls_min li:hover i {
     color: var(--color-primary) !important;
 }
+.cadviewer-open .content {
+    position: relative !important;
+}
+
+.cadviewer-open .content .app-content {
+    display: none !important;
+}
+
+.cadviewer-open .content .app-navigation {
+    display: none !important;
+}
