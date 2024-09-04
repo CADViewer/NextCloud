@@ -2,6 +2,10 @@
 ### Added
 - Nighly changes here
 
+#10.7.6 2024-09-04
+- Fix for nextcloud v28/v29 preventing opening of CADViewer right side pane for nextcloud collaboration tools
+
+
 #10.4.1  2024-08-28
 - updated executable for AIO Alpine support
 - ax2025_L64_25_07_140e added, see: https://github.com/CADViewer/NextCloud/blob/main/README.md#5-integration-in-nextcloud-aio-docker-setup , with glib installed executable runs on Alpine
