@@ -2,6 +2,10 @@
 ### Added
 - Nighly changes here
 
+#10.9.5 2024-09-08
+- Admin panel Api conversion log would not appear after v10.3.1 implementation of reverse proxy.
+
+
 #10.7.6 2024-09-04
 - Fix for nextcloud v28/v29 preventing opening of CADViewer right side pane for nextcloud collaboration tools
 

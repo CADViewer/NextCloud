@@ -131,6 +131,13 @@ $cached_conversion = true;
 //  Debug parameter to check installation - false for normal operation, if true, the document will echo debug information, - no drawings will be displayed -
 	$debug = TRUE;
 
+// location to debug file
+
+$debug_file_path = $home_dir . "/php/";
+
+
+
+
 //  We want bat processing on Windows, to set CODEPAGE for Asian and Chinese UNICODE
 	$windowsbatprocessing = FALSE;
 

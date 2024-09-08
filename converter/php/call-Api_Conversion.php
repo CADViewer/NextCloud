@@ -15,7 +15,7 @@
 	
 */
 
-	$scriptversion = "9.18.3";
+	$scriptversion = "10.9.5";
 
 	// 8.71.1  - we make flag for nextcloud
 	$nextcloud = true;
@@ -105,7 +105,7 @@
 	// 2016-01-28
 	// create debug file
 	if ($debug) {
-		if ($fd_log = fopen ("call-Api_Conversion_log.txt", "w")) {
+		if ($fd_log = fopen ($debug_file_path . "call-Api_Conversion_log.txt", "w")) {
 			fwrite($fd_log, "\r\n NEW-FILE-CONVERSION-BEGIN   $scriptversion  \r\n \r\n");
 			fwrite($fd_log, "Opening call-Api_Conversion_log.txt for new conversion: \r\n");
 		}		
