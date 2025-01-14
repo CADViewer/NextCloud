@@ -178,8 +178,13 @@ function cvjs_OnLoadEnd(UserName, UserId, lineWeightPercent){
 
 	// load in redlines
 
+	console.log("cvjs_OnLoadEnd: "+UserName+" "+UserId+"  startMethodRed");
+
 	startMethodRed();
 	// API call to load stickynotes and redlines
+
+	console.log("cvjs_OnLoadEnd: "+UserName+" "+UserId+"  cadviewer.cvjs_loadStickyNotesRedlines(floorPlan)");
+
 	cadviewer.cvjs_loadStickyNotesRedlines("floorPlan");
 
 
@@ -269,7 +274,10 @@ function cvjs_graphicalObjectOnChange(type, graphicalObject, spaceID){
 
 function startMethodRed(){
 
-	// we keep all redlines in one single file  NOTE! issues with delete?  
+
+	console.log("startMethodRed   cadviewer.cvjs_computeDynamicRedlineNamePath():"+cadviewer.cvjs_computeDynamicRedlineNamePath());
+
+	// we keep all redlines in one single file  NOTE! issues with delete?
 	var v1 = "/content/redlines/v7/"+cadviewer.cvjs_computeDynamicRedlineNamePath()+"all-users.json";
 	var v2 = "/content/redlines/v7/"+cadviewer.cvjs_computeDynamicRedlineNamePath()+"all-users.json";
 
@@ -308,6 +316,10 @@ function cvjs_loadStickyNotesRedlinesUser(){
 
 	startMethodRed();
 	// API call to load stickynotes and redlines
+
+
+	//
+
 	cadviewer.cvjs_loadStickyNotesRedlines("floorPlan");
 }
 
@@ -877,8 +889,21 @@ export default {
 			// Load file - needs the svg div name and name and path of file to load
 			cadviewer.cvjs_setISOtimeStamp(FileName, this.ISOtimeStamp);
 			console.log("ISOtimeStamp="+ this.ISOtimeStamp);
-      cadviewer.cvjs_deleteAllRedlines();
-      cadviewer.cvjs_clearSpaceObjects("floorPlan");
+
+
+			// 10.9.7
+			//try {
+			//	console.log("before load: "+FileName+" 1: deleteAllRedlines and clearSpaceObjects");
+			//	cadviewer.cvjs_deleteAllRedlines();
+			//	cadviewer.cvjs_clearSpaceObjects("floorPlan");
+//
+//			} catch (error) {
+//				console.log("Error in deleteAllRedlines and clearSpaceObjects");
+//			}
+
+
+
+
 			cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 
 			// set maximum CADViewer canvas side
@@ -896,9 +921,7 @@ export default {
 		console.log({FileName, firstFile})
 		cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName); // 8.67.17
 		cadviewer.cvjs_conversion_addAXconversionParameter("compare", FileName); // 8.67.17
-    cadviewer.cvjs_deleteAllRedlines();
-    cadviewer.cvjs_clearSpaceObjects("floorPlan");
-    cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
+		cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
 	},
 	compare(path, firstFile, sameFile) {
 		let nameOfFile = path.split("/").reverse()[0]
@@ -1097,8 +1120,20 @@ export default {
 								this.parentDir = directory;
 								this.FileName = FileName;
 								cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
-                cadviewer.cvjs_deleteAllRedlines();
-                cadviewer.cvjs_clearSpaceObjects("floorPlan");
+
+
+								// 10.9.7
+								//try {
+								//	console.log("before load: "+FileName+" 1: deleteAllRedlines and clearSpaceObjects");
+								//	cadviewer.cvjs_deleteAllRedlines();
+								//	cadviewer.cvjs_clearSpaceObjects("floorPlan");
+//
+//								} catch (error) {
+//									console.log("Error in deleteAllRedlines and clearSpaceObjects");
+//								}
+
+
+
 								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 							} else {
 								OC.dialogs.alert(

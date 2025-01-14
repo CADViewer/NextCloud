@@ -2,6 +2,25 @@
 ### Added
 - Nighly changes here
 
+#10.10.7 2024-09-17 
+- Error when repetitive saved and load redlines and change floorplan
+- Error when saving and loading redlines and then attempt to move, rotate, scale a redline
+
+
+#10.10.4 2024-09-16
+- Due to issues running CAD converter under snap, we rolled back to a previous dwg toolkit, converter ax2023_L64_23_12_140 added,
+- Issues on v28 onwards with redlines load and save. They will overload the canvas when changing floorplans. 
+- Redlines set style and thickness would affect order of redlines, depending how the modal is escaped.
+
+
+#10.9.5 2024-09-08
+- Admin panel Api conversion log would not appear after v10.3.1 implementation of reverse proxy.
+
+
+#10.7.6 2024-09-04
+- Fix for nextcloud v28/v29 preventing opening of CADViewer right side pane for nextcloud collaboration tools
+
+
 #10.4.1  2024-08-28
 - updated executable for AIO Alpine support
 - ax2025_L64_25_07_140e added, see: https://github.com/CADViewer/NextCloud/blob/main/README.md#5-integration-in-nextcloud-aio-docker-setup , with glib installed executable runs on Alpine
