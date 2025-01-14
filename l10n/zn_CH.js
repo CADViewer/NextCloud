@@ -73,6 +73,15 @@ OC.L10N.register(
         "Enable cached conversions, to speed up execution. Updated files are always converted.": "启用缓存转换，以加快执行速度。更新的文件总是会被转换。",
         "Cache conversion successfully updated": "缓存转换成功更新",
         "Error when trying to update cache conversion": "尝试更新缓存转换时出错",
+        "Zoom Controls for Bitmap Wallpaper": "位图壁纸的缩放控件",
+        "Zoom Image Wallpaper:": "缩放图像壁纸：",
+        "Enable Zoom Image Wallpaper?": "启用缩放图像壁纸？",
+        "Scale Factor:": "比例因子：",
+        "Scale Breakpoint:" : "比例断点：",
+        "Scroll Wheel Controls": "滚轮控件",
+        "Scroll Wheel Throttle Delay:": "滚轮节流延迟：",
+        "Scroll Wheel Zoom Steps:": "滚轮缩放步骤：",
+        "Scroll Wheel Default Zoom Factor:" : "滚轮默认缩放因子：",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

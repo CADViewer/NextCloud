@@ -338,6 +338,12 @@ class CadviewerController extends Controller {
 		$response["licenceKey"] = $this->appConfig->GetLicenceKey();
 		$response["skin"] = $this->appConfig->GetSkin();
 		$lineWeightFactors =  json_decode($this->appConfig->GetLineWeightFactors(), true);
+
+        $zoom_image_wallpaper_parameters = json_decode($this->appConfig->GetZoomImageWallpaperParameters(), true);
+        $scroll_wheel_parameters = json_decode($this->appConfig->GetScrollWheelParameters(), true);
+        $response["zoom_image_wallpaper_parameters"] = $zoom_image_wallpaper_parameters;
+        $response["scroll_wheel_parameters"] = $scroll_wheel_parameters;
+
 		$response["lineWeightFactor"] = null;
 		foreach ($lineWeightFactors as $key => $value) {
 			if(

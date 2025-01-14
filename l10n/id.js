@@ -72,6 +72,15 @@ OC.L10N.register(
         "Enable cached conversions, to speed up execution. Updated files are always converted.": "Aktifkan konversi yang di-cache, untuk mempercepat eksekusi. File yang diperbarui selalu dikonversi.",
         "Cache conversion successfully updated": "Konversi cache berhasil diperbarui",
         "Error when trying to update cache conversion": "Kesalahan saat mencoba memperbarui konversi cache",
+        "Zoom Controls for Bitmap Wallpaper": "Kontrol Zoom untuk Wallpaper Bitmap",
+        "Zoom Image Wallpaper:": "Zoom Gambar Wallpaper:",
+        "Enable Zoom Image Wallpaper?": "Aktifkan Zoom Gambar Wallpaper?",
+        "Scale Factor:": "Faktor Skala:",
+        "Scale Breakpoint:" : "Titik Pemutus Skala:",
+        "Scroll Wheel Controls": "Kontrol Roda Gulir",
+        "Scroll Wheel Throttle Delay:": "Tundaan Throttle Roda Gulir:",
+        "Scroll Wheel Zoom Steps:": "Langkah Zoom Roda Gulir:",
+        "Scroll Wheel Default Zoom Factor:" : "Faktor Zoom Default Roda Gulir:",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

@@ -69,7 +69,16 @@
         "Dynamic Cache": "동적 캐시",
         "Enable cached conversions, to speed up execution. Updated files are always converted.": "캐시된 변환을 활성화하여 실행 속도를 높입니다. 업데이트된 파일은 항상 변환됩니다.",
         "Cache conversion successfully updated": "캐시 변환이 성공적으로 업데이트되었습니다.",
-        "Error when trying to update cache conversion": "캐시 변환 업데이트 시도 시 오류 발생"
+        "Error when trying to update cache conversion": "캐시 변환 업데이트 시도 시 오류 발생",
+        "Zoom Controls for Bitmap Wallpaper": "비트맵 배경화면 줌 컨트롤",
+        "Zoom Image Wallpaper:": "줌 이미지 배경화면:",
+        "Enable Zoom Image Wallpaper?": "줌 이미지 배경화면 사용?",
+        "Scale Factor:": "스케일 계수:",
+        "Scale Breakpoint:" : "스케일 중단점:",
+        "Scroll Wheel Controls": "스크롤 휠 컨트롤",
+        "Scroll Wheel Throttle Delay:": "스크롤 휠 스로틀 지연:",
+        "Scroll Wheel Zoom Steps:": "스크롤 휠 줌 단계:",
+        "Scroll Wheel Default Zoom Factor:" : "스크롤 휠 기본 줌 계수:"
     },
     "pluralForm": "nplurals=2; plural=(n != 1);"
 }

@@ -96,6 +96,15 @@ OC.L10N.register(
         "Enable cached conversions, to speed up execution. Updated files are always converted.": "Aktivieren Sie zwischengespeicherte Konvertierungen, um die Ausführung zu beschleunigen. Aktualisierte Dateien werden immer konvertiert.",
         "Cache conversion successfully updated": "Cache-Konvertierung erfolgreich aktualisiert",
         "Error when trying to update cache conversion": "Fehler beim Versuch, die Cache-Konvertierung zu aktualisieren",
+        "Zoom Controls for Bitmap Wallpaper": "Zoom-Steuerung für Bitmap-Hintergrundbild",
+        "Zoom Image Wallpaper:": "Zoom-Bild-Hintergrundbild:",
+        "Enable Zoom Image Wallpaper?": "Zoom-Bild-Hintergrundbild aktivieren?",
+        "Scale Factor:": "Skalierungsfaktor:",
+        "Scale Breakpoint:" : "Skalierungsunterbrechung:",
+        "Scroll Wheel Controls": "Scrollrad-Steuerung",
+        "Scroll Wheel Throttle Delay:": "Scrollrad-Drosselverzögerung:",
+        "Scroll Wheel Zoom Steps:": "Scrollrad-Zoomschritte:",
+        "Scroll Wheel Default Zoom Factor:" : "Standard-Zoomfaktor des Scrollrads:",
 	},
 	"nplurals=2; plural=(n != 1);"
 );

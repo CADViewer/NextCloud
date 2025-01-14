@@ -302,12 +302,12 @@
                     } else {
                         htaccessContent =  response.htaccess_content;
                         let responseContent = "";
-                        responseContent += `<div class="access-status"><div class="${response.exec_command_is_activate ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.exec_command_is_activate ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, '"exec" command activated on PHP')}</div>`;
-                        responseContent += `<div class="access-status"><div class="${response.can_execute_script_file ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.can_execute_script_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Permission 750 for the "ax2023_L64_xx_yy_zz" executable')}</div>`;
-                        responseContent += `<div class="access-status"><div class="${response.can_write_in_log_file ? "success" : "error"}"><img src="/apps/cadviewer/img/${response.can_write_in_log_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Writing to the log file "call-Api_Conversion_log.txt"')}</div>`;
+                        responseContent += `<div class="access-status"><div class="${response.exec_command_is_activate ? "success" : "error"}"><img src="/custom_apps/cadviewer/img/${response.exec_command_is_activate ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, '"exec" command activated on PHP')}</div>`;
+                        responseContent += `<div class="access-status"><div class="${response.can_execute_script_file ? "success" : "error"}"><img src="/custom_apps/cadviewer/img/${response.can_execute_script_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Permission 750 for the "ax2023_L64_xx_yy_zz" executable')}</div>`;
+                        responseContent += `<div class="access-status"><div class="${response.can_write_in_log_file ? "success" : "error"}"><img src="/custom_apps/cadviewer/img/${response.can_write_in_log_file ? "check" : "x"}.svg" /></div> ${t(OCA.Cadviewer.AppName, 'Writing to the log file "call-Api_Conversion_log.txt"')}</div>`;
                         responseContent += `<div class="access-status">
                                 <div class="${response.htaccess_is_whell_configured ? "success" : "error"}">
-                                    <img src="/apps/cadviewer/img/${response.htaccess_is_whell_configured ? "check" : "x"}.svg" />
+                                    <img src="/custom_apps/cadviewer/img/${response.htaccess_is_whell_configured ? "check" : "x"}.svg" />
                                 </div> ${t(OCA.Cadviewer.AppName, '.htaccess well configured')} 
                                 <button id="downloadHtaccess" class="button" style="margin-left: 10px">
                                     ${t(OCA.Cadviewer.AppName, "Download")}
@@ -315,7 +315,7 @@
                         </div>`;
                         responseContent += `<div class="access-status">
                                 <div class="${response.can_write_in_files_folder ? "success" : "error"}">
-                                    <img src="/apps/cadviewer/img/${response.can_write_in_files_folder ? "check" : "x"}.svg" />
+                                    <img src="/custom_apps/cadviewer/img/${response.can_write_in_files_folder ? "check" : "x"}.svg" />
                                 </div> 
                                 ${t(OCA.Cadviewer.AppName, 'Read and write permission for folder')} /converter/converters/files/
                             </div>`;
@@ -341,7 +341,7 @@
                         otherFolders.forEach(folder => {
                             responseContent += `<div class="access-status">
                                 <div class="${response["can_write_in_files_folder_"+folder] ? "success" : "error"}">
-                                    <img src="/apps/cadviewer/img/${response["can_write_in_files_folder_"+folder] ? "check" : "x"}.svg" />
+                                    <img src="/custom_apps/cadviewer/img/${response["can_write_in_files_folder_"+folder] ? "check" : "x"}.svg" />
                                 </div> 
                                 ${t(OCA.Cadviewer.AppName, 'Read and write permission for folder')}${" "+otherFoldersPath[folder]}
                             </div>`;
@@ -631,6 +631,64 @@
                         var versionMessage = response.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
 
                         if (response.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        });
+
+        $("#saveZoomImageWallpaperParameters").click(function () {
+            let data = {
+                "zoom_image_wallpaper": $("#zoom_image_wallpaper").is(":checked"),
+                "zoom_image_wallpaper_scalefactor": $("#zoom_image_wallpaper_scalefactor").val(),
+                "zoom_image_wallpaper_scalebreakpoint": $("#zoom_image_wallpaper_scalebreakpoint").val(),
+            };
+
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/zoom-image-wallpaper"),
+                data: data,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response) {
+
+                        var versionMessage = response?.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response?.error) {
+                            OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
+                        } else {
+                            OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
+                        }
+                    }
+                }
+            });
+        });
+
+        $("#saveScrollWheelParameters").click(function () {
+            let data = {
+                "scroll_wheel_throttle_delay": $("#scroll_wheel_throttle_delay").val(),
+                "scroll_wheel_zoom_steps": $("#scroll_wheel_zoom_steps").val(),
+                "scroll_wheel_default_zoom_factor": $("#scroll_wheel_default_zoom_factor").val(),
+            }
+
+            $(".section-cadviewer").addClass("icon-loading");
+
+            $.ajax({
+                method: "PUT",
+                url: OC.generateUrl("apps/" + OCA.Cadviewer.AppName + "/ajax/settings/scroll-wheel-parameters"),
+                data: data,
+                success: function onSuccess(response) {
+                    $(".section-cadviewer").removeClass("icon-loading");
+                    if (response) {
+
+                        var versionMessage = response?.version ? (" (" + t(OCA.Cadviewer.AppName, "version") + " " + response.version + ")") : "";
+
+                        if (response?.error) {
                             OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
                         } else {
                             OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);

@@ -498,4 +498,64 @@ OCP\Util::addScript('cadviewer/settings', 'script');
         </p>
         <br />
     </div>
+
+    <h2> <?php p($l->t("Zoom Controls for Bitmap Wallpaper")) ?> </h2>
+    <div style="max-width: 900px;">
+        <div id="form_frontend_control">
+            <div class="grid_input_3">
+                <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                    <span style="min-width: 80px"><?php p($l->t("Zoom Image Wallpaper:")) ?></span>
+                    <div class="exclude-block-checkbox" style="margin-top: 10px;">
+                        <input type="checkbox" <?php if ($_["zoom_image_wallpaper_parameters"]["zoom_image_wallpaper"]): ?> checked="checked" <?php endif; ?> id="zoom_image_wallpaper" class="checkbox" />
+                        <label for="zoom_image_wallpaper"><?php p($l->t("Enable Zoom Image Wallpaper?")) ?></label>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                    <span style="min-width: 70px"><?php p($l->t("Scale Factor:")) ?></span>
+                    <input style="margin-left: 0px"  id="zoom_image_wallpaper_scalefactor" value="<?=p($_["zoom_image_wallpaper_parameters"]["zoom_image_wallpaper_scalefactor"])?>" placeholder="1.0" type="number">
+                </div>
+                <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                    <span style="min-width: 80px"><?php p($l->t("Scale Breakpoint:")) ?></span>
+                    <input style="margin-left: 0px" id="zoom_image_wallpaper_scalebreakpoint" value="<?=p($_["zoom_image_wallpaper_parameters"]["zoom_image_wallpaper_scalebreakpoint"])?>" placeholder="0.3" type="number">
+                </div>
+            </div>
+            <br />
+        </div>
+        <p>
+            <button id="saveZoomImageWallpaperParameters" class="button">
+                <?php p($l->t("Save")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
+
+    <h2>
+        <?php p($l->t("Scroll Wheel Controls")) ?>
+    </h2>
+    <div style="max-width: 900px;">
+        <div id="form_frontend_control">
+            <div class="grid_input_3">
+                <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                    <span style="min-width: 80px"><?php p($l->t("Scroll Wheel Throttle Delay:")) ?></span>
+                    <input style="margin-left: 0px" id="scroll_wheel_throttle_delay" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_throttle_delay"])?>" placeholder="200" type="number">
+                </div>
+                <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                    <span style="min-width: 70px"><?php p($l->t("Scroll Wheel Zoom Steps:")) ?></span>
+                    <input style="margin-left: 0px"  id="scroll_wheel_zoom_steps" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_zoom_steps"])?>" placeholder="0" type="number">
+                </div>
+                <div style="display: flex; align-items: flex-start; flex-direction: column;">
+                    <span style="min-width: 80px"><?php p($l->t("Scroll Wheel Default Zoom Factor:")) ?></span>
+                    <input style="margin-left: 0px" id="scroll_wheel_default_zoom_factor" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_default_zoom_factor"])?>" placeholder="1.2" type="number">
+                </div>
+            </div>
+            <br />
+        </div>
+        <p>
+            <button id="saveScrollWheelParameters" class="button">
+                <?php p($l->t("Save")) ?>
+            </button>
+        </p>
+        <br />
+    </div>
+
 </div>

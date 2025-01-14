@@ -277,7 +277,7 @@ function startMethodRed(){
 
 	console.log("startMethodRed   cadviewer.cvjs_computeDynamicRedlineNamePath():"+cadviewer.cvjs_computeDynamicRedlineNamePath());
 
-	// we keep all redlines in one single file  NOTE! issues with delete?  
+	// we keep all redlines in one single file  NOTE! issues with delete?
 	var v1 = "/content/redlines/v7/"+cadviewer.cvjs_computeDynamicRedlineNamePath()+"all-users.json";
 	var v2 = "/content/redlines/v7/"+cadviewer.cvjs_computeDynamicRedlineNamePath()+"all-users.json";
 
@@ -318,7 +318,7 @@ function cvjs_loadStickyNotesRedlinesUser(){
 	// API call to load stickynotes and redlines
 
 
-	// 
+	//
 
 	cadviewer.cvjs_loadStickyNotesRedlines("floorPlan");
 }
@@ -545,7 +545,7 @@ export default {
 
   },
   methods: {
-	initCadviewer(axparameters){
+	initCadviewer(axparameters, zoom_image_wallpaper_parameters, scroll_wheel_parameters){
 		// this.movePdf("f1613016134.svg","/Photos");
 		// Register an event listener when the Vue component is ready
 		window.addEventListener('resize', this.onResize)
@@ -585,7 +585,23 @@ export default {
 			// Set all paths, and handlers, changes these depending on back-end server
 			cadviewer.cvjs_debugMode(true);
 
-			console.log("ServerBackEndUrl, ServerLocation, ServerUrl, FileName declared:");
+      // 10.31.9
+      if (scroll_wheel_parameters.scroll_wheel_throttle_delay!= undefined && scroll_wheel_parameters.scroll_wheel_throttle_delay>=0)
+        cadviewer.cvjs_setScrollWheelThrottleDelay(scroll_wheel_parameters.scroll_wheel_throttle_delay);
+
+      // 10.31.10
+      if (scroll_wheel_parameters.scroll_wheel_zoom_steps!= undefined && scroll_wheel_parameters.scroll_wheel_zoom_steps>=0)
+        cadviewer.cvjs_setScrollWheelZoomSteps(scroll_wheel_parameters.scroll_wheel_zoom_steps);
+      // 10.40.1
+      cadviewer.cvjs_setScrollWheelDefaultZoomFactor(scroll_wheel_parameters.scroll_wheel_default_zoom_factor);
+
+      // 10.26.6 remove setZoomInageWallpaper
+      cadviewer.cvjs_setZoomImageWallpaper(zoom_image_wallpaper_parameters.zoom_image_wallpaper === true);
+      // 10.40.1
+      cadviewer.cvjs_setZoomImageWallpaperControls(zoom_image_wallpaper_parameters.zoom_image_wallpaper_scalefactor, zoom_image_wallpaper_parameters.zoom_image_wallpaper_scalebreakpoint);
+
+
+    console.log("ServerBackEndUrl, ServerLocation, ServerUrl, FileName declared:");
 			//console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
 			
 			cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
@@ -873,12 +889,12 @@ export default {
 			// Load file - needs the svg div name and name and path of file to load
 			cadviewer.cvjs_setISOtimeStamp(FileName, this.ISOtimeStamp);
 			console.log("ISOtimeStamp="+ this.ISOtimeStamp);
-				
+
 
 			// 10.9.7
 			//try {
 			//	console.log("before load: "+FileName+" 1: deleteAllRedlines and clearSpaceObjects");
-			//	cadviewer.cvjs_deleteAllRedlines(); 
+			//	cadviewer.cvjs_deleteAllRedlines();
 			//	cadviewer.cvjs_clearSpaceObjects("floorPlan");
 //
 //			} catch (error) {
@@ -1109,7 +1125,7 @@ export default {
 								// 10.9.7
 								//try {
 								//	console.log("before load: "+FileName+" 1: deleteAllRedlines and clearSpaceObjects");
-								//	cadviewer.cvjs_deleteAllRedlines(); 
+								//	cadviewer.cvjs_deleteAllRedlines();
 								//	cadviewer.cvjs_clearSpaceObjects("floorPlan");
 //
 //								} catch (error) {
@@ -1225,7 +1241,7 @@ export default {
 					}
 				}
 				console.log({axparameters})
-				this.initCadviewer(axparameters);
+				this.initCadviewer(axparameters, response.zoom_image_wallpaper_parameters, response.scroll_wheel_parameters);
 			} else {
 				this.modal = false;
 				OC.dialogs.alert(
@@ -1294,8 +1310,8 @@ export default {
 				}
 			}
 			console.log({axparameters})
-			this.initCadviewer(axparameters);
-          } else {
+			this.initCadviewer(axparameters, response.zoom_image_wallpaper_parameters, response.scroll_wheel_parameters);
+    } else {
 	  		this.modal = false;
 			OC.dialogs.alert(
 				t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),
