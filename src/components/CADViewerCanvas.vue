@@ -533,7 +533,7 @@ export default {
 
   },
   methods: {
-	initCadviewer(axparameters){
+	initCadviewer(axparameters, zoom_image_wallpaper_parameters, scroll_wheel_parameters){
 		// this.movePdf("f1613016134.svg","/Photos");
 		// Register an event listener when the Vue component is ready
 		window.addEventListener('resize', this.onResize)
@@ -573,7 +573,23 @@ export default {
 			// Set all paths, and handlers, changes these depending on back-end server
 			cadviewer.cvjs_debugMode(true);
 
-			console.log("ServerBackEndUrl, ServerLocation, ServerUrl, FileName declared:");
+      // 10.31.9
+      if (scroll_wheel_parameters.scroll_wheel_throttle_delay!= undefined && scroll_wheel_parameters.scroll_wheel_throttle_delay>=0)
+        cadviewer.cvjs_setScrollWheelThrottleDelay(scroll_wheel_parameters.scroll_wheel_throttle_delay);
+
+      // 10.31.10
+      if (scroll_wheel_parameters.scroll_wheel_zoom_steps!= undefined && scroll_wheel_parameters.scroll_wheel_zoom_steps>=0)
+        cadviewer.cvjs_setScrollWheelZoomSteps(scroll_wheel_parameters.scroll_wheel_zoom_steps);
+      // 10.40.1
+      cadviewer.cvjs_setScrollWheelDefaultZoomFactor(scroll_wheel_parameters.scroll_wheel_default_zoom_factor);
+
+      // 10.26.6 remove setZoomInageWallpaper
+      cadviewer.cvjs_setZoomImageWallpaper(zoom_image_wallpaper_parameters.zoom_image_wallpaper === true);
+      // 10.40.1
+      cadviewer.cvjs_setZoomImageWallpaperControls(zoom_image_wallpaper_parameters.zoom_image_wallpaper_scalefactor, zoom_image_wallpaper_parameters.zoom_image_wallpaper_scalebreakpoint);
+
+
+    console.log("ServerBackEndUrl, ServerLocation, ServerUrl, FileName declared:");
 			//console.log("ServerBackEndUrl="+ServerBackEndUrl+"XX ServerLocation="+ServerLocation+"XX FileName="+FileName+"XX ServerUrl="+ServerUrl+"XX");
 			
 			cadviewer.cvjs_setIconImageSize("floorPlan",34, 44);
@@ -861,6 +877,8 @@ export default {
 			// Load file - needs the svg div name and name and path of file to load
 			cadviewer.cvjs_setISOtimeStamp(FileName, this.ISOtimeStamp);
 			console.log("ISOtimeStamp="+ this.ISOtimeStamp);
+      cadviewer.cvjs_deleteAllRedlines();
+      cadviewer.cvjs_clearSpaceObjects("floorPlan");
 			cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 
 			// set maximum CADViewer canvas side
@@ -878,7 +896,9 @@ export default {
 		console.log({FileName, firstFile})
 		cadviewer.cvjs_setCompareDrawings_LoadSecondDrawingDirect("floorPlan", FileName); // 8.67.17
 		cadviewer.cvjs_conversion_addAXconversionParameter("compare", FileName); // 8.67.17
-		cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
+    cadviewer.cvjs_deleteAllRedlines();
+    cadviewer.cvjs_clearSpaceObjects("floorPlan");
+    cadviewer.cvjs_LoadDrawing("floorPlan", firstFile );   // 8.67.17
 	},
 	compare(path, firstFile, sameFile) {
 		let nameOfFile = path.split("/").reverse()[0]
@@ -1077,6 +1097,8 @@ export default {
 								this.parentDir = directory;
 								this.FileName = FileName;
 								cadviewer.cvjs_setISOtimeStamp(FileName, ISOtimeStamp);
+                cadviewer.cvjs_deleteAllRedlines();
+                cadviewer.cvjs_clearSpaceObjects("floorPlan");
 								cadviewer.cvjs_LoadDrawing("floorPlan", FileName );
 							} else {
 								OC.dialogs.alert(
@@ -1184,7 +1206,7 @@ export default {
 					}
 				}
 				console.log({axparameters})
-				this.initCadviewer(axparameters);
+				this.initCadviewer(axparameters, response.zoom_image_wallpaper_parameters, response.scroll_wheel_parameters);
 			} else {
 				this.modal = false;
 				OC.dialogs.alert(
@@ -1253,8 +1275,8 @@ export default {
 				}
 			}
 			console.log({axparameters})
-			this.initCadviewer(axparameters);
-          } else {
+			this.initCadviewer(axparameters, response.zoom_image_wallpaper_parameters, response.scroll_wheel_parameters);
+    } else {
 	  		this.modal = false;
 			OC.dialogs.alert(
 				t("cadviewer", response.desc ? response.desc : "Error when trying to connect"),

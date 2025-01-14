@@ -396,6 +396,11 @@ class SettingsController extends Controller {
             "excluded_user_conversion" => "",
             "excluded_folder_conversion" => ""
         );
+
+        $zoom_image_wallpaper_parameters = json_decode($this->config->GetZoomImageWallpaperParameters(), true);
+        $scroll_wheel_parameters = json_decode($this->config->GetScrollWheelParameters(), true);
+
+
         $data = [
             "hash" => hash('sha256', file_get_contents($config_file)),
             "cached_conversion" => $cached_conversion,
@@ -406,6 +411,8 @@ class SettingsController extends Controller {
             "licenceKey" => $this->config->GetLicenceKey(),
             "skin" => $this->config->GetSkin(),
             "parameters" => $parameters,
+            "zoom_image_wallpaper_parameters" => $zoom_image_wallpaper_parameters,
+            "scroll_wheel_parameters" => $scroll_wheel_parameters,
             "line_weight_factors" => json_decode($this->config->GetLineWeightFactors(), true),
             "autoexchange" => [
                 "output" => "",
@@ -433,7 +440,6 @@ class SettingsController extends Controller {
         file_put_contents($config_file, $config_content);
         return $cached_conversion;
     }
-
 
     
     /**
@@ -473,6 +479,40 @@ class SettingsController extends Controller {
         $this->config->SetParameters(json_encode($data));
 
         return json_decode($this->config->GetParameters(), true);
+    }
+
+    /**
+     * Save zoom image wallpaper parameters
+     */
+     public function SaveZoomImageWallpaperParameters() {
+        $zoom_image_wallpaper  = $this->request->getParam("zoom_image_wallpaper",  "true") == "true";
+        $zoom_image_wallpaper_scalefactor  = $this->request->getParam("zoom_image_wallpaper_scalefactor",  1.0);
+        $zoom_image_wallpaper_scalebreakpoint  = $this->request->getParam("zoom_image_wallpaper_scalebreakpoint",  0.3);
+
+        $this->config->SetZoomImageWallpaperParameters(json_encode(array(
+            "zoom_image_wallpaper" => $zoom_image_wallpaper,
+            "zoom_image_wallpaper_scalefactor" => $zoom_image_wallpaper_scalefactor,
+            "zoom_image_wallpaper_scalebreakpoint" => $zoom_image_wallpaper_scalebreakpoint
+        )));
+
+        return json_decode($this->config->GetZoomImageWallpaperParameters(), true);
+    }
+
+    /**
+     * Save scroll wheel parameters
+     */
+    public function SaveScrollWheelParameters() {
+        $scroll_wheel_throttle_delay  = intval($this->request->getParam("scroll_wheel_throttle_delay",  200));
+        $scroll_wheel_zoom_steps  = intval($this->request->getParam("scroll_wheel_zoom_steps",  0));
+        $scroll_wheel_default_zoom_factor  = $this->request->getParam("scroll_wheel_default_zoom_factor",  1.2);
+
+        $this->config->SetScrollWheelParameters(json_encode(array(
+            "scroll_wheel_throttle_delay" => $scroll_wheel_throttle_delay,
+            "scroll_wheel_zoom_steps" => $scroll_wheel_zoom_steps,
+            "scroll_wheel_default_zoom_factor" => $scroll_wheel_default_zoom_factor
+        )));
+
+        return json_decode($this->config->GetScrollWheelParameters(), true);
     }
 
     /**

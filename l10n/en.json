@@ -95,7 +95,16 @@
         "Dynamic Cache": "Dynamic Cache",
         "Enable cached conversions, to speed up execution. Updated files are always converted.": "Enable cached conversions, to speed up execution. Updated files are always converted.",
         "Cache conversion successfully updated": "Cache conversion successfully updated",
-        "Error when trying to update cache conversion": "Error when trying to update cache conversion"
-	},
+        "Error when trying to update cache conversion": "Error when trying to update cache conversion",
+    "Zoom Controls for Bitmap Wallpaper": "Zoom Controls for Bitmap Wallpaper",
+    "Zoom Image Wallpaper:": "Zoom Image Wallpaper:",
+    "Enable Zoom Image Wallpaper?": "Enable Zoom Image Wallpaper?",
+    "Scale Factor:": "Scale Factor:",
+    "Scale Breakpoint:" : "Scale Breakpoint:",
+    "Scroll Wheel Controls": "Scroll Wheel Controls",
+    "Scroll Wheel Throttle Delay:": "Scroll Wheel Throttle Delay:",
+    "Scroll Wheel Zoom Steps:": "Scroll Wheel Zoom Steps:",
+    "Scroll Wheel Default Zoom Factor:" : "Scroll Wheel Default Zoom Factor:"
+    },
 	"pluralForm": "nplurals=2; plural=(n != 1);"
 }

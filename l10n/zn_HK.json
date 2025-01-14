@@ -69,7 +69,16 @@
         "Dynamic Cache": "動態緩存",
         "Enable cached conversions, to speed up execution. Updated files are always converted.": "啟用緩存轉換，以加快執行速度。 更新的文件總是會被轉換。",
         "Cache conversion successfully updated": "緩存轉換已成功更新",
-        "Error when trying to update cache conversion": "嘗試更新緩存轉換時出錯"
+        "Error when trying to update cache conversion": "嘗試更新緩存轉換時出錯",
+        "Zoom Controls for Bitmap Wallpaper": "位圖壁紙的縮放控件",
+        "Zoom Image Wallpaper:": "縮放圖像壁紙：",
+        "Enable Zoom Image Wallpaper?": "啟用縮放圖像壁紙？",
+        "Scale Factor:": "比例因子：",
+        "Scale Breakpoint:" : "比例斷點：",
+        "Scroll Wheel Controls": "滾輪控件",
+        "Scroll Wheel Throttle Delay:": "滾輪節流延遲：",
+        "Scroll Wheel Zoom Steps:": "滾輪縮放步驟：",
+        "Scroll Wheel Default Zoom Factor:" : "滾輪默認縮放因子："
     },
     "pluralForm": "nplurals=2; plural=(n != 1);"
 }

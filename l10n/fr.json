@@ -94,7 +94,16 @@
         "Dynamic Cache": "Cache dynamique",
         "Enable cached conversions, to speed up execution. Updated files are always converted.": "Activer les conversions mises en cache, pour accélérer l'exécution. Les fichiers mis à jour sont toujours convertis.",
         "Cache conversion successfully updated": "Mise à jour réussie de la conversion du cache",
-        "Error when trying to update cache conversion": "Erreur lors de la mise à jour de la conversion du cache"
+        "Error when trying to update cache conversion": "Erreur lors de la mise à jour de la conversion du cache",
+        "Zoom Controls for Bitmap Wallpaper": "Contrôles de zoom pour l'image de fond bitmap",
+        "Zoom Image Wallpaper:": "Zoom pour l'image de fond :",
+        "Enable Zoom Image Wallpaper?": "Activer le zoom de l'image de fond ?",
+        "Scale Factor:": "Facteur d'échelle :",
+        "Scale Breakpoint:" : "Point de rupture d'échelle :",
+        "Scroll Wheel Controls": "Contrôles de la molette de défilement",
+        "Scroll Wheel Throttle Delay:": "Délai de régulation de la molette de défilement :",
+        "Scroll Wheel Zoom Steps:": "Étapes de zoom de la molette de défilement :",
+        "Scroll Wheel Default Zoom Factor:" : "Facteur de zoom par défaut de la molette de défilement :"
     },
     "pluralForm": "nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;"
 }

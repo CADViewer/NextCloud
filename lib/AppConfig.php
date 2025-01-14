@@ -77,6 +77,20 @@ class AppConfig {
      */
     private $_users = "Users";
 
+    /**
+     * The cadviewer zoom image wallpaper parameters
+     *
+     * @var string
+     */
+    private $_zoom_image_wallpaper_parameters = "ZoomImageParameters";
+
+    /**
+     * The cadviewer scroll wheel parameters
+     *
+     * @var string
+     */
+    private $_scroll_wheel_parameters = "ScrollWheelParameters";
+
     /** 
      * @param string $AppName - application name
      */
@@ -291,4 +305,57 @@ class AppConfig {
         return $default;
     }
 
+
+    public function SetZoomImageWallpaperParameters($parameters) {
+        $this->logger->info("SetZoomImageWallpaperParameters: $parameters", ["app" => $this->appName]);
+
+        $this->config->setAppValue($this->appName, $this->_zoom_image_wallpaper_parameters, $parameters);
+    }
+
+    public function GetZoomImageWallpaperParameters() {
+
+        $parameters = $this->config->getAppValue($this->appName, $this->_zoom_image_wallpaper_parameters, '{
+            "zoom_image_wallpaper": true,
+            "zoom_image_wallpaper_scalefactor": 1.0,
+            "zoom_image_wallpaper_scalebreakpoint": 0.3
+        }');
+        if (empty($parameters)) {
+            $parameters = '{
+                "zoom_image_wallpaper": true,
+                "zoom_image_wallpaper_scalefactor": 1.0,
+                "zoom_image_wallpaper_scalebreakpoint": 0.3
+            }';
+            $this->SetZoomImageWallpaperParameters($parameters);
+        } else {
+//                 $this->SetZoomImageWallpaperParameters($parameters);
+        }
+        return $parameters;
+    }
+
+    public function SetScrollWheelParameters($parameters) {
+
+        $this->logger->info("SetScrollWheelParameters: $parameters", ["app" => $this->appName]);
+
+        $this->config->setAppValue($this->appName, $this->_scroll_wheel_parameters, $parameters);
+    }
+
+    public function GetScrollWheelParameters() {
+
+        $parameters = $this->config->getAppValue($this->appName, $this->_scroll_wheel_parameters, '{
+            "scroll_wheel_throttle_delay": 200,
+            "scroll_wheel_zoom_steps": 0,
+            "scroll_wheel_default_zoom_factor": 1.2
+        }');
+        if (empty($parameters)) {
+            $parameters = '{
+                "scroll_wheel_throttle_delay": 200,
+                "scroll_wheel_zoom_steps": 0,
+                "scroll_wheel_default_zoom_factor": 1.2
+            }';
+            $this->SetScrollWheelParameters($parameters);
+        } else {
+//                 $this->SetScrollWheelParameters($parameters);
+        }
+        return $parameters;
+    }
 }
