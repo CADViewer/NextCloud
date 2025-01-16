@@ -641,10 +641,17 @@
         });
 
         $("#saveZoomImageWallpaperParameters").click(function () {
+
+            const zoom_image_wallpaper_scalefactor = parseFloat($("#zoom_image_wallpaper_scalefactor").val().replace(",", "."));
+            const zoom_image_wallpaper_scalebreakpoint = parseFloat($("#zoom_image_wallpaper_scalebreakpoint").val().replace(",", "."));
+            if (isNaN(zoom_image_wallpaper_scalefactor) || isNaN(zoom_image_wallpaper_scalebreakpoint)) {
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid value"));
+                return;
+            }
+
             let data = {
                 "zoom_image_wallpaper": $("#zoom_image_wallpaper").is(":checked"),
-                "zoom_image_wallpaper_scalefactor": $("#zoom_image_wallpaper_scalefactor").val(),
-                "zoom_image_wallpaper_scalebreakpoint": $("#zoom_image_wallpaper_scalebreakpoint").val(),
+                zoom_image_wallpaper_scalefactor, zoom_image_wallpaper_scalebreakpoint
             };
 
             $(".section-cadviewer").addClass("icon-loading");
@@ -662,6 +669,9 @@
                         if (response?.error) {
                             OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
                         } else {
+                            const { zoom_image_wallpaper_scalefactor, zoom_image_wallpaper_scalebreakpoint } = response;
+                            $("#zoom_image_wallpaper_scalefactor").val(zoom_image_wallpaper_scalefactor);
+                            $("#zoom_image_wallpaper_scalebreakpoint").val(zoom_image_wallpaper_scalebreakpoint);
                             OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
                         }
                     }
@@ -670,10 +680,18 @@
         });
 
         $("#saveScrollWheelParameters").click(function () {
+
+            const scroll_wheel_throttle_delay = parseInt($("#scroll_wheel_throttle_delay").val());
+            const scroll_wheel_zoom_steps = parseInt($("#scroll_wheel_zoom_steps").val());
+            const scroll_wheel_default_zoom_factor = parseFloat($("#scroll_wheel_default_zoom_factor").val().replace(",", "."));
+
+            if (isNaN(scroll_wheel_throttle_delay) || isNaN(scroll_wheel_zoom_steps) || isNaN(scroll_wheel_default_zoom_factor)) {
+                OCP.Toast.error(t(OCA.Cadviewer.AppName, "Invalid value"));
+                return;
+            }
+
             let data = {
-                "scroll_wheel_throttle_delay": $("#scroll_wheel_throttle_delay").val(),
-                "scroll_wheel_zoom_steps": $("#scroll_wheel_zoom_steps").val(),
-                "scroll_wheel_default_zoom_factor": $("#scroll_wheel_default_zoom_factor").val(),
+                scroll_wheel_default_zoom_factor, scroll_wheel_zoom_steps, scroll_wheel_throttle_delay
             }
 
             $(".section-cadviewer").addClass("icon-loading");
@@ -691,6 +709,10 @@
                         if (response?.error) {
                             OCP.Toast.error(t(OCA.Cadviewer.AppName, "Error when trying to connect") + " (" + response.error + ")" + versionMessage);
                         } else {
+                            const { scroll_wheel_default_zoom_factor, scroll_wheel_zoom_steps, scroll_wheel_throttle_delay } = response;
+                            $("#scroll_wheel_throttle_delay").val(scroll_wheel_throttle_delay);
+                            $("#scroll_wheel_zoom_steps").val(scroll_wheel_zoom_steps);
+                            $("#scroll_wheel_default_zoom_factor").val(scroll_wheel_default_zoom_factor);
                             OCP.Toast.success(t(OCA.Cadviewer.AppName, "Settings have been successfully updated") + versionMessage);
                         }
                     }

@@ -398,7 +398,11 @@ class SettingsController extends Controller {
         );
 
         $zoom_image_wallpaper_parameters = json_decode($this->config->GetZoomImageWallpaperParameters(), true);
+        $zoom_image_wallpaper_parameters["zoom_image_wallpaper_scalefactor"] = str_replace(",", ".", $zoom_image_wallpaper_parameters["zoom_image_wallpaper_scalefactor"]);
+        $zoom_image_wallpaper_parameters["zoom_image_wallpaper_scalebreakpoint"] = str_replace(",", ".", $zoom_image_wallpaper_parameters["zoom_image_wallpaper_scalebreakpoint"]);
+
         $scroll_wheel_parameters = json_decode($this->config->GetScrollWheelParameters(), true);
+        $scroll_wheel_parameters["scroll_wheel_default_zoom_factor"] = str_replace(",", ".", $scroll_wheel_parameters["scroll_wheel_default_zoom_factor"]);
 
 
         $data = [

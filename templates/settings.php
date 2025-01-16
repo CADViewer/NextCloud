@@ -512,11 +512,11 @@ OCP\Util::addScript('cadviewer/settings', 'script');
                 </div>
                 <div style="display: flex; align-items: flex-start; flex-direction: column;">
                     <span style="min-width: 70px"><?php p($l->t("Scale Factor:")) ?></span>
-                    <input style="margin-left: 0px"  id="zoom_image_wallpaper_scalefactor" value="<?=p($_["zoom_image_wallpaper_parameters"]["zoom_image_wallpaper_scalefactor"])?>" placeholder="1.0" type="number">
+                    <input style="margin-left: 0px"  id="zoom_image_wallpaper_scalefactor" value="<?=p($_["zoom_image_wallpaper_parameters"]["zoom_image_wallpaper_scalefactor"])?>" placeholder="1.0" type="text">
                 </div>
                 <div style="display: flex; align-items: flex-start; flex-direction: column;">
                     <span style="min-width: 80px"><?php p($l->t("Scale Breakpoint:")) ?></span>
-                    <input style="margin-left: 0px" id="zoom_image_wallpaper_scalebreakpoint" value="<?=p($_["zoom_image_wallpaper_parameters"]["zoom_image_wallpaper_scalebreakpoint"])?>" placeholder="0.3" type="number">
+                    <input style="margin-left: 0px" id="zoom_image_wallpaper_scalebreakpoint" value="<?=p($_["zoom_image_wallpaper_parameters"]["zoom_image_wallpaper_scalebreakpoint"])?>" placeholder="0.3" type="text">
                 </div>
             </div>
             <br />
@@ -537,15 +537,15 @@ OCP\Util::addScript('cadviewer/settings', 'script');
             <div class="grid_input_3">
                 <div style="display: flex; align-items: flex-start; flex-direction: column;">
                     <span style="min-width: 80px"><?php p($l->t("Scroll Wheel Throttle Delay:")) ?></span>
-                    <input style="margin-left: 0px" id="scroll_wheel_throttle_delay" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_throttle_delay"])?>" placeholder="200" type="number">
+                    <input style="margin-left: 0px" id="scroll_wheel_throttle_delay" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_throttle_delay"])?>" placeholder="200" type="text"> <!-- //Todo validate this number -->
                 </div>
                 <div style="display: flex; align-items: flex-start; flex-direction: column;">
                     <span style="min-width: 70px"><?php p($l->t("Scroll Wheel Zoom Steps:")) ?></span>
-                    <input style="margin-left: 0px"  id="scroll_wheel_zoom_steps" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_zoom_steps"])?>" placeholder="0" type="number">
+                    <input style="margin-left: 0px"  id="scroll_wheel_zoom_steps" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_zoom_steps"])?>" placeholder="0" type="text">
                 </div>
                 <div style="display: flex; align-items: flex-start; flex-direction: column;">
                     <span style="min-width: 80px"><?php p($l->t("Scroll Wheel Default Zoom Factor:")) ?></span>
-                    <input style="margin-left: 0px" id="scroll_wheel_default_zoom_factor" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_default_zoom_factor"])?>" placeholder="1.2" type="number">
+                    <input style="margin-left: 0px" id="scroll_wheel_default_zoom_factor" value="<?=p($_["scroll_wheel_parameters"]["scroll_wheel_default_zoom_factor"])?>" placeholder="1.2" type="text">
                 </div>
             </div>
             <br />
