@@ -2,6 +2,13 @@
 ### Added
 - Nighly changes here
 
+
+#10.45.4 2025-01-14
+- Optimization for mousewheel zoom for large floorplans
+- Converter updated to ax2023_L64_23_12_146
+
+
+
 #10.10.7 2024-09-17 
 - Error when repetitive saved and load redlines and change floorplan
 - Error when saving and loading redlines and then attempt to move, rotate, scale a redline
